@@ -517,7 +517,31 @@ Unlike other imitation dynamics, we can see that the absorption probability in a
 This means that players will enter absorbing states with a higher probability if it improves their own fitness, despite any heterogeneity between payoffs for the same action played by different players.
 This solves the problem of players making worsening moves based on the fitness of another individual in the population, while still retaining the property of imitation dynamics that new strategies cannot be introduced to the system.
 
-%Todo (thought) - I wonder which strategy tends to take over the most in this? I would theorise that it's the strategy that has the highest average payoff for all players, but I don't actually have proof of this. Interesting one.
+%Todo (thought) - I wonder which strategy tends to take over the most in this?
+%I would theorise that it's the strategy that has the highest average payoff
+%for all players, but I don't actually have proof of this. Interesting one.
+
+\subsubsection{Mutation}
+We can also model how individuals may mutate within the system. 
+This is the process by which after a state transition, a single player may be
+picked to change their action type to another. 
+The player will be chosen at random to mutate, and then will change their
+action type with a probability \(\mu_{i,k}\), the probability that player \(i\)
+transitions their state to \(a_{i,k}\).
+With mutation, we see 3 different cases for the transition probability for
+state \textbf{a} to \textbf{b}:
+
+\begin{itemize}
+    \item If $h(\textbf{a,b}) = 0$, then the only way in which the transition
+    can be achieved is through the transition of a player \(i \to i\) and then
+    no mutation occuring. Thus we can still say that the probability of a state
+    transitioning to itself is $1-\sum_{\textbf{b}} T_{\textbf{a,b}}$.
+    \item If $h(\textbf{a,b}) = 1$, then there are two ways in which the
+    transition can occur. Either, the player $i$ which is different between
+    \textbf{a} and \textbf{b} transitions by the standard process, with no
+    mutation occuring, or no transition occurs, but player $i$ mutates into the
+    type which they possess in \textbf{b}
+\end{itemize}
 
 \subsection{Classification of Population Dynamics}
 We will now classify our population dynamics into one of two categories. 
