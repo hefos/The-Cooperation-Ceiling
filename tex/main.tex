@@ -534,14 +534,31 @@ state \textbf{a} to \textbf{b}:
 \begin{itemize}
     \item If $h(\textbf{a,b}) = 0$, then the only way in which the transition
     can be achieved is through the transition of a player \(i \to i\) and then
-    no mutation occuring. Thus we can still say that the probability of a state
-    transitioning to itself is $1-\sum_{\textbf{b}} T_{\textbf{a,b}}$.
+    no mutation occuring.
     \item If $h(\textbf{a,b}) = 1$, then there are two ways in which the
     transition can occur. Either, the player $i$ which is different between
     \textbf{a} and \textbf{b} transitions by the standard process, with no
     mutation occuring, or no transition occurs, but player $i$ mutates into the
     type which they possess in \textbf{b}
 \end{itemize}
+
+Now, let us see how this applies to the Moran process. Let $\mu_{i,a_j}$ be the
+probability that player $i$ mutates to type $a_j$. Then we get the following:
+
+\begin{large}
+    \begin{equation}
+        T_\textbf{a,b} = 
+        \begin{cases}
+            (1 - \sum_{i} \sum_{\textbf{b} \in Neb(\textbf{a}) |  I(\textbf{a,b}) = i} \frac{\sum_{j | a_j = b_i}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}) \cdot (1 - \sum_{i}\sum_{a_j} \mu_{i,a_j}) & \text{if } h(\textbf{a,b}) = 0\\
+
+            (1 - \sum_{i} \sum_{\textbf{b} \in Neb(\textbf{a}) |  I(\textbf{a,b}) = i} \frac{\sum_{j | a_j = b_i}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}) \cdot \mu_{i, b_{i}} +  \frac{\sum_{a_i = b_{I(\textbf{a,b})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if } h(\textbf{a,b}) = 1\\
+
+            \sum_{\textbf{c} \in Neb(\textbf{b})}T_\textbf{a,c}\cdot\mu_{I(\textbf{c,b})} & {if } h(\textbf{a,b}) = 2
+
+        \end{cases}
+    \end{equation}
+\end{large}
+
 
 \subsection{Classification of Population Dynamics}
 We will now classify our population dynamics into one of two categories. 
