@@ -29,6 +29,7 @@ def heterogeneous_contribution_fitness_function(
         ]
     )
 
+
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
