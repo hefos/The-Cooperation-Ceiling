@@ -36,10 +36,10 @@ import src.main as main
 import src.fitness_functions as fitness_functions
 
 r = sym.Symbol("r")
-omega = sym.Symbol("w")
+omega = sym.Symbol(r"\omega")
 N = 2
-M = sym.Symbol("alpha_1") + sym.Symbol("alpha_2")
-generic_alphas_N_eq_2 = [sym.Symbol("alpha_1"), sym.Symbol("alpha_2")]
+M = sym.Symbol(r"\alpha_1") + sym.Symbol(r"\alpha_2")
+generic_alphas_N_eq_2 = [sym.Symbol(r"\alpha_1"), sym.Symbol(r"\alpha_2")]
 state_space = src.main.get_state_space(N=N, k=2)
 
 
