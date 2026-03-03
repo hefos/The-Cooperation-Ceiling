@@ -578,7 +578,7 @@ def test_generate_transition_matrix_for_symbolic_fitness_function():
             [0, 0, 0, 1],
         ]
     )
-    np.testing.assert_array_equal(
+    np.testing.assert_array_almost_equal(
         main.generate_transition_matrix(
             state_space=state_space,
             fitness_function=symbolic_fitness_function,
@@ -586,6 +586,42 @@ def test_generate_transition_matrix_for_symbolic_fitness_function():
             selection_intensity=epsilon,
         ),
         expected_transition_matrix,
+    )
+
+
+def test_generate_transition_matrix_with_mutation_vector():
+    """
+    Tests that the generate_transition_matrix function works properly for the
+    case where we have a non-zero mutation vector"""
+
+    def trivial_fitness_function(state):
+        return np.array([1 for _ in state])
+
+    state_space = main.get_state_space(N=2, k=2)
+
+    mutation_vector = np.array([[0.2, 0.15], [0.1, 0.05]])
+
+    epsilon = 0
+
+    actual_transition_matrix = main.generate_transition_matrix(
+        state_space=state_space,
+        fitness_function=trivial_fitness_function,
+        compute_transition_probability=main.compute_moran_transition_probability,
+        selection_intensity=epsilon,
+        mutation_vector=mutation_vector,
+    )
+
+    expected_transition_matrix = np.array(
+        [
+            [0.9, 0.025, 0.075, 0.0],
+            [0.2375, 0.5, 0.0, 0.2625],
+            [0.2875, 0.0, 0.5, 0.2125],
+            [0.0, 0.1, 0.05, 0.85],
+        ]
+    )
+
+    np.testing.assert_array_almost_equal(
+        actual_transition_matrix, expected_transition_matrix
     )
 
 

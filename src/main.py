@@ -296,7 +296,11 @@ def compute_introspection_transition_probability(
 
 
 def generate_transition_matrix(
-    state_space, fitness_function, compute_transition_probability, **kwargs
+    state_space,
+    fitness_function,
+    compute_transition_probability,
+    mutation_vector=None,
+    **kwargs,
 ):
     """
     Given a state space and a fitness function, returns the transition matrix
@@ -305,7 +309,7 @@ def generate_transition_matrix(
 
     Parameters
     ----------
-    state_space: numpy.array, the state space for the transition matrix.
+    state_space: numpy.array, the state space for the transition matrix
 
     fitness_function: function, should return a size N numpy.array when passed
     a state
@@ -314,15 +318,25 @@ def generate_transition_matrix(
     state, and a fitness function, and returns the probability of transitioning
     from the source state to the target state
 
+    mutation_vector: numpy.array or None: the probability of each player
+    mutating to each action type. Row 0 corresponds to player 0, column 0
+    corresponds to action type 0. Action types must be written in the form of
+    0,1,2,etc. If None, this will assume a vector of 0 probabilities.
+
     Returns
     ----------
     numpy.array: the transition matrix
     """
     N = len(state_space)
     transition_matrix = np.zeros(shape=(N, N))
+    number_of_players = len(state_space[0])
+    if mutation_vector is None:
+        mutation_vector = np.zeros(shape=(N, N))
     for row_index, source in enumerate(state_space):
         for col_index, target in enumerate(state_space):
             if row_index != col_index:
+                different_indices = np.where(source != target)[0]
+                new_type = target[different_indices]
                 try:
                     transition_matrix[row_index, col_index] = (
                         compute_transition_probability(
@@ -332,6 +346,7 @@ def generate_transition_matrix(
                             **kwargs,
                         )
                     )
+
                 except TypeError:
                     transition_matrix = transition_matrix.astype(object)
                     transition_matrix[row_index, col_index] = (
@@ -342,6 +357,15 @@ def generate_transition_matrix(
                             **kwargs,
                         )
                     )
+                if len(different_indices) == 1:
+
+                    transition_matrix[row_index, col_index] = transition_matrix[
+                        row_index, col_index
+                    ] * (1 - np.sum(mutation_vector).item() / number_of_players) + (
+                        mutation_vector[different_indices, new_type].item()
+                        / number_of_players
+                    )
+
     np.fill_diagonal(transition_matrix, 1 - transition_matrix.sum(axis=1))
     return transition_matrix
 
