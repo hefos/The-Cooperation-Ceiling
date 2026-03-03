@@ -209,11 +209,11 @@ Let \((a_{-j})\) denote the state from the perspective of \({a_j}\), so that
 Then, the entry \(T_\textbf{a,b}\) of a transition matrix \(T\) in which each row and column correspond to a state in \(S\) is defined as the probability of a transition $\textbf{a} = (a_1, a_2, \dots, a_N) \to \textbf{b} = (b_1, b_2, \dots, b_N)$. For the Moran process, this is as follows:\\
 \begin{large}
     \begin{equation}
-        T_\textbf{a,b} = 
+        T_\textbf{ab} = 
         \begin{cases}
-            \frac{\sum_{a_i = b_{I(\textbf{a,b})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
+            \frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
-            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}{p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-j})} & \text{if }\textbf{a}=\textbf{b}
+            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
     \label{eqn:Moran_Probability_Function}
     \end{equation}
@@ -290,11 +290,11 @@ according to the following:
 
 \begin{large}
     \begin{equation}
-        T_\textbf{a,b} = 
+        T_\textbf{ab} = 
         \begin{cases}
-            (\frac{\sum_{a_i = b_{I(\textbf{a,b})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{ik}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
+            (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{i}\sum_{k}\frac{\mu_{ik}}{N}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
-            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}{p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-j})} & \text{if }\textbf{a}=\textbf{b}
+            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
     \label{eqn:Moran_Probability_Function_mutation}
     \end{equation}
@@ -335,9 +335,9 @@ We now define our transition matrix according to the Fermi function:
 
 \begin{large}
     \begin{equation}
-        T_\textbf{a,b}  = 
+        T_\textbf{ab}  = 
         \begin{cases}
-            \frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a,b})}}\phi(\pi_{\text{I(\textbf{a,b})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{a,b})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -408,9 +408,9 @@ For the case with mutation, we get the following transition matrix:
 
 \begin{large}
     \begin{equation}
-        T_\textbf{a,b}  = 
+        T_\textbf{ab}  = 
         \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a,b})}}\phi(\pi_{\text{I(\textbf{a,b})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{ik}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{i}\sum_{k}\frac{\mu_{ik}}{N}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -451,8 +451,7 @@ T_{\textbf{a,b}} =
     & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \displaystyle\sum_{c \ne b} T_{a,c}
-    & \text{if } \textbf{a} = \textbf{b}.
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
 \]
 
@@ -506,14 +505,13 @@ If we consider the case with mutation, our transition matrix becomes the
 following:
 
 \[
-T_{\textbf{a,b}} =
+T_{\textbf{ab}} =
 \begin{cases}
-(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a,b})}))(1-\sum_{k}\mu_{ik}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N})
+(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})}))(1-\sum_{i}\sum_{k}\frac{\mu_{ik}}{N}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
     & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \displaystyle\sum_{c \ne b} T_{a,c}
-    & \text{if } \textbf{a} = \textbf{b}.
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
 \]
 
@@ -542,7 +540,7 @@ We can define a transition matrix \(T\) of an introspective imitation process as
 T_{\textbf{a,b}} =  \begin{cases}
     \frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a,b})})) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
-    1 - \sum_{\textbf{b}\in \text{Neb(\textbf{a})}} T_{\textbf{ab}} & \text{if \textbf{a}}=\textbf{b}
+    1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
 \end{equation}
 
@@ -593,10 +591,10 @@ For the case with mutation in the model, our transition matrix instead becomes
 the following:
 
 \begin{equation}
-T_{\textbf{a,b}} =  \begin{cases}
-    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a,b})})))(1-\sum_{k}\mu_{ik}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+T_{\textbf{ab}} =  \begin{cases}
+    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a,b})})))(1-\sum_{i}\sum_{k}\frac{\mu_{ik}}{N}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
-    1 - \sum_{\textbf{b}\in \text{Neb(\textbf{a})}} T_{\textbf{ab}} & \text{if \textbf{a}}=\textbf{b}
+    1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
 \end{equation}
 
