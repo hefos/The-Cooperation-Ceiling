@@ -614,8 +614,8 @@ def test_generate_transition_matrix_with_mutation_vector():
     expected_transition_matrix = np.array(
         [
             [0.9, 0.025, 0.075, 0.0],
-            [0.2375, 0.5, 0.0, 0.2625],
-            [0.2875, 0.0, 0.5, 0.2125],
+            [0.2625, 0.5, 0.0, 0.2375],
+            [0.2625, 0.0, 0.5, 0.2375],
             [0.0, 0.1, 0.05, 0.85],
         ]
     )

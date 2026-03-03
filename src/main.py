@@ -336,7 +336,7 @@ def generate_transition_matrix(
         for col_index, target in enumerate(state_space):
             if row_index != col_index:
                 different_indices = np.where(source != target)[0]
-                new_type = target[different_indices]
+
                 try:
                     transition_matrix[row_index, col_index] = (
                         compute_transition_probability(
@@ -359,9 +359,16 @@ def generate_transition_matrix(
                     )
                 if len(different_indices) == 1:
 
+                    new_type = target[different_indices]
+
+                    print(np.sum(mutation_vector, axis=1)[new_type].item())
+                    print(source, target)
+
                     transition_matrix[row_index, col_index] = transition_matrix[
                         row_index, col_index
-                    ] * (1 - np.sum(mutation_vector).item() / number_of_players) + (
+                    ] * (
+                        1 - np.sum(mutation_vector, axis=1)[different_indices].item()
+                    ) + (
                         mutation_vector[different_indices, new_type].item()
                         / number_of_players
                     )
