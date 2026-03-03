@@ -176,13 +176,9 @@ switching strategy.
 
 \subsection{Mutation}
 We can also model how individuals may mutate within the system. 
-This is the process by which after a state transition, a single player may be
-picked to change their action type to another. 
-The player will be chosen at random to mutate, and then will change their
-action type with a probability \(\mu_{i,k}\), the probability that player \(i\)
-transitions their state to \(a_{i,k}\).
-With mutation, we see 3 different cases for the transition probability for
-state \textbf{a} to \textbf{b}:
+This is the process by which after a state transition, the chosen player will
+instead mutate to a different action type with some small probability.
+We then have two possible feasible transitions:
 
 \begin{itemize}
     \item If $h(\textbf{a,b}) = 0$, then the only way in which the transition
