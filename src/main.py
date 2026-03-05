@@ -359,21 +359,40 @@ def generate_transition_matrix(
                     )
                 if len(different_indices) == 1:
 
-                    new_type = target[different_indices]
+                    index_of_difference = different_indices[0]
+                    new_type = target[index_of_difference]
 
-                    transition_matrix[row_index, col_index] = transition_matrix[
-                        row_index, col_index
-                    ] * (
-                        1
-                        - np.sum(individual_to_action_mutation_probability, axis=1)[
-                            different_indices
-                        ].item()
-                    ) + (
-                        individual_to_action_mutation_probability[
-                            different_indices, new_type
-                        ].item()
-                        / number_of_players
-                    )
+                    try:
+
+                        transition_matrix[row_index, col_index] = transition_matrix[
+                            row_index, col_index
+                        ] * (
+                            1
+                            - np.sum(individual_to_action_mutation_probability, axis=1)[
+                                different_indices
+                            ].item()
+                        ) + (
+                            individual_to_action_mutation_probability[
+                                different_indices, new_type
+                            ].item()
+                            / number_of_players
+                        )
+                    except:
+                        transition_matrix = transition_matrix.astype(object)
+
+                        transition_matrix[row_index, col_index] = (
+                            transition_matrix[row_index, col_index]
+                            * (
+                                1
+                                - np.sum(
+                                    individual_to_action_mutation_probability, axis=1
+                                )[index_of_difference]
+                            )
+                            + individual_to_action_mutation_probability[
+                                index_of_difference, new_type
+                            ]
+                            / number_of_players
+                        )
 
     np.fill_diagonal(transition_matrix, 1 - transition_matrix.sum(axis=1))
     return transition_matrix

@@ -736,6 +736,114 @@ def test_generate_transition_matrix_with_individual_to_action_mutation_probabili
     )
 
 
+def test_generate_transition_matrix_for_symbolic_fitness_function_with_mutation():
+    """
+    Tests whether generate_transition_matrix returns the correct matrix
+
+    for a symbolic fitness function function and symbolic mutation probabilities.
+    """
+
+    def symbolic_fitness_function(state, **kwargs):
+        return np.array(
+            [
+                sym.Symbol("x") if individual == 1 else sym.Symbol("y")
+                for individual in state
+            ]
+        )
+
+    state_space = np.array([(0, 0), (0, 1), (1, 0), (1, 1)])
+
+    x = sym.Symbol("x")
+    y = sym.Symbol("y")
+    epsilon = sym.Symbol("\epsilon")
+    mu_11 = sym.Symbol("\mu_{11}")
+    mu_12 = sym.Symbol("\mu_{12}")
+    mu_21 = sym.Symbol("\mu_{21}")
+    mu_22 = sym.Symbol("\mu_{22}")
+    individual_to_action_mutation_probability = np.array(
+        [[mu_11, mu_12], [mu_21, mu_22]]
+    )
+
+    mu_sum_p1 = mu_11 + mu_12
+    mu_sum_p2 = mu_21 + mu_22
+    actual_matrix = main.generate_transition_matrix(
+        state_space=state_space,
+        fitness_function=symbolic_fitness_function,
+        compute_transition_probability=main.compute_moran_transition_probability,
+        selection_intensity=epsilon,
+        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
+    )
+
+    expected_transition_matrix = np.array(
+        [
+            [1 - mu_22 / 2 - mu_12 / 2, mu_22 / 2, mu_12 / 2, 0],
+            [
+                ((1 + epsilon * y) / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y)))
+                * (1 - mu_sum_p2)
+                + mu_21 / 2,
+                (
+                    1
+                    - (
+                        (
+                            (1 + epsilon * y)
+                            / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y))
+                        )
+                        * (1 - mu_sum_p2)
+                        + mu_21 / 2
+                    )
+                    - (
+                        (
+                            (1 + epsilon * x)
+                            / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y))
+                        )
+                        * (1 - mu_sum_p1)
+                        + mu_12 / 2
+                    )
+                ),
+                0,
+                ((1 + epsilon * x) / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y)))
+                * (1 - mu_sum_p1)
+                + mu_12 / 2,
+            ],
+            [
+                ((1 + epsilon * y) / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y)))
+                * (1 - mu_sum_p1)
+                + mu_11 / 2,
+                0,
+                (
+                    1
+                    - (
+                        (
+                            (1 + epsilon * y)
+                            / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y))
+                        )
+                        * (1 - mu_sum_p1)
+                        + mu_11 / 2
+                    )
+                    - (
+                        (
+                            (1 + epsilon * x)
+                            / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y))
+                        )
+                        * (1 - mu_sum_p2)
+                        + mu_22 / 2
+                    )
+                ),
+                ((1 + epsilon * x) / (2 * (1 + epsilon * x) + 2 * (1 + epsilon * y)))
+                * (1 - mu_sum_p2)
+                + mu_22 / 2,
+            ],
+            [0, mu_11 / 2, mu_21 / 2, 1 - mu_11 / 2 - mu_21 / 2],
+        ],
+        dtype=object,
+    )
+
+    np.testing.assert_array_equal(
+        sym.simplify(expected_transition_matrix - actual_matrix),
+        sym.zeros(actual_matrix.shape[0], actual_matrix.shape[1]),
+    )
+
+
 def test_generate_transition_matrix_for_kwargs_fitness_function():
     """
     tests the generate_transition_matrix function for
