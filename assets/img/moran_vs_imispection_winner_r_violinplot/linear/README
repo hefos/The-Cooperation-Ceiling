@@ -1,6 +1,0 @@
-We see that the Moran process always wins when $r < N$, and introspective
-imitation always wins when $r > N$. Now, the exception to this is when $\beta
-== 0$, in which case we can see this pattern broken.
-
-The "spike" pattern on the graphs is due to the discritisation of $r$ values in
-the data.
