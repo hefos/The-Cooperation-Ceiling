@@ -47,7 +47,6 @@ while True:
                     state_space = main.get_state_space(N=N, k=2)
 
                     individual_to_action_mutation_probability = np.full((N, 2), mu)
-                    print(individual_to_action_mutation_probability)
 
                     transition_matrix = main.generate_transition_matrix(
                         state_space=state_space,

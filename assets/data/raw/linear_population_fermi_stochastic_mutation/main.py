@@ -25,7 +25,6 @@ df = pd.DataFrame(
         "alpha_i",
         "i",
         "N",
-        "n",
         "r",
         "beta",
         "i_C",
@@ -41,17 +40,17 @@ N = 3
 while True:
     for mu in (0.001, 0.01, 0.05, 0.1):
         for M in np.linspace(N, 4 * N, 30):
-            for n in range(1, N - 1):
-                for alpha_h in np.linspace(M / N, M / (N - n) * 0.95, 30):
-                    for r in np.linspace(0.5, 1.5 * N, 30):
-                        for choice_intensity in choice_intensity_range:
-                            id = uuid.uuid4()
-                            alphas = main.get_deterministic_contribution_vector(
+            for choice_intensity in choice_intensity_range:
+                for r in np.linspace(0.5, 1.5 * N, 30):
+                    for scale in np.linspace(0.1, 10, 30):
+
+                        for repetitions in range(200):
+
+                            alphas = main.get_dirichlet_contribution_vector(
                                 N=N,
-                                contribution_rule=contribution_rules.binomial_contribution_rule,
+                                alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
                                 M=M,
-                                alpha_h=alpha_h,
-                                n=n,
+                                scale=scale,
                             )
 
                             state_space = main.get_state_space(N=N, k=2)
@@ -59,6 +58,8 @@ while True:
                             individual_to_action_mutation_probability = np.full(
                                 (N, 2), mu
                             )
+
+                            id = uuid.uuid4()
 
                             transition_matrix = main.generate_transition_matrix(
                                 state_space=state_space,
@@ -84,15 +85,14 @@ while True:
                                     alpha,
                                     i,
                                     N,
-                                    n,
                                     r,
                                     choice_intensity,
                                     i_C,
                                     p_C,
                                     mu,
                                     "fermi",
-                                    "binomial",
-                                    False,
+                                    "linear",
+                                    True,
                                 ]
                                 data.append(row)
                             df = pd.DataFrame(data)

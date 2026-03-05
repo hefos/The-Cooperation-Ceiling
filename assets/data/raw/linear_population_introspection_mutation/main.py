@@ -24,11 +24,10 @@ df = pd.DataFrame(
         "UID",
         "alpha_i",
         "i",
-        "mutant_alpha",
         "N",
         "r",
         "beta",
-        "p_C",
+        "i_C" "p_C",
         "mu",
         "process",
         "population",
@@ -51,7 +50,7 @@ while True:
 
                     state_space = main.get_state_space(N=N, k=2)
 
-                    individual_to_action_mutation_probability = np.full((2, 2**N), mu)
+                    individual_to_action_mutation_probability = np.full((N, 2), mu)
 
                     transition_matrix = main.generate_transition_matrix(
                         state_space=state_space,

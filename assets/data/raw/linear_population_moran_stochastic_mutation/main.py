@@ -16,8 +16,6 @@ import src.contribution_rules as contribution_rules
 
 
 r_min = 0.5
-r_step_size = 0.02
-choice_intensity_range = np.linspace(0, 2, num=30)
 
 df = pd.DataFrame(
     columns=[
@@ -25,9 +23,8 @@ df = pd.DataFrame(
         "alpha_i",
         "i",
         "N",
-        "n",
         "r",
-        "beta",
+        "epsilon",
         "i_C",
         "p_C",
         "mu",
@@ -41,19 +38,21 @@ N = 3
 while True:
     for mu in (0.001, 0.01, 0.05, 0.1):
         for M in np.linspace(N, 4 * N, 30):
-            for n in range(1, N - 1):
-                for alpha_h in np.linspace(M / N, M / (N - n) * 0.95, 30):
-                    for r in np.linspace(0.5, 1.5 * N, 30):
-                        for choice_intensity in choice_intensity_range:
-                            id = uuid.uuid4()
-                            alphas = main.get_deterministic_contribution_vector(
-                                N=N,
-                                contribution_rule=contribution_rules.binomial_contribution_rule,
-                                M=M,
-                                alpha_h=alpha_h,
-                                n=n,
-                            )
+            for r in np.linspace(0.5, 1.5 * N, 30):
+                for scale in np.linspace(0.1, 10, 30):
 
+                    for repetitions in range(200):
+
+                        alphas = main.get_dirichlet_contribution_vector(
+                            N=N,
+                            alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
+                            M=M,
+                            scale=scale,
+                        )
+                        for selection_intensity in np.linspace(
+                            0, (1 / alphas[-1]) * 0.99, 30
+                        ):
+                            id = uuid.uuid4()
                             state_space = main.get_state_space(N=N, k=2)
 
                             individual_to_action_mutation_probability = np.full(
@@ -63,12 +62,16 @@ while True:
                             transition_matrix = main.generate_transition_matrix(
                                 state_space=state_space,
                                 fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-                                compute_transition_probability=main.compute_fermi_transition_probability,
+                                compute_transition_probability=main.compute_moran_transition_probability,
                                 r=r,
                                 contribution_vector=alphas,
-                                choice_intensity=choice_intensity,
+                                selection_intensity=selection_intensity,
                                 number_of_strategies=2,
                                 individual_to_action_mutation_probability=individual_to_action_mutation_probability,
+                            )
+
+                            absorption_matrix = main.approximate_absorption_matrix(
+                                transition_matrix
                             )
 
                             steady_state = main.approximate_steady_state(
@@ -84,15 +87,14 @@ while True:
                                     alpha,
                                     i,
                                     N,
-                                    n,
                                     r,
-                                    choice_intensity,
+                                    selection_intensity,
                                     i_C,
                                     p_C,
                                     mu,
-                                    "fermi",
-                                    "binomial",
-                                    False,
+                                    "moran",
+                                    "linear",
+                                    True,
                                 ]
                                 data.append(row)
                             df = pd.DataFrame(data)
@@ -102,4 +104,5 @@ while True:
                                 header=False,
                                 index=False,
                             )
+
     N += 1

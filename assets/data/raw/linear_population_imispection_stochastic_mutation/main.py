@@ -23,7 +23,6 @@ df = pd.DataFrame(
         "alpha_i",
         "i",
         "N",
-        "n",
         "r",
         "epsilon",
         "beta",
@@ -40,20 +39,21 @@ N = 3
 while True:
     for mu in (0.001, 0.01, 0.05, 0.1):
         for M in np.linspace(N, 4 * N, 30):
-            for n in range(1, N - 1):
-                for alpha_h in np.linspace(M / N, M / (N - n) * 0.95, 30):
-                    alphas = main.get_deterministic_contribution_vector(
-                        N=N,
-                        contribution_rule=contribution_rules.binomial_contribution_rule,
-                        M=M,
-                        alpha_h=alpha_h,
-                        n=n,
-                    )
-                    for r in np.linspace(0.5, 1.5 * N, 30):
-                        for selection_intensity in np.linspace(
-                            0, (1 / alphas[-1]) * 0.99, 30
-                        ):
-                            for choice_intensity in np.linspace(0, 2, 30):
+            for r in np.linspace(0.5, 1.5 * N, 30):
+                for choice_intensity in np.linspace(0, 2, 30):
+                    for scale in np.linspace(0.1, 10, 30):
+
+                        for repetitions in range(200):
+
+                            alphas = main.get_dirichlet_contribution_vector(
+                                N=N,
+                                alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
+                                M=M,
+                                scale=scale,
+                            )
+                            for selection_intensity in np.linspace(
+                                0, (1 / alphas[-1]) * 0.99, 30
+                            ):
                                 id = uuid.uuid4()
                                 state_space = main.get_state_space(N=N, k=2)
 
@@ -86,7 +86,6 @@ while True:
                                         alpha,
                                         i,
                                         N,
-                                        n,
                                         r,
                                         selection_intensity,
                                         choice_intensity,
@@ -94,8 +93,8 @@ while True:
                                         p_C,
                                         mu,
                                         "introspective imitation",
-                                        "binomial",
-                                        False,
+                                        "linear",
+                                        True,
                                     ]
                                     data.append(row)
                                 df = pd.DataFrame(data)
