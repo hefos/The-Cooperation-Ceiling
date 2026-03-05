@@ -299,7 +299,7 @@ def generate_transition_matrix(
     state_space,
     fitness_function,
     compute_transition_probability,
-    mutation_vector=None,
+    individual_to_action_mutation_probability=None,
     **kwargs,
 ):
     """
@@ -318,7 +318,7 @@ def generate_transition_matrix(
     state, and a fitness function, and returns the probability of transitioning
     from the source state to the target state
 
-    mutation_vector: numpy.array or None: the probability of each player
+    individual_to_action_mutation_probability: numpy.array or None: the probability of each player
     mutating to each action type. Row 0 corresponds to player 0, column 0
     corresponds to action type 0. Action types must be written in the form of
     0,1,2,etc. If None, this will assume a vector of 0 probabilities.
@@ -330,8 +330,8 @@ def generate_transition_matrix(
     N = len(state_space)
     transition_matrix = np.zeros(shape=(N, N))
     number_of_players = len(state_space[0])
-    if mutation_vector is None:
-        mutation_vector = np.zeros(shape=(N, N))
+    if individual_to_action_mutation_probability is None:
+        individual_to_action_mutation_probability = np.zeros(shape=(N, N))
     for row_index, source in enumerate(state_space):
         for col_index, target in enumerate(state_space):
             if row_index != col_index:
@@ -361,15 +361,17 @@ def generate_transition_matrix(
 
                     new_type = target[different_indices]
 
-                    print(np.sum(mutation_vector, axis=1)[new_type].item())
-                    print(source, target)
-
                     transition_matrix[row_index, col_index] = transition_matrix[
                         row_index, col_index
                     ] * (
-                        1 - np.sum(mutation_vector, axis=1)[different_indices].item()
+                        1
+                        - np.sum(individual_to_action_mutation_probability, axis=1)[
+                            different_indices
+                        ].item()
                     ) + (
-                        mutation_vector[different_indices, new_type].item()
+                        individual_to_action_mutation_probability[
+                            different_indices, new_type
+                        ].item()
                         / number_of_players
                     )
 

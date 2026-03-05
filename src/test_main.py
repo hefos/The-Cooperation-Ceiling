@@ -589,17 +589,17 @@ def test_generate_transition_matrix_for_symbolic_fitness_function():
     )
 
 
-def test_generate_transition_matrix_with_mutation_vector():
+def test_generate_transition_matrix_with_individual_to_action_mutation_probability_moran():
     """
     Tests that the generate_transition_matrix function works properly for the
-    case where we have a non-zero mutation vector"""
+    case where we have a non-zero mutation vector in the Moran process"""
 
     def trivial_fitness_function(state):
         return np.array([1 for _ in state])
 
     state_space = main.get_state_space(N=2, k=2)
 
-    mutation_vector = np.array([[0.2, 0.15], [0.1, 0.05]])
+    individual_to_action_mutation_probability = np.array([[0.2, 0.15], [0.1, 0.05]])
 
     epsilon = 0
 
@@ -608,7 +608,7 @@ def test_generate_transition_matrix_with_mutation_vector():
         fitness_function=trivial_fitness_function,
         compute_transition_probability=main.compute_moran_transition_probability,
         selection_intensity=epsilon,
-        mutation_vector=mutation_vector,
+        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
     )
 
     expected_transition_matrix = np.array(
@@ -617,6 +617,117 @@ def test_generate_transition_matrix_with_mutation_vector():
             [0.2625, 0.5, 0.0, 0.2375],
             [0.2625, 0.0, 0.5, 0.2375],
             [0.0, 0.1, 0.05, 0.85],
+        ]
+    )
+
+    np.testing.assert_array_almost_equal(
+        actual_transition_matrix, expected_transition_matrix
+    )
+
+
+def test_generate_transition_matrix_with_individual_to_action_mutation_probability_fermi():
+    """
+    Tests that the generate_transition_matrix function works properly for the
+    case where we have a non-zero mutation vector in Fermi imitation dynamics"""
+
+    def trivial_fitness_function(state):
+        return np.array([1 for _ in state])
+
+    state_space = main.get_state_space(N=2, k=2)
+
+    individual_to_action_mutation_probability = np.array([[0.01, 0.15], [0.05, 0.2]])
+
+    beta = 1
+
+    actual_transition_matrix = main.generate_transition_matrix(
+        state_space=state_space,
+        fitness_function=trivial_fitness_function,
+        compute_transition_probability=main.compute_fermi_transition_probability,
+        choice_intensity=beta,
+        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
+    )
+
+    expected_transition_matrix = np.array(
+        [
+            [0.825, 0.1, 0.075, 0.0],
+            [0.2125, 1 - 0.2125 - 0.285, 0.0, 0.285],
+            [0.215, 0.0, 1 - 0.215 - 0.2875, 0.2875],
+            [0.0, 0.005, 0.025, 0.97],
+        ]
+    )
+
+    np.testing.assert_array_almost_equal(
+        actual_transition_matrix, expected_transition_matrix
+    )
+
+
+def test_generate_transition_matrix_with_individual_to_action_mutation_probability_imispection():
+    """
+    Tests that the generate_transition_matrix function works properly for the
+    case where we have a non-zero mutation vector in introspective imitation dynamics"""
+
+    def trivial_fitness_function(state):
+        return np.array([1 for _ in state])
+
+    state_space = main.get_state_space(N=2, k=2)
+
+    individual_to_action_mutation_probability = np.array([[0.01, 0.1], [0.15, 0.2]])
+
+    beta = 1
+    epsilon = 0
+
+    actual_transition_matrix = main.generate_transition_matrix(
+        state_space=state_space,
+        fitness_function=trivial_fitness_function,
+        compute_transition_probability=main.compute_imitation_introspection_transition_probability,
+        choice_intensity=beta,
+        selection_intensity=epsilon,
+        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
+    )
+
+    expected_transition_matrix = np.array(
+        [
+            [0.85, 0.1, 0.05, 0.0],
+            [0.15625, 1 - 0.15625 - 0.16125, 0.0, 0.16125],
+            [0.11625, 0.0, 1 - 0.11625 - 0.18125, 0.18125],
+            [0.0, 0.005, 0.075, 1 - 0.005 - 0.075],
+        ]
+    )
+
+    np.testing.assert_array_almost_equal(
+        actual_transition_matrix, expected_transition_matrix
+    )
+
+
+def test_generate_transition_matrix_with_individual_to_action_mutation_probability_introspection():
+    """
+    Tests that the generate_transition_matrix function works properly for the
+    case where we have a non-zero mutation vector in introspection dynamics"""
+
+    def trivial_fitness_function(state):
+        return np.array([1 for _ in state])
+
+    state_space = main.get_state_space(N=2, k=2)
+
+    individual_to_action_mutation_probability = np.array([[0.1, 0.2], [0.3, 0.4]])
+
+    beta = 1
+
+    actual_transition_matrix = main.generate_transition_matrix(
+        state_space=state_space,
+        fitness_function=trivial_fitness_function,
+        compute_transition_probability=main.compute_introspection_transition_probability,
+        choice_intensity=beta,
+        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
+        number_of_strategies=2,
+    )
+
+    expected_transition_matrix = np.array(
+        [
+            [1 - 0.275 - 0.275, 0.275, 0.275, 0.0],
+            [0.225, 1 - 0.225 - 0.275, 0.0, 0.275],
+            [0.225, 0.0, 1 - 0.225 - 0.275, 0.275],
+            [0.0, 0.225, 0.225, 1 - 0.225 - 0.225],
         ]
     )
 
