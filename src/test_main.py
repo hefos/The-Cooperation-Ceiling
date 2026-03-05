@@ -1716,7 +1716,7 @@ def test_compute_fermi_transition_probability_for_impossible_transition():
     choice_intensity = 0.5
     selection_intensity = 0.5
 
-    actual_probability = main.compute_imitation_introspection_transition_probability(
+    actual_probability = main.compute_fermi_transition_probability(
         source=source,
         target=target,
         fitness_function=trivial_fitness_function,
@@ -1751,9 +1751,11 @@ def test_compute_imitation_introspection_transition_probability_for_trivial_fite
         selection_intensity=selection_intensity,
     )
 
-    expected_probability = 0.06782469654
+    expected_probability = 0.08999667145
 
-    np.testing.assert_almost_equal(actual_probability, expected_probability)
+    np.testing.assert_almost_equal(
+        actual_probability, expected_probability, err_msg=actual_probability
+    )
 
 
 def test_compute_imitation_introspection_transition_probability_for_symbolic_fitness_function():
@@ -1786,7 +1788,7 @@ def test_compute_imitation_introspection_transition_probability_for_symbolic_fit
         (1 / 5)
         * (2 * fy)
         * (1 / ((2 * fy) + (3 * fx)))
-        * (1 / (1 + sym.E ** ((fx - fy) * beta)))
+        * (1 / (1 + sym.E ** ((x - y) * beta)))
     )
 
     assert sym.simplify(actual_probability - expected_probability) == 0
@@ -1859,7 +1861,7 @@ def test_compute_imitation_introspection_for_impossible_transition():
     np.testing.assert_almost_equal(actual_probability, expected_probability)
 
 
-def test_compute_imitation_introspection_for_heterogeneous_transition():
+def test_compute_imitation_introspection_for_global_transition():
     """Tests compute_imitation_introspection_transition_probability for a
     transition which gives a different fitness to the changing player in the
     new state."""
@@ -1881,9 +1883,10 @@ def test_compute_imitation_introspection_for_heterogeneous_transition():
         selection_intensity=selection_intensity,
     )
 
-    expected_probability = 0.09582978905
-
-    np.testing.assert_almost_equal(actual_probability, expected_probability)
+    expected_probability = 0.115558109
+    np.testing.assert_almost_equal(
+        actual_probability, expected_probability, err_msg=actual_probability
+    )
 
 
 def test_compute_introspection_transition_probability_for_trivial_fitness_function():

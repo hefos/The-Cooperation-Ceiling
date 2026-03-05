@@ -14,32 +14,7 @@ root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
 import src.main as main
-
-
-def heterogeneous_contribution_fitness_function(
-    state, epsilon, r, contribution_vector, **kwargs
-):
-    """Public goods fitness function where each player contributes H times
-
-    their position in the state."""
-
-    total_goods = (
-        r
-        * sum(
-            action * contribution
-            for action, contribution in zip(state, contribution_vector)
-        )
-        / len(state)
-    )
-
-    payoff_vector = np.array(
-        [
-            total_goods - (action * contribution)
-            for action, contribution in zip(state, contribution_vector)
-        ]
-    )
-
-    return 1 + (payoff_vector * epsilon)
+import src.fitness_functions as fitness_functions
 
 
 r = sym.Symbol("r")
@@ -53,9 +28,10 @@ beta = sym.Symbol("beta")
 
 imitation_introspection_transition_matrix = main.generate_transition_matrix(
     state_space=state_space,
-    fitness_function=heterogeneous_contribution_fitness_function,
+    fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
     compute_transition_probability=main.compute_imitation_introspection_transition_probability,
-    selection_intensity=beta,
+    selection_intensity=epsilon,
+    choice_intensity=beta,
     number_of_strategies=2,
     r=r,
     contribution_vector=contribution_vector,
@@ -64,9 +40,9 @@ imitation_introspection_transition_matrix = main.generate_transition_matrix(
 
 fermi_transition_matrix = main.generate_transition_matrix(
     state_space=state_space,
-    fitness_function=heterogeneous_contribution_fitness_function,
+    fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
     compute_transition_probability=main.compute_fermi_transition_probability,
-    selection_intensity=beta,
+    choice_intensity=beta,
     number_of_strategies=2,
     r=r,
     contribution_vector=contribution_vector,
@@ -75,9 +51,9 @@ fermi_transition_matrix = main.generate_transition_matrix(
 
 moran_transition_matrix = main.generate_transition_matrix(
     state_space=state_space,
-    fitness_function=heterogeneous_contribution_fitness_function,
+    fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
     compute_transition_probability=main.compute_moran_transition_probability,
-    selection_intensity=beta,
+    selection_intensity=epsilon,
     number_of_strategies=2,
     r=r,
     contribution_vector=contribution_vector,

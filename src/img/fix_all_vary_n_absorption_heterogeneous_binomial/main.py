@@ -48,11 +48,17 @@ def get_absorption_probability_vector_1_contributor_low(
         state_index = np.all(state_space == state, axis=1)
         print(state_space[np.where(state_index)[0]])
 
-        absorption_probability = main.approximate_absorption_matrix(
-            transition_matrix=transition_matrix
-        )
+        if probability_function == main.compute_introspection_transition_probability:
+            absorption_probability = main.approximate_steady_state(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[-1])
+        else:
+            absorption_probability = main.approximate_absorption_matrix(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[np.where(state_index)[0] - 1, 1])
 
-        y.append(absorption_probability[np.where(state_index)[0] - 1, 1])
     return np.array(y)
 
 
@@ -81,11 +87,16 @@ def get_absorption_probability_vector_1_contributor_high(
         )
         print(state_space[1])
 
-        y.append(
-            main.approximate_absorption_matrix(transition_matrix=transition_matrix)[
-                0, 1
-            ]
-        )
+        if probability_function == main.compute_introspection_transition_probability:
+            absorption_probability = main.approximate_steady_state(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[-1])
+        else:
+            absorption_probability = main.approximate_absorption_matrix(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[0, 1])
 
     return np.array(y)
 
@@ -119,11 +130,16 @@ def get_absorption_probability_vector_n_minus_1_contributor_low(
         state_index = np.all(state_space == state, axis=1)
         print(state_space[np.where(state_index)[0]])
 
-        absorption_probability = main.approximate_absorption_matrix(
-            transition_matrix=transition_matrix
-        )
-
-        y.append(absorption_probability[np.where(state_index)[0] - 1, 1])
+        if probability_function == main.compute_introspection_transition_probability:
+            absorption_probability = main.approximate_steady_state(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[-1])
+        else:
+            absorption_probability = main.approximate_absorption_matrix(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[np.where(state_index)[0] - 1, 1])
 
     return np.array(y)
 
@@ -157,11 +173,16 @@ def get_absorption_probability_vector_n_minus_1_contributor_high(
         state_index = np.all(state_space == state, axis=1)
         print(state_space[np.where(state_index)[0]])
 
-        absorption_probability = main.approximate_absorption_matrix(
-            transition_matrix=transition_matrix
-        )
-
-        y.append(absorption_probability[np.where(state_index)[0] - 1, 1])
+        if probability_function == main.compute_introspection_transition_probability:
+            absorption_probability = main.approximate_steady_state(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[-1])
+        else:
+            absorption_probability = main.approximate_absorption_matrix(
+                transition_matrix=transition_matrix
+            )
+            y.append(absorption_probability[np.where(state_index)[0] - 1, 1])
 
     return np.array(y)
 
@@ -176,14 +197,14 @@ n_values = np.arange(3, n_range)
 fig, axes = plt.subplots(3, 3, figsize=(12, 8))
 axes = axes.flatten()
 axes[5].axis("off")
-axes[8].axis("off")
+
 fig.suptitle(
     r"Absorption probabilities for Full Cooperation in a binomially Heterogeneous PGG with varying population size."
 )
 fig.text(
     0.5,
     -0.02,
-    r"$\beta = 0.5$, $\epsilon = 0.1$, $r = 1.8$, $M=20$",
+    r"$\beta = 0.5$, $\epsilon = 0.1$, $r = 1.8$, $M=20$, $\alpha_h = \frac{1.5M}{N}",
     ha="right",
     va="bottom",
     fontsize=12,
@@ -197,6 +218,12 @@ fig.text(
     fontsize=12,
 )
 
+probability_functions = [
+    main.compute_fermi_transition_probability,
+    main.compute_moran_transition_probability,
+    main.compute_imitation_introspection_transition_probability,
+]
+graph_functions = []
 
 axes[2].scatter(
     range(10),
@@ -233,6 +260,13 @@ II_contributor_low = get_absorption_probability_vector_1_contributor_low(
     M=M,
     probability_function=main.compute_imitation_introspection_transition_probability,
 )
+Introspection_contributor_low = get_absorption_probability_vector_1_contributor_low(
+    n_values=n_values,
+    r=r,
+    M=M,
+    probability_function=main.compute_introspection_transition_probability,
+    number_of_strategies=2,
+)
 
 axes[0].plot(
     n_values,
@@ -248,6 +282,9 @@ axes[0].plot(
     n_values,
     II_contributor_low,
     label="Introspective Imitation Dynamics",
+)
+axes[0].plot(
+    n_values, Introspection_contributor_low, label="Introspection Dynamics", color="red"
 )
 
 axes[0].set_title("1 low-contributing initial contributor")
@@ -276,6 +313,14 @@ II_contributor_high = get_absorption_probability_vector_1_contributor_high(
     probability_function=main.compute_imitation_introspection_transition_probability,
 )
 
+Introspection_contributor_high = get_absorption_probability_vector_1_contributor_high(
+    n_values=n_values,
+    r=r,
+    M=M,
+    probability_function=main.compute_introspection_transition_probability,
+    number_of_strategies=2,
+)
+
 axes[3].plot(
     n_values,
     fermi_contributor_high,
@@ -291,6 +336,12 @@ axes[3].plot(
     II_contributor_high,
     label="Introspective Imitation Dynamics",
 )
+axes[3].plot(
+    n_values,
+    Introspection_contributor_high,
+    label="Introspection Dynamics",
+    color="red",
+)
 
 axes[3].set_title("1 high-contributing initial contributor")
 axes[3].set_xlabel(r"$N$")
@@ -300,10 +351,11 @@ axes[3].set_ylim(0, 0.9)
 axes[6].plot(n_values, fermi_contributor_low, color="blue")
 axes[6].plot(n_values, moran_contributor_low, color="orange")
 axes[6].plot(n_values, II_contributor_low, color="green")
-
+axes[6].plot(n_values, Introspection_contributor_low, color="red")
 axes[6].plot(n_values, fermi_contributor_high, color="blue", linestyle="dashed")
 axes[6].plot(n_values, moran_contributor_high, color="orange", linestyle="dashed")
 axes[6].plot(n_values, II_contributor_high, color="green", linestyle="dashed")
+axes[6].plot(n_values, Introspection_contributor_high, color="red", linestyle="dashed")
 axes[6].set_title("1 initial contributor")
 axes[6].set_xlabel(r"$N$")
 axes[6].set_ylabel(r"$\rho_C$")
@@ -326,6 +378,15 @@ II_defector_low = get_absorption_probability_vector_n_minus_1_contributor_low(
     M=M,
     probability_function=main.compute_imitation_introspection_transition_probability,
 )
+Introspection_defector_low = (
+    get_absorption_probability_vector_n_minus_1_contributor_low(
+        n_values=n_values,
+        r=r,
+        M=M,
+        probability_function=main.compute_introspection_transition_probability,
+        number_of_strategies=2,
+    )
+)
 
 axes[1].plot(
     n_values,
@@ -341,6 +402,9 @@ axes[1].plot(
     n_values,
     II_defector_low,
     label="Introspective Imitation Dynamics",
+)
+axes[1].plot(
+    n_values, Introspection_defector_low, label="Introspection Dynamics", color="red"
 )
 
 axes[1].set_title("1 low-contributing initial defector")
@@ -368,6 +432,15 @@ II_defector_high = get_absorption_probability_vector_n_minus_1_contributor_high(
     M=M,
     probability_function=main.compute_imitation_introspection_transition_probability,
 )
+Introspection_defector_high = (
+    get_absorption_probability_vector_n_minus_1_contributor_high(
+        n_values=n_values,
+        r=r,
+        M=M,
+        probability_function=main.compute_introspection_transition_probability,
+        number_of_strategies=2,
+    )
+)
 
 axes[4].plot(
     n_values,
@@ -384,7 +457,9 @@ axes[4].plot(
     II_defector_high,
     label="Introspective Imitation Dynamics",
 )
-
+axes[4].plot(
+    n_values, Introspection_defector_high, label="Introspection Dynamics", color="red"
+)
 axes[4].set_title("1 high-contributing initial defector")
 axes[4].set_xlabel(r"$N$")
 axes[4].set_ylabel(r"$\rho_C$")
@@ -394,10 +469,11 @@ axes[4].set_ylim(0, 0.9)
 axes[7].plot(n_values, fermi_defector_low, color="blue")
 axes[7].plot(n_values, moran_defector_low, color="orange")
 axes[7].plot(n_values, II_defector_low, color="green")
-
+axes[7].plot(n_values, Introspection_defector_low, color="red")
 axes[7].plot(n_values, fermi_defector_high, color="blue", linestyle="dashed")
 axes[7].plot(n_values, moran_defector_high, color="orange", linestyle="dashed")
 axes[7].plot(n_values, II_defector_high, color="green", linestyle="dashed")
+axes[7].plot(n_values, Introspection_defector_high, color="red", linestyle="dashed")
 axes[7].set_title("1 initial defector")
 axes[7].set_xlabel(r"$N$")
 axes[7].set_ylabel(r"$\rho_C$")

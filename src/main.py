@@ -220,14 +220,13 @@ def compute_imitation_introspection_transition_probability(
     if len(different_indices[0]) == 0:
         return None
 
-    fitness = 1 + (selection_intensity * fitness_function(source, **kwargs))
+    fitness = fitness_function(source, **kwargs)
     fitness_before = fitness[different_indices][0]
-    fitness_after = 1 + (
-        selection_intensity * fitness_function(target, **kwargs)[different_indices][0]
-    )
+    fitness_after = fitness_function(target, **kwargs)[different_indices][0]
 
-    selection_denominator = fitness.sum() * len(source)
-    selection_numerator = fitness[source == target[different_indices]].sum()
+    selection_fitness = 1 + (selection_intensity * fitness)
+    selection_denominator = selection_fitness.sum() * len(source)
+    selection_numerator = selection_fitness[source == target[different_indices]].sum()
     selection_probability = selection_numerator / selection_denominator
 
     delta = fitness_before - fitness_after

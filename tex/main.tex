@@ -30,7 +30,7 @@ as the iterated prisoner's dilemma\cite{10.1371/journal.pone.0304641,b5d8eed6-6a
 game\cite{PhysRevE.84.020902}. These examples, however, only allow for pairwise
 interactions, which does not accurately represent many real-world scenarios.
 Therefore, we look at a common game used to model the sharing of resources and
-interactions between multiple people - the public goods game.\\
+interactions between multiple people - the public goods game.
 
 In order to further tailor the idea of a public goods game to real world
 scenarios, we introduce the idea of heterogeneity to the system. Often in the
@@ -45,7 +45,7 @@ allows us to give varying attributes to the different actors in order to
 simulate such situations. These attributes can be encoded into the players
 themselves as separate to the game, for example the reputation in \cite{MA2021111353},
 they may exist within the strategies of the players \cite{LEI20104708, PhysRevE.108.024111}, or they may
-exist within the actual payoffs which the players receive.\\
+exist within the actual payoffs which the players receive.
 
 In much of the literature, we see heterogeneous public goods game being played
 graphically. By this I mean that in much research, players are placed on graphs
@@ -61,7 +61,7 @@ groups made up of those who have a reputation for defection. While this is a
 dynamically updating heterogeneous attribute, some have proposed static
 attributes based on inherent properties of the individuals, such as in
 \cite{LEI20104708} where the players participate in different amounts of games, and
-contribute different amounts based on this factor.\\
+contribute different amounts based on this factor.
 
 In both of the above cases, it is shown that an increased scrutiny of
 heterogeneous attributes in a spatial public goods game is beneficial to the
@@ -73,7 +73,7 @@ encourage players to cooperate with those in a similar number of games to them,
 here done by tuning the \(\beta\) parameter, the high-degree defector nodes are
 unable to gather a large payoff, and so will be unable to spread their
 defection to their neighbours. If you encourage players to interact with those
-with different degrees, however, then middle-degree defectors will make heavy losses and be unable to survive.\\
+with different degrees, however, then middle-degree defectors will make heavy losses and be unable to survive.
 
 \cite{PhysRevE.108.024111} shows how the benefits of this heterogeneity are not always as
 pronounced as it may seem. When the contribution is not calculated by some
@@ -82,7 +82,7 @@ new strategy) then even in systems where contribution dominates, we will see
 low-value contributions act as a sort of defection against the most globally
 beneficial strategies. Therefore, we can see that the emergence of cooperation
 is not the end of the story in some cases, and we must look at what sort of
-cooperation it is that we have fostered the emergence of.\\
+cooperation it is that we have fostered the emergence of.
 
 One common theme in the spatial public goods game is the manner in which
 cooperation spreads. An initial ``invasion" of defectors leads to cooperation
@@ -91,7 +91,7 @@ profitable than their defecting neighbours. Therefore, the cooperating clusters
 will influence the nearby defectors to join in, which eventually spreads
 throughout the system. This relies on the ability of the clusters to resist the
 initial invasion of defectors - an occurrence which relies on a high enough
-\(r\) value (the positive multiplier of the contribution to the public good).\\
+\(r\) value (the positive multiplier of the contribution to the public good).
 
 We also see that a potential climate club may soon be forming within the
 European Union. While it functions slightly differently to the classic example
@@ -123,7 +123,9 @@ We begin by defining a population of individuals and the actions which they may 
     \item \(N\) \textbf{ordered} individuals who play actions from action sets \(A_i =
     (a_{i,1}, a_{i,2},..., a_{i,k})\). In this paper, we shall assume that all action sets contain the same possible actions for each player.
     \item A state space S given by the set of ordered \(N\)-tuples with entries \(\textbf{a} = (a_1, a_2, a_3, \dots) \in A_1 \times A_2 \times A_3\times...\).
-    \item A strictly positive fitness function \(f:S \to \mathbb{R}^N\). We define \(f_{i}(\textbf{a})\) as \(i^{th}\) entry of \(f(\textbf{a})\)
+    \item A fitness function \(S \to \mathbb{R}^N\). We denote by $\pi$ the
+    payoff function for a given game. Thus, we denote We define
+    \(\pi_{i}(\textbf{a})\) as \(i^{th}\) entry of \(\pi(\textbf{a})\). 
 \end{itemize}
 
 Now let $h(\textbf{a, b})$ denote the Hamming distance between two states
@@ -150,6 +152,28 @@ We also introduce a new dynamic called ``Introspective Imitation Dynamics''.
 This is a novel dynamic particularly suited to the process of learning from
 others in a heterogeneous population.
 
+\subsubsection{Choice and Selection intensity}
+In Moran-process-type dynamics, which model biological evolution, we introduce a
+parameter \(\epsilon\) referred to as \emph{selection intensity} via the mapping
+\[
+f_i(\mathbf{a}) = 1 + \epsilon \pi_i(\mathbf{a}).
+\]
+Appropriate bounds on \(\epsilon\) ensure that the fitness values \(f_i\) remain
+non-negative, which is necessary for the reproduction probabilities in the Moran
+process to be well-defined.
+Smaller values of \(\epsilon\) correspond to weaker selection, placing less
+emphasis on payoff differences in the evolutionary update. In the limiting case
+\(\epsilon = 0\), the process reduces to neutral drift, in which reproduction is
+independent of payoff. % TODO: add reference
+In contrast, population dynamics based on the Fermi update rule
+\cite{PhysRevE.58.69} employ a parameter \(\beta\), which we refer to as the
+\emph{choice intensity}. This parameter determines how sensitively individuals
+respond to payoff differences when making decisions. Depending on the specific
+dynamic under consideration, these payoff differences may arise from comparing
+an individual's current payoff with that of another individual in the population,
+or from comparing their current payoff with the payoff they would obtain by
+switching strategy.
+
 \subsubsection{The Moran Process}
 The Moran process \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} is a dynamic corresponding to the following algorithm:
 \begin{enumerate}
@@ -175,11 +199,11 @@ An important case which proceeds from (\ref{eqn:Moran_Probability_Function}) is 
 For example, the transition \((0,1) \to (0,2)\). 
 This would be forbidden by the intuition of a standard Moran process, as the new individual is the duplication of another individual in \(\textbf{a}\). 
 However, we can see that the standard formula yields \(p_{v,u}\) = 0 because
-there does not exist \(a_i \in \textbf{a}: a_i = b_{i^*}\). \\
+there does not exist \(a_i \in \textbf{a}: a_i = b_{i^*}\).
 
 We can now discuss one of the key ideas in the Moran process. As no new action types can be introduced to the population once they are fully removed, we have a set of absorbing states \textbf{a} such that \(a_1 = a_2 =...\), for which we have $p_{\textbf{a} \to\textbf{a}} = 1$. 
 We denote the set of absorbing states $S^{\gamma}$.
-We therefore have that the Moran process forms an absorbing Markov chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, and we can investigate the probability of the population being absorbed into each absorbing state.\\
+We therefore have that the Moran process forms an absorbing Markov chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, and we can investigate the probability of the population being absorbed into each absorbing state.
 
 Consider a game with two players, each playing one of two actions. We have a state space
 \(\textbf{a} = (0,0), \textbf{b} = (0,1), \textbf{c} = (1,0), \textbf{d} = (1,1)\), and our transition matrix \(T\) would take the form
@@ -193,7 +217,10 @@ Consider a game with two players, each playing one of two actions. We have a sta
 \end{center}
 
 Our transition matrix represents the probability of transitioning from the state represented by the row to the state represented by the column.
-Here our columns represent \textbf{a},\textbf{b}, \textbf{c} and \textbf{d} from left to right, and the rows represent these states in the same order from top to bottom.\\
+Here our columns represent \textbf{a},\textbf{b}, \textbf{c} and \textbf{d}
+from left to right, and the rows represent these states in the same order from
+top to bottom.
+
 Now, by taking the fundamental matrix of \(T\) and performing a right multiplication by \(R\), the matrix with entries which represent transitions from transitive states to absorbing states\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, we can obtain the absorption matrix for this system.
 For the above game, we find the following equation:\\
 \begin{center}
@@ -246,10 +273,12 @@ It models the following process:
   player \(i\).
   \item Player \(i\) copies the action type of the player \(j\) with a
   probability according to the Fermi function \(
-    \phi(f_{i}(\textbf{a}) - f_{j}(\textbf{a})) = \frac{1}{1 + e^{\left({\frac{f_{i}(\textbf{a}) - f_{j}(\textbf{a}) }{\beta}}\right)}}\)
+    \phi(\pi_{i}(\textbf{a}) - \pi_{j}(\textbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\textbf{a}) - \pi_{j}(\textbf{a}))}\right)}}\)
 \end{itemize}
 
-Where \(\beta\) is the selection intensity of the system. 
+Where \(\beta\) is the choice intensity of the system, representing how
+sensitive our players' choice is to the difference between their current
+payoff, and the payoff which they are considering.
 This method has been commonly used in studies of evolutionary games, for
 example \cite{MA2021111353, LEI20104708, hofbauer_sigmund_1998,PhysRevE.58.69}.
 
@@ -267,7 +296,7 @@ We now define our transition matrix according to the Fermi function:
     \begin{equation}
         T_\textbf{a,b}  = 
         \begin{cases}
-            \frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a,b})}}\phi(f_{\text{I(\textbf{a,b})}}(a) - f_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            \frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a,b})}}\phi(\pi_{\text{I(\textbf{a,b})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}{p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-j})} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -308,7 +337,7 @@ We can define a transition matrix:
 \begin{center}
 \begin{equation}
 \begin{bmatrix}
-1 & 0 & 0 & 0\\\frac{1}{2}\phi(f_2(\textbf{b}) - f_1(\textbf{b})) & \frac{1}{2} & 0 & \frac{1}{2}\phi(f_1(\textbf{b}) - f_2(\textbf{b}))\\\frac{1}{2}\phi(f_1(\textbf{c}) - f_2(\textbf{c})) & 0 & \frac{1}{2} & \frac{1}{2}\phi(f_2(\textbf{c}) - f_1(\textbf{c}))\\0 & 0 & 0 & 1
+1 & 0 & 0 & 0\\\frac{1}{2}\phi(\pi_2(\textbf{b}) - \pi_1(\textbf{b})) & \frac{1}{2} & 0 & \frac{1}{2}\phi(\pi_1(\textbf{b}) - \pi_2(\textbf{b}))\\\frac{1}{2}\phi(\pi_1(\textbf{c}) - \pi_2(\textbf{c})) & 0 & \frac{1}{2} & \frac{1}{2}\phi(\pi_2(\textbf{c}) - \pi_1(\textbf{c}))\\0 & 0 & 0 & 1
 \end{bmatrix}
 \end{equation}
 \end{center}
@@ -319,7 +348,7 @@ and using our previous method, we can acquire our absorption matrix:
 \begin{large}
 \begin{equation}
 \begin{bmatrix}
-\phi(f_2(\textbf{b}) - f_1(\textbf{b})) & \phi(f_1(\textbf{b})-f_2(\textbf{b}))\\\phi(f_1(\textbf{c}) - f_2(\textbf{c})) & \phi(f_2(\textbf{c}) - f_1(\textbf{c}))
+\phi(\pi_2(\textbf{b}) - \pi_1(\textbf{b})) & \phi(\pi_1(\textbf{b})-\pi_2(\textbf{b}))\\\phi(\pi_1(\textbf{c}) - \pi_2(\textbf{c})) & \phi(\pi_2(\textbf{c}) - \pi_1(\textbf{c}))
 \end{bmatrix}
 \end{equation}
 \end{large}
@@ -342,7 +371,7 @@ In introspection dynamics, the following process take place \cite{Couto2022}
 \begin{enumerate}
     \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to reconsider their strategy \(a_{i,k}\)
     \item Player \(i\) chooses another possible strategy, \(a_{i,l}\), from the set of all possible strategies. 
-    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-I(\textbf{a,b})}) = \phi (\Delta f_{I(\textbf{a,b})})\), where \(\Delta f_{I(\textbf{a,b})} = f_{I(a,b)}(\textbf{a})  - f_{I(a,b)}(\textbf{b})\) is the difference between the possible fitness of the new strategy and the fitness of the player's current strategy.
+    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-I(\textbf{a,b})}) = \phi (\Delta \pi_{I(\textbf{a,b})})\), where \(\Delta \pi_{I(\textbf{a,b})} = \pi_{I(a,b)}(\textbf{a})  - \pi_{I(a,b)}(\textbf{b})\) is the difference between the possible fitness of the new strategy and the fitness of the player's current strategy.
 \end{enumerate}
 \cite{Couto2022} considers this process for
 the two player case, and it is expanded to multiple players in
@@ -361,7 +390,7 @@ The transition matrix for the introspection dynamics process~\cite{Couto2023} is
 \[
 T_{\textbf{a,b}} =
 \begin{cases}
-\dfrac{1}{N(m_j - 1)} \, p_{a_j \to b_j}(a_{-j})
+\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a,b})})
     & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
@@ -375,14 +404,33 @@ Since we assume that all individuals have the same action set with size \(k\), w
 
 Now, Couto also calculated in \cite{Couto2022} the explicit strategy distribution for an asymmetric interaction between two players. 
 We can adapt these results to define our transition matrix for our example
-state space \textbf{a,b,c,d}:\\
+state space \textbf{a,b,c,d}:
 
 \begin{equation}
 \tiny
 \begin{bmatrix}
-    1 - \frac{1}{2\left(e^{\frac{f_{2}{\left(a \right)} - f_{2}{\left(b \right)}}{\beta}} + 1\right)} - \frac{1}{2\left(e^{\frac{f_{1}{\left(a \right)} - f_{1}{\left(c \right)}}{\beta}} + 1\right)} & \frac{1}{2\left(e^{\frac{f_{2}{\left(a \right)} - f_{2}{\left(b \right)}}{\beta}} + 1\right)} & \frac{1}{2\left(e^{\frac{f_{1}{\left(a \right)} - f_{1}{\left(c \right)}}{\beta}} + 1\right)} & 0\\\frac{1}{2\left(e^{\frac{- f_{2}{\left(a \right)} + f_{2}{\left(b \right)}}{\beta}} + 1\right)} & 1 - \frac{1}{2\left(e^{\frac{f_{1}{\left(b \right)} - f_{1}{\left(d \right)}}{\beta}} + 1\right)} - \frac{1}{2\left(1 + e^{- \frac{f_{2}{\left(a \right)} - f_{2}{\left(b \right)}}{\beta}}\right)} & 0 & \frac{1}{2\left(e^{\frac{f_{1}{\left(b \right)} - f_{1}{\left(d \right)}}{\beta}} + 1\right)}\\\frac{1}{2\left(e^{\frac{- f_{1}{\left(a \right)} + f_{1}{\left(c \right)}}{\beta}} + 1\right)} & 0 & 1 - \frac{1}{2\left(e^{\frac{f_{2}{\left(c \right)} - f_{2}{\left(d \right)}}{\beta}} + 1\right)} - \frac{1}{2\left(1 + e^{- \frac{f_{1}{\left(a \right)} - f_{1}{\left(c \right)}}{\beta}}\right)} & \frac{1}{2\left(e^{\frac{f_{2}{\left(c \right)} - f_{2}{\left(d \right)}}{\beta}} + 1\right)}\\0 & \frac{1}{2\left(e^{\frac{- f_{1}{\left(b \right)} + f_{1}{\left(d \right)}}{\beta}} + 1\right)} & \frac{1}{2\left(e^{\frac{- f_{2}{\left(c \right)} + f_{2}{\left(d \right)}}{\beta}} + 1\right)} & 1 - \frac{1}{2\left(1 + e^{- \frac{f_{2}{\left(c \right)} - f_{2}{\left(d \right)}}{\beta}}\right)} - \frac{1}{2\left(1 +    e^{- \frac{f_{1}{\left(b \right)} - f_{1}{\left(d \right)}}{\beta}}\right)}
+    1 - \frac{1}{2\left(e^{\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)} + 1\right)} - \frac{1}{2\left(e^{\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)} + 1\right)} 
+    & \frac{1}{2\left(e^{\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)} + 1\right)} 
+    & \frac{1}{2\left(e^{\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)} + 1\right)} 
+    & 0 \\[6pt]
+
+    \frac{1}{2\left(e^{\beta\left(- \pi_{2}(a) + \pi_{2}(b)\right)} + 1\right)} 
+    & 1 - \frac{1}{2\left(e^{\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)} + 1\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)}\right)} 
+    & 0 
+    & \frac{1}{2\left(e^{\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)} + 1\right)} \\[6pt]
+
+    \frac{1}{2\left(e^{\beta\left(- \pi_{1}(a) + \pi_{1}(c)\right)} + 1\right)} 
+    & 0 
+    & 1 - \frac{1}{2\left(e^{\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)} + 1\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)}\right)} 
+    & \frac{1}{2\left(e^{\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)} + 1\right)} \\[6pt]
+
+    0 
+    & \frac{1}{2\left(e^{\beta\left(- \pi_{1}(b) + \pi_{1}(d)\right)} + 1\right)} 
+    & \frac{1}{2\left(e^{\beta\left(- \pi_{2}(c) + \pi_{2}(d)\right)} + 1\right)} 
+    & 1 - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)}\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)}\right)}
 \end{bmatrix}
 \end{equation}
+
 
 %this goes off the page, need to sort - probably use $\phi$ notation for it.
 
@@ -412,7 +460,7 @@ We define the introspective imitation process as follows:
     \item A focal player is chosen at random to reconsider their strategy
     \item Another player \(a_j\) in the population is chosen with a probability
    proportional to their fitness within the population to have their strategy considered
-    \item The focal player changes their strategy with probability \(\phi(\Delta(f_{I(\textbf{a,b})})\)
+    \item The focal player changes their strategy with probability \(\phi(\Delta(f_{I(\textbf{a,b})}))\)
 \end{enumerate}
 
 
@@ -428,11 +476,19 @@ T_{\textbf{a,b}} =  \begin{cases}
 
 We see that players can only copy the actions present in the state, however they determine whether or not to copy a player based on their own fitness rather than by considering the fitness of another player.
 This models a behaviour where individuals learn from each other, but do not blindly trust that the strategy will work for themself just because it worked for another player.
-Instead, players look to others to see what action they \textit{could} play, but judge based on their own fitness to decide what action they \textit{should} play.\\
+Instead, players look to others to see what action they \textit{could} play,
+but judge based on their own fitness to decide what action they \textit{should}
+play.
+
+Note that Introspective Imitation Dynamics takes into
+account both selection intensity and choice intensity. This means that both the
+level to which a player's fitness is considered when their strategy is being chosen for
+consideration, and also how much it is considered when choosing whether to
+accept the new strategy, is present in the dynamic.
 
 Let us now see this model applied to our ongoing example in the state space \(S = \{\textbf{a},\textbf{b},\textbf{c},\textbf{d}\}\).
 Let 
-\(\eta_{i,j}(\textbf{x,y}) =1 +e^{\frac{(f_i(\textbf{x}) - f_j(\textbf{y}))}{\beta}}\) be the denominator of the Fermi function.
+\(\eta_{i,j}(\textbf{x,y}) =1 +e^{\beta((f_i(\textbf{x}) - f_j(\textbf{y})))}\) be the denominator of the Fermi function.
 We first see our transition matrix:
 
 \begin{center}
@@ -471,7 +527,7 @@ However, these do offer a good model for biological processes such as the evolut
 The second are population dynamics which consider their own change in payoff in the case that they accept a new strategy. 
 These dynamics are more well suited to a heterogeneous population, modelling state changes where individuals make an active decision to change state in order to improve their own fitness.
 
-Below, we see a diagram showing the classification of the population dynamics shown in this section:\\
+Below, we see a diagram showing the classification of the population dynamics shown in this section:
 
 \begin{table}[h!]
 \centering
@@ -509,19 +565,23 @@ In this section, we shall see how different population dynamics can be applied
 to the public goods game. \cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hofbauer_sigmund_1998}
 In this game, individuals choose whether or not to contribute to a public resource pool. 
 In the end, the total resource is multiplied by some factor \(r > 1\) and distributed equally between each player. This model often encourages a behaviour known as ``free-riding" \cite{10.1257/aer.15000001}, where players refuse to contribute to the pool and simply take the benefit provided by other individuals' contribution. 
-The classic problem of a public goods game is to provide an environment where such free-riding is less profitable than contributing to the public good.\\
+The classic problem of a public goods game is to provide an environment where such free-riding is less profitable than contributing to the public good.
 
-We can model a public goods game by providing the following payoff function:\\
+We can model a public goods game by providing the following payoff function:
+
 \begin{large}
 \begin{equation}
-    \pi_i(\textbf{a}) = \frac{r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i
-    \label{eqn:General Model}
+   \pi_i(\textbf{a}) = \frac{r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i
+  \label{eqn:General Model}
 \end{equation}
 \end{large}\\
 (where \(\alpha_j\) is the contribution by individual j.) 
-In the homogeneous public goods game, we have that \(\alpha_j\) can only take one of two values: some constant \(\alpha\) if individual j cooperates, and 0 if not. However, the heterogeneous game will require a more tailored \(\alpha_j\).\\
+In the homogeneous public goods game, we have that \(\alpha_j\) can only take one of two values: some constant \(\alpha\) if individual j cooperates, and 0 if not. However, the heterogeneous game will require a more tailored \(\alpha_j\).
 
-Note that \(\pi(v_j)\) can be negative, and such cannot be used as our fitness function for the Moran process. Therefore, we must look at some transformation of \(\pi\) to use as our fitness function.\\
+Note that \(\pi(v_j)\) can be negative, and such cannot be used as our fitness
+function for the Moran process. Therefore, we must look at some transformation
+of \(\pi\) to use as our fitness function \(f\). This is the \(f\) previously
+defined for the Moran process and Introspective Imitation Dynamics.
 
 A common method \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} for this is to apply the exponential function to our payoff function. By using \(e^{\beta \sigma}\) as our fitness function we will have positive values, however this particular approach gives, in the case of the Moran process:
 
@@ -540,9 +600,8 @@ Now, as \(e^r\) does not rely on \(v\), we can take this out of the sum and acqu
 \end{large}\\
 
 and we see that in this case, \(p_{a_j\to b_j}(a_{-j})\) would not rely on \(r\). 
-Therefore, let us consider some other methods of guaranteeing a positive fitness function.\\
 
-The first of these is known as the "shifted linear" transformation. We take, for some small tunable \(\epsilon\):
+We may also consider the ``shifted linear" transformation. We take, for some small tunable \(\epsilon\):
 \begin{large}
     \begin{equation}
         f_i(\textbf{a}) = \pi_i(\textbf{a}) - \min_{j} \pi_j(\textbf{a}) + \beta
@@ -550,7 +609,9 @@ The first of these is known as the "shifted linear" transformation. We take, for
     \label{eqn:Shifted_linear}
 \end{large}
 This guarantees a positive value, with the lowest fitness taking the value \(\epsilon\), a parameter that can be chosen based on the system in question.
-However, in the homogeneous case, as we can see in appendix[?], this mapping creates a fitness function which does not rely on \(r\), and so we cannot use this method.\\
+However, in the homogeneous case, this mapping
+creates a fitness function which does not rely on \(r\), and so we cannot use
+this method.
 
 %TODO - make appendix with the following:
 %\begin{large}
@@ -570,18 +631,8 @@ However, in the homogeneous case, as we can see in appendix[?], this mapping cre
 Another type of mapping that we can use is the ``Affine-linear mapping". In
 this, for some tunable \(\epsilon\), we take the following:
 
-\begin{large}
-    \begin{equation}
-        f_i(\textbf{a}) = 1 + \epsilon\pi_i(\textbf{a})
-    \end{equation}
-    \label{eqn:Affine-linear}
-\end{large}\\
 As \(\epsilon\) is a selection intensity parameter, this method both provides us a strictly positive fitness function for a well defined \(\epsilon\), and also allows us to control the selection intensity of the Moran process. 
-Unlike in other population dynamics, this is not already defined within the Moran process, and so this is another benefit of using the affine-linear mapping.
-Thus, we take this mapping of \(\pi\) as our fitness function.\\
-In order to avoid having two selection intensity parameters, we can define \(\beta=1\) in this case, and allow \(\epsilon = \frac{1}{\beta}\), in order that we have \(\pi_i = 1 + \frac{f_i}{\beta}\).
-Thus in the Fermi function we preserve the power of \(e^{\frac{\Delta(f)}{\beta}}\) for some selection intensity \(\beta\).
-However, we will now have a bound on \(\beta\) depending on the values of \(\alpha\) in our public goods game, as we must define a strictly positive fitness function.
+This is the process by which we define \(f\) in this paper.
 
 
 \subsection{The Homogeneous Case}
@@ -594,11 +645,11 @@ In this case, we take the payoff function:
     \end{equation}
     \label{eqn:Homogeneous_fitness}
 \end{large}\\
-Where \(\delta_j = 1\) if j contributes and 0 if not, and \(\kappa_c(\textbf{a})\) is the fraction of the population who contribute.\\
+Where \(\delta_j = 1\) if j contributes and 0 if not, and \(\kappa_c(\textbf{a})\) is the fraction of the population who contribute.
 
 We will begin by looking at the state space with \(N=4\) and see how cooperation emerges based on different values of \(r \text{ and } \alpha\).
 
-We can assign the value 0 to non-contribution and 1 contribution in the state space \(\textbf{a},\textbf{b},\textbf{c},\textbf{d}\),  and in doing so obtain the following absorption matrices for each population dynamic:\\
+We can assign the value 0 to non-contribution and 1 contribution in the state space \(\textbf{a},\textbf{b},\textbf{c},\textbf{d}\),  and in doing so obtain the following absorption matrices for each population dynamic:
 
 \begin{table}[!h]
     \centering
@@ -615,20 +666,33 @@ We can assign the value 0 to non-contribution and 1 contribution in the state sp
         \frac{\alpha \epsilon (r - 2) + 2}{\alpha \epsilon r + \alpha \epsilon (r - 2) + 4}
         \end{matrix}\right]$
         &
-        \tiny
-        $\begin{bmatrix}
-        \frac{1}{e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1} & \frac{e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}}}{2 \left(e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1\right)} & \frac{e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}}}{2 \left(e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1\right)} & 0 \\
-        \frac{1}{2 \left(e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1\right)} & \frac{1}{2} & 0 & \frac{1}{2 \left(e^{\frac{\alpha \epsilon (2 - r)}{2 \beta}} + 1\right)} \\
-        \frac{1}{2 \left(e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1\right)} & 0 & \frac{1}{2} & \frac{1}{2 \left(e^{\frac{\alpha \epsilon (2 - r)}{2 \beta}} + 1\right)} \\
-        0 & \frac{1}{2 \left(e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1\right)} & \frac{1}{2 \left(e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1\right)} & \frac{e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}}}{e^{\frac{\alpha \epsilon (r - 2)}{2 \beta}} + 1}
-        \end{bmatrix}
-        $\\
+        \\
          \hline
          Fermi Imitation Dynamics & Introspective Imitation Dynamics\\
          \hline
          $\displaystyle \left[\begin{matrix}\frac{ e^{\frac{\alpha}{\beta}}}{e^{\frac{\alpha}{\beta}} + 1} & \frac{1}{e^{\frac{\alpha}{\beta}} + 1}\\\frac{ e^{\frac{\alpha}{\beta}}}{e^{\frac{\alpha}{\beta}} + 1} & \frac{1}{e^{\frac{\alpha}{\beta}} + 1}\end{matrix}\right]$
          & \tiny
-         $\displaystyle \left[\begin{matrix}\frac{\left(\alpha \epsilon r + 2\right) \left(e^{\frac{\alpha \epsilon \left(2 - r\right)}{2 \beta}} + 1\right)}{\left(\alpha \epsilon r + 2\right) \left(e^{\frac{\alpha \epsilon \left(2 - r\right)}{2 \beta}} + 1\right) + \left(\alpha \epsilon \left(r - 2\right) + 2\right) \left(e^{\frac{\alpha \epsilon \left(r - 2\right)}{2 \beta}} + 1\right)} & \frac{\left(\alpha \epsilon \left(r - 2\right) + 2\right) \left(e^{\frac{\alpha \epsilon \left(r - 2\right)}{2 \beta}} + 1\right)}{\left(\alpha \epsilon r + 2\right) \left(e^{\frac{\alpha \epsilon \left(2 - r\right)}{2 \beta}} + 1\right) + \left(\alpha \epsilon \left(r - 2\right) + 2\right) \left(e^{\frac{\alpha \epsilon \left(r - 2\right)}{2 \beta}} + 1\right)}\\\frac{\left(\alpha \epsilon r + 2\right) \left(e^{\frac{\alpha \epsilon \left(2 - r\right)}{2 \beta}} + 1\right)}{\left(\alpha \epsilon r + 2\right) \left(e^{\frac{\alpha \epsilon \left(2 - r\right)}{2 \beta}} + 1\right) + \left(\alpha \epsilon \left(r - 2\right) + 2\right) \left(e^{\frac{\alpha \epsilon \left(r - 2\right)}{2 \beta}} + 1\right)} & \frac{\left(\alpha \epsilon \left(r - 2\right) + 2\right) \left(e^{\frac{\alpha \epsilon \left(r - 2\right)}{2 \beta}} + 1\right)}{\left(\alpha \epsilon r + 2\right) \left(e^{\frac{\alpha \epsilon \left(2 - r\right)}{2 \beta}} + 1\right) + \left(\alpha \epsilon \left(r - 2\right) + 2\right) \left(e^{\frac{\alpha \epsilon \left(r - 2\right)}{2 \beta}} + 1\right)}\end{matrix}\right]$\\
+    $
+    \left[
+    \begin{matrix}
+    \frac{(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)}
+    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
+    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
+    &
+    \frac{(\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
+    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
+    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
+    \\[8pt]
+    \frac{(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)}
+    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
+    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
+    &
+    \frac{(\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
+    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
+    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
+    \end{matrix}
+    \right]$
+    \\
          &\\
          \hline
     \end{tabular}
@@ -646,43 +710,6 @@ are equivalent due to there being no difference between players 1 and 2.
 We can now see how the different population dynamics affect the absorption
 probabilities in the homogeneous public goods game. We first consider the
 effect of r on our population in various \(\alpha\) values:
-
-\begin{figure}[!h]
-\centering
-
-\includegraphics[width=0.8\textwidth]{../src/img/absorption_probabilities_vary_r_fix_alpha/main.pdf}
-\hfill
-
-\caption{The absorption probability of the homogeneous public goods game for varying \(r\) at different values of \(\alpha\)}
-\end{figure}
-
-The main point of interest here is the comparison betwee the Moran process and
-introspective imitation dynamics.
-We see that in the case of \(N=2\), the Moran process has a higher
-absorption probability than introspective imitation dynamics for \(r<N\),
-however it has a lower probability for \(r>N\).
-Now, consider the fact that for \(r>N\), one should always contribute if acting
-rationally, due to the fact that even by contributing themself, they will
-always make a profit. 
-Conversely, for \(r<1\), one should never contribute in any population, as even
-with all players contributing, all make a loss.
-Thus, the most realistic population dynamic is that which has the highest
-absorption probability for \(r>N\), and also the lowest absorption probability
-for \(r<1\). 
-When compared to the Moran process, we have that these considerations favour
-introspective imitation dynamics.
-
-Now let us consider the impact of different selection intensities on the
-absorption probability of these dynamics.
-
-
-
-
-\newpage
-\section{Public Goods Games with Heterogeneous Returns}
-
-When we look at a public goods game, we often generalise the players to all receive the same return. However, in the real world this is often not the case. 
-
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}

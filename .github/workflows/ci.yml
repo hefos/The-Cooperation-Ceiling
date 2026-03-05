@@ -21,3 +21,4 @@ jobs:
       - name: Run black
         run: |
           python -m black -vv --check src/
+          python -m black -vv --check assets/

@@ -8,55 +8,29 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main
-
-
-def heterogeneous_contribution_fitness_function(
-    state, omega, r, contribution_vector, **kwargs
-):
-    """Public goods fitness function where each player contributes H times
-
-    their position in the state."""
-
-    total_goods = (
-        r
-        * sum(
-            action * contribution
-            for action, contribution in zip(state, contribution_vector)
-        )
-        / len(state)
-    )
-
-    payoff_vector = np.array(
-        [
-            total_goods - (action * contribution)
-            for action, contribution in zip(state, contribution_vector)
-        ]
-    )
-
-    return 1 + (omega * payoff_vector)
+import src.main as main
+import src.fitness_functions as fitness_functions
 
 
 r = sym.Symbol("r")
-omega = sym.Symbol("w")
+epsilon = sym.Symbol("epsilon")
 N = 2
 M = sym.Symbol("alpha_1") + sym.Symbol("alpha_2")
 generic_alphas_N_eq_2 = [sym.Symbol("alpha_1"), sym.Symbol("alpha_2")]
-state_space = src.main.get_state_space(N=N, k=2)
+state_space = main.get_state_space(N=N, k=2)
 
-general_heterogeneous_contribution_transition_matrix_n_2 = (
-    src.main.generate_transition_matrix(
-        state_space=state_space,
-        fitness_function=heterogeneous_contribution_fitness_function,
-        r=r,
-        omega=omega,
-        N=N,
-        contribution_vector=generic_alphas_N_eq_2,
-    )
+general_heterogeneous_contribution_transition_matrix_n_2 = main.generate_transition_matrix(
+    state_space=state_space,
+    fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+    compute_transition_probability=main.compute_moran_transition_probability,
+    selection_intensity=epsilon,
+    r=r,
+    N=N,
+    contribution_vector=generic_alphas_N_eq_2,
 )
 
-general_heterogeneous_absorption_matrix_n_2 = src.main.generate_absorption_matrix(
-    general_heterogeneous_contribution_transition_matrix_n_2, symbolic=True
+general_heterogeneous_absorption_matrix_n_2 = main.calculate_absorption_matrix(
+    general_heterogeneous_contribution_transition_matrix_n_2
 )
 
 with open(
