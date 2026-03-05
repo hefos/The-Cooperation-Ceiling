@@ -18,8 +18,6 @@
 \maketitle
 \section{Introduction}
 
-%TODO
-
 \section{Literature Review}
 
 Evolutionary game theory has long been at the forefront of the study of
@@ -144,7 +142,8 @@ heterogeneous population:
 \begin{itemize}
   \item The Moran process, first described in \cite{Moran_1958}
   \item Fermi Imitation Dynamics, a common choice of dynamic often adapted to
-  the study of cooperation on a graph \cite{MA2021111353, LEI20104708, PhysRevE.58.69}
+  the study of cooperation on a graph \cite{MA2021111353, LEI20104708,
+  PhysRevE.58.69} %use better reference (first time used)
   \item Introspection Dynamics, a more modern dynamic defined in \cite{Couto2022}
 \end{itemize}
 
@@ -164,34 +163,16 @@ process to be well-defined.
 Smaller values of \(\epsilon\) correspond to weaker selection, placing less
 emphasis on payoff differences in the evolutionary update. In the limiting case
 \(\epsilon = 0\), the process reduces to neutral drift, in which reproduction is
-independent of payoff. % TODO: add reference
+independent of payoff.
 In contrast, population dynamics based on the Fermi update rule
-\cite{PhysRevE.58.69} employ a parameter \(\beta\), which we refer to as the
+\cite{PhysRevE.58.69} %use better reference
+ employ a parameter \(\beta\), which we refer to as the
 \emph{choice intensity}. This parameter determines how sensitively individuals
 respond to payoff differences when making decisions. Depending on the specific
 dynamic under consideration, these payoff differences may arise from comparing
 an individual's current payoff with that of another individual in the population,
 or from comparing their current payoff with the payoff they would obtain by
 switching strategy.
-
-\subsection{Mutation}
-We can also model how individuals may mutate within the system. 
-This is the process by which after a state transition, the chosen player will
-instead mutate to a different action type with some small probability.
-We then have two possible feasible transitions:
-
-\begin{itemize}
-    \item If $h(\textbf{a,b}) = 0$, then the only way in which the transition
-    can be achieved is through the transition of a player \(i \to i\) and then
-    no mutation occuring.
-    \item If $h(\textbf{a,b}) = 1$, then there are two ways in which the
-    transition can occur. Either, the player $i$ which is different between
-    \textbf{a} and \textbf{b} transitions by the standard process, with no
-    mutation occuring, or no transition occurs, but player $i$ mutates into the
-    type which they possess in \textbf{b}
-\end{itemize}
-
-We let $\mu_{i,j}$ be the probability that individual $i$ mutates to type $j$.
 
 
 \subsubsection{The Moran Process}
@@ -244,14 +225,12 @@ top to bottom.
 Now, by taking the fundamental matrix of \(T\) and performing a right multiplication by \(R\), the matrix with entries which represent transitions from transitive states to absorbing states\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, we can obtain the absorption matrix for this system.
 For the above game, we find the following equation:\\
 \begin{center}
-%\begin{small}
 \begin{equation}
 \left(I - \begin{bmatrix}1 - \frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} - \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} & 0\\0 & 1 - \frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} - \frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}\end{bmatrix}\right)^{-1}
 \begin{bmatrix}
 \frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} & \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}}\\\frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} & \frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}
 \end{bmatrix}
 \end{equation}
-%\end{small}
 \end{center}
 
 And solve to find our absorption matrix:
@@ -274,31 +253,6 @@ but rather their fitness in the transitive states.
 Thus, players can remain in a state which could be bettered by a single change, however they will not make such a change if no individual of another type exists in the population.
 
 
-%The final case in (\ref{eqn:Moran_Probability_Function}) corresponds to a transition from \(\textbf{a}\) to itself. 
-%This is possible when a given individual has their action type removed
-%and any other individual with the same type is chosen for duplication.  
-%However, we can observe that a transition of some sort must occur, and so we
-%simply take the probability of not transitioning to any \textbf{different}
-%state as $P_{\textbf{a} \to \textbf{a}}$.\\
-
-If we consider mutation within our model, we instead get a transition matrix
-according to the following:
-
-\begin{large}
-    \begin{equation}
-        T_\textbf{ab} = 
-        \begin{cases}
-            (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
-            0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
-            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-        \end{cases}
-    \label{eqn:Moran_Probability_Function_mutation}
-    \end{equation}
-\end{large}
-
-
-
-
 \subsubsection{Fermi Imitation Dynamics}
 The Fermi Imitation Dynamic is another method of modelling evolution in a
 population.
@@ -307,7 +261,7 @@ It models the following process:
 \begin{itemize}
   \item Two players, \(i\) and \(j\) are selected at random. Unlike
   \cite{PhysRevE.58.69}, the player \(j\) does not have to be the neighbour of
-  player \(i\).
+  player \(i\). %This is true but maybe we can mention this somewhere else?
   \item Player \(i\) copies the action type of the player \(j\) with a
   probability according to the Fermi function \(
     \phi(\pi_{i}(\textbf{a}) - \pi_{j}(\textbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\textbf{a}) - \pi_{j}(\textbf{a}))}\right)}}\)
@@ -352,23 +306,6 @@ summation term is at most \(N-1\) values of said function,
 and thus takes a
 value \(<N-1\).
 
-
-%Now, we must show that the sum of each row in our transition matrix adds to 1.
-%By the definition of case 3 in equation \ref{eqn:imitation_prob}, we have that our rows will sum to at least, and so we must simply show that the rows calculated by case 1 sum to \(<1\).\\
-
-%Consider a state space of \(N\) players and let \(\kappa(\textbf{a})\) be the number of different action types played in \textbf{a}
-%Then for a given state \textbf{a} we have \(|\text{Neb(\textbf{a}})| = N(\kappa(\textbf{a})-1)\) as there are \(N\) players who can change their actions to one %of \(\kappa(\textbf{a})-1\) other actions.
-%We can therefore see the following
-
-%TODO fix this proof that the off-diagonal entries sum to less than 1
-
-%\begin{equation}
-%\sum_{\textbf{b}\in\text{Neb({\textbf{a})}}}p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-j}) = \sum_{\textbf{b}\in\text{Neb({\textbf{a})}}}\sum_{a_j=b_{i^*}}\frac{1}{N(N-1)}\phi(f_{\text{I(\textbf{a,b})}(a}) - f_{j}(\textbf{a}))) < \sum_{\textbf{b}\in\text{Neb({\textbf{a})}}}\frac{N}{N(N-1)} \leq \frac{N(\kappa(a_i)-1)}{N(N-1)} \leq 1
-%\end{equation}
-
-%This is because \(\phi(f_{\text{I(\textbf{a,b})}(a}) - %f_{j}(\textbf{a}))) < 1\) for all \( i,j\in \mathbb{N}\), and clearly \(K-1 \leq N-1\) as \(K < N\). Thus, we have our result that this defines a transition matrix for a Markov chain.
-
-
 Now, let us look once more at our state space \(\textbf{a} = (0,0), \textbf{b} = (0,1), \textbf{c} = (1,0), \textbf{d} = (1,1)\).  
 We can define a transition matrix:
 \begin{center}
@@ -399,20 +336,6 @@ system as a player can commonly copy a high-fitness strategy without
 considering the impact on their own fitness, and in some cases may enter an
 absorbing state with a transition which worsens their position with a high
 probability. 
-
-For the case with mutation, we get the following transition matrix:
-
-\begin{large}
-    \begin{equation}
-        T_\textbf{ab}  = 
-        \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
-            0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
-            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-        \end{cases}
-    \label{eqn:imitation_prob_mutation}
-    \end{equation}
-\end{large}
 
 We will now see a dynamic where players consider the impact of action type
 transitions on their own fitness.
@@ -484,8 +407,6 @@ state space \textbf{a,b,c,d}:
 \end{equation}
 
 
-%this goes off the page, need to sort - probably use $\phi$ notation for it.
-
 We then consider the steady state vectors for this system.
 For this, we take the left eigenvector of the transition matrix, which is given by:
 
@@ -494,24 +415,6 @@ For this, we take the left eigenvector of the transition matrix, which is given 
 
 Unlike in the case of imitation dynamics, there are no absorbing states for a Markov chain transitioning according to imitation dynamics.
 Therefore, we define a steady state vector \textbf{u} according to the method Couto uses in \cite{Couto2022}. 
-
-%TODO get steady state vector
-
-If we consider the case with mutation, our transition matrix becomes the
-following:
-
-\[
-T_{\textbf{ab}} =
-\begin{cases}
-(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})}))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
-0
-    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-\end{cases}
-\]
-
-
 
 
 \subsubsection{Introspective Imitation Dynamics}
@@ -583,8 +486,284 @@ Unlike other imitation dynamics, we can see that the absorption probability in a
 This means that players will enter absorbing states with a higher probability if it improves their own fitness, despite any heterogeneity between payoffs for the same action played by different players.
 This solves the problem of players making worsening moves based on the fitness of another individual in the population, while still retaining the property of imitation dynamics that new strategies cannot be introduced to the system.
 
-For the case with mutation in the model, our transition matrix instead becomes
-the following: 
+
+\subsection{Mutation}
+We can also model how individuals may mutate within the system. 
+This is the process by which after a state transition, the chosen player will
+instead mutate to a different action type with some small probability.
+We then have two possible feasible transitions:
+
+\begin{itemize}
+    \item If $h(\textbf{a,b}) = 0$, then the only way in which the transition
+    can be achieved is through the transition of a player \(i \to i\) and then
+    no mutation occuring.
+    \item If $h(\textbf{a,b}) = 1$, then there are two ways in which the
+    transition can occur. Either, the player $i$ which is different between
+    \textbf{a} and \textbf{b} transitions by the standard process, with no
+    mutation occuring, or no transition occurs, but player $i$ mutates into the
+    type which they possess in \textbf{b}
+\end{itemize}
+
+We let $\mu_{i,j}$ be the probability that individual $i$ mutates to type $j$.
+Thus, given a transition matrix $T$, we can produce the related transition
+matrix with mutation as follows:
+
+\begin{equation}
+T_{\textbf{ab}} =  \begin{cases}
+    T_{\textbf{ab}}(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+    0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
+    1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+\end{cases}
+\end{equation}
+
+In all cases, this forms an ergodic Markov chain rather than an absorbing
+chain.
+Thus, we do not obtain absorption matrices for models which use mutation, but
+instead we obtain a steady state, which no longer depends on our starting state.
+
+We will now see each of our processes for the case where mutation is
+considered.
+
+\subsubsection{The Moran Process}
+In the case of the Moran process, our transition matrix becomes:
+
+\begin{large}
+    \begin{equation}
+        T_\textbf{ab} = 
+        \begin{cases}
+            (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
+            0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
+            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+        \end{cases}
+    \label{eqn:Moran_Probability_Function_mutation}
+    \end{equation}
+\end{large}
+
+For the case of the two player game, we now have the transition matrix:
+
+\[
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
+&
+\frac{\mu_{22}}{2}
+&
+\frac{\mu_{12}}{2}
+&
+0
+\\[0.5em]
+
+\frac{\mu_{21}}{2} 
++ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} 
+- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
+- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
++ 1
+& 0
+&
+\frac{\mu_{12}}{2} 
++ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
+\\[0.5em]
+
+\frac{\mu_{11}}{2} 
++ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
+& 0
+&
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} 
+- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
+- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
++ 1
+&
+\frac{\mu_{22}}{2} 
++ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
+\\[0.5em]
+
+0
+&
+\frac{\mu_{11}}{2}
+&
+\frac{\mu_{21}}{2}
+&
+-\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+
+\end{bmatrix}
+$}
+\]
+
+and the steady state:
+%on siren
+
+
+\subsubsection{Fermi Imitation Dynamics}
+When we introduce mutation to Fermi Imitation Dynamics, we obtain the following
+transition matrix:
+
+\begin{large}
+    \begin{equation}
+        T_\textbf{ab}  = 
+        \begin{cases}
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
+            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+        \end{cases}
+    \label{eqn:imitation_prob_mutation}
+    \end{equation}
+\end{large}
+
+
+In the case of the two player game, we obtain the transition matrix:
+\[
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
+& \frac{\mu_{22}}{2}
+& \frac{\mu_{12}}{2}
+& 0
+\\[1em]
+
+\frac{\mu_{21}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1\right)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
+- \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(b) - f_{2}(b))} + 1\right)}
+- \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1\right)}
+& 0
+&
+\frac{\mu_{12}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(b) - f_{2}(b))} + 1\right)}
+\\[1em]
+
+\frac{\mu_{11}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(c) - f_{2}(c))} + 1\right)}
+& 0
+&
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
+- \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(c) - f_{2}(c))} + 1\right)}
+- \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1\right)}
+&
+\frac{\mu_{22}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1\right)}
+\\[1em]
+
+0
+& \frac{\mu_{11}}{2}
+& \frac{\mu_{21}}{2}
+& -\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+
+\end{bmatrix}$}
+\]
+
+And the steady state:
+%on siren
+
+\subsubsection{Introspection Dynamics}
+As introspection dynamics does not form an absorbing Markov chain, we do not
+need mutation to form an ergodic chain.
+However, we will consider the following transition matrix for the case with
+mutation:
+
+\[
+T_{\textbf{ab}} =
+\begin{cases}
+(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})}))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
+0
+    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+\end{cases}
+\]
+
+which, in the case of the two player game, gives us the following:
+
+\[\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(f_{2}(a) - f_{2}(b))} + 1\right)}
+- \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(a) - f_{1}(c))} + 1\right)}
+&
+\frac{\mu_{22}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(f_{2}(a) - f_{2}(b))} + 1\right)}
+&
+\frac{\mu_{12}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(a) - f_{1}(c))} + 1\right)}
+& 0
+\\[1em]
+
+\frac{\mu_{21}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)}
+- \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)}
+& 0
+&
+\frac{\mu_{12}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)}
+\\[1em]
+
+\frac{\mu_{11}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)}
+& 0
+&
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)}
+- \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)}
+&
+\frac{\mu_{22}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)}
+\\[1em]
+
+0
+&
+\frac{\mu_{11}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1\right)}
+&
+\frac{\mu_{21}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1\right)}
+&
+-\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}
+       {2\left(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1\right)}
+- \frac{-\mu_{11} - \mu_{12} + 1}
+       {2\left(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1\right)}
+
+\end{bmatrix}$}
+\]
+
+\subsubsection{Introspective Imitation Dynamics}
+Finally, for the case of introspective imitation dynamics, we get the following
+transition matrix with mutation:
 
 \begin{equation}
 T_{\textbf{ab}} =  \begin{cases}
@@ -594,9 +773,63 @@ T_{\textbf{ab}} =  \begin{cases}
 \end{cases}
 \end{equation}
 
+For the two player game, we obtain the transition matrix:
 
+\[\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
+&
+\frac{\mu_{22}}{2}
+&
+\frac{\mu_{12}}{2}
+&
+0
+\\[1em]
 
+\frac{\mu_{21}}{2} 
++ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} 
+- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
+- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
++ 1
+& 0
+&
+\frac{\mu_{12}}{2} 
++ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
+\\[1em]
 
+\frac{\mu_{11}}{2} 
++ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
+& 0
+&
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} 
+- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
+- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
++ 1
+&
+\frac{\mu_{22}}{2} 
++ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
+\\[1em]
+
+0
+& \frac{\mu_{11}}{2}
+& \frac{\mu_{21}}{2}
+& -\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+
+\end{bmatrix}$}
+\]
+
+which gives us a steady state:
+%on siren
 
 \subsection{Classification of Population Dynamics}
 We will now classify our population dynamics into one of two categories. 
@@ -691,20 +924,6 @@ This guarantees a positive value, with the lowest fitness taking the value \(\ep
 However, in the homogeneous case, this mapping
 creates a fitness function which does not rely on \(r\), and so we cannot use
 this method.
-
-%TODO - make appendix with the following:
-%\begin{large}
-%    \begin{equation}
-%        \begin{split}
-%        (\kappa_c(\textbf{a})r-\delta_j)\alpha - \min_j((\kappa_c(\textbf{a})r-\delta_j)\alpha)\alpha + \epsilon 
-%        = (1 - \delta_i)\alpha + \epsilon = \begin{cases}
-%            \epsilon & \text{if \(a_i\) contributes}\\
-%            \alpha + \epsilon & \text{if not}
-%        \end{cases}
-%        \end{split}
-%    \end{equation}
-%    \label{eqn:Homogeneous_fitness}
-%\end{large}\\
 
 
 Another type of mapping that we can use is the ``Affine-linear mapping". In
