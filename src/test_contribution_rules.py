@@ -131,7 +131,7 @@ def test_binomial_contribution_rule_fails_for_negative_alpha_l():
         )
 
 
-def test_binomial_contribution_rule_fails_for_negative_alpha_l():
+def test_binomial_contribution_rule_fails_for_big_alpha_l():
     """
     Tests that the binomial_contribution_rule function fails correctly when
     alpha_l is greater than alpha_h with a given set of parameters
@@ -214,3 +214,17 @@ def test_power_law_contribution_rule_for_N_eq_3_M_eq_40():
     actual_sum = actual_return_1 + actual_return_2 + actual_return_3
 
     np.testing.assert_almost_equal(actual_sum, M)
+
+
+def test_power_law_contribution_rule_fails_for_a_negative():
+    """
+    Tests that the power_law_contribution_rule fails correctly for a negative
+    value of $a$"""
+
+    a = -2
+    N = 6
+    M = 742
+    index = 3
+
+    with pytest.raises(ValueError):
+        contribution_rules.power_law_contribution_rule(index=index, N=N, a=a, M=M)
