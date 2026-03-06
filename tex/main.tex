@@ -509,7 +509,7 @@ Thus, given a transition matrix $T$, we can produce the related transition
 matrix with mutation as follows:
 
 \begin{equation}
-T_{\textbf{ab}} =  \begin{cases}
+T^{(m)}_{\textbf{ab}} =  \begin{cases}
     T_{\textbf{ab}}(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
@@ -529,7 +529,7 @@ In the case of the Moran process, our transition matrix becomes:
 
 \begin{large}
     \begin{equation}
-        T_\textbf{ab} = 
+        T^{(m)}_\textbf{ab} = 
         \begin{cases}
             (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
@@ -609,7 +609,7 @@ transition matrix:
 
 \begin{large}
     \begin{equation}
-        T_\textbf{ab}  = 
+        T^{(m)}_\textbf{ab}  = 
         \begin{cases}
             (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
@@ -680,7 +680,7 @@ However, we will consider the following transition matrix for the case with
 mutation:
 
 \[
-T_{\textbf{ab}} =
+T^{(m)}_{\textbf{ab}} =
 \begin{cases}
 (\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})}))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
     & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
@@ -766,7 +766,7 @@ Finally, for the case of introspective imitation dynamics, we get the following
 transition matrix with mutation:
 
 \begin{equation}
-T_{\textbf{ab}} =  \begin{cases}
+T^{(m)}_{\textbf{ab}} =  \begin{cases}
     (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a,b})})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
