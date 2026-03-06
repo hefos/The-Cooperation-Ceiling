@@ -72,7 +72,8 @@ def dirichlet_log_alpha_rule(N):
 
     return np.array([np.log(i) + 1 for i in range(1, N + 1)])
 
-def dirichlet_power_law_alpha_rule(N,a=np.exp(1)):
+
+def dirichlet_power_law_alpha_rule(N, a=np.exp(1)):
     """
     Generates the alphas for a population contributing according to a power law
     transformation of the linear alpha rule in the dirichlet distribution. Each
@@ -81,14 +82,14 @@ def dirichlet_power_law_alpha_rule(N,a=np.exp(1)):
     across many realisations, we get an exponential scale where the mean
     contribution for each player increases exponentially (though not
     necessarily using the exponential $e$)
-    
+
     Parameters
     -----------
     N - int, the number of players in a state
-    
+
     a - float, the base of the power law (the number which is raised to the
     power i), Must be strictly positive, and is taken as $e$ as standard.
-    
+
     returns:
     --------
     numpy.array - the alpha value of each player according to their index"""
@@ -96,7 +97,7 @@ def dirichlet_power_law_alpha_rule(N,a=np.exp(1)):
     if a <= 0:
         raise ValueError("a must be strictly positive")
 
-    return np.array([a**(i) for i in range(1, N+1)])
+    return np.array([a ** (i) for i in range(1, N + 1)])
 
 
 def log_contribution_rule(index, M, N):
@@ -181,13 +182,14 @@ def binomial_contribution_rule(index, N, n, M, alpha_h):
 
     return alpha_l if index < n else alpha_h
 
-def power_law_contribution_rule(index, N, M, a = np.exp(1)):
+
+def power_law_contribution_rule(index, N, M, a=np.exp(1)):
     """
     Players contribute according to a power law contribution rule. This
     corresponds to the equation $\sum_{i=1}^{N} \lambda a^{i} = M$, where we
     obtain $\lambda = log_a(\frac{M}{$\sum_{i=1}^{N} a^i})$. As standard, we
     take a = e, however this can be taken as any positive value.
-    
+
     Parameters:
     ------------
     index: integer, the position of the player within the ordered population
@@ -195,9 +197,9 @@ def power_law_contribution_rule(index, N, M, a = np.exp(1)):
     M: float, the population maximum contribution
 
     N: integer, the size of the population
-    
+
     a: float, the base of the value of lambda. We take this as $e$ as standard
-    
+
     returns:
     ---------
     float, the contribution of a player at (index) according to a power law
@@ -206,9 +208,8 @@ def power_law_contribution_rule(index, N, M, a = np.exp(1)):
     if a <= 0:
         raise ValueError("a must be positive")
 
-    summation_term = np.sum(a ** (i+1) for i in range(N))
+    summation_term = np.sum(a ** (i + 1) for i in range(N))
 
     K = M / summation_term
 
     return (a ** (index + 1)) * K
-    
