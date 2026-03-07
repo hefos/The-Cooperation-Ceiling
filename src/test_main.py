@@ -2085,6 +2085,33 @@ def test_simulate_markov_chain_for_N_eq_2_various_seeds():
     )
 
 
+def test_simulate_markov_chain_for_specific_starting_state():
+    """
+    Tests that the simulate_markov_chain function correctly begins in a
+    starting state passed to it."""
+
+    transition_matrix = np.array(
+        [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1],
+        ]
+    )
+
+    starting_state_index = 1
+
+    expected_state_distribution = np.array([0, 1, 0, 0])
+
+    actual_state_distribution = main.simulate_markov_chain(
+        transition_matrix=transition_matrix, starting_state_index=starting_state_index
+    )
+
+    np.testing.assert_array_equal(
+        actual_state_distribution, expected_state_distribution
+    )
+
+
 def test_run_monte_carlo_simulation_for_N_eq_2_and_various_seeds():
     """
     Tests that the run_monte_carlo_simulation function returns the expected
