@@ -2017,3 +2017,133 @@ def test_approximate_steady_state_for_different_initial_dist():
         ),
         steady_state_2,
     )
+
+
+def test_simulate_markov_chain_for_N_eq_2_various_seeds():
+    """
+    Tests that the simulate_markov_chain function returns the expected values
+    for different random seeds in different numbers of time_steps
+
+    with a seed of 1 and 10 time steps we expect to obtain:
+
+        [0.5, 0.1, 0.2, 0.1]
+
+    with a seed of 12 and 20 time steps we expect to obtain:
+
+        [0.85, 0.  , 0.05, 0.1 ]
+
+    taking the average over 20 simulations with a seed of 7 and 20 timesteps
+    each, we expect to obtain:
+
+        [0.89  , 0.0425, 0.04  , 0.0275]"""
+
+    np.random.seed(1)
+
+    transition_matrix = np.array(
+        [
+            [1, 0, 0, 0],
+            [0.5, 0.2, 0.3, 0],
+            [0.25, 0.25, 0.25, 0.25],
+            [0.1, 0.3, 0.3, 0.3],
+        ]
+    )
+
+    expected_state_distribution = np.array([0.5, 0.2, 0.2, 0.1])
+    actual_state_distribution = main.simulate_markov_chain(
+        transition_matrix=transition_matrix, time_steps=10
+    )
+
+    np.testing.assert_array_equal(
+        actual_state_distribution, expected_state_distribution
+    )
+
+    np.random.seed(12)
+
+    expected_state_distribution_2 = np.array([0.85, 0.0, 0.05, 0.1])
+    actual_state_distribution_2 = main.simulate_markov_chain(
+        transition_matrix=transition_matrix, time_steps=20
+    )
+
+    np.testing.assert_array_equal(
+        actual_state_distribution_2, expected_state_distribution_2
+    )
+
+    np.random.seed(7)
+
+    expected_state_distribution_iteration = np.array([0.89, 0.0425, 0.04, 0.0275])
+    actual_state_distribution_iteration = np.array(
+        [
+            main.simulate_markov_chain(
+                transition_matrix=transition_matrix, time_steps=20
+            )
+            for _ in range(20)
+        ]
+    ).mean(axis=0)
+
+    np.testing.assert_array_almost_equal(
+        actual_state_distribution_iteration, expected_state_distribution_iteration
+    )
+
+
+def test_run_monte_carlo_simulation_for_N_eq_2_and_various_seeds():
+    """
+    Tests that the run_monte_carlo_simulation function returns the expected
+    values for various random seeds.
+
+    When we take a seed of 1 we expect the following:
+
+        [0.8425, 0.0625, 0.0675, 0.0275]
+
+    With a seed of 4 we expect the following:
+
+        [0.83, 0.0675, 0.06, 0.0425]
+
+    With a seed of 8 across 20 realisations we expect an average of:
+
+        [0.870125, 0.046125, 0.05025, 0.0335]"""
+
+    np.random.seed(1)
+
+    transition_matrix = np.array(
+        [
+            [1, 0, 0, 0],
+            [0.5, 0.2, 0.3, 0],
+            [0.25, 0.25, 0.25, 0.25],
+            [0.1, 0.3, 0.3, 0.3],
+        ]
+    )
+
+    expected_distribution_1 = np.array([0.8425, 0.0625, 0.0675, 0.0275])
+
+    actual_distribution_1 = main.run_monte_carlo_simulation(
+        transition_matrix=transition_matrix, time_steps=20, repetitions=20
+    )
+
+    np.testing.assert_array_almost_equal(actual_distribution_1, expected_distribution_1)
+
+    np.random.seed(4)
+
+    expected_distribution_2 = np.array([0.83, 0.0675, 0.06, 0.0425])
+
+    actual_distribution_2 = main.run_monte_carlo_simulation(
+        transition_matrix=transition_matrix, time_steps=20, repetitions=20
+    )
+
+    np.testing.assert_array_almost_equal(actual_distribution_2, expected_distribution_2)
+
+    np.random.seed(8)
+
+    expected_distribution_iteration = np.array([0.870125, 0.046125, 0.05025, 0.0335])
+
+    actual_distribution_iteration = np.array(
+        [
+            main.run_monte_carlo_simulation(
+                transition_matrix=transition_matrix, time_steps=20, repetitions=20
+            )
+            for _ in range(20)
+        ]
+    ).mean(axis=0)
+
+    np.testing.assert_array_almost_equal(
+        actual_distribution_iteration, expected_distribution_iteration
+    )

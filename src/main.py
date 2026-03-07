@@ -685,3 +685,92 @@ def calculate_steady_state(transition_matrix):
         raise ValueError("No eigenvector found")
 
     return np.array(sym.simplify(one_eigenvector / sum(one_eigenvector)).T)[0]
+
+
+def simulate_markov_chain(
+    transition_matrix, starting_state_index=None, time_steps=1000
+):
+    """
+    Performs a single simulation of a Markov chain. Given a transition_matrix
+    and a starting state, this will simulate a certain number of time steps in
+    the Markov chain, and return the number of time steps spent in each state.
+
+    Parameters
+    -----------
+    transition_matrix - numpy.array: a transition matrix for the Markov chain
+    in question.
+
+    time_steps - int: how many turns to play the public goods game for. By
+    default, this is set to 1000.
+
+    starting_state_index - int: the index of the state to begin in. If None,
+    this will start in a randomly chosen state, and is set to None by default.
+
+    returns:
+    --------
+    numpy.array - the number of time steps spent in each state."""
+
+    number_of_states = transition_matrix.shape[1]
+
+    if starting_state_index is None:
+        current_state = np.random.randint(number_of_states)
+    else:
+        current_state = starting_state_index
+
+    time_steps_per_state = np.array([0 for _ in range(number_of_states)])
+
+    time_steps_per_state[current_state] += 1
+
+    for _ in range(time_steps - 1):
+
+        current_state = np.random.choice(
+            number_of_states, p=transition_matrix[current_state]
+        )
+
+        time_steps_per_state[current_state] += 1
+
+    return time_steps_per_state / time_steps
+
+
+def run_monte_carlo_simulation(
+    transition_matrix, repetitions=10000, time_steps=1000, starting_state_index=None
+):
+    """
+    Runs a monte carlo simulation for a given Markov Chain. Across a number of
+    repetitions, what is the average amount of time spent in each state. This
+    works for both absorbing and ergodic Markov chains.
+
+    Parameters
+    -----------
+    transition_matrix - numpy.array: a transition matrix for the Markov chain
+    in question.
+
+    repetitions - int: how many times to simulate the public goods game. By
+    default, this is set to 10000 repetitions of a given public goods game.
+
+    time_steps - int: how many turns to play the public goods game for. By
+    default, this is set to 1000.
+
+    starting_state - int: the index of the state to begin in. If None, this will
+    result in a randomly chosen starting state, and is set to None by default.
+
+    returns:
+    ---------
+    numpy.array: the proportion of time spent in each state across"""
+
+    number_of_states = transition_matrix.shape[1]
+
+    state_distribution = np.array([0 for _ in range(number_of_states)])
+
+    for current_sim in range(1, repetitions + 1):
+
+        state_distribution = (
+            (state_distribution * (current_sim - 1))
+            + simulate_markov_chain(
+                transition_matrix=transition_matrix,
+                starting_state_index=starting_state_index,
+                time_steps=time_steps,
+            )
+        ) / current_sim
+
+    return state_distribution
