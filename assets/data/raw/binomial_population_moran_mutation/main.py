@@ -11,8 +11,8 @@ root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
 import ludics.main
-import src.fitness_functions as fitness_functions
-import src.contribution_rules as contribution_rules
+import ludics.fitness_functions
+import ludics.contribution_rules
 
 
 r_min = 0.5
@@ -43,7 +43,7 @@ while True:
                 for alpha_h in np.linspace(M / N, M / (N - n) * 0.95, 30):
                     alphas = ludics.main.get_deterministic_contribution_vector(
                         N=N,
-                        contribution_rule=contribution_rules.binomial_contribution_rule,
+                        contribution_rule=ludics.contribution_rules.binomial_contribution_rule,
                         M=M,
                         alpha_h=alpha_h,
                         n=n,
@@ -62,8 +62,8 @@ while True:
 
                             transition_matrix = ludics.main.generate_transition_matrix(
                                 state_space=state_space,
-                                fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-                                compute_transition_probability=main.compute_moran_transition_probability,
+                                fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+                                compute_transition_probability=ludics.main.compute_moran_transition_probability,
                                 r=r,
                                 contribution_vector=alphas,
                                 selection_intensity=selection_intensity,
@@ -71,8 +71,10 @@ while True:
                                 individual_to_action_mutation_probability=individual_to_action_mutation_probability,
                             )
 
-                            absorption_matrix = ludics.main.approximate_absorption_matrix(
-                                transition_matrix
+                            absorption_matrix = (
+                                ludics.main.approximate_absorption_matrix(
+                                    transition_matrix
+                                )
                             )
 
                             steady_state = ludics.main.approximate_steady_state(

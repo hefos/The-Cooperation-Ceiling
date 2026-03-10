@@ -9,7 +9,7 @@ root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
 import ludics.main
-import src.fitness_functions as fitness_functions
+import ludics.fitness_functions
 
 
 r = sym.Symbol("r")
@@ -21,7 +21,7 @@ state_space = ludics.main.get_state_space(N=N, k=2)
 
 general_heterogeneous_contribution_transition_matrix_n_2 = ludics.main.generate_transition_matrix(
     state_space=state_space,
-    fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+    fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
     compute_transition_probability=ludics.main.compute_moran_transition_probability,
     selection_intensity=epsilon,
     r=r,

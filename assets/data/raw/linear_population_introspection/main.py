@@ -10,8 +10,8 @@ root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
 import ludics.main
-import src.fitness_functions as fitness_functions
-import src.contribution_rules as contribution_rules
+import ludics.fitness_functions
+import ludics.contribution_rules
 
 
 r_min = 0.5
@@ -29,7 +29,7 @@ df = pd.DataFrame(
         "i_C",
         "p_C",
         "process",
-        "population",=ludics.main.
+        "population",
         "stochastic",
     ]
 )
@@ -42,15 +42,15 @@ while True:
                 id = uuid.uuid4()
                 alphas = ludics.main.get_deterministic_contribution_vector(
                     N=N,
-                    contribution_rule=contribution_rules.linear_contribution_rule,
+                    contribution_rule=ludics.contribution_rules.linear_contribution_rule,
                     M=M,
                 )
                 state_space = ludics.main.get_state_space(N=N, k=2)
 
                 transition_matrix = ludics.main.generate_transition_matrix(
                     state_space=state_space,
-                    fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-                    compute_transition_probability=main.compute_introspection_transition_probability,
+                    fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+                    compute_transition_probability=ludics.main.compute_introspection_transition_probability,
                     r=r,
                     contribution_vector=alphas,
                     choice_intensity=choice_intensity,
