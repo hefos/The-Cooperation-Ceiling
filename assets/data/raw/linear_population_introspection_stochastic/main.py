@@ -10,7 +10,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main
 import src.fitness_functions as fitness_functions
 import src.contribution_rules as contribution_rules
 
@@ -32,7 +32,7 @@ df = pd.DataFrame(
         "p_C",
         "process",
         "population",
-        "stochastic",
+        "stochastic",=ludics.main.
     ]
 )
 df.to_csv(file_path.parent / "main.csv", index=False)
@@ -43,15 +43,15 @@ while True:
             for scale in np.linspace(0.1, 10, 30):
                 for repetitions in range(200):
                     id = uuid.uuid4()
-                    alphas = main.get_dirichlet_contribution_vector(
+                    alphas = ludics.main.get_dirichlet_contribution_vector(
                         N=N,
                         alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
                         M=M,
                         scale=scale,
                     )
-                    state_space = main.get_state_space(N=N, k=2)
+                    state_space = ludics.main.get_state_space(N=N, k=2)
 
-                    transition_matrix = main.generate_transition_matrix(
+                    transition_matrix = ludics.main.generate_transition_matrix(
                         state_space=state_space,
                         fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
                         compute_transition_probability=main.compute_introspection_transition_probability,
@@ -61,7 +61,7 @@ while True:
                         number_of_strategies=2,
                     )
 
-                    steady_state = main.approximate_steady_state(transition_matrix)
+                    steady_state = ludics.main.approximate_steady_state(transition_matrix)
                     cooperation_per_player = steady_state @ state_space
                     p_C = sum(cooperation_per_player) / N
                     data = []

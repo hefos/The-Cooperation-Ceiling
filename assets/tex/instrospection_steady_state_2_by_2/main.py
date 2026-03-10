@@ -7,7 +7,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main
 
 
 def fitness_function_2_by_2(state, **kwargs):
@@ -19,7 +19,7 @@ def fitness_function_2_by_2(state, **kwargs):
         state_symbol = sym.Symbol("b")
     elif (state == np.array([1, 0])).all():
         state_symbol = sym.Symbol("c")
-    elif (state == np.array([1, 1])).all():
+    elif (state == np.array([1, 1]=ludics.main.():
         state_symbol = sym.Symbol("d")
 
     return np.array(
@@ -30,10 +30,10 @@ def fitness_function_2_by_2(state, **kwargs):
 r = sym.Symbol("r")
 epsilon = sym.Symbol("epsilon")
 N = 2
-state_space = main.get_state_space(N=N, k=2)
+state_space = ludics.main.get_state_space(N=N, k=2)
 beta = sym.Symbol("beta")
 
-transition_matrix = main.generate_transition_matrix(
+transition_matrix = ludics.main.generate_transition_matrix(
     state_space=state_space,
     fitness_function=fitness_functions.general_four_state_fitness_function,
     compute_transition_probability=main.compute_introspection_transition_probability,
@@ -41,7 +41,7 @@ transition_matrix = main.generate_transition_matrix(
     number_of_strategies=2,
 )
 
-steady_state = main.calculate_steady_state(transition_matrix)
+steady_state = ludics.main.calculate_steady_state(transition_matrix)
 
 
 with open(

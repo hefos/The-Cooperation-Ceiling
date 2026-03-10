@@ -23,7 +23,7 @@ def heterogeneous_contribution_fitness_function(
     )
 
     payoff_vector = np.array(
-        [
+        [=ludics.main.
             total_goods - (action * contribution)
             for action, contribution in zip(state, contribution_vector)
         ]
@@ -33,7 +33,7 @@ def heterogeneous_contribution_fitness_function(
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main
 import src.fitness_functions as fitness_functions
 
 r = sym.Symbol("r")

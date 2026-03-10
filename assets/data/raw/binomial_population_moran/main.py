@@ -10,7 +10,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main
 import src.fitness_functions as fitness_functions
 import src.contribution_rules as contribution_rules
 
@@ -29,7 +29,7 @@ df = pd.DataFrame(
         "epsilon",
         "p_C",
         "process",
-        "population",
+        "population",=ludics.main.
         "stochastic",
     ]
 )
@@ -39,7 +39,7 @@ while True:
     for M in np.linspace(N, 4 * N, 30):
         for n in range(1, N - 1):
             for alpha_h in np.linspace(M / N, M / (N - n) * 0.95, 30):
-                alphas = main.get_deterministic_contribution_vector(
+                alphas = ludics.main.get_deterministic_contribution_vector(
                     N=N,
                     contribution_rule=contribution_rules.binomial_contribution_rule,
                     M=M,
@@ -50,9 +50,9 @@ while True:
                     for selection_intensity in np.linspace(
                         0, (1 / alphas[-1]) * 0.99, 30
                     ):
-                        state_space = main.get_state_space(N=N, k=2)
+                        state_space = ludics.main.get_state_space(N=N, k=2)
 
-                        transition_matrix = main.generate_transition_matrix(
+                        transition_matrix = ludics.main.generate_transition_matrix(
                             state_space=state_space,
                             fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
                             compute_transition_probability=main.compute_moran_transition_probability,
@@ -62,7 +62,7 @@ while True:
                             number_of_strategies=2,
                         )
 
-                        absorption_matrix = main.approximate_absorption_matrix(
+                        absorption_matrix = ludics.main.approximate_absorption_matrix(
                             transition_matrix
                         )
 

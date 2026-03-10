@@ -10,7 +10,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main
 import src.fitness_functions as fitness_functions
 import src.contribution_rules as contribution_rules
 
@@ -38,17 +38,17 @@ N = 3
 while True:
     for mu in (0.001, 0.01, 0.05, 0.1):
         for M in np.linspace(N, 4 * N, 30):
-            alphas = main.get_deterministic_contribution_vector(
+            alphas = ludics.main.get_deterministic_contribution_vector(
                 N=N, contribution_rule=contribution_rules.linear_contribution_rule, M=M
             )
             for r in np.linspace(0.5, 1.5 * N, 30):
                 for selection_intensity in np.linspace(0, (1 / alphas[-1]) * 0.99, 30):
                     id = uuid.uuid4()
-                    state_space = main.get_state_space(N=N, k=2)
+                    state_space = ludics.main.get_state_space(N=N, k=2)
 
                     individual_to_action_mutation_probability = np.full((N, 2), mu)
 
-                    transition_matrix = main.generate_transition_matrix(
+                    transition_matrix = ludics.main.generate_transition_matrix(
                         state_space=state_space,
                         fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
                         compute_transition_probability=main.compute_moran_transition_probability,
@@ -59,11 +59,11 @@ while True:
                         individual_to_action_mutation_probability=individual_to_action_mutation_probability,
                     )
 
-                    absorption_matrix = main.approximate_absorption_matrix(
+                    absorption_matrix = ludics.main.approximate_absorption_matrix(
                         transition_matrix
                     )
 
-                    steady_state = main.approximate_steady_state(transition_matrix)
+                    steady_state = ludics.main.approximate_steady_state(transition_matrix)
                     cooperation_per_player = steady_state @ state_space
                     p_C = sum(cooperation_per_player) / N
                     data = []

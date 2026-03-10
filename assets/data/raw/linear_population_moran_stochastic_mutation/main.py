@@ -10,7 +10,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main
 import src.fitness_functions as fitness_functions
 import src.contribution_rules as contribution_rules
 
@@ -43,7 +43,7 @@ while True:
 
                     for repetitions in range(200):
 
-                        alphas = main.get_dirichlet_contribution_vector(
+                        alphas = ludics.main.get_dirichlet_contribution_vector(
                             N=N,
                             alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
                             M=M,
@@ -53,13 +53,13 @@ while True:
                             0, (1 / alphas[-1]) * 0.99, 30
                         ):
                             id = uuid.uuid4()
-                            state_space = main.get_state_space(N=N, k=2)
+                            state_space = ludics.main.get_state_space(N=N, k=2)
 
                             individual_to_action_mutation_probability = np.full(
                                 (N, 2), mu
                             )
 
-                            transition_matrix = main.generate_transition_matrix(
+                            transition_matrix = ludics.main.generate_transition_matrix(
                                 state_space=state_space,
                                 fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
                                 compute_transition_probability=main.compute_moran_transition_probability,
@@ -70,11 +70,11 @@ while True:
                                 individual_to_action_mutation_probability=individual_to_action_mutation_probability,
                             )
 
-                            absorption_matrix = main.approximate_absorption_matrix(
+                            absorption_matrix = ludics.main.approximate_absorption_matrix(
                                 transition_matrix
                             )
 
-                            steady_state = main.approximate_steady_state(
+                            steady_state = ludics.main.approximate_steady_state(
                                 transition_matrix
                             )
                             cooperation_per_player = steady_state @ state_space
