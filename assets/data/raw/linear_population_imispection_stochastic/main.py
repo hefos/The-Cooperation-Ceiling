@@ -12,7 +12,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import ludics.main
 import ludics.fitness_functions
-import ludics.contribution_rules
+import src.contribution_rules as contribution_rules
 
 r_min = 0.5
 r_step_size = 0.02
@@ -45,7 +45,7 @@ while True:
 
                     alphas = ludics.main.get_dirichlet_contribution_vector(
                         N=N,
-                        alpha_rule=ludics.contribution_rules.dirichlet_linear_alpha_rule,
+                        alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
                         M=M,
                         scale=scale,
                     )

@@ -12,7 +12,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import ludics.main
 import ludics.fitness_functions
-import ludics.contribution_rules
+import src.contribution_rules as contribution_rules
 
 
 r_min = 0.5
@@ -40,7 +40,7 @@ while True:
         for M in np.linspace(N, 4 * N, 30):
             alphas = ludics.main.get_deterministic_contribution_vector(
                 N=N,
-                contribution_rule=ludics.contribution_rules.linear_contribution_rule,
+                contribution_rule=contribution_rules.linear_contribution_rule,
                 M=M,
             )
             for r in np.linspace(0.5, 1.5 * N, 30):

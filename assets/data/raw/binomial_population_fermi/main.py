@@ -12,7 +12,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import ludics.main
 import ludics.fitness_functions
-import ludics.contribution_rules
+import src.contribution_rules as contribution_rules
 
 
 r_min = 0.5
@@ -45,7 +45,7 @@ while True:
                     for choice_intensity in choice_intensity_range:
                         alphas = ludics.main.get_deterministic_contribution_vector(
                             N=N,
-                            contribution_rule=ludics.contribution_rules.binomial_contribution_rule,
+                            contribution_rule=contribution_rules.binomial_contribution_rule,
                             M=M,
                             alpha_h=alpha_h,
                             n=n,
