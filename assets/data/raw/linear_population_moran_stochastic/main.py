@@ -4,98 +4,179 @@ import sympy as sym
 import pathlib
 import sys
 import uuid
-import math
 
 file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.fitness_functions as fitness_functions
+import ludics.main
+import ludics.fitness_functions
 import src.contribution_rules as contribution_rules
+import stet
+from stet.backends import get_backend
 
-r_min = 0.5
-r_step_size = 0.02
-M = 20
+try:
+    df = pd.read_csv(file_path.parent / "main.csv")
+    backend = get_backend(pathlib.Path(file_path.parent / "_stet_store.sqlite"))
+    for uid, experiment_frame in df.groupby("UID"):
+        M_in_experiment = experiment_frame["alpha_i"].sum()
+        for _, row in experiment_frame.iterrows():
+            backend.record(
+                {
+                    "M": M_in_experiment,
+                    "r": row["r"],
+                    "selection_intensity": row["epsilon"],
+                    "first_contribution": row["mutant_alpha"],
+                    "N": row["N"],
+                    "i": row["i"],
+                    "seed": row["seed"],
+                    "scale": row["scale"],
+                }
+            )
+except (FileNotFoundError, pd.errors.EmptyDataError, KeyError):
+    df = pd.DataFrame(
+        columns=[
+            "UID",
+            "alpha_i",
+            "i",
+            "mutant_alpha",
+            "scale",
+            "N",
+            "r",
+            "epsilon",
+            "p_C",
+            "process",
+            "population",
+            "stochastic",
+            "seed",
+        ]
+    )
 
-df = pd.DataFrame(
-    columns=[
-        "UID",
-        "alpha_i",
-        "i",
-        "mutant_alpha",
+    df.to_csv(file_path.parent / "main.csv", index=False)
+
+
+@stet.once(
+    store=file_path.parent / "_stet_store.sqlite",
+    key=[
         "N",
+        "M",
         "r",
-        "epsilon",
-        "p_C",
-        "process",
-        "population",
-        "stochastic",
-    ]
+        "selection_intensity",
+        "first_contribution",
+        "i",
+        "scale",
+        "seed",
+    ],
 )
-df.to_csv(file_path.parent / "main.csv", index=False)
+def run_experiment(
+    N,
+    M,
+    r,
+    selection_intensity,
+    first_contribution,
+    i,
+    alphas,
+    id,
+    scale,
+    seed,
+    absorption_matrix,
+    state_space,
+):
+    approximate_state = np.zeros(N)
+    approximate_state[np.where(alphas == first_contribution)[0][0]] = 1
+    p_C = absorption_matrix[
+        np.where(np.all(state_space == approximate_state, axis=1))[0] - 1,
+        -1,
+    ][0]
+    data = [
+        [
+            id,
+            alphas[i],
+            i,
+            first_contribution,
+            scale,
+            N,
+            r,
+            selection_intensity,
+            p_C,
+            "moran",
+            "linear",
+            True,
+            seed,
+        ]
+    ]
+    df = pd.DataFrame(
+        data,
+        columns=[
+            "UID",
+            "alpha_i",
+            "i",
+            "mutant_alpha",
+            "scale",
+            "N",
+            "r",
+            "epsilon",
+            "p_C",
+            "process",
+            "population",
+            "stochastic",
+            "seed",
+        ],
+    )
+    df.to_csv(
+        file_path.parent / "main.csv",
+        mode="a",
+        header=False,
+        index=False,
+    )
+
+
 N = 3
 while True:
-    for r in np.linspace(0.5, 1.5 * N, 30):
-        for scale in np.linspace(0.1, 10, 30):
-            for repetitions in range(200):
-
-                alphas = main.get_dirichlet_contribution_vector(
-                    N=N,
-                    alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
-                    M=M,
-                    scale=scale,
-                )
-                for selection_intensity in np.linspace(0, (1 / max(alphas)) * 0.99, 30):
-
-                    state_space = main.get_state_space(N=N, k=2)
-
-                    transition_matrix = main.generate_transition_matrix(
-                        state_space=state_space,
-                        fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-                        compute_transition_probability=main.compute_moran_transition_probability,
-                        r=r,
-                        contribution_vector=alphas,
-                        selection_intensity=selection_intensity,
-                        number_of_strategies=2,
+    state_space = ludics.main.get_state_space(N=N, k=2)
+    for M in np.linspace(N, 4 * N, 30):
+        for r in np.linspace(0.5, 1.5 * N, 30):
+            for scale in np.linspace(0.1, 10, 30):
+                for seed in range(100):
+                    np.random.seed(seed)
+                    alphas = ludics.main.get_dirichlet_contribution_vector(
+                        N=N,
+                        alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
+                        M=M,
+                        scale=scale,
                     )
-
-                    absorption_matrix = main.approximate_absorption_matrix(
-                        transition_matrix
-                    )
-
-                    for first_contribution in np.unique(alphas):
-                        id = uuid.uuid4()
-                        data = []
-                        approximate_state = np.zeros(N)
-                        approximate_state[np.where(alphas == first_contribution)[0]] = 1
-                        p_C = absorption_matrix[
-                            np.where(np.all(state_space == approximate_state, axis=1))[
-                                0
-                            ]
-                            - 1,
-                            -1,
-                        ][0]
-                        for i, alpha in enumerate(alphas):
-                            row = [
-                                id,
-                                alpha,
-                                i,
-                                first_contribution,
-                                N,
-                                r,
-                                selection_intensity,
-                                p_C,
-                                "moran",
-                                "linear",
-                                True,
-                            ]
-                            data.append(row)
-                        df = pd.DataFrame(data)
-                        df.to_csv(
-                            file_path.parent / "main.csv",
-                            mode="a",
-                            header=False,
-                            index=False,
+                    for selection_intensity in np.linspace(
+                        0, (1 / alphas[-1]) * 0.99, 30
+                    ):
+                        transition_matrix = ludics.main.generate_transition_matrix(
+                            state_space=state_space,
+                            fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+                            compute_transition_probability=ludics.main.compute_moran_transition_probability,
+                            r=r,
+                            contribution_vector=alphas,
+                            number_of_strategies=2,
+                            selection_intensity=selection_intensity,
                         )
+
+                        absorption_matrix = ludics.main.approximate_absorption_matrix(
+                            transition_matrix
+                        )
+                        for first_contribution in np.unique(alphas):
+                            id = uuid.uuid4()
+                            for i, alpha in enumerate(alphas):
+                                run_experiment(
+                                    N=N,
+                                    M=M,
+                                    r=r,
+                                    selection_intensity=selection_intensity,
+                                    first_contribution=first_contribution,
+                                    i=i,
+                                    alphas=alphas,
+                                    id=id,
+                                    scale=scale,
+                                    seed=seed,
+                                    absorption_matrix=absorption_matrix,
+                                    state_space=state_space,
+                                )
+
     N += 1

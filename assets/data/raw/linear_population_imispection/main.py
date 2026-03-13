@@ -1,93 +1,169 @@
 import pandas as pd
 import numpy as np
-import sympy as sym
 import pathlib
 import sys
 import uuid
-import math
 
 file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.fitness_functions as fitness_functions
+import ludics.main
+import ludics.fitness_functions
 import src.contribution_rules as contribution_rules
+import stet
+from stet.backends import get_backend
+
+try:
+    df = pd.read_csv(file_path.parent / "main.csv")
+    backend = get_backend(pathlib.Path(file_path.parent / "_stet_store.sqlite"))
+    for uid, experiment_frame in df.groupby("UID"):
+        M_in_experiment = experiment_frame["alpha_i"].sum()
+        for _, row in experiment_frame.iterrows():
+            backend.record(
+                {
+                    "M": M_in_experiment,
+                    "r": row["r"],
+                    "choice_intensity": row["beta"],
+                    "first_contribution": row["mutant_alpha"],
+                    "N": row["N"],
+                    "i": row["i"],
+                    "selection_intensity": row["epsilon"],
+                }
+            )
+except (FileNotFoundError, pd.errors.EmptyDataError):
+    df = pd.DataFrame(
+        columns=[
+            "UID",
+            "alpha_i",
+            "i",
+            "mutant_alpha",
+            "N",
+            "r",
+            "beta",
+            "epsilon",
+            "p_C",
+            "process",
+            "population",
+            "stochastic",
+        ]
+    )
+
+    df.to_csv(file_path.parent / "main.csv", index=False)
 
 
-r_min = 0.5
-
-df = pd.DataFrame(
-    columns=[
-        "UID",
-        "alpha_i",
-        "i",
-        "mutant_alpha",
+@stet.once(
+    store=file_path.parent / "_stet_store.sqlite",
+    key=[
         "N",
+        "M",
         "r",
-        "epsilon",
-        "beta",
-        "p_C",
-        "process",
-        "population",
-        "stochastic",
-    ]
+        "choice_intensity",
+        "first_contribution",
+        "i",
+        "selection_intensity",
+    ],
 )
-df.to_csv(file_path.parent / "main.csv", index=False)
+def run_experiment(
+    N,
+    M,
+    r,
+    choice_intensity,
+    first_contribution,
+    i,
+    alphas,
+    id,
+    selection_intensity,
+    absorption_matrix,
+    state_space,
+):
+    approximate_state = np.zeros(N)
+    approximate_state[np.where(alphas == first_contribution)[0][0]] = 1
+    p_C = absorption_matrix[
+        np.where(np.all(state_space == approximate_state, axis=1))[0] - 1,
+        -1,
+    ][0]
+    data = [
+        [
+            id,
+            alphas[i],
+            i,
+            first_contribution,
+            N,
+            r,
+            choice_intensity,
+            selection_intensity,
+            p_C,
+            "introspective imitation",
+            "linear",
+            False,
+        ]
+    ]
+    df = pd.DataFrame(
+        data,
+        columns=[
+            "UID",
+            "alpha_i",
+            "i",
+            "mutant_alpha",
+            "N",
+            "r",
+            "beta",
+            "epsilon",
+            "p_C",
+            "process",
+            "population",
+            "stochastic",
+        ],
+    )
+    df.to_csv(
+        file_path.parent / "main.csv",
+        mode="a",
+        header=False,
+        index=False,
+    )
+
+
 N = 3
 while True:
+    state_space = ludics.main.get_state_space(N=N, k=2)
     for M in np.linspace(N, 4 * N, 30):
-        alphas = main.get_deterministic_contribution_vector(
-            N=N, contribution_rule=contribution_rules.linear_contribution_rule, M=M
+        alphas = ludics.main.get_deterministic_contribution_vector(
+            N=N,
+            contribution_rule=contribution_rules.linear_contribution_rule,
+            M=M,
         )
         for r in np.linspace(0.5, 1.5 * N, 30):
-            for selection_intensity in np.linspace(0, (1 / alphas[-1]) * 0.99, 30):
-                for choice_intensity in np.linspace(0, 2, 30):
-                    state_space = main.get_state_space(N=N, k=2)
-
-                    transition_matrix = main.generate_transition_matrix(
+            for choice_intensity in np.linspace(0, 2, num=30):
+                for selection_intensity in np.linspace(0, (1 / alphas[-1]) * 0.99, 30):
+                    transition_matrix = ludics.main.generate_transition_matrix(
                         state_space=state_space,
-                        fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-                        compute_transition_probability=main.compute_imitation_introspection_transition_probability,
+                        fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+                        compute_transition_probability=ludics.main.compute_introspection_imitation_transition_probability,
                         r=r,
                         contribution_vector=alphas,
-                        selection_intensity=selection_intensity,
                         choice_intensity=choice_intensity,
                         number_of_strategies=2,
+                        selection_intensity=selection_intensity,
                     )
-
-                    absorption_matrix = main.approximate_absorption_matrix(
+                    absorption_matrix = ludics.main.approximate_absorption_matrix(
                         transition_matrix
                     )
-
                     for first_contribution in np.unique(alphas):
-                        data = []
                         id = uuid.uuid4()
-                        approximate_state = np.zeros(N)
-                        approximate_state[np.where(alphas == first_contribution)[0]] = 1
-                        p_C = absorption_matrix[
-                            np.where(np.all(state_space == approximate_state, axis=1))[
-                                0
-                            ]
-                            - 1,
-                            -1,
-                        ][0]
                         for i, alpha in enumerate(alphas):
-                            row = [
-                                id,
-                                alpha,
-                                i,
-                                first_contribution,
-                                N,
-                                r,
-                                selection_intensity,
-                                choice_intensity,
-                                p_C,
-                                "introspective imitation",
-                                "linear",
-                                False,
-                            ]
-                            data.append(row)
-                        df = pd.DataFrame(data)
-                        df.to_csv(file_path.parent / "main.csv", mode="a", header=False)
+                            run_experiment(
+                                N=N,
+                                M=M,
+                                r=r,
+                                choice_intensity=choice_intensity,
+                                first_contribution=first_contribution,
+                                selection_intensity=selection_intensity,
+                                i=i,
+                                alphas=alphas,
+                                id=id,
+                                absorption_matrix=absorption_matrix,
+                                state_space=state_space,
+                            )
+
     N += 1
