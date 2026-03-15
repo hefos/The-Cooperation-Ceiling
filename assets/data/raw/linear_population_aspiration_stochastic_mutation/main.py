@@ -12,27 +12,9 @@ import ludics.main as main
 import ludics.fitness_functions as fitness_functions
 import src.contribution_rules as contribution_rules
 import stet
-from stet.backends import get_backend
 
 try:
     df = pd.read_csv(file_path.parent / "main.csv")
-    backend = get_backend(pathlib.Path(file_path.parent / "_stet_store.sqlite"))
-    for uid, experiment_frame in df.groupby("UID"):
-        M_in_experiment = experiment_frame["alpha_i"].sum()
-        for _, row in experiment_frame.iterrows():
-            backend.record(
-                {
-                    "M": M_in_experiment,
-                    "r": row["r"],
-                    "choice_intensity": row["beta"],
-                    "N": row["N"],
-                    "i": row["i"],
-                    "mu": row["mu"],
-                    "scale": row["scale"],
-                    "seed": row["seed"],
-                    "aspiration": row["aspiration"],
-                }
-            )
 except (FileNotFoundError, pd.errors.EmptyDataError, KeyError):
     df = pd.DataFrame(
         columns=[
