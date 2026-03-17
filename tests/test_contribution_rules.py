@@ -1,4 +1,4 @@
-import Exact_analysis.contribution_rules
+import contribution_rules
 import numpy as np
 import pytest
 
@@ -11,7 +11,7 @@ def test_dirichlet_linear_alpha_rule_for_N_eq_3():
 
     expected_alphas = np.array([1, 2, 3])
 
-    obtained_alphas = Exact_analysis.contribution_rules.dirichlet_linear_alpha_rule(N)
+    obtained_alphas = contribution_rules.dirichlet_linear_alpha_rule(N)
 
     np.testing.assert_array_equal(expected_alphas, obtained_alphas)
 
@@ -28,7 +28,7 @@ def test_dirichlet_binomial_alpha_rule_for_N_eq_5_n_eq_3():
 
     expected_alphas = np.array([1, 1, 1, 3, 3])
 
-    obtained_alphas = Exact_analysis.contribution_rules.dirichlet_binomial_alpha_rule(
+    obtained_alphas = contribution_rules.dirichlet_binomial_alpha_rule(
         N=N, n=n, low_alpha=low_alpha, high_alpha=high_alpha
     )
 
@@ -37,14 +37,14 @@ def test_dirichlet_binomial_alpha_rule_for_N_eq_5_n_eq_3():
 
 def test_dirichlet_log_alpha_rule_for_N_eq_3():
     """Tests that the dirichlet_log_alpha_rule correctly returns the
-    numpy.array (log(1) + 1, log(2) + 1, log(3) + 1) for a population with 3 individuals.
+    numpy.array (log(1) + 1, log(2) + 1, log(3) + 1) for a population with 3 qqindividuals.
     """
 
     N = 3
 
     expected_alphas = np.array([1, 1.693147, 2.098612])
 
-    obtained_alphas = Exact_analysis.contribution_rules.dirichlet_log_alpha_rule(N=N)
+    obtained_alphas = contribution_rules.dirichlet_log_alpha_rule(N=N)
 
     np.testing.assert_array_almost_equal(expected_alphas, obtained_alphas)
 
@@ -60,7 +60,7 @@ def test_log_contribution_rule_for_player_2_N_eq_3_M_eq_12_contributing():
 
     expected_contribution = 4.095894024
 
-    obtained_contribution = Exact_analysis.contribution_rules.log_contribution_rule(
+    obtained_contribution = contribution_rules.log_contribution_rule(
         index=index, M=M, N=N
     )
 
@@ -78,7 +78,7 @@ def test_linear_contribution_rule_for_N_eq_3_M_eq_12_contributing():
 
     expected_contribution = 4
 
-    obtained_contribution = Exact_analysis.contribution_rules.linear_contribution_rule(
+    obtained_contribution = contribution_rules.linear_contribution_rule(
         index=index, M=M, N=N
     )
 
@@ -101,11 +101,11 @@ def test_binomial_contribution_rule_for_N_eq_5_n_eq_3():
     expected_contribution_1 = 1
     expected_contribution_2 = 3
 
-    obtained_contribution_1 = Exact_analysis.contribution_rules.binomial_contribution_rule(
+    obtained_contribution_1 = contribution_rules.binomial_contribution_rule(
         index=index_1, M=M, N=N, alpha_h=alpha_h, n=3
     )
 
-    obtained_contribution_2 = Exact_analysis.contribution_rules.binomial_contribution_rule(
+    obtained_contribution_2 = contribution_rules.binomial_contribution_rule(
         index=index_2, M=M, N=N, alpha_h=alpha_h, n=3
     )
 
@@ -126,7 +126,7 @@ def test_binomial_contribution_rule_fails_for_negative_alpha_l():
     alpha_h = 8
 
     with pytest.raises(ValueError):
-        Exact_analysis.contribution_rules.binomial_contribution_rule(
+        contribution_rules.binomial_contribution_rule(
             index=index, M=M, N=N, alpha_h=alpha_h, n=n
         )
 
@@ -144,7 +144,7 @@ def test_binomial_contribution_rule_fails_for_big_alpha_l():
     alpha_h = 0.1
 
     with pytest.raises(ValueError):
-        Exact_analysis.contribution_rules.binomial_contribution_rule(
+        contribution_rules.binomial_contribution_rule(
             index=index, M=M, N=N, alpha_h=alpha_h, n=n
         )
 
@@ -157,7 +157,7 @@ def test_dirichlet_power_law_alpha_rule_for_N_eq_6_a_eq_2():
     a = 2
     N = 6
 
-    actual_alphas = Exact_analysis.contribution_rules.dirichlet_power_law_alpha_rule(N=N, a=a)
+    actual_alphas = contribution_rules.dirichlet_power_law_alpha_rule(N=N, a=a)
 
     expected_alphas = np.array([2, 4, 8, 16, 32, 64])
 
@@ -171,7 +171,7 @@ def test_dirichlet_power_law_alpha_rule_for_N_eq_2_a_eq_e():
 
     N = 2
 
-    actual_alphas = Exact_analysis.contribution_rules.dirichlet_power_law_alpha_rule(N=N)
+    actual_alphas = contribution_rules.dirichlet_power_law_alpha_rule(N=N)
 
     expected_alphas = np.array([np.exp(1), np.exp(2)])
 
@@ -187,7 +187,7 @@ def test_dirichlet_power_law_alpha_rule_fails_for_negative_a():
     N = 6
 
     with pytest.raises(ValueError):
-        Exact_analysis.contribution_rules.dirichlet_power_law_alpha_rule(N=N, a=a)
+        contribution_rules.dirichlet_power_law_alpha_rule(N=N, a=a)
 
 
 def test_power_law_contribution_rule_for_N_eq_3_M_eq_40():
@@ -203,9 +203,9 @@ def test_power_law_contribution_rule_for_N_eq_3_M_eq_40():
     expected_return_2 = np.exp(2) * (M / summation_term)
     expected_return_3 = np.exp(3) * (M / summation_term)
 
-    actual_return_1 = Exact_analysis.contribution_rules.power_law_contribution_rule(index=0, M=M, N=N)
-    actual_return_2 = Exact_analysis.contribution_rules.power_law_contribution_rule(index=1, M=M, N=N)
-    actual_return_3 = Exact_analysis.contribution_rules.power_law_contribution_rule(index=2, M=M, N=N)
+    actual_return_1 = contribution_rules.power_law_contribution_rule(index=0, M=M, N=N)
+    actual_return_2 = contribution_rules.power_law_contribution_rule(index=1, M=M, N=N)
+    actual_return_3 = contribution_rules.power_law_contribution_rule(index=2, M=M, N=N)
 
     np.testing.assert_almost_equal(actual_return_1, expected_return_1, err_msg="1")
     np.testing.assert_almost_equal(actual_return_2, expected_return_2, err_msg="2")
@@ -227,4 +227,4 @@ def test_power_law_contribution_rule_fails_for_a_negative():
     index = 3
 
     with pytest.raises(ValueError):
-        Exact_analysis.contribution_rules.power_law_contribution_rule(index=index, N=N, a=a, M=M)
+        contribution_rules.power_law_contribution_rule(index=index, N=N, a=a, M=M)

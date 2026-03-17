@@ -16,3 +16,8 @@ dependencies = [
     "seaborn>=0.13.2",
     "sympy==1.14.0",
 ]
+[build-system]
+requires = ["uv_build>=0.10.7,<0.11.0"]
+build-backend = "uv_build"
+[tool.uv.build]
+packages = ["src/public_goods_games"]
