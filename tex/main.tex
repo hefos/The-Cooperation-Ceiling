@@ -130,7 +130,7 @@ Now let $h(\textbf{a, b})$ denote the Hamming distance between two states
 \(\textbf{a}, \textbf{b} \in S\) \cite{kythe-book}. 
 The set of states \textbf{b} such that $h(\textbf{a, b}) = 1$ is defined as Neb(\textbf{a}), the ``Neighbourhood set of a state" \cite{Couto2023}.
 Our system will be in the form of a Markov chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e} which moves between states with a probability \(>0\) if and only if $h(\textbf{a, b}) \leq 1$. 
-We call the index at which \textbf{a} and \textbf{b} differ the \textit{index of difference}, denoted \(I(\textbf{a,b})\) \cite{Couto2023}.
+We call the index at which \textbf{a} and \textbf{b} differ the \textit{index of difference}, denoted \(I(\textbf{ab})\) \cite{Couto2023}.
 We shall look at different population dynamics by which we may model such a Markov chain.
 
 \subsection{Population Dynamics} 
@@ -144,6 +144,7 @@ heterogeneous population:
   \item Fermi Imitation Dynamics, a common choice of dynamic often adapted to
   the study of cooperation on a graph \cite{MA2021111353, LEI20104708,
   PhysRevE.58.69} %use better reference (first time used)
+  \item Aspiration dynamics, a model first defined in \cite{du2014aspiration}
   \item Introspection Dynamics, a more modern dynamic defined in \cite{Couto2022}
 \end{itemize}
 
@@ -176,19 +177,22 @@ switching strategy.
 
 
 \subsubsection{The Moran Process}
-The Moran process \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} is a dynamic corresponding to the following algorithm:
+The Moran process \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} is a dynamic
+corresponding to the following algorithm:
+%find a better reference (original paper? though I mention this above so maybe
+%this is fine)
 \begin{enumerate}
     \item A player is chosen to be duplicated with a probability proportional to their fitness in the population
     \item A player is chosen with probability $\frac{1}{N}$ to be removed from the population
 \end{enumerate}
 Let \((a_{-j})\) denote the state from the perspective of \({a_j}\), so that
 \(\textbf{a} = (a_j, a_{-j})\). 
-Then, the entry \(T_\textbf{a,b}\) of a transition matrix \(T\) in which each row and column correspond to a state in \(S\) is defined as the probability of a transition $\textbf{a} = (a_1, a_2, \dots, a_N) \to \textbf{b} = (b_1, b_2, \dots, b_N)$. For the Moran process, this is as follows:\\
+Then, the entry \(T_\textbf{ab}\) of a transition matrix \(T\) in which each row and column correspond to a state in \(S\) is defined as the probability of a transition $\textbf{a} = (a_1, a_2, \dots, a_N) \to \textbf{b} = (b_1, b_2, \dots, b_N)$. For the Moran process, this is as follows:\\
 \begin{large}
     \begin{equation}
         T_\textbf{ab} = 
         \begin{cases}
-            \frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
+            \frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{ab})\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -222,7 +226,12 @@ Here our columns represent \textbf{a},\textbf{b}, \textbf{c} and \textbf{d}
 from left to right, and the rows represent these states in the same order from
 top to bottom.
 
-Now, by taking the fundamental matrix of \(T\) and performing a right multiplication by \(R\), the matrix with entries which represent transitions from transitive states to absorbing states\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, we can obtain the absorption matrix for this system.
+Now, by taking the fundamental matrix of \(T\) and performing a right
+multiplication by \(R\), the matrix with entries which represent transitions
+from transitive states to absorbing
+states\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, we can obtain the absorption
+matrix for this system.
+
 For the above game, we find the following equation:\\
 \begin{center}
 \begin{equation}
@@ -287,7 +296,7 @@ We now define our transition matrix according to the Fermi function:
     \begin{equation}
         T_\textbf{ab}  = 
         \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{a,b})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -337,9 +346,76 @@ considering the impact on their own fitness, and in some cases may enter an
 absorbing state with a transition which worsens their position with a high
 probability. 
 
-We will now see a dynamic where players consider the impact of action type
-transitions on their own fitness.
+\subsubsection{Aspiration Dynamics}
+Instead of considering the difference between two players' fitness, aspiration
+dynamics models an update rule based on how far away a player's performance in
+a game is from the fitness which they desire. It follows the algorithm:
+\begin{enumerate}
+       \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to reconsider their strategy \(a_{i,k}\)
+       \item This player changes strategy with a probability \(\phi(
+       \pi_i(\textbf{a}) - A)\)
+\end{enumerate}
+Here, \(A\) is player \(i\)'s \textit{aspiration}, meaning the payoff which
+they desire to make from a given game.
+A player will accept a new strategy with a higher than random probability if
+their current payoff is lower than their aspired payoff.
+This dynamic is almost always only defined for two actions - traditionally the
+actions to either cooperate or defect. %reference
+The related transition matrix can be seen below:
 
+\begin{equation}
+T_{\textbf{ab}} =
+\begin{cases}
+\dfrac{1}{N} \, \phi(\pi_{I(\textbf{ab})}(\textbf{a}) - A_{I(\textbf{ab})} )
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
+0
+    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+\end{cases}
+\end{equation}
+
+Now, consider the transition matrix for our general four-state system:
+\begin{equation}
+\resizebox{\textwidth}{!}{
+$
+\begin{bmatrix}
+1-\frac{1}{2(1+e^{-\beta(A_2-f_2(a))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(a))})} &
+\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(a)})} &
+\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(a)})} &
+0 \\
+
+\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(b)})} &
+1-\frac{1}{2(1+e^{-\beta(A_2-f_2(b))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(b))})} &
+0 &
+\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(b)})} \\
+
+\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(c)})} &
+0 &
+1-\frac{1}{2(1+e^{-\beta(A_2-f_2(c))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(c))})} &
+\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(c)})} \\
+
+0 &
+\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(d)})} &
+\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(d)})} &
+1-\frac{1}{2(1+e^{-\beta(A_2-f_2(d))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(d))})}
+\end{bmatrix}
+$
+}
+\end{equation}
+We can see that as our players no longer consider the actions of the rest of
+the population when considering their decision, we no longer have an absorbing
+Markov chain.
+Thus, we no longer consider an absorption matrix, but instead we consider the
+steady state of our Markov chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}
+This is the proportion of time spent in each state when the Markov chain
+reaches a stable distribution across the states.
+It is well proven that any irreducible, finite Markov chain
+eventually reaches it's unique stationary distribution.
+This is also independent of the starting state of the distribution. \cite{levin2017markov}.
+For our four state system, we acquire the following result for a stationary
+distribution:
+
+%let thing finish running
 
 
 \subsubsection{Introspection Dynamics}
@@ -347,7 +423,7 @@ In introspection dynamics, the following process take place \cite{Couto2022}
 \begin{enumerate}
     \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to reconsider their strategy \(a_{i,k}\)
     \item Player \(i\) chooses another possible strategy, \(a_{i,l}\), from the set of all possible strategies. 
-    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{a,b})}\to b_{I(\textbf{a,b})}}(a_{-I(\textbf{a,b})}) = \phi (\Delta \pi_{I(\textbf{a,b})})\), where \(\Delta \pi_{I(\textbf{a,b})} = \pi_{I(a,b)}(\textbf{a})  - \pi_{I(a,b)}(\textbf{b})\) is the difference between the possible fitness of the new strategy and the fitness of the player's current strategy.
+    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{ab})}\to b_{I(\textbf{ab})}}(a_{-I(\textbf{ab})}) = \phi (\Delta \pi_{I(\textbf{ab})})\), where \(\Delta \pi_{I(\textbf{ab})} = \pi_{I(a,b)}(\textbf{a})  - \pi_{I(a,b)}(\textbf{b})\) is the difference between the possible fitness of the new strategy and the fitness of the player's current strategy.
 \end{enumerate}
 \cite{Couto2022} considers this process for
 the two player case, and it is expanded to multiple players in
@@ -363,16 +439,16 @@ different to that of our focal player.
 
 The transition matrix for the introspection dynamics process~\cite{Couto2023} is given by:
 
-\[
-T_{\textbf{a,b}} =
+\begin{equation}
+T_{\textbf{ab}} =
 \begin{cases}
-\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a,b})})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
+\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
 1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
-\]
+\end{equation}
 
 where \(m_j\) is the number of actions available to individual \(j\). 
 Since we assume that all individuals have the same action set with size \(k\), we can replace \(m_j - 1\) with \(k-1\).
@@ -382,7 +458,7 @@ We can adapt these results to define our transition matrix for our example
 state space \textbf{a,b,c,d}:
 
 \begin{equation}
-\tiny
+\resizebox{\textwidth}{!}{$
 \begin{bmatrix}
     1 - \frac{1}{2\left(e^{\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)} + 1\right)} - \frac{1}{2\left(e^{\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)} + 1\right)} 
     & \frac{1}{2\left(e^{\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)} + 1\right)} 
@@ -403,9 +479,9 @@ state space \textbf{a,b,c,d}:
     & \frac{1}{2\left(e^{\beta\left(- \pi_{1}(b) + \pi_{1}(d)\right)} + 1\right)} 
     & \frac{1}{2\left(e^{\beta\left(- \pi_{2}(c) + \pi_{2}(d)\right)} + 1\right)} 
     & 1 - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)}\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)}\right)}
-\end{bmatrix}
+\end{bmatrix}$
+}
 \end{equation}
-
 
 We then consider the steady state vectors for this system.
 For this, we take the left eigenvector of the transition matrix, which is given by:
@@ -429,15 +505,15 @@ We define the introspective imitation process as follows:
     \item A focal player is chosen at random to reconsider their strategy
     \item Another player \(a_j\) in the population is chosen with a probability
    proportional to their fitness within the population to have their strategy considered
-    \item The focal player changes their strategy with probability \(\phi(\Delta(f_{I(\textbf{a,b})}))\)
+    \item The focal player changes their strategy with probability \(\phi(\Delta(f_{I(\textbf{ab})}))\)
 \end{enumerate}
 
 
 We can define a transition matrix \(T\) of an introspective imitation process as follows:
 
 \begin{equation}
-T_{\textbf{a,b}} =  \begin{cases}
-    \frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a,b})})) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+T_{\textbf{ab}} =  \begin{cases}
+    \frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{ab})})) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
@@ -494,10 +570,10 @@ instead mutate to a different action type with some small probability.
 We then have two possible feasible transitions:
 
 \begin{itemize}
-    \item If $h(\textbf{a,b}) = 0$, then the only way in which the transition
+    \item If $h(\textbf{ab}) = 0$, then the only way in which the transition
     can be achieved is through the transition of a player \(i \to i\) and then
     no mutation occuring.
-    \item If $h(\textbf{a,b}) = 1$, then there are two ways in which the
+    \item If $h(\textbf{ab}) = 1$, then there are two ways in which the
     transition can occur. Either, the player $i$ which is different between
     \textbf{a} and \textbf{b} transitions by the standard process, with no
     mutation occuring, or no transition occurs, but player $i$ mutates into the
@@ -510,7 +586,7 @@ matrix with mutation as follows:
 
 \begin{equation}
 T^{(m)}_{\textbf{ab}} =  \begin{cases}
-    T_{\textbf{ab}}(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+    T_{\textbf{ab}}(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
@@ -531,7 +607,7 @@ In the case of the Moran process, our transition matrix becomes:
     \begin{equation}
         T^{(m)}_\textbf{ab} = 
         \begin{cases}
-            (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a,b})\\
+            (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{ab})\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -611,7 +687,7 @@ transition matrix:
     \begin{equation}
         T^{(m)}_\textbf{ab}  = 
         \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -673,6 +749,51 @@ In the case of the two player game, we obtain the transition matrix:
 And the steady state:
 %on siren
 
+\subsubsection{Aspiration Dynamics}
+As aspiration and introspection dynamics do not form absorbing Markov chains,
+we do not need mutation to be applied in order to form an ergodic chain.
+However, we will consider these cases for completeness, and thus we obtain the
+following transition matrix:
+\[
+T^{(m)}_{\textbf{ab}} =
+\begin{cases}
+(\dfrac{1}{N} \, \phi (\pi_{I(\textbf{ab})} - A_i))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
+0
+    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+\end{cases}
+\]
+
+In the case of the general 2-player game, we get the following:
+
+\resizebox{\textwidth}{!}{$
+\left[
+\begin{matrix}
+1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(a))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(a))}} 
+& \frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(a)}} 
+& \frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(a)}} 
+& 0 \\
+
+\frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(b)}} 
+& 1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(b))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(b))}} 
+& 0 
+& \frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(b)}} \\
+
+\frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(c)}} 
+& 0 
+& 1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(c))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(c))}} 
+& \frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(c)}} \\
+
+0 
+& \frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(d)}} 
+& \frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(d)}} 
+& 1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(d))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(d))}}
+\end{matrix}
+\right]
+$}
+
+
 \subsubsection{Introspection Dynamics}
 As introspection dynamics does not form an absorbing Markov chain, we do not
 need mutation to form an ergodic chain.
@@ -683,7 +804,7 @@ mutation:
 T^{(m)}_{\textbf{ab}} =
 \begin{cases}
 (\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})}))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a,b}),\\[1.2em]
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
 1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
@@ -767,7 +888,7 @@ transition matrix with mutation:
 
 \begin{equation}
 T^{(m)}_{\textbf{ab}} =  \begin{cases}
-    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a,b})})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a,b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{ab})})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
@@ -849,12 +970,12 @@ Extrinsic Strategy Analysis & Intrinsic Strategy Analysis\\
 \hline
 \input{Figures/Tikz/Moran_Process/main.tikz}
 &
-\input{Figures/Tikz/Introspection_Dynamics/main.tikz}
+\input{Figures/Tikz/Aspiration/main.tikz}
 \\
 &\\
 \input{Figures/Tikz/Fermi/main.tikz}
-&\\
 &
+\input{Figures/Tikz/Introspection_Dynamics/main.tikz}
 \\
 \hline
 \multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
@@ -864,7 +985,12 @@ Extrinsic Strategy Analysis & Intrinsic Strategy Analysis\\
 }\\
 \hline
 \end{tabular}
-\caption{A comparison of different population dynamics. We assume in all cases that the triangle is chosen for replacement with a probability \(\frac{1}{N}\) and the diamond is chosen with a varying probability depending on the process. In the case of Introspection dynamics, we assume that the strategy represented by the shape being filled in is chosen with probability \(\frac{1}{k-1}\)}
+\caption{A comparison of different population dynamics. We assume in all cases
+that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
+and the diamond is chosen with a varying probability depending on the process.
+In the case of Introspection dynamics, we assume that the strategy represented
+by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
+for aspiration dynamics there is only one other strategy to accept.}
 \end{table}
 
 
@@ -899,7 +1025,7 @@ A common method \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} for this is to apply
 
 \begin{large}
     \begin{equation}
-        \frac{\sum_{a_i = b_{I(\textbf{a,b})}}{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i}}}{\sum_{a_i}e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i}}
+        \frac{\sum_{a_i = b_{I(\textbf{ab})}}{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i}}}{\sum_{a_i}e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i}}
     \end{equation}
 \end{large}\\
 
@@ -907,7 +1033,7 @@ Now, as \(e^r\) does not rely on \(v\), we can take this out of the sum and acqu
 
 \begin{large}
     \begin{equation}
-        \frac{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N}}\sum_{a_i = b_{I(\textbf{a,b})}}{e^{ - \alpha_i}}}{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N}}\sum_{a_i}e^{-C_{v_i}}} = \frac{\sum_{a_i = b_{I(\textbf{a,b})}}{e^{ - \alpha_i}}}{\sum_{a_i}e^{-\alpha_i}}
+        \frac{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N}}\sum_{a_i = b_{I(\textbf{ab})}}{e^{ - \alpha_i}}}{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N}}\sum_{a_i}e^{-C_{v_i}}} = \frac{\sum_{a_i = b_{I(\textbf{ab})}}{e^{ - \alpha_i}}}{\sum_{a_i}e^{-\alpha_i}}
     \end{equation}
 \end{large}\\
 
