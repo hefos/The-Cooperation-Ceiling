@@ -21,4 +21,3 @@ jobs:
       - name: Run ruff
         run: |
           uv run ruff check
-g
