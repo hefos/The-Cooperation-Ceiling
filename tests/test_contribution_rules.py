@@ -1,4 +1,4 @@
-import contribution_rules
+import public_goods_games.contribution_rules as contribution_rules
 import numpy as np
 import pytest
 
