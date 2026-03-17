@@ -1,5 +1,5 @@
 [project]
-name = "exact-analysis-of-heterogeneous-moran-processes-in-climate-cooperation"
+name = "public_goods_games"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -19,5 +19,3 @@ dependencies = [
 [build-system]
 requires = ["uv_build>=0.10.7,<0.11.0"]
 build-backend = "uv_build"
-[tool.uv.build]
-packages = ["src/public_goods_games"]
