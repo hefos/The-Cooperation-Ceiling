@@ -10,7 +10,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import ludics.main
 import ludics.fitness_functions
-import src.contribution_rules as contribution_rules
+import public_goods_games.contribution_rules
 import stet
 
 try:
@@ -102,9 +102,9 @@ N = 3
 while True:
     state_space = ludics.main.get_state_space(N=N, k=2)
     for M in np.linspace(N, 4 * N, 30):
-        alphas = ludics.main.get_deterministic_contribution_vector(
+        alphas = public_goods_games.contribution_rules.get_deterministic_contribution_vector(
             N=N,
-            contribution_rule=contribution_rules.linear_contribution_rule,
+            contribution_rule=public_goods_games.contribution_rules.linear_contribution_rule,
             M=M,
         )
         for r in np.linspace(0.5, 1.5 * N, 30):

@@ -11,7 +11,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import ludics.main
 import ludics.fitness_functions
-import src.contribution_rules as contribution_rules
+import public_goods_games.contribution_rules
 import stet
 
 try:
@@ -122,9 +122,9 @@ while True:
             for scale in np.linspace(0.1, 10, 30):
                 for seed in range(100):
                     np.random.seed(seed)
-                    alphas = ludics.main.get_dirichlet_contribution_vector(
+                    alphas = ludics.public_goods_games.contribution_rules.get_dirichlet_contribution_vector(
                         N=N,
-                        alpha_rule=contribution_rules.dirichlet_linear_alpha_rule,
+                        alpha_rule=public_goods_games.contribution_rules.dirichlet_linear_alpha_rule,
                         M=M,
                         scale=scale,
                     )

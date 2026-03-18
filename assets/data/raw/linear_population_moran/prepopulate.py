@@ -10,7 +10,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import ludics.main
 import ludics.fitness_functions
-import src.contribution_rules as contribution_rules
+import public_goods_games.contribution_rules
 import stet
 from stet.backends import get_backend
 

@@ -10,7 +10,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import src.main as main
 import src.fitness_functions as fitness_functions
-import src.contribution_rules as contribution_rules
+import public_goods_games.contribution_rules
 import stet
 
 try:
@@ -105,9 +105,9 @@ while True:
     for mu in (0.001, 0.01, 0.05, 0.1):
         individual_to_action_mutation_probability = np.full((N, 2), mu)
         for M in np.linspace(N, 4 * N, 30):
-            alphas = main.get_deterministic_contribution_vector(
+            alphas = public_goods_games.contribution_rules.get_deterministic_contribution_vector(
                 N=N,
-                contribution_rule=contribution_rules.linear_contribution_rule,
+                contribution_rule=public_goods_games.contribution_rules.linear_contribution_rule,
                 M=M,
             )
             for r in np.linspace(0.5, 1.5 * N, 30):

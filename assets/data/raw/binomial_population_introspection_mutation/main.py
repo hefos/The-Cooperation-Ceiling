@@ -10,7 +10,7 @@ root_path = (file_path / "../../../../../").resolve()
 sys.path.append(str(root_path))
 import src.main as main
 import src.fitness_functions as fitness_functions
-import src.contribution_rules as contribution_rules
+import public_goods_games.contribution_rules
 import stet
 
 try:
@@ -108,9 +108,9 @@ while True:
         for M in np.linspace(N, 4 * N, 30):
             for low_players in range(1, N - 1):
                 for alpha_h in np.linspace(M / N, M / (N - low_players) * 0.95, 30):
-                    alphas = main.get_deterministic_contribution_vector(
+                    alphas = public_goods_games.contribution_rules.get_deterministic_contribution_vector(
                         N=N,
-                        contribution_rule=contribution_rules.binomial_contribution_rule,
+                        contribution_rule=public_goods_games.contribution_rules.binomial_contribution_rule,
                         M=M,
                         alpha_h=alpha_h,
                         n=low_players,
