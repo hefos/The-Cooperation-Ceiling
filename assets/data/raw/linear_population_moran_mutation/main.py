@@ -8,7 +8,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import ludics.main as main
 import src.fitness_functions as fitness_functions
 import public_goods_games.contribution_rules
 import stet
