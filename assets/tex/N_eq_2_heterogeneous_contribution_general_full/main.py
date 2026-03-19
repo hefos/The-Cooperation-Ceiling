@@ -9,7 +9,7 @@ root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
 import ludics.main as main
-import src.fitness_functions as fitness_functions
+import ludics.fitness_functions as fitness_functions
 
 
 r = sym.Symbol("r")
