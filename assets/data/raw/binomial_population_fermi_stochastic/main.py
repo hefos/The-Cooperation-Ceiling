@@ -126,7 +126,7 @@ while True:
     state_space = ludics.main.get_state_space(N=N, k=2)
     for M in np.linspace(N, 4 * N, 30):
         for low_players in range(1, N - 1):
-            for alpha_h in np.linspace(M / N, M / (N - low_players) * 0.95, 30):
+            for alpha_h in np.linspace(0.5, 0.99, 20):
                 for r in np.linspace(0.5, 1.5 * N, 30):
                     for choice_intensity in np.linspace(0, 2, num=30):
                         for scale in np.linspace(0.1, 10, 30):

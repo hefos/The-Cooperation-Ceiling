@@ -132,7 +132,7 @@ while True:
         individual_to_action_mutation_probability = np.full((N, 2), mu)
         for M in np.linspace(N, 4 * N, 30):
             for low_players in range(1, N - 1):
-                for alpha_h in np.linspace(M / N, M / (N - low_players) * 0.95, 30):
+                for alpha_h in np.linspace(0.5, 0.99, 20):
                     for scale in np.linspace(0.1, 10, 30):
                         for seed in range(100):
                             np.random.seed(seed)
