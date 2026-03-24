@@ -8,7 +8,10 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes.geometric}
 \usepackage{latexsym}
-
+\newcommand{\lt}{\ensuremath <}
+\newcommand{\gt}{\ensuremath >}
+\usepackage{float}
+\usepackage[caption = false]{subfig}
 
 \title{A Heterogeneous Moran Process for the Analysis of Public Goods Games}
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
@@ -122,8 +125,8 @@ We begin by defining a population of individuals and the actions which they may 
     (a_{i,1}, a_{i,2},..., a_{i,k})\). In this paper, we shall assume that all action sets contain the same possible actions for each player.
     \item A state space S given by the set of ordered \(N\)-tuples with entries \(\textbf{a} = (a_1, a_2, a_3, \dots) \in A_1 \times A_2 \times A_3\times...\).
     \item A fitness function \(S \to \mathbb{R}^N\). We denote by $\pi$ the
-    payoff function for a given game. Thus, we denote We define
-    \(\pi_{i}(\textbf{a})\) as \(i^{th}\) entry of \(\pi(\textbf{a})\). 
+    payoff function for a given game. We denote 
+    the \(i^{th}\) entry of \(\pi(\textbf{a})\) by \(\pi_{i}(\textbf{a})\). 
 \end{itemize}
 
 Now let $h(\textbf{a, b})$ denote the Hamming distance between two states
@@ -962,7 +965,7 @@ These dynamics are more well suited to a heterogeneous population, modelling sta
 
 Below, we see a diagram showing the classification of the population dynamics shown in this section:
 
-\begin{table}[h!]
+\begin{table}[!h]
 \centering
 \begin{tabular}{|c|c|}
 \hline
@@ -995,14 +998,16 @@ for aspiration dynamics there is only one other strategy to accept.}
 
 
 
-\section{The Public Goods Game}
-
-\subsection{The Standard Model and Transformations}
+\subsection{The Public Goods Game}
 
 In this section, we shall see how different population dynamics can be applied
 to the public goods game. \cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hofbauer_sigmund_1998}
 In this game, individuals choose whether or not to contribute to a public resource pool. 
-In the end, the total resource is multiplied by some factor \(r > 1\) and distributed equally between each player. This model often encourages a behaviour known as ``free-riding" \cite{10.1257/aer.15000001}, where players refuse to contribute to the pool and simply take the benefit provided by other individuals' contribution. 
+In the end, the total resource is multiplied by some factor \(r > 1\) and
+distributed equally between each player. This model often encourages a
+behaviour known as ``free-riding"
+%citation
+, where players refuse to contribute to the pool and simply take the benefit provided by other individuals' contribution. 
 The classic problem of a public goods game is to provide an environment where such free-riding is less profitable than contributing to the public good.
 
 We can model a public goods game by providing the following payoff function:
@@ -1014,126 +1019,178 @@ We can model a public goods game by providing the following payoff function:
 \end{equation}
 \end{large}\\
 (where \(\alpha_j\) is the contribution by individual j.) 
-In the homogeneous public goods game, we have that \(\alpha_j\) can only take one of two values: some constant \(\alpha\) if individual j cooperates, and 0 if not. However, the heterogeneous game will require a more tailored \(\alpha_j\).
+In the homogeneous public goods game, we have that \(\alpha_j\) can only take
+one of two values: some constant \(\alpha\) if individual j cooperates, and 0
+if not. However, the heterogeneous game will require a more tailored
+\(\alpha_j\). Thus, we consider two cases of contribution distributions. Let
+$M$ be the total possible contribution when all players cooperate. The
+first case, we consider a linear wealth distribution, under which a player $i$
+contributes $\frac{2Mi}{N(N+1)}$. In this population, each player
+contributes more than the last. The second population we call the binomial
+population. In this population, the first $n \lt N$ players contribute some low
+amount $\alpha_L$, and the final $N - n$ players contribute some greater amount
+$\alpha_H$.
 
-Note that \(\pi(v_j)\) can be negative, and such cannot be used as our fitness
-function for the Moran process. Therefore, we must look at some transformation
-of \(\pi\) to use as our fitness function \(f\). This is the \(f\) previously
-defined for the Moran process and Introspective Imitation Dynamics.
+\section{Results}
 
-A common method \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} for this is to apply the exponential function to our payoff function. By using \(e^{\beta \sigma}\) as our fitness function we will have positive values, however this particular approach gives, in the case of the Moran process:
+First, let us see the overall distribution of $p_C$ across all models.
 
-\begin{large}
-    \begin{equation}
-        \frac{\sum_{a_i = b_{I(\textbf{ab})}}{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i}}}{\sum_{a_i}e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i}}
-    \end{equation}
-\end{large}\\
+\includegraphics[width=\textwidth]{Figures/overall_histogram/main.pdf}
 
-Now, as \(e^r\) does not rely on \(v\), we can take this out of the sum and acquire the following:
+We see that there most systems do not produce a high value of $p_C$, however we
+can encourage cooperation under some conditions. Let us begin to investigate
+these conditions by seeing the distribution of $p_C$ across our population
+dynamics.
 
-\begin{large}
-    \begin{equation}
-        \frac{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N}}\sum_{a_i = b_{I(\textbf{ab})}}{e^{ - \alpha_i}}}{e^{\frac{\beta r\sum_{j=1}^N{\alpha_j}}{N}}\sum_{a_i}e^{-C_{v_i}}} = \frac{\sum_{a_i = b_{I(\textbf{ab})}}{e^{ - \alpha_i}}}{\sum_{a_i}e^{-\alpha_i}}
-    \end{equation}
-\end{large}\\
+\includegraphics[width=\textwidth]{Figures/by_process_hist/main.pdf}
 
-and we see that in this case, \(p_{a_j\to b_j}(a_{-j})\) would not rely on \(r\). 
+There is clearly a large difference in $p_C$ values in different population
+dynamics, with Fermi imitation dynamics producing a very low value of $p_C$,
+and introspective imitation dynamics giving the highest values of any absorbing
+Markov chain. We now see how different parameters affect $p_C$.
 
-We may also consider the ``shifted linear" transformation. We take, for some small tunable \(\epsilon\):
-\begin{large}
-    \begin{equation}
-        f_i(\textbf{a}) = \pi_i(\textbf{a}) - \min_{j} \pi_j(\textbf{a}) + \beta
-    \end{equation}
-    \label{eqn:Shifted_linear}
-\end{large}
-This guarantees a positive value, with the lowest fitness taking the value \(\epsilon\), a parameter that can be chosen based on the system in question.
-However, in the homogeneous case, this mapping
-creates a fitness function which does not rely on \(r\), and so we cannot use
-this method.
+First, we shall see how the heterogeneity of $\alpha$ effects the probability of
+cooperation with a low-contributing mutant in a linear population, and we shall ask the question ``Is there a process which maximises
+$p_C$?''
 
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_low/main.pdf}
 
-Another type of mapping that we can use is the ``Affine-linear mapping". In
-this, for some tunable \(\epsilon\), we take the following:
+In Fermi imitation dynamics, we see that an increase in heterogeneity actually
+decreases the probability of cooperation. This is because with a higher
+heterogeneity, high contributing individuals are much harder to maintain, since
+the difference between their payoff and the payoff for a defector in the same
+state will be greater. This is because the high values of $\alpha_i$ are
+greater, and thus the probability of a defector copying the high contributors
+is lower, and the probability of a high contributor copying a defector is
+greater.
 
-As \(\epsilon\) is a selection intensity parameter, this method both provides us a strictly positive fitness function for a well defined \(\epsilon\), and also allows us to control the selection intensity of the Moran process. 
-This is the process by which we define \(f\) in this paper.
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_low/main.pdf}
 
+In the Moran process, we see no effect from the heterogeneity of $\alpha_i$.
+%I actually dont know why? I guess it just doesn't come into it much?
 
-\subsection{The Homogeneous Case}
-The most simple type of public goods game is the homogeneous public goods game.\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}
-In this game, we consider that we have a constant \(\alpha_i = \alpha\) for all players \(a_i\).
-In this case, we take the payoff function:
-\begin{large}
-    \begin{equation}
-        \sigma(v_i) = \frac{r\sum_{j=1}^N{\delta_j\alpha}}{N} - \delta_j\alpha = (\kappa_c(\textbf{a})r-\delta_j)\alpha
-    \end{equation}
-    \label{eqn:Homogeneous_fitness}
-\end{large}\\
-Where \(\delta_j = 1\) if j contributes and 0 if not, and \(\kappa_c(\textbf{a})\) is the fraction of the population who contribute.
+However, we do notice that in both of the above dynamics, there is a limit of
+$p_C = \frac{1}{3}$. This is because it is impossible for a state to have a
+contributor with a higher payoff than a defector if $\alpha_i > 0$, and thus in a purely
+extrinsic dynamic, the probability of a player accepting a defecting strategy
+will always be greater than the probability of a player accepting a cooperative
+strategy. Thus, we cannot achieve a value of $p_C$ greater than that where
+players decide on strategies randomly, which would give us $p_C \leq \frac{1}{N}$
 
-We will begin by looking at the state space with \(N=4\) and see how cooperation emerges based on different values of \(r \text{ and } \alpha\).
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_low/main.pdf}
 
-We can assign the value 0 to non-contribution and 1 contribution in the state space \(\textbf{a},\textbf{b},\textbf{c},\textbf{d}\),  and in doing so obtain the following absorption matrices for each population dynamic:
+Here we see that introspective imitation is able to exceed the limit imposed on
+purely extrinsic processes. The introspective step is able to have a higher
+probability of accepting cooperation than defection if a player will have a
+higher payoff by cooperating than by defecting, even if in a given state the
+defectors will always have a higher payoff. Thus, it is possible to obtain
+higher values of $p_C$ in introspective imitation dynamics than in purely
+extrinsic dynamics. It is also important to note that there is no result to
+show that the maximum value of $p_C$ could not be improved from those shown in
+this data.
 
-\begin{table}[!h]
-    \centering
-    \Large
-        \begin{tabular}{|c|c|}
-        \hline
-        Moran Process & Introspection Dynamics \\
-        \hline
-        $\displaystyle
-        \left[\begin{matrix}
-        \frac{\alpha \epsilon r + 2}{\alpha \epsilon r + \alpha \epsilon (r - 2) + 4} &
-        \frac{\alpha \epsilon (r - 2) + 2}{\alpha \epsilon r + \alpha \epsilon (r - 2) + 4} \\
-        \frac{\alpha \epsilon r + 2}{\alpha \epsilon r + \alpha \epsilon (r - 2) + 4} &
-        \frac{\alpha \epsilon (r - 2) + 2}{\alpha \epsilon r + \alpha \epsilon (r - 2) + 4}
-        \end{matrix}\right]$
-        &
-        \\
-         \hline
-         Fermi Imitation Dynamics & Introspective Imitation Dynamics\\
-         \hline
-         $\displaystyle \left[\begin{matrix}\frac{ e^{\frac{\alpha}{\beta}}}{e^{\frac{\alpha}{\beta}} + 1} & \frac{1}{e^{\frac{\alpha}{\beta}} + 1}\\\frac{ e^{\frac{\alpha}{\beta}}}{e^{\frac{\alpha}{\beta}} + 1} & \frac{1}{e^{\frac{\alpha}{\beta}} + 1}\end{matrix}\right]$
-         & \tiny
-    $
-    \left[
-    \begin{matrix}
-    \frac{(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)}
-    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
-    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
-    &
-    \frac{(\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
-    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
-    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
-    \\[8pt]
-    \frac{(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)}
-    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
-    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
-    &
-    \frac{(\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
-    {(\alpha \epsilon r + 2)\left(e^{\frac{\beta \alpha \epsilon (2 - r)}{2}} + 1\right)
-    + (\alpha \epsilon (r - 2) + 2)\left(e^{\frac{\beta \alpha \epsilon (r - 2)}{2}} + 1\right)}
-    \end{matrix}
-    \right]$
-    \\
-         &\\
-         \hline
-    \end{tabular}
-    \caption{A table of absorption probabilities for different population dynamics in the homogeneous public goods game. The row correspond to which state \textbf{b} or \textbf{c} we begin in, and the column corresponds to which state \textbf{a} or \textbf{d} we are absorbed into. Thus the right hand row is the absorption probability for full contribution, and the left hand row is the absorption probability for no contribution.}
-    \label{tab:placeholder}
-\end{table}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
+
+We see that this result also exists for introspection dynamics, though due to
+the different interpretation of $p_C$, this must be taken lightly.
+
+\includegraphics[width=\textwidth]{Figures/maximum_compared/main.pdf}
+
+This result is not just true for the $N=3$ case, but is also clearly true
+accross multiple values of $N$. This result is also true across different
+populations and even higher values of $N$, as can be seen in the supplementary
+information.
+
+So to answer our previous question, intrinsic processes can in fact provide
+us with a greater probability of cooperation than purely extrinsic processes.
+In the next section, we will see under which conditions an intrinsic
+process begins to produce higher values of $p_C$ than a purely extrinsic
+process. To do this, we compare the values of $p_C$ in the Moran process and
+introspective imitation dynamics. This is because introspective imitation
+dynamics takes the form of the Moran process with an additional introspective
+step.
+
+\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_3/main.pdf}
+
+We can see that the parameter $r=N$ provides an exact point where the intrinsic
+processes begin to provide high $p_C$ values. This is because when $r \gt N$,
+all players will gain a higher payoff by contributing than by defecting,
+regardless of the actions of the rest of the state, as we have $\frac{r
+\alpha_i}{N} - \alpha_i \gt 0$ for any value of $\alpha_i$. Thus, this is the
+point at which the intrinsic step of introspective imitation dynamics begins to
+favour cooperation. For $r \lt N$, the intrinsic step favours defection, and
+thus the intrinsic step actually reduces $p_C$. We see in the supplementary
+information that this is indeed the point at which intrinsic processes begin to
+dominate. 
+
+\includegraphics[width=\textwidth]{Figures/beta_r_graph/main.pdf}
+
+We also see that as the choice intensity $\beta$ of a population dynamic
+increases, an intrinsic dynamic is able to facillitate an increase in $p_C$,
+whereas even for high $r$ values, purely extrinsic processes will always have a
+negative correlation between $\beta$ and $p_C$. This is because a purely
+extrinsic process will always see a defector as performing better than a cooperator, so
+a high choice intensity will always favour defection. However, in an intrinsic
+process, we can see that under certain conditions (specifically, the condition
+$r \gt N$ as before) the comparison between a cooperator and a defector may
+favour cooperation by comparing a defector to their own possible payoff by
+cooperating, and thus a higher $p_C$ may be obtained by a higher value of
+$\beta$ in an intrinsic process. 
 
 
-We see that in the homogeneous case of the 2 player public goods game, the absorption probabilities do not depend on which transitive state you begin in.
-This is clear, as the states \(\textbf{b} = (0,1)\) and \(\textbf{c} = (1,0)\)
-are equivalent due to there being no difference between players 1 and 2.
+\section{supplementary information}
+\subsection{Higher $N$ and other populations}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_medium/main.pdf}\newpage
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_high/main.pdf}\newpage
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_high/main.pdf}
 
-\subsection{Numerical Results}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_high/main.pdf}
 
-We can now see how the different population dynamics affect the absorption
-probabilities in the homogeneous public goods game. We first consider the
-effect of r on our population in various \(\alpha\) values:
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_high/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_low/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_medium/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_high/main.pdf}
+
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_binomial/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_binomial/main.pdf}
+\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_linear/main.pdf}
+
+\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_4/main.pdf}
+\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_5/main.pdf}
+
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}
