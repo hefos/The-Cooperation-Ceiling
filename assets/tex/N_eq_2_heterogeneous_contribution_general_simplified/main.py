@@ -1,6 +1,7 @@
 import numpy as np
 import sympy as sym
 import sys
+import pathlib
 
 sys.path.append("../../../src/")
 import src.main
@@ -22,7 +23,7 @@ def heterogeneous_contribution_fitness_function(
         / len(state)
     )
 
-    payoff_vector = np.array(
+    return np.array(
         [
             total_goods - (action * contribution)
             for action, contribution in zip(state, contribution_vector)
@@ -30,11 +31,10 @@ def heterogeneous_contribution_fitness_function(
     )
 
 
+file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.fitness_functions as fitness_functions
 
 r = sym.Symbol("r")
 omega = sym.Symbol(r"\omega")

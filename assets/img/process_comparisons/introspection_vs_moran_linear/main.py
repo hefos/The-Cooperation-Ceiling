@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import seaborn as sns
-import numpy as np
 
 here = Path(__file__).resolve()
 assets_path = here.parents[3]

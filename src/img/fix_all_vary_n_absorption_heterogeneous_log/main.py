@@ -1,21 +1,17 @@
 import numpy as np
-import sympy as sym
 import matplotlib.pyplot as plt
 
 np.set_printoptions(suppress=False)
-import matplotlib.patches as mpatches
-import matplotlib.lines as mlinesge
-import scipy
-import sys
-import pathlib
+import sys  # noqa: E402
+import pathlib  # noqa: E402
 
 file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.contribution_rules as contribution_rules
-import src.fitness_functions as fitness_functions
+import src.main as main  # noqa: E402
+import src.contribution_rules as contribution_rules  # noqa: E402
+import src.fitness_functions as fitness_functions  # noqa: E402
 
 
 def get_absorption_probability_vector_1_contributor_low(
