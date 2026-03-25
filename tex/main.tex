@@ -826,8 +826,27 @@ likely that a high contributor will persist.
 \label{fig:moran_het}
 \end{figure}
 
-Under the Moran process, the degree of heterogeneity has no discernible effect
-on $p_C$. %TODO: provide mathematical explanation of why Moran absorption is independent of alpha heterogeneity
+Under the Moran process, the degree of linear heterogeneity has no discernible
+effect on $p_C$ (Figure~\ref{fig:moran_het}): every violin across the
+heterogeneity deciles is centred at the same median and has the same spread.
+The same invariance holds for Introspective Imitation Dynamics under linear
+population structures (see supplementary material). However, both dynamics are
+sensitive to the \emph{binomial} population structure.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../assets/img/standard_alpha_range_violins/moran_violins/N_eq_3_binomial_Low/main.pdf}
+\caption{$p_C$ under the Moran process as binomial heterogeneity varies ($N = 3$, binomial population, low mutant). Unlike the linear case, a clear upward trend in the median is visible.}
+\label{fig:moran_binom_het}
+\end{figure}
+
+Under the binomial population structure (Figure~\ref{fig:moran_binom_het}),
+both the Moran process and Introspective Imitation Dynamics exhibit a slight
+but consistent increase in $p_C$ as the contribution gap between low and high
+contributors widens. This suggests that the invariance observed under linear
+heterogeneity is specific to that population structure: it does not reflect a
+general insensitivity of these dynamics to heterogeneity.
+%TODO: provide mathematical explanation of the contrast between linear invariance and binomial sensitivity
 
 \subsection{The cooperation ceiling under purely extrinsic dynamics}
 \label{sec:ceiling}
@@ -853,7 +872,15 @@ For the $N = 3$ case shown, this gives a ceiling of $p_C \leq \frac{1}{3}$,
 visible as a hard upper boundary in both Figures~\ref{fig:fermi_het}
 and~\ref{fig:moran_het}.
 
+Although Introspective Imitation Dynamics breaks through this ceiling (see
+Section~\ref{sec:ceiling_break}), it does not escape it entirely: across all
+parameter combinations examined, $p_C$ under Introspective Imitation Dynamics
+has a hard empirical upper bound near $p_C \approx 0.35$--$0.40$ for $N = 3$.
+This is only modestly above the $1/3$ extrinsic ceiling, and well below the
+values achievable by introspection dynamics, which can approach $p_C = 1$.
+
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
+\label{sec:ceiling_break}
 
 \begin{figure}[H]
 \centering
@@ -934,6 +961,21 @@ to the extrinsic baseline. This is visible in Figure~\ref{fig:comparison_N3}
 as a region where Introspective Imitation Dynamics underperforms the Moran
 process. The pattern holds across all values of $N$ (see supplementary material).
 
+A further empirical signature of the $r = N$ threshold is a sharp collapse of
+variance. In Figure~\ref{fig:iid_moran_diff}, which shows
+$p_C(\text{IID}) - p_C(\text{Moran})$ across the full $r$ range, the
+interquartile range narrows to nearly zero precisely at $r = N$, before
+widening again for larger $r$. This variance minimum coincides exactly with the
+theoretical threshold, providing an unusually clean empirical marker for the
+analytical result.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../assets/img/process_comparisons/moran_vs_imispection_linear/N_eq_3/main.pdf}
+\caption{$p_C(\text{IID}) - p_C(\text{Moran})$ as a function of $r$ for $N = 3$ (linear population). The dashed vertical line marks $r = N = 3$. The IQR collapses to near zero at the threshold before expanding for $r > N$.}
+\label{fig:iid_moran_diff}
+\end{figure}
+
 \subsection{Choice intensity and its interaction with dynamics type}
 
 \begin{figure}[H]
@@ -954,9 +996,123 @@ introspective step compares a player's current payoff against their counterfactu
 payoff under cooperation; when $r > N$ this comparison favours cooperation, and
 higher $\beta$ amplifies that advantage, raising $p_C$.
 
+Introspection dynamics has a further notable property at $\beta = 0$: all
+lines in Figure~\ref{fig:beta_r} converge to $p_C = 0.5$, independently of
+$r$ or population structure. At zero choice intensity players update their
+strategy uniformly at random, so the stationary distribution places equal
+weight on all states; since exactly half of all states have the focal player
+cooperating, $p_C = 0.5$ follows immediately. This neutral-drift baseline
+therefore serves as an anchor: introspection raises $p_C$ above 0.5 when
+$r > N$ and lowers it below 0.5 when $r < N$, always converging to 0.5 at
+$\beta = 0$.
+
 \subsection{Aspiration dynamics}
 %TODO: add aspiration dynamics results once data finishes running
 
+\subsection{Dominance relations between dynamics}
+
+Having examined each dynamic in isolation, we now compare them directly to
+establish a dominance ordering in terms of $p_C$.
+
+\textbf{Introspection always outperforms Fermi.}
+Figure~\ref{fig:introspection_vs_fermi} shows $p_C(\text{Introspection}) -
+p_C(\text{Fermi})$ across the full parameter sweep. The lower tail of every
+violin sits at or above zero: introspection dynamics \emph{uniformly dominates}
+Fermi imitation dynamics for all parameter combinations examined. The gap grows
+monotonically with $r$, reaching a median difference of approximately 0.7 at
+the upper end of the sweep.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
+\caption{$p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). The difference is non-negative for all parameter combinations, establishing a uniform dominance of introspection over Fermi dynamics.}
+\label{fig:introspection_vs_fermi}
+\end{figure}
+
+\textbf{The Moran--Fermi ordering is r-invariant.}
+Unlike every other pairwise comparison, Figure~\ref{fig:moran_vs_fermi} shows
+that $p_C(\text{Moran}) - p_C(\text{Fermi})$ has nearly identical violin
+shape, spread, and median across the entire $r$ range. There is no threshold
+effect at $r = N$: the comparison between these two dynamics is effectively
+insensitive to $r$. This parallels the finding that Fermi dynamics is itself
+$r$-insensitive (Section on choice intensity). On average the Moran process
+outperforms Fermi imitation, though for some parameter configurations Fermi
+achieves a higher $p_C$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
+\caption{$p_C(\text{Moran}) - p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike all other pairwise comparisons, the violin shape and median are approximately constant across the entire $r$ range.}
+\label{fig:moran_vs_fermi}
+\end{figure}
+
+\textbf{Introspection's advantage over Moran grows with $N$.}
+At $N = 3$, $p_C(\text{Introspection}) - p_C(\text{Moran})$ can be negative
+for $r < N$: there exist parameter configurations under which the Moran process
+outperforms introspection dynamics. However, at $N = 9$
+(Figure~\ref{fig:introspection_vs_moran_N9}), the same difference is
+\emph{always non-negative} across the entire $r$ range, including values well
+below $r = N = 9$. This transition from a sign-changing difference to a
+uniformly positive one reflects the shrinking of the Moran ceiling $1/N$ as
+$N$ increases: with a lower ceiling, the Moran process is more easily
+dominated by introspection dynamics across all multipliers.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
+\caption{$p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
+\label{fig:introspection_vs_moran_N9}
+\end{figure}
+
+\section{Analytic Results}
+\label{sec:analytic}
+%TODO: fill in analytic results once symbolic steady-state computations on siren complete (Moran+mutation, Fermi+mutation, IID+mutation).
+
+\section{Conclusion}
+
+We have introduced and analysed a framework for heterogeneous public goods
+games under five distinct population dynamics, two purely extrinsic (Moran
+process and Fermi imitation) and three intrinsic or mixed (aspiration,
+introspection, and Introspective Imitation Dynamics). Exact results are
+obtained by computing transition matrices and stationary distributions
+analytically for the two-player case, with the general-$N$ case studied
+numerically.
+
+The central theoretical finding is a dichotomy between extrinsic and intrinsic
+dynamics. Under any purely extrinsic dynamic, cooperation is bounded above by
+$p_C \leq 1/N$ (Proposition~\ref{prop:ceiling}): payoff comparisons between
+players always disfavour the cooperating strategy, so the neutral-drift
+baseline cannot be exceeded. Intrinsic dynamics, which evaluate payoffs from
+the focal player's own perspective, break through this ceiling whenever $r > N$
+(Proposition~\ref{prop:rN}). The $r = N$ threshold is sharp: it is not only the
+point at which the expected difference in $p_C$ changes sign, but also the
+point at which the variance in that difference collapses to a minimum.
+
+The empirical results reveal a rich structure within and across dynamics.
+Introspection dynamics uniformly dominates Fermi imitation over all parameter
+combinations, and its advantage over the Moran process grows with population
+size $N$, becoming unconditional for large enough $N$. The Moran--Fermi
+comparison, by contrast, is approximately $r$-invariant: neither dynamics has
+a meaningful threshold response to $r$. Population heterogeneity affects the
+two extrinsic dynamics differently depending on structure: linear heterogeneity
+is neutral for both Moran and IID, but binomial heterogeneity produces a
+consistent positive effect on $p_C$ for both.
+
+Introspective Imitation Dynamics is introduced here as a novel hybrid dynamic,
+combining the imitative learning structure of the Moran process with the
+payoff self-evaluation of introspection dynamics. It is the only absorbing
+dynamic that exceeds the $1/N$ ceiling, and its behaviour changes qualitatively
+at $r = N$. Its hard empirical upper bound near $p_C \approx 0.35$--$0.40$
+for $N = 3$, modestly above the ceiling, suggests that introspective
+self-evaluation alone cannot fully substitute for the unconstrained
+exploration of strategy space available to introspection dynamics.
+
+Analytic closed-form expressions for the stationary distributions of the
+mutation-augmented dynamics are outstanding (see Section~\ref{sec:analytic}). Aspiration dynamics results are similarly pending
+(data still running). The framework developed here, however, provides a
+complete and exact treatment of the two-player heterogeneous public goods
+game under each dynamic, and establishes the key qualitative distinctions that
+persist across population sizes and structures.
 
 \section{Supplementary Information}
 
