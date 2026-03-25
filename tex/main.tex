@@ -188,7 +188,7 @@ fifth dynamic, \emph{Introspective Imitation Dynamics}, which combines the
 fitness-proportionate role-model selection of the Moran process with the
 self-referential evaluation step of introspection dynamics.
 
-\subsubsection{Choice and Selection intensity}
+\subsubsection*{Choice and Selection intensity}
 In Moran-process-type dynamics, which model biological evolution, we introduce a
 parameter \(\epsilon\) referred to as \emph{selection intensity} via the mapping
 \[
@@ -211,7 +211,7 @@ or from comparing their current payoff with the payoff they would obtain by
 switching strategy.
 
 
-\subsubsection{The Moran Process}
+\subsubsection*{The Moran Process}
 
 The Moran process~\cite{Moran_1958} is defined by the following algorithm:
 \begin{enumerate}
@@ -313,7 +313,7 @@ summation term is at most \(N-1\) values of said function,
 and thus takes a
 value \(<N-1\).
 
-\subsubsection{Aspiration Dynamics}
+\subsubsection*{Aspiration Dynamics}
 
 Aspiration dynamics models an update rule based on how far away a player's
 performance in a game is from an aspirational constant fitness value:
@@ -330,7 +330,7 @@ a higher than random probability if their current payoff is lower than their
 aspired payoff. This dynamic is almost always defined for two actions,
 traditionally cooperation and defection~\cite{du2014aspiration}. %TODO: confirm du2014aspiration once added to bibliography 
 
-\subsubsection{Introspection Dynamics}
+\subsubsection*{Introspection Dynamics}
 
 In introspection dynamics \cite{Couto2022}, individuals are selected to consider
 if a change of their action choice would lead to an increase in payoff. The new
@@ -352,7 +352,7 @@ of other individuals, and so cannot be fooled by high fitness strategies with
 attributes different to that of the focal player.
 
 
-\subsubsection{Introspective Imitation Dynamics}
+\subsubsection*{Introspective Imitation Dynamics}
 
 Introspection dynamics allows players to learn based on their own fitness,
 resulting in a reduced probability of state changes that worsen the focal
@@ -386,6 +386,56 @@ individuals learn from each other, but do not blindly trust that the strategy
 will work for themself just because it worked for another player. Instead,
 players look to others to see what action they \textit{could} play, but judge
 based on their own fitness to decide what action they \textit{should} play.
+
+
+\subsubsection*{Classification of dynamics}
+
+Figure~\ref{fig:diagrams_of_dynamics}, shows a diagrammatic representation of
+the population dynamics shown in this section. It also proposes a classification
+our population dynamics into one of two categories. The first are population
+dynamics which accept strategies from the population based on the fitness of
+said strategies when played by other individuals. These dynamics are poorly
+suited to a heterogeneous population, as individuals do not consider how the
+change will affect them. However, these do offer a good model for biological
+processes such as the evolution of traits in nature, as in these cases the
+fitness of an individual causes them to pass on their traits. The second are
+population dynamics which consider their own change in payoff in the case that
+they accept a new strategy. These dynamics are more well suited to a
+heterogeneous population, modelling state changes where individuals make an
+active decision to change state in order to improve their own fitness.
+
+
+\begin{figure}[!htbp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Extrinsic Strategy Analysis & Intrinsic Strategy Analysis\\
+\hline
+\input{Figures/Tikz/Moran_Process/main.tikz}
+&
+\input{Figures/Tikz/Aspiration/main.tikz}
+\\
+&\\
+\input{Figures/Tikz/Fermi/main.tikz}
+&
+\input{Figures/Tikz/Introspection_Dynamics/main.tikz}
+\\
+\hline
+\multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
+\hline
+\multicolumn{2}{|c|}{ 
+\input{Figures/Tikz/Introspective_Imitation/main.tikz}
+}\\
+\hline
+\end{tabular}
+\caption{A comparison of different population dynamics. We assume in all cases
+that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
+and the diamond is chosen with a varying probability depending on the process.
+In the case of Introspection dynamics, we assume that the strategy represented
+by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
+for aspiration dynamics there is only one other strategy to accept.}
+\label{fig:diagrams_of_dynamics}
+\end{figure}
 
 \subsection{Mutation}
 
@@ -452,47 +502,6 @@ Detailed transition matrices for each of the previously studied processes, now
 incorporating mutation, are provided in the supplementary materials.
 
 
-\subsection{Classification of Population Dynamics}
-
-We will now classify our population dynamics into one of two categories. 
-The first are population dynamics which accept strategies from the population based on the fitness of said strategies when played by other individuals.
-These dynamics are poorly suited to a heterogeneous population, as individuals do not consider how the change will affect them.
-However, these do offer a good model for biological processes such as the evolution of traits in nature, as in these cases the fitness of an individual causes them to pass on their traits.
-The second are population dynamics which consider their own change in payoff in the case that they accept a new strategy. 
-These dynamics are more well suited to a heterogeneous population, modelling state changes where individuals make an active decision to change state in order to improve their own fitness.
-
-Below, we see a diagram showing the classification of the population dynamics shown in this section:
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-Extrinsic Strategy Analysis & Intrinsic Strategy Analysis\\
-\hline
-\input{Figures/Tikz/Moran_Process/main.tikz}
-&
-\input{Figures/Tikz/Aspiration/main.tikz}
-\\
-&\\
-\input{Figures/Tikz/Fermi/main.tikz}
-&
-\input{Figures/Tikz/Introspection_Dynamics/main.tikz}
-\\
-\hline
-\multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
-\hline
-\multicolumn{2}{|c|}{ 
-\input{Figures/Tikz/Introspective_Imitation/main.tikz}
-}\\
-\hline
-\end{tabular}
-\caption{A comparison of different population dynamics. We assume in all cases
-that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
-and the diamond is chosen with a varying probability depending on the process.
-In the case of Introspection dynamics, we assume that the strategy represented
-by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
-for aspiration dynamics there is only one other strategy to accept.}
-\end{table}
 
 
 
