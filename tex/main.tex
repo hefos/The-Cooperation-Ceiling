@@ -12,6 +12,8 @@
 \newcommand{\gt}{\ensuremath >}
 \usepackage{float}
 \usepackage[caption = false]{subfig}
+\usepackage{amsthm}
+\newtheorem{proposition}{Proposition}
 
 \title{Intrinsic and Extrinsic Dynamics in Heterogeneous Public Goods Games: Exact Results}
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
@@ -773,109 +775,188 @@ greater amount \(\alpha_H\).
 
 \section{Results}
 
-First, let us see the overall distribution of $p_C$ across all models.
+\subsection{Overall distribution of cooperation probability}
 
+Figure~\ref{fig:overall_hist} shows the marginal distribution of the cooperation
+probability $p_C$ across all parameter combinations and dynamics. Most
+configurations yield low cooperation, but the right tail is non-trivial:
+meaningful cooperation is achievable under a subset of conditions.
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/overall_histogram/main.pdf}
+\caption{Distribution of $p_C$ across all dynamics and parameter settings.}
+\label{fig:overall_hist}
+\end{figure}
 
-We see that there most systems do not produce a high value of $p_C$, however we
-can encourage cooperation under some conditions. Let us begin to investigate
-these conditions by seeing the distribution of $p_C$ across our population
-dynamics.
+Separating by dynamic (Figure~\ref{fig:by_process_hist}) reveals a striking
+difference: Fermi imitation dynamics consistently produces the lowest $p_C$
+values, while Introspective Imitation Dynamics achieves the highest among all
+absorbing-chain dynamics. This suggests that the choice of update rule is at
+least as consequential as the payoff parameters.
 
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/by_process_hist/main.pdf}
+\caption{Distribution of $p_C$ broken down by population dynamic.}
+\label{fig:by_process_hist}
+\end{figure}
 
-There is clearly a large difference in $p_C$ values in different population
-dynamics, with Fermi imitation dynamics producing a very low value of $p_C$,
-and introspective imitation dynamics giving the highest values of any absorbing
-Markov chain. We now see how different parameters affect $p_C$.
+\subsection{Effect of population heterogeneity on extrinsic dynamics}
 
-First, we shall see how the heterogeneity of $\alpha$ effects the probability of
-cooperation with a low-contributing mutant in a linear population, and we shall ask the question ``Is there a process which maximises
-$p_C$?''
+We examine how varying the degree of contribution heterogeneity (the spread of
+$\alpha_i$ values in the linear population) affects $p_C$ for a low-contributing
+mutant invading an $N = 3$ cooperating population.
 
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_low/main.pdf}
+\caption{$p_C$ under Fermi imitation dynamics as heterogeneity varies ($N = 3$, linear population, low mutant).}
+\label{fig:fermi_het}
+\end{figure}
 
-In Fermi imitation dynamics, we see that an increase in heterogeneity actually
-decreases the probability of cooperation. This is because with a higher
-heterogeneity, high contributing individuals are much harder to maintain, since
-the difference between their payoff and the payoff for a defector in the same
-state will be greater. This is because the high values of $\alpha_i$ are
-greater, and thus the probability of a defector copying the high contributors
-is lower, and the probability of a high contributor copying a defector is
-greater.
+Under Fermi imitation dynamics, greater heterogeneity decreases $p_C$. Higher
+values of $\alpha_i$ increase the payoff gap between cooperators and defectors
+within each state, making it more likely that a defector will be copied and less
+likely that a high contributor will persist.
 
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_low/main.pdf}
+\caption{$p_C$ under the Moran process as heterogeneity varies ($N = 3$, linear population, low mutant).}
+\label{fig:moran_het}
+\end{figure}
 
-In the Moran process, we see no effect from the heterogeneity of $\alpha_i$.
-%I actually dont know why? I guess it just doesn't come into it much?
+Under the Moran process, the degree of heterogeneity has no discernible effect
+on $p_C$. %TODO: provide mathematical explanation of why Moran absorption is independent of alpha heterogeneity
 
-However, we do notice that in both of the above dynamics, there is a limit of
-$p_C = \frac{1}{3}$. This is because it is impossible for a state to have a
-contributor with a higher payoff than a defector if $\alpha_i > 0$, and thus in a purely
-extrinsic dynamic, the probability of a player accepting a defecting strategy
-will always be greater than the probability of a player accepting a cooperative
-strategy. Thus, we cannot achieve a value of $p_C$ greater than that where
-players decide on strategies randomly, which would give us $p_C \leq \frac{1}{N}$
+\subsection{The cooperation ceiling under purely extrinsic dynamics}
+\label{sec:ceiling}
 
+Both extrinsic dynamics exhibit an upper bound on cooperation that cannot be
+exceeded by any parameter choice. When $\alpha_i > 0$ for all $i$, a
+contributing individual always earns less than a defector in the same state:
+the contributor pays $\alpha_i$ while receiving only $r\alpha_i / N$ of it
+back (since the multiplied pool is split equally), so a defector strictly
+benefits from the contributor's effort without bearing its cost. In a purely
+extrinsic dynamic, where strategy revision compares players' current payoffs
+directly, the probability of adopting a cooperating strategy is therefore
+always lower than the probability of adopting a defecting one. Cooperation
+cannot exceed the neutral-drift baseline:
+
+\begin{proposition}[Extrinsic ceiling]
+\label{prop:ceiling}
+Under any purely extrinsic dynamic, the stationary probability of full
+cooperation satisfies $p_C \leq \frac{1}{N}$ for all $\alpha_i > 0$.
+\end{proposition}
+
+For the $N = 3$ case shown, this gives a ceiling of $p_C \leq \frac{1}{3}$,
+visible as a hard upper boundary in both Figures~\ref{fig:fermi_het}
+and~\ref{fig:moran_het}.
+
+\subsection{Intrinsic dynamics exceed the extrinsic ceiling}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_low/main.pdf}
+\caption{$p_C$ under Introspective Imitation Dynamics ($N = 3$, linear population, low mutant).}
+\label{fig:iid_het}
+\end{figure}
 
-Here we see that introspective imitation is able to exceed the limit imposed on
-purely extrinsic processes. The introspective step is able to have a higher
-probability of accepting cooperation than defection if a player will have a
-higher payoff by cooperating than by defecting, even if in a given state the
-defectors will always have a higher payoff. Thus, it is possible to obtain
-higher values of $p_C$ in introspective imitation dynamics than in purely
-extrinsic dynamics. It is also important to note that there is no result to
-show that the maximum value of $p_C$ could not be improved from those shown in
-this data.
+Introspective Imitation Dynamics breaks through the extrinsic ceiling. The
+introspective step evaluates whether the focal player's own payoff would
+improve under the candidate strategy, independently of whether a defecting
+neighbour currently outperforms cooperators. When cooperation is individually
+beneficial for the focal player, this step assigns a probability greater than
+$\frac{1}{2}$ to accepting it, enabling $p_C > \frac{1}{N}$.
 
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
+\caption{$p_C$ under introspection dynamics ($N = 3$, linear population).}
+\label{fig:introspection_het}
+\end{figure}
 
-We see that this result also exists for introspection dynamics, though due to
-the different interpretation of $p_C$, this must be taken lightly.
+The same qualitative result holds for introspection dynamics, though $p_C$
+there measures a steady-state probability rather than an absorption probability,
+so comparisons across dynamics should be made with care.
 
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/maximum_compared/main.pdf}
+\caption{Maximum $p_C$ achieved by each dynamic across all parameter settings, for multiple values of $N$.}
+\label{fig:max_compared}
+\end{figure}
 
-This result is not just true for the $N=3$ case, but is also clearly true
-accross multiple values of $N$. This result is also true across different
-populations and even higher values of $N$, as can be seen in the supplementary
-information.
+The advantage of intrinsic dynamics over extrinsic dynamics holds across all
+values of $N$ and both population structures examined, as Figure~\ref{fig:max_compared}
+and the extended parameter sweeps in the supplementary material confirm.
 
-So to answer our previous question, intrinsic processes can in fact provide
-us with a greater probability of cooperation than purely extrinsic processes.
-In the next section, we will see under which conditions an intrinsic
-process begins to produce higher values of $p_C$ than a purely extrinsic
-process. To do this, we compare the values of $p_C$ in the Moran process and
-introspective imitation dynamics. This is because introspective imitation
-dynamics takes the form of the Moran process with an additional introspective
-step.
+\subsection{The $r = N$ threshold}
+\label{sec:rN}
 
+To identify when intrinsic dynamics begin to outperform extrinsic ones, we
+compare $p_C$ values from the Moran process and Introspective Imitation
+Dynamics directly; the latter is the Moran process augmented with a single
+introspective step, making the comparison clean.
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_3/main.pdf}
+\caption{Comparison of $p_C$ under the Moran process and Introspective Imitation Dynamics for $N = 3$.}
+\label{fig:comparison_N3}
+\end{figure}
 
-We can see that the parameter $r=N$ provides an exact point where the intrinsic
-processes begin to provide high $p_C$ values. This is because when $r \gt N$,
-all players will gain a higher payoff by contributing than by defecting,
-regardless of the actions of the rest of the state, as we have $\frac{r
-\alpha_i}{N} - \alpha_i \gt 0$ for any value of $\alpha_i$. Thus, this is the
-point at which the intrinsic step of introspective imitation dynamics begins to
-favour cooperation. For $r \lt N$, the intrinsic step favours defection, and
-thus the intrinsic step actually reduces $p_C$. We see in the supplementary
-information that this is indeed the point at which intrinsic processes begin to
-dominate. 
+The parameter $r = N$ marks the precise threshold at which intrinsic dynamics
+begin to favour cooperation over defection.
 
+\begin{proposition}[$r = N$ threshold]
+\label{prop:rN}
+For any heterogeneous population with $\alpha_i > 0$ for all $i$, the
+introspective evaluation step of Introspective Imitation Dynamics favours
+cooperation if and only if $r > N$.
+\end{proposition}
+\begin{proof}
+Individual $i$ evaluates switching from defection to cooperation by comparing
+their payoff $\pi_i(\mathbf{a})$ in the current state to the payoff
+$\pi_i(\mathbf{b})$ they would receive in the state where they cooperate and
+all others remain unchanged. The payoff difference is
+\[
+\pi_i(\mathbf{b}) - \pi_i(\mathbf{a}) = \frac{r\alpha_i}{N} - \alpha_i
+= \alpha_i\!\left(\frac{r}{N} - 1\right).
+\]
+Since $\alpha_i > 0$, this is positive if and only if $r > N$. Therefore the
+introspective step assigns probability greater than $\frac{1}{2}$ to accepting
+cooperation precisely when $r > N$, and less than $\frac{1}{2}$ when $r < N$.
+\end{proof}
+
+When $r < N$, the introspective step actively suppresses cooperation relative
+to the extrinsic baseline. This is visible in Figure~\ref{fig:comparison_N3}
+as a region where Introspective Imitation Dynamics underperforms the Moran
+process. The pattern holds across all values of $N$ (see supplementary material).
+
+\subsection{Choice intensity and its interaction with dynamics type}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{Figures/beta_r_graph/main.pdf}
+\caption{$p_C$ as a function of choice intensity $\beta$ and multiplier $r$, comparing extrinsic and intrinsic dynamics.}
+\label{fig:beta_r}
+\end{figure}
 
-We also see that as the choice intensity $\beta$ of a population dynamic
-increases, an intrinsic dynamic is able to facillitate an increase in $p_C$,
-whereas even for high $r$ values, purely extrinsic processes will always have a
-negative correlation between $\beta$ and $p_C$. This is because a purely
-extrinsic process will always see a defector as performing better than a cooperator, so
-a high choice intensity will always favour defection. However, in an intrinsic
-process, we can see that under certain conditions (specifically, the condition
-$r \gt N$ as before) the comparison between a cooperator and a defector may
-favour cooperation by comparing a defector to their own possible payoff by
-cooperating, and thus a higher $p_C$ may be obtained by a higher value of
-$\beta$ in an intrinsic process. 
+Higher choice intensity $\beta$ consistently reduces $p_C$ under purely
+extrinsic dynamics, regardless of $r$. A high $\beta$ causes players to
+respond sharply to payoff differences, and since defectors always have higher
+payoffs than cooperators under extrinsic comparison, stronger selection
+accelerates the collapse of cooperation.
+
+Under intrinsic dynamics the relationship reverses when $r > N$. The
+introspective step compares a player's current payoff against their counterfactual
+payoff under cooperation; when $r > N$ this comparison favours cooperation, and
+higher $\beta$ amplifies that advantage, raising $p_C$.
+
+\subsection{Aspiration dynamics}
+%TODO: add aspiration dynamics results once data finishes running
 
 
 \section{Supplementary Information}
