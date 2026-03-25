@@ -21,98 +21,128 @@
 \maketitle
 \section{Introduction}
 
-\section{Literature Review}
+Reducing global carbon emissions is one of the defining collective action
+problems of our time. Countries differ substantially in their economic
+capacity, historical emissions, and the costs they face when decarbonising,
+yet they share a mutual interest in the global public good of a stable
+climate. This structure maps onto a \emph{public goods game}
+\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hofbauer_sigmund_1998}: each actor
+decides whether to incur a private cost to contribute to a shared resource
+whose total value is multiplied by some factor \(r\) and distributed equally.
+The temptation to free-ride means that purely selfish reasoning leads to a
+tragedy of the commons~\cite{hardin1968tragedy}, even when collective
+cooperation would benefit everyone. Both theory~\cite{santos2011risk} and controlled
+experiments~\cite{milinski2008collective} show that framing cooperation as a
+collective-risk problem, where failure to meet a cooperation threshold incurs a
+shared loss, can substantially raise cooperation rates. The challenge of
+overcoming free-riding is not merely theoretical.
+Nordhaus~\cite{10.1257/aer.15000001} proposed voluntary \emph{climate clubs}
+in which member nations adopt a common carbon price and levy tariffs on
+non-members, turning the international climate problem into a coordination game
+with enforcement. The European Union's Carbon Border Adjustment
+Mechanism~\cite{EU_CBAM_2023}, which requires importers to purchase
+certificates reflecting the carbon content of goods produced under weaker
+environmental regulation, represents a real-world instance of this idea.
 
-Evolutionary game theory has long been at the forefront of the study of
-emergent cooperation, showing how a strategy that is seemingly unfavourable for
-the individual, but beneficial to the collective, can become dominant in
-systems of rational actors. This is often shown through the study of games such
-as the iterated prisoner's dilemma\cite{10.1371/journal.pone.0304641,b5d8eed6-6ac7-35c7-953f-9af57df3f45e} and the snowdrift
-game\cite{PhysRevE.84.020902}. These examples, however, only allow for pairwise
-interactions, which does not accurately represent many real-world scenarios.
-Therefore, we look at a common game used to model the sharing of resources and
-interactions between multiple people - the public goods game.
+Evolutionary game theory offers a framework for studying how cooperation can
+emerge among self-interested actors without assuming rational
+foresight~\cite{hofbauer_sigmund_1998, 568a8a9c-d8ae-3d24-9fc2-3d33340230e7}.
+In this approach, strategies that perform well spread through a population via
+one of several update rules, while poorly performing strategies decline. The
+conditions under which cooperative strategies can invade and stabilise have
+been extensively studied in two-player settings such as the iterated
+prisoner's dilemma~\cite{10.1371/journal.pone.0304641,
+b5d8eed6-6ac7-35c7-953f-9af57df3f45e} and the snowdrift
+game~\cite{PhysRevE.84.020902}. The public goods game generalises these
+pairwise dilemmas to \(N\) players~\cite{hauert2002volunteering}, making it
+well suited to studying multi-lateral cooperation such as climate agreements.
+In finite populations, evolutionary outcomes are stochastic: a rare mutant
+strategy spreads or vanishes with a probability that depends on the population
+size, payoff structure, and update rule~\cite{nowak2004emergence,
+traulsen2006stochastic}. Computing these fixation and absorption probabilities
+exactly, rather than via simulation, is the approach taken here.
 
-In order to further tailor the idea of a public goods game to real world
-scenarios, we introduce the idea of heterogeneity to the system. Often in the
-study of games we consider each individual to exist in the same conditions -
-having the same utility and probability of transitioning to a different action
-type. However, this does not accurately reflect many of the interactions that
-occur in the real world, where individuals may have different factors affecting
-which strategies they are able to take. For example, in a public goods game,
-one player may wish to contribute \(x\) units to the public good, however they
-do not have enough wealth available to spare such a contribution. Heterogeneity
-allows us to give varying attributes to the different actors in order to
-simulate such situations. These attributes can be encoded into the players
-themselves as separate to the game, for example the reputation in \cite{MA2021111353},
-they may exist within the strategies of the players \cite{LEI20104708, PhysRevE.108.024111}, or they may
-exist within the actual payoffs which the players receive.
+A feature of real-world collective action that standard models typically set
+aside is that actors are not identical. Players differ in wealth, productive
+capacity, and the costs they face, and this inequality can reshape the dynamics
+of cooperation~\cite{hauser2019social}. In spatial and graphical settings,
+where players sit on a network and participate simultaneously in multiple games
+with their neighbours~\cite{nowak1992evolutionary, szabo2007evolutionary,
+perc2013evolutionary}, heterogeneity generally
+promotes cooperation. Santos~et~al.~\cite{santos2008social} showed that social
+diversity in endowments promotes the emergence of cooperation in the public
+goods game directly: heterogeneous populations outperform their homogeneous
+counterparts over a wide range of parameters. This echoes earlier work showing
+that scale-free network topology, a form of structural heterogeneity, provides
+a unifying framework for the emergence of
+cooperation~\cite{santos2005scale}. When contributions depend on dynamically
+accumulated reputation~\cite{MA2021111353}, high-reputation defectors receive
+reduced transfers, weakening defection's advantage. When heterogeneity arises
+from differences in network degree so that players allocate contributions
+according to the strength of their social ties~\cite{LEI20104708}, the payoff
+structure penalises high-degree defectors and protects cooperating clusters
+from invasion. The characteristic spatial mechanism is the formation of
+cooperating clusters that are more profitable than their defecting neighbours;
+provided \(r\) is sufficiently large, these clusters resist invasion and
+eventually spread. Heterogeneity does not, however, unconditionally favour
+cooperation. Flores~et~al.~\cite{PhysRevE.108.024111} show that when the
+contribution level is itself a strategic variable rather than a fixed
+attribute, low-value contributions act as a form of defection against the most
+collectively beneficial strategies, so that the emergence of cooperation does
+not guarantee the emergence of high-value cooperation.
 
-In much of the literature, we see heterogeneous public goods game being played
-graphically. By this I mean that in much research, players are placed on graphs
-(often regular square lattices, as in \cite{MA2021111353, PhysRevE.108.024111}) and participate in
-multiple public goods games at the same time, with their payoff being the
-combined payoff from all their games. This gives even more weight to the
-decision to cooperate or defect, and allows players to interact in scenarios
-with many different levels of these heterogeneous attributes. We also see many
-ideas for what these attributes could be based upon. \cite{MA2021111353} takes the idea
-of that players could build a reputation through their decisions across
-multiple generations, with players refusing to contribute higher amounts to
-groups made up of those who have a reputation for defection. While this is a
-dynamically updating heterogeneous attribute, some have proposed static
-attributes based on inherent properties of the individuals, such as in
-\cite{LEI20104708} where the players participate in different amounts of games, and
-contribute different amounts based on this factor.
+The studies above are almost exclusively concerned with spatially structured
+populations, where network topology is central. Much less is known about fully
+heterogeneous, \emph{well-mixed} populations, in which each individual is
+distinguished by a fixed attribute (such as their contribution capacity)
+independently of any graph structure. Furthermore, most existing analyses rely
+on simulation or mean-field approximations; exact treatments of heterogeneous
+evolutionary dynamics remain rare. How the choice of update rule interacts with
+population heterogeneity is also poorly understood. The Moran
+process~\cite{Moran_1958, knight2018evolution}, Fermi imitation
+dynamics~\cite{PhysRevE.58.69},
+aspiration dynamics~\cite{du2014aspiration}, and introspection
+dynamics~\cite{Couto2022, Couto2023} all model strategy revision in distinct
+ways, and each may respond very differently to player-specific payoffs. In
+particular, \emph{intrinsic} dynamics, in which a player evaluates a
+prospective strategy change based on their own counterfactual payoff, are
+better suited to heterogeneous populations than \emph{extrinsic} dynamics, in
+which a player may copy a high-fitness neighbour without considering whether
+the same strategy would serve them as well. The introspection dynamics
+framework developed in~\cite{Couto2022} and extended to multiplayer asymmetric
+games in~\cite{Couto2023} formalises this distinction for homogeneous
+populations; extending it to the fully heterogeneous setting motivates the
+present work.
 
-In both of the above cases, it is shown that an increased scrutiny of
-heterogeneous attributes in a spatial public goods game is beneficial to the
-emergence of cooperation, though for different reasons. In \cite{MA2021111353}, we see
-that increasing such scrutiny obviously harms defectors, as they receive
-reduced payoffs based on their low reputation due to being unable to coerce
-high contributions from other players. \cite{LEI20104708}, however, finds that if we
-encourage players to cooperate with those in a similar number of games to them,
-here done by tuning the \(\beta\) parameter, the high-degree defector nodes are
-unable to gather a large payoff, and so will be unable to spread their
-defection to their neighbours. If you encourage players to interact with those
-with different degrees, however, then middle-degree defectors will make heavy losses and be unable to survive.
+We make the following contributions. First, we establish a general framework
+for evolutionary dynamics on fully heterogeneous, well-mixed populations of
+\(N\) ordered individuals, in which each player may have a distinct payoff
+function and contribution level. Second, we derive exact transition matrices
+and, where applicable, exact absorption and steady-state distributions for
+four established dynamics (the Moran process, Fermi imitation dynamics,
+aspiration dynamics, and introspection dynamics) together with their
+mutation-augmented variants, applied to a heterogeneous public goods game.
+Third, we introduce a novel update rule, \emph{Introspective Imitation
+Dynamics}, in which players select a role model proportionally to fitness (as
+in the Moran process) but evaluate whether to adopt that strategy by comparing
+their own current and counterfactual payoffs (as in introspection dynamics).
+This rule is well suited to heterogeneous populations, where copying a
+high-fitness individual is irrational if the same strategy yields a worse
+payoff for the copying player. Fourth, we show that purely extrinsic dynamics
+are subject to a ceiling on the probability of cooperation that intrinsic
+dynamics can exceed, and we characterise the conditions under which this
+advantage arises, with the ratio of the public goods multiplier \(r\) to
+population size \(N\) as the central governing parameter. We study two
+heterogeneous population structures: a \emph{linear} population, in which
+players' capacities are graded uniformly across the group, and a
+\emph{binomial} population, consisting of a low-capacity majority and a
+high-capacity minority.
 
-\cite{PhysRevE.108.024111} shows how the benefits of this heterogeneity are not always as
-pronounced as it may seem. When the contribution is not calculated by some
-attribute, but rather is an attribute in and of itself (essentially becoming a
-new strategy) then even in systems where contribution dominates, we will see
-low-value contributions act as a sort of defection against the most globally
-beneficial strategies. Therefore, we can see that the emergence of cooperation
-is not the end of the story in some cases, and we must look at what sort of
-cooperation it is that we have fostered the emergence of.
-
-One common theme in the spatial public goods game is the manner in which
-cooperation spreads. An initial ``invasion" of defectors leads to cooperation
-mainly existing within small clusters. These clusters, however, are much more
-profitable than their defecting neighbours. Therefore, the cooperating clusters
-will influence the nearby defectors to join in, which eventually spreads
-throughout the system. This relies on the ability of the clusters to resist the
-initial invasion of defectors - an occurrence which relies on a high enough
-\(r\) value (the positive multiplier of the contribution to the public good).
-
-We also see that a potential climate club may soon be forming within the
-European Union. While it functions slightly differently to the classic example
-in \cite{10.1257/aer.15000001}, it follows the same principles of encouraging
-countries to join the group by punishing those outside of the club, in order to
-attempt to reduce overall carbon emissions. This is the ``Carbon Border
-Adjustment Mechanism" \cite{EU_CBAM_2023}. Currently, all goods within the EU require
-taxation based on their carbon footprint, however imported goods from outside
-cannot be subject to such taxes. CBAM aims to prevent foreign goods from
-gaining benefits due to environmentally harmful practices by enforcing that EU
-companies report the carbon content of imported goods, and purchase
-certificates to cover the environmental cost of said goods. However, if a
-country already levies a tax on their own goods (similar to the EU's carbon
-tax), then this cost will be taken into consideration, and fewer certificates
-must be purchased. This discourages the importation of goods from countries
-which do not levy a similar tax on their own items, forming a structure which
-behaves very similarly to the ``climate clubs" in \cite{10.1257/aer.15000001}.
-
-
-
+The remainder of the paper is organised as follows. Section~2 introduces the
+population model, defines all five dynamics and their mutation variants, and
+specifies the heterogeneous public goods game. Section~3 presents our results,
+and supplementary material containing extended parameter sweeps is provided in
+Section~4.
 
 \section{The Model}
 In this section, similarly to \cite{Couto2022,Couto2023}we examine the underlying framework modelling dynamic processes on a fully heterogeneous population. 
