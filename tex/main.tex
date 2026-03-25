@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes.geometric}
@@ -61,8 +62,7 @@ well suited to studying multi-lateral cooperation such as climate agreements.
 In finite populations, evolutionary outcomes are stochastic: a rare mutant
 strategy spreads or vanishes with a probability that depends on the population
 size, payoff structure, and update rule~\cite{nowak2004emergence,
-traulsen2006stochastic}. Computing these fixation and absorption probabilities
-exactly, rather than via simulation, is the approach taken here.
+traulsen2006stochastic}. 
 
 A feature of real-world collective action that standard models typically set
 aside is that actors are not identical. Players differ in wealth, productive
@@ -71,7 +71,7 @@ of cooperation~\cite{hauser2019social}. In spatial and graphical settings,
 where players sit on a network and participate simultaneously in multiple games
 with their neighbours~\cite{nowak1992evolutionary, szabo2007evolutionary,
 perc2013evolutionary}, heterogeneity generally
-promotes cooperation. Santos~et~al.~\cite{santos2008social} showed that social
+promotes cooperation. In \cite{santos2008social} it is shown that social
 diversity in endowments promotes the emergence of cooperation in the public
 goods game directly: heterogeneous populations outperform their homogeneous
 counterparts over a wide range of parameters. This echoes earlier work showing
@@ -95,7 +95,7 @@ not guarantee the emergence of high-value cooperation.
 
 The studies above are almost exclusively concerned with spatially structured
 populations, where network topology is central. Much less is known about fully
-heterogeneous, \emph{well-mixed} populations, in which each individual is
+heterogeneous, \emph{well-mixed} populations, in which all individuals are
 distinguished by a fixed attribute (such as their contribution capacity)
 independently of any graph structure. Furthermore, most existing analyses rely
 on simulation or mean-field approximations; exact treatments of heterogeneous
@@ -103,9 +103,9 @@ evolutionary dynamics remain rare. How the choice of update rule interacts with
 population heterogeneity is also poorly understood. The Moran
 process~\cite{Moran_1958, knight2018evolution}, Fermi imitation
 dynamics~\cite{PhysRevE.58.69},
-aspiration dynamics~\cite{du2014aspiration}, and introspection
+aspiration dynamics~\cite{du2014aspiration}, and introspection % TODO Add missing bib information
 dynamics~\cite{Couto2022, Couto2023} all model strategy revision in distinct
-ways, and each may respond very differently to player-specific payoffs. In
+ways, and each may respond differently to player-specific payoffs. In
 particular, \emph{intrinsic} dynamics, in which a player evaluates a
 prospective strategy change based on their own counterfactual payoff, are
 better suited to heterogeneous populations than \emph{extrinsic} dynamics, in
@@ -119,7 +119,7 @@ present work.
 We make the following contributions. First, we establish a general framework
 for evolutionary dynamics on fully heterogeneous, well-mixed populations of
 \(N\) ordered individuals, in which each player may have a distinct payoff
-function and contribution level. Second, we derive exact transition matrices
+function and contribution level. Second, for \(N=2\), we derive exact transition matrices
 and, where applicable, exact absorption and steady-state distributions for
 four established dynamics (the Moran process, Fermi imitation dynamics,
 aspiration dynamics, and introspection dynamics) together with their
@@ -129,7 +129,7 @@ Dynamics}, in which players select a role model proportionally to fitness (as
 in the Moran process) but evaluate whether to adopt that strategy by comparing
 their own current and counterfactual payoffs (as in introspection dynamics).
 This rule is well suited to heterogeneous populations, where copying a
-high-fitness individual is irrational if the same strategy yields a worse
+high-fitness individual is likely although irrational if the same strategy yields a worse
 payoff for the copying player. Fourth, we show that purely extrinsic dynamics
 are subject to a ceiling on the probability of cooperation that intrinsic
 dynamics can exceed, and we characterise the conditions under which this
