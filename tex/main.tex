@@ -16,9 +16,11 @@
 \usepackage{amsthm}
 \newtheorem{proposition}{Proposition}
 
-\title{Intrinsic and Extrinsic Dynamics in Heterogeneous Public Goods Games: Exact Results}
+\title{Intrinsic and Extrinsic Dynamics in Heterogeneous Public Goods Games: Exact Results} % TODO I still don't think this is the correct title.
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
 \date{\today}
+
+%TODO Write abstract (no big rush with this.)
 
 \begin{document}
 \maketitle
@@ -146,7 +148,9 @@ specifies the heterogeneous public goods game. Section~3 presents our results,
 and supplementary material containing extended parameter sweeps is provided in
 Section~4.
 
-\section{The Model}
+\section{The General Heterogeneous Population Dynamic Model}
+\label{sec:the_general_heterogeneous_population_dynamic_model}
+
 Following~\cite{Couto2022, Couto2023}, we define a general framework for
 evolutionary dynamics on a fully heterogeneous, well-mixed population.
 
@@ -502,10 +506,10 @@ Detailed transition matrices for each of the previously studied processes, now
 incorporating mutation, are provided in the supplementary materials.
 
 
-
-
-
 \subsection{The Public Goods Game}
+
+To illustrate all of the dynamics of Section~\ref{sec:the_general_heterogeneous_population_dynamic_model}
+we will use the Public Goods game.
 
 We apply the dynamics above to the public goods
 game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hofbauer_sigmund_1998}.
@@ -518,27 +522,59 @@ push against the collectively optimal outcome of universal cooperation.
 
 We can model a public goods game by providing the following payoff function:
 
-\begin{large}
 \begin{equation}
    \pi_i(\textbf{a}) = \frac{r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i
   \label{eqn:General Model}
 \end{equation}
-\end{large}\\
-(where \(\alpha_j\) is the contribution by individual j.) 
-In the homogeneous public goods game, we have that \(\alpha_j\) can only take
-one of two values: some constant \(\alpha\) if individual j cooperates, and 0
-if not. However, the heterogeneous game will require a more tailored
-\(\alpha_j\). We consider two heterogeneous population structures. Let \(M\)
-denote the total contribution when all players cooperate. In the \emph{linear}
-population, player \(i\) contributes \(\frac{2Mi}{N(N+1)}\), so that
-contributions increase uniformly across the ordered population. In the
-\emph{binomial} population, the first \(n < N\) players each contribute a low
-amount \(\alpha_L\) and the remaining \(N - n\) players each contribute a
-greater amount \(\alpha_H\).
+
+
+Where \(\alpha_j\) is the contribution by individual \(j\). This is a similar
+heterogeneous public good game as the one described in~\cite{hauser2019social} 
+although in that model the return \(r\) is also a heterogeneous property of
+each player.
 
 \section{Results}
 
-\subsection{Overall distribution of cooperation probability}
+\subsection{Analytic Results}
+\label{sec:analytic}
+%TODO: add bounds
+
+\subsection{Numeric Results}
+
+For the purposes of this section, a large scale parameter sweep is carried out.
+To the authors knowledge this is the largest such parameter sweep. It is done to
+the highest standards of reproducibility~\cite{wilson2014, sandve2013,
+wilson2017, stodden2018, turingway2022} and all data has been archived and is a
+further contribution of the work. % TODO Archive the data when done and add citation information for the data. 
+For the purpose of this research, the authors
+developed a software library \texttt{ludics} (written in python) which is
+installable. The archive of the software is at~\cite{}  % TODO Add archive of software 
+and the documentation can be found at~\url{}. % TODO Add url of docs
+All the development of the software can be found at~\url{}. % TODO Add github url
+
+\subsubsection*{Parameter Space}
+
+% TODO Write this section, I'm drafting some stuff below but it needs a lot of
+% work.
+
+\begin{itemize}
+    \item Number of experiments.
+    \item Size of population (simple 1 to 9 right?)
+    \item \(r\)
+    \item Total contribution of the population \(M\) (I don't think this
+        technically exist for the binomial population right? But include the
+        range.
+    \item Two population structures.
+    \item Mutation values.
+\end{itemize}
+
+% TODO Draw a nice panel figure that shows all of the above
+
+\subsubsection*{What we measure}  % TODO Find a better name for this.
+
+% TODO Define $p_C$ for absorbing and for ergodic chain. This needs to be
+% separated out from here on out I think... (Maybe not, could just see effect of
+% 0 mutation.)
 
 Figure~\ref{fig:overall_hist} shows the marginal distribution of the cooperation
 probability $p_C$ across all parameter combinations and dynamics. Most
@@ -610,7 +646,6 @@ but consistent increase in $p_C$ as the contribution gap between low and high
 contributors widens. This suggests that the invariance observed under linear
 heterogeneity is specific to that population structure: it does not reflect a
 general insensitivity of these dynamics to heterogeneity.
-%TODO: provide mathematical explanation of the contrast between linear invariance and binomial sensitivity
 
 \subsection{The cooperation ceiling under purely extrinsic dynamics}
 \label{sec:ceiling}
@@ -629,19 +664,19 @@ cannot exceed the neutral-drift baseline:
 \begin{proposition}[Extrinsic ceiling]
 \label{prop:ceiling}
 Under any purely extrinsic dynamic, the stationary probability of full
-cooperation satisfies $p_C \leq \frac{1}{N}$ for all $\alpha_i > 0$.
+    cooperation satisfies \(p_C \leq \frac{1}{N}\) for all \(\alpha_i > 0\).
 \end{proposition}
 
-For the $N = 3$ case shown, this gives a ceiling of $p_C \leq \frac{1}{3}$,
+For the \(N = 3\) case shown, this gives a ceiling of \(p_C \leq \frac{1}{3}\),
 visible as a hard upper boundary in both Figures~\ref{fig:fermi_het}
 and~\ref{fig:moran_het}.
 
 Although Introspective Imitation Dynamics breaks through this ceiling (see
 Section~\ref{sec:ceiling_break}), it does not escape it entirely: across all
-parameter combinations examined, $p_C$ under Introspective Imitation Dynamics
-has a hard empirical upper bound near $p_C \approx 0.35$--$0.40$ for $N = 3$.
-This is only modestly above the $1/3$ extrinsic ceiling, and well below the
-values achievable by introspection dynamics, which can approach $p_C = 1$.
+parameter combinations examined, \(p_C\) under Introspective Imitation Dynamics
+has a hard empirical upper bound near \(p_C \approx 0.35\) to \(0.40\) for \(N =
+3\). This is only modestly above the \(1/3\) extrinsic ceiling, and well below the
+values achievable by introspection dynamics, which can approach $p_C = 1$.  % TODO This will need to be fixed when we have mutation... 
 
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
 \label{sec:ceiling_break}
@@ -661,10 +696,10 @@ beneficial for the focal player, this step assigns a probability greater than
 $\frac{1}{2}$ to accepting it, enabling $p_C > \frac{1}{N}$.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
-\caption{$p_C$ under introspection dynamics ($N = 3$, linear population).}
-\label{fig:introspection_het}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
+    \caption{$p_C$ under introspection dynamics ($N = 3$, linear population).}
+    \label{fig:introspection_het}
 \end{figure}
 
 The same qualitative result holds for introspection dynamics, though $p_C$
@@ -806,6 +841,7 @@ achieves a higher $p_C$.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
+% TODO The ylabel is broken here.
 \caption{$p_C(\text{Moran}) - p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike all other pairwise comparisons, the violin shape and median are approximately constant across the entire $r$ range.}
 \label{fig:moran_vs_fermi}
 \end{figure}
@@ -828,57 +864,54 @@ dominated by introspection dynamics across all multipliers.
 \label{fig:introspection_vs_moran_N9}
 \end{figure}
 
-\section{Analytic Results}
-\label{sec:analytic}
-%TODO: fill in analytic results once symbolic steady-state computations on siren complete (Moran+mutation, Fermi+mutation, IID+mutation).
-
 \section{Conclusion}
 
+% TODO This will need a complete rewrite with mutation etc... Have written it as
+% is for now.
 We have introduced and analysed a framework for heterogeneous public goods
 games under five distinct population dynamics, two purely extrinsic (Moran
 process and Fermi imitation) and three intrinsic or mixed (aspiration,
 introspection, and Introspective Imitation Dynamics). Exact results are
 obtained by computing transition matrices and stationary distributions
-analytically for the two-player case, with the general-$N$ case studied
+analytically for the two-player case, with the general-\(N\) case studied
 numerically.
 
 The central theoretical finding is a dichotomy between extrinsic and intrinsic
 dynamics. Under any purely extrinsic dynamic, cooperation is bounded above by
-$p_C \leq 1/N$ (Proposition~\ref{prop:ceiling}): payoff comparisons between
+\(p_C \leq 1/N\) (Proposition~\ref{prop:ceiling}): payoff comparisons between
 players always disfavour the cooperating strategy, so the neutral-drift
 baseline cannot be exceeded. Intrinsic dynamics, which evaluate payoffs from
-the focal player's own perspective, break through this ceiling whenever $r > N$
-(Proposition~\ref{prop:rN}). The $r = N$ threshold is sharp: it is not only the
-point at which the expected difference in $p_C$ changes sign, but also the
+the focal player's own perspective, break through this ceiling whenever \(r > N\)
+(Proposition~\ref{prop:rN}). The \(r = N\) threshold is sharp: it is not only the
+point at which the expected difference in \(p_C\) changes sign, but also the
 point at which the variance in that difference collapses to a minimum.
 
 The empirical results reveal a rich structure within and across dynamics.
 Introspection dynamics uniformly dominates Fermi imitation over all parameter
 combinations, and its advantage over the Moran process grows with population
-size $N$, becoming unconditional for large enough $N$. The Moran--Fermi
-comparison, by contrast, is approximately $r$-invariant: neither dynamics has
-a meaningful threshold response to $r$. Population heterogeneity affects the
+size \(N\), becoming unconditional for large enough \(N\). The Moran--Fermi
+comparison, by contrast, is approximately \(r\)-invariant: neither dynamics has
+a meaningful threshold response to \(r\). Population heterogeneity affects the
 two extrinsic dynamics differently depending on structure: linear heterogeneity
 is neutral for both Moran and IID, but binomial heterogeneity produces a
-consistent positive effect on $p_C$ for both.
+consistent positive effect on \(p_C\) for both.  %TODO I think this is interesting and could need more
 
 Introspective Imitation Dynamics is introduced here as a novel hybrid dynamic,
 combining the imitative learning structure of the Moran process with the
 payoff self-evaluation of introspection dynamics. It is the only absorbing
-dynamic that exceeds the $1/N$ ceiling, and its behaviour changes qualitatively
-at $r = N$. Its hard empirical upper bound near $p_C \approx 0.35$--$0.40$
-for $N = 3$, modestly above the ceiling, suggests that introspective
+dynamic that exceeds the \(1/N\) ceiling, and its behaviour changes qualitatively
+at \(r = N\). Its hard empirical upper bound near \(p_C \approx 0.35\)--\(0.40\)
+for \(N = 3\), modestly above the ceiling, suggests that introspective
 self-evaluation alone cannot fully substitute for the unconstrained
 exploration of strategy space available to introspection dynamics.
 
-Analytic closed-form expressions for the stationary distributions of the
-mutation-augmented dynamics are outstanding (see Section~\ref{sec:analytic}). Aspiration dynamics results are similarly pending
-(data still running). The framework developed here, however, provides a
+The framework developed here, however, provides a
 complete and exact treatment of the two-player heterogeneous public goods
 game under each dynamic, and establishes the key qualitative distinctions that
 persist across population sizes and structures.
 
 \section{Supplementary Information}
+% TODO Let us move the SI to its own seperate dir.
 
 \subsection{Explicit transition matrices for the two-player game}
 \label{sec:explicit_matrices}
