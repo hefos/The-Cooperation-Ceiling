@@ -145,45 +145,39 @@ and supplementary material containing extended parameter sweeps is provided in
 Section~4.
 
 \section{The Model}
-In this section, similarly to \cite{Couto2022,Couto2023}we examine the underlying framework modelling dynamic processes on a fully heterogeneous population. 
-We begin by defining a population of individuals and the actions which they may take, and then we see different methods by which we can model the evolution of a population over time.
+Following~\cite{Couto2022, Couto2023}, we define a general framework for
+evolutionary dynamics on a fully heterogeneous, well-mixed population.
 
-\subsection{An Initial System}
+\subsection{Population and State Space}
 
-\begin{itemize}
-    \item \(N\) \textbf{ordered} individuals who play actions from action sets \(A_i =
-    (a_{i,1}, a_{i,2},..., a_{i,k})\). In this paper, we shall assume that all action sets contain the same possible actions for each player.
-    \item A state space S given by the set of ordered \(N\)-tuples with entries \(\textbf{a} = (a_1, a_2, a_3, \dots) \in A_1 \times A_2 \times A_3\times...\).
-    \item A fitness function \(S \to \mathbb{R}^N\). We denote by $\pi$ the
-    payoff function for a given game. We denote 
-    the \(i^{th}\) entry of \(\pi(\textbf{a})\) by \(\pi_{i}(\textbf{a})\). 
-\end{itemize}
+The population consists of \(N\) \textbf{ordered} individuals. Each individual
+selects an action from a common action set \(A = (a_1, a_2, \ldots, a_k)\); we
+assume throughout that all individuals share the same action set of size \(k\).
+A \emph{state} of the population is an ordered \(N\)-tuple
+\(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in A^N\), and the \emph{state space}
+\(S\) is the set of all such tuples. A payoff function
+\(\pi \colon S \to \mathbb{R}^N\) assigns to each state a vector of individual
+payoffs; we write \(\pi_i(\mathbf{a})\) for the payoff of individual \(i\) in
+state \(\mathbf{a}\).
 
-Now let $h(\textbf{a, b})$ denote the Hamming distance between two states
-\(\textbf{a}, \textbf{b} \in S\) \cite{kythe-book}. 
-The set of states \textbf{b} such that $h(\textbf{a, b}) = 1$ is defined as Neb(\textbf{a}), the ``Neighbourhood set of a state" \cite{Couto2023}.
-Our system will be in the form of a Markov chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e} which moves between states with a probability \(>0\) if and only if $h(\textbf{a, b}) \leq 1$. 
-We call the index at which \textbf{a} and \textbf{b} differ the \textit{index of difference}, denoted \(I(\textbf{ab})\) \cite{Couto2023}.
-We shall look at different population dynamics by which we may model such a Markov chain.
+The population evolves as a Markov chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}
+on \(S\). Transitions can only occur between states that differ in exactly one
+coordinate, that is, states \(\mathbf{a}\) and \(\mathbf{b}\) with Hamming
+distance \(h(\mathbf{a}, \mathbf{b}) = 1\)~\cite{kythe-book}. We call the
+unique coordinate at which \(\mathbf{a}\) and \(\mathbf{b}\) differ the
+\emph{index of difference}, denoted \(I(\mathbf{a}, \mathbf{b})\)~\cite{Couto2023}.
+The set of states reachable from \(\mathbf{a}\) in one step is
+\(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a}, \mathbf{b}) = 1\}\)~\cite{Couto2023}.
 
-\subsection{Population Dynamics} 
+\subsection{Population Dynamics}
 
-In this section, we give an overview of various population dynamics.
-This includes the following well-known dynamics, adapted to a fully
-heterogeneous population:
-
-\begin{itemize}
-  \item The Moran process, first described in \cite{Moran_1958}
-  \item Fermi Imitation Dynamics, a common choice of dynamic often adapted to
-  the study of cooperation on a graph \cite{MA2021111353, LEI20104708,
-  PhysRevE.58.69} %use better reference (first time used)
-  \item Aspiration dynamics, a model first defined in \cite{du2014aspiration}
-  \item Introspection Dynamics, a more modern dynamic defined in \cite{Couto2022}
-\end{itemize}
-
-We also introduce a new dynamic called ``Introspective Imitation Dynamics''.
-This is a novel dynamic particularly suited to the process of learning from
-others in a heterogeneous population.
+We adapt four established dynamics to the heterogeneous setting: the Moran
+process~\cite{Moran_1958}, Fermi imitation dynamics~\cite{PhysRevE.58.69,
+MA2021111353, LEI20104708}, aspiration dynamics~\cite{du2014aspiration}, and
+introspection dynamics~\cite{Couto2022, Couto2023}. We also introduce a novel
+fifth dynamic, \emph{Introspective Imitation Dynamics}, which combines the
+fitness-proportionate role-model selection of the Moran process with the
+self-referential evaluation step of introspection dynamics.
 
 \subsubsection{Choice and Selection intensity}
 In Moran-process-type dynamics, which model biological evolution, we introduce a
@@ -198,9 +192,8 @@ Smaller values of \(\epsilon\) correspond to weaker selection, placing less
 emphasis on payoff differences in the evolutionary update. In the limiting case
 \(\epsilon = 0\), the process reduces to neutral drift, in which reproduction is
 independent of payoff.
-In contrast, population dynamics based on the Fermi update rule
-\cite{PhysRevE.58.69} %use better reference
- employ a parameter \(\beta\), which we refer to as the
+In contrast, population dynamics based on the Fermi update rule~\cite{PhysRevE.58.69}
+employ a parameter \(\beta\), which we refer to as the
 \emph{choice intensity}. This parameter determines how sensitively individuals
 respond to payoff differences when making decisions. Depending on the specific
 dynamic under consideration, these payoff differences may arise from comparing
@@ -210,10 +203,7 @@ switching strategy.
 
 
 \subsubsection{The Moran Process}
-The Moran process \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} is a dynamic
-corresponding to the following algorithm:
-%find a better reference (original paper? though I mention this above so maybe
-%this is fine)
+The Moran process~\cite{Moran_1958} is defined by the following algorithm:
 \begin{enumerate}
     \item A player is chosen to be duplicated with a probability proportional to their fitness in the population
     \item A player is chosen with probability $\frac{1}{N}$ to be removed from the population
@@ -243,21 +233,10 @@ We can now discuss one of the key ideas in the Moran process. As no new action t
 We denote the set of absorbing states $S^{\gamma}$.
 We therefore have that the Moran process forms an absorbing Markov chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, and we can investigate the probability of the population being absorbed into each absorbing state.
 
-Consider a game with two players, each playing one of two actions. We have a state space
-\(\textbf{a} = (0,0), \textbf{b} = (0,1), \textbf{c} = (1,0), \textbf{d} = (1,1)\), and our transition matrix \(T\) would take the form
-\begin{center}
-\begin{equation}
-\begin{bmatrix}
-1 & 0 & 0 & 0\\\frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} & 1 - \frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} - \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} & 0 & \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}}\\\frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} & 0 & 1 - \frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} - \frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} & \frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}\\0 & 0 & 0 & 1
-\end{bmatrix}
-\label{eqn:2x2_Moran_Transition}
-\end{equation}
-\end{center}
-
-Our transition matrix represents the probability of transitioning from the state represented by the row to the state represented by the column.
-Here our columns represent \textbf{a},\textbf{b}, \textbf{c} and \textbf{d}
-from left to right, and the rows represent these states in the same order from
-top to bottom.
+Consider a game with two players, each playing one of two actions, giving the
+state space \(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\
+\mathbf{d} = (1,1)\). The explicit transition matrix for this case is given in
+equation~(\ref{eqn:2x2_Moran_Transition}) in the supplementary material.
 
 Now, by taking the fundamental matrix of \(T\) and performing a right
 multiplication by \(R\), the matrix with entries which represent transitions
@@ -301,9 +280,9 @@ population.
 It models the following process:
 
 \begin{itemize}
-  \item Two players, \(i\) and \(j\) are selected at random. Unlike
-  \cite{PhysRevE.58.69}, the player \(j\) does not have to be the neighbour of
-  player \(i\). %This is true but maybe we can mention this somewhere else?
+  \item Two players, \(i\) and \(j\) are selected at random. Unlike the
+  original formulation~\cite{PhysRevE.58.69}, player \(j\) need not be a
+  neighbour of player \(i\), reflecting the well-mixed setting considered here.
   \item Player \(i\) copies the action type of the player \(j\) with a
   probability according to the Fermi function \(
     \phi(\pi_{i}(\textbf{a}) - \pi_{j}(\textbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\textbf{a}) - \pi_{j}(\textbf{a}))}\right)}}\)
@@ -348,17 +327,11 @@ summation term is at most \(N-1\) values of said function,
 and thus takes a
 value \(<N-1\).
 
-Now, let us look once more at our state space \(\textbf{a} = (0,0), \textbf{b} = (0,1), \textbf{c} = (1,0), \textbf{d} = (1,1)\).  
-We can define a transition matrix:
-\begin{center}
-\begin{equation}
-\begin{bmatrix}
-1 & 0 & 0 & 0\\\frac{1}{2}\phi(\pi_2(\textbf{b}) - \pi_1(\textbf{b})) & \frac{1}{2} & 0 & \frac{1}{2}\phi(\pi_1(\textbf{b}) - \pi_2(\textbf{b}))\\\frac{1}{2}\phi(\pi_1(\textbf{c}) - \pi_2(\textbf{c})) & 0 & \frac{1}{2} & \frac{1}{2}\phi(\pi_2(\textbf{c}) - \pi_1(\textbf{c}))\\0 & 0 & 0 & 1
-\end{bmatrix}
-\end{equation}
-\end{center}
-
-and using our previous method, we can acquire our absorption matrix:
+For the two-player state space \(\mathbf{a},\mathbf{b},\mathbf{c},\mathbf{d}\),
+the explicit transition matrix is given in
+equation~(\ref{eqn:2x2_Fermi_Transition}) in the supplementary material.
+Applying the same absorption matrix calculation as for the Moran process, we
+obtain:
 
 \begin{center}
 \begin{large}
@@ -392,9 +365,9 @@ Here, \(A\) is player \(i\)'s \textit{aspiration}, meaning the payoff which
 they desire to make from a given game.
 A player will accept a new strategy with a higher than random probability if
 their current payoff is lower than their aspired payoff.
-This dynamic is almost always only defined for two actions - traditionally the
-actions to either cooperate or defect. %reference
-The related transition matrix can be seen below:
+This dynamic is almost always defined for two actions, traditionally
+cooperation and defection~\cite{du2014aspiration}. %TODO: confirm du2014aspiration once added to bibliography
+The related transition matrix is:
 
 \begin{equation}
 T_{\textbf{ab}} =
@@ -564,22 +537,11 @@ level to which a player's fitness is considered when their strategy is being cho
 consideration, and also how much it is considered when choosing whether to
 accept the new strategy, is present in the dynamic.
 
-Let us now see this model applied to our ongoing example in the state space \(S = \{\textbf{a},\textbf{b},\textbf{c},\textbf{d}\}\).
-Let 
-\(\eta_{i,j}(\textbf{x,y}) =1 +e^{\beta((f_i(\textbf{x}) - f_j(\textbf{y})))}\) be the denominator of the Fermi function.
-We first see our transition matrix:
-
-\begin{center}
-\begin{tiny}
-\begin{equation}
-\begin{bmatrix}
-1 & 0 & 0 & 0\\\frac{f_{1}{\left(b \right)}}{2\eta_{2,2}(\textbf{b,a}) \left(f_{1}{\left(b \right)} + f_{2}{\left(b \right)}\right)} & 1 - \frac{f_{2}{\left(b \right)}}{\eta_{1,1}(\textbf{b,d})\left(2 f_{1}{\left(b \right)} + 2 f_{2}{\left(b \right)}\right)} - \frac{f_{1}{\left(b \right)}}{\eta_{2,2}(\textbf{b,a}) \left(2 f_{1}{\left(b \right)} + 2 f_{2}{\left(b \right)}\right)} & 0 & \frac{f_{2}{\left(b \right)}}{2\eta_{1,1}(\textbf{b,d)} \left(f_{1}{\left(b \right)} + f_{2}{\left(b \right)}\right) }\\\frac{f_{2}{\left(c \right)}}{2 \eta_{1,1}(\textbf{c,a})\left(f_{1}{\left(c \right)} + f_{2}{\left(c \right)}\right)} & 0 & 1 - \frac{f_{1}{\left(c \right)}}{\eta_{2,2}(\textbf{c,d})\left(2 f_{1}{\left(c \right)} + 2 f_{2}{\left(c \right)}\right)} - \frac{f_{2}{\left(c \right)}}{\eta_{1,1}(\textbf{c,a}) \left(2 f_{1}{\left(c \right)} + 2 f_{2}{\left(c \right)}\right)} & \frac{f_{1}{\left(c \right)}}{2\eta_{2,2}(\textbf{c,d}) \left(f_{1}{\left(c \right)} + f_{2}{\left(c \right)}\right)}\\0 & 0 & 0 & 1
-\end{bmatrix}
-\end{equation}
-\end{tiny}
-\end{center}
-
-And, using the same method as in the other methods of imitation dynamics, we obtain the absorption matrix:
+Let \(\eta_{i,j}(\mathbf{x}, \mathbf{y}) = 1 + e^{\beta(f_i(\mathbf{x}) - f_j(\mathbf{y}))}\)
+be the denominator of the Fermi function. For the two-player state space
+\(S = \{\mathbf{a},\mathbf{b},\mathbf{c},\mathbf{d}\}\), the explicit
+transition matrix is given in equation~(\ref{eqn:2x2_IID_Transition}) in the
+supplementary material. Applying the absorption matrix calculation, we obtain:
 
 \begin{center}
 \begin{large}
@@ -648,68 +610,10 @@ In the case of the Moran process, our transition matrix becomes:
     \end{equation}
 \end{large}
 
-For the case of the two player game, we now have the transition matrix:
-
-\[
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
-&
-\frac{\mu_{22}}{2}
-&
-\frac{\mu_{12}}{2}
-&
-0
-\\[0.5em]
-
-\frac{\mu_{21}}{2} 
-+ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} 
-- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-+ 1
-& 0
-&
-\frac{\mu_{12}}{2} 
-+ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-\\[0.5em]
-
-\frac{\mu_{11}}{2} 
-+ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-& 0
-&
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} 
-- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-+ 1
-&
-\frac{\mu_{22}}{2} 
-+ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-\\[0.5em]
-
-0
-&
-\frac{\mu_{11}}{2}
-&
-\frac{\mu_{21}}{2}
-&
--\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-
-\end{bmatrix}
-$}
-\]
-
-and the steady state:
-%on siren
+The explicit transition matrix for the two-player case is given in
+equation~(\ref{eqn:2x2_Moran_Mutation_Transition}) in the supplementary
+material. This yields an ergodic Markov chain whose steady state is:
+%TODO: fill in once computation on siren completes
 
 
 \subsubsection{Fermi Imitation Dynamics}
@@ -729,58 +633,10 @@ transition matrix:
 \end{large}
 
 
-In the case of the two player game, we obtain the transition matrix:
-\[
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
-& \frac{\mu_{22}}{2}
-& \frac{\mu_{12}}{2}
-& 0
-\\[1em]
-
-\frac{\mu_{21}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1\right)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
-- \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(b) - f_{2}(b))} + 1\right)}
-- \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1\right)}
-& 0
-&
-\frac{\mu_{12}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(b) - f_{2}(b))} + 1\right)}
-\\[1em]
-
-\frac{\mu_{11}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(c) - f_{2}(c))} + 1\right)}
-& 0
-&
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
-- \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(c) - f_{2}(c))} + 1\right)}
-- \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1\right)}
-&
-\frac{\mu_{22}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1\right)}
-\\[1em]
-
-0
-& \frac{\mu_{11}}{2}
-& \frac{\mu_{21}}{2}
-& -\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-
-\end{bmatrix}$}
-\]
-
-And the steady state:
-%on siren
+The explicit transition matrix for the two-player case is given in
+equation~(\ref{eqn:2x2_Fermi_Mutation_Transition}) in the supplementary
+material. The resulting steady state is:
+%TODO: fill in once computation on siren completes
 
 \subsubsection{Aspiration Dynamics}
 As aspiration and introspection dynamics do not form absorbing Markov chains,
@@ -798,33 +654,9 @@ T^{(m)}_{\textbf{ab}} =
 \end{cases}
 \]
 
-In the case of the general 2-player game, we get the following:
-
-\resizebox{\textwidth}{!}{$
-\left[
-\begin{matrix}
-1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(a))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(a))}} 
-& \frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(a)}} 
-& \frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(a)}} 
-& 0 \\
-
-\frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(b)}} 
-& 1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(b))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(b))}} 
-& 0 
-& \frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(b)}} \\
-
-\frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(c)}} 
-& 0 
-& 1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(c))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(c))}} 
-& \frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(c)}} \\
-
-0 
-& \frac{0.5 e^{A_{1} \beta}}{e^{A_{1} \beta} + e^{\beta f_{1}(d)}} 
-& \frac{0.5 e^{A_{2} \beta}}{e^{A_{2} \beta} + e^{\beta f_{2}(d)}} 
-& 1 - \frac{0.5}{1 + e^{- \beta (A_{2} - f_{2}(d))}} - \frac{0.5}{1 + e^{- \beta (A_{1} - f_{1}(d))}}
-\end{matrix}
-\right]
-$}
+The explicit transition matrix for the two-player case is given in
+equation~(\ref{eqn:2x2_Aspiration_Mutation_Transition}) in the supplementary
+material.
 
 
 \subsubsection{Introspection Dynamics}
@@ -844,76 +676,9 @@ T^{(m)}_{\textbf{ab}} =
 \end{cases}
 \]
 
-which, in the case of the two player game, gives us the following:
-
-\[\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(f_{2}(a) - f_{2}(b))} + 1\right)}
-- \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(a) - f_{1}(c))} + 1\right)}
-&
-\frac{\mu_{22}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(f_{2}(a) - f_{2}(b))} + 1\right)}
-&
-\frac{\mu_{12}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(a) - f_{1}(c))} + 1\right)}
-& 0
-\\[1em]
-
-\frac{\mu_{21}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)}
-- \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)}
-& 0
-&
-\frac{\mu_{12}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)}
-\\[1em]
-
-\frac{\mu_{11}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)}
-& 0
-&
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)}
-- \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)}
-&
-\frac{\mu_{22}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)}
-\\[1em]
-
-0
-&
-\frac{\mu_{11}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1\right)}
-&
-\frac{\mu_{21}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1\right)}
-&
--\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}
-       {2\left(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1\right)}
-- \frac{-\mu_{11} - \mu_{12} + 1}
-       {2\left(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1\right)}
-
-\end{bmatrix}$}
-\]
+The explicit transition matrix for the two-player case is given in
+equation~(\ref{eqn:2x2_Introspection_Mutation_Transition}) in the supplementary
+material.
 
 \subsubsection{Introspective Imitation Dynamics}
 Finally, for the case of introspective imitation dynamics, we get the following
@@ -927,63 +692,10 @@ T^{(m)}_{\textbf{ab}} =  \begin{cases}
 \end{cases}
 \end{equation}
 
-For the two player game, we obtain the transition matrix:
-
-\[\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
-&
-\frac{\mu_{22}}{2}
-&
-\frac{\mu_{12}}{2}
-&
-0
-\\[1em]
-
-\frac{\mu_{21}}{2} 
-+ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} 
-- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-+ 1
-& 0
-&
-\frac{\mu_{12}}{2} 
-+ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(e^{\beta(f_{1}(b) - f_{1}(d))} + 1\right)\left(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2\right)}
-\\[1em]
-
-\frac{\mu_{11}}{2} 
-+ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-& 0
-&
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} 
-- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\left(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-+ 1
-&
-\frac{\mu_{22}}{2} 
-+ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\left(e^{\beta(f_{2}(c) - f_{2}(d))} + 1\right)\left(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2\right)}
-\\[1em]
-
-0
-& \frac{\mu_{11}}{2}
-& \frac{\mu_{21}}{2}
-& -\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-
-\end{bmatrix}$}
-\]
-
-which gives us a steady state:
-%on siren
+The explicit transition matrix for the two-player case is given in
+equation~(\ref{eqn:2x2_IID_Mutation_Transition}) in the supplementary
+material. The resulting steady state is:
+%TODO: fill in once computation on siren completes
 
 \subsection{Classification of Population Dynamics}
 We will now classify our population dynamics into one of two categories. 
@@ -1030,15 +742,14 @@ for aspiration dynamics there is only one other strategy to accept.}
 
 \subsection{The Public Goods Game}
 
-In this section, we shall see how different population dynamics can be applied
-to the public goods game. \cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hofbauer_sigmund_1998}
-In this game, individuals choose whether or not to contribute to a public resource pool. 
-In the end, the total resource is multiplied by some factor \(r > 1\) and
-distributed equally between each player. This model often encourages a
-behaviour known as ``free-riding"
-%citation
-, where players refuse to contribute to the pool and simply take the benefit provided by other individuals' contribution. 
-The classic problem of a public goods game is to provide an environment where such free-riding is less profitable than contributing to the public good.
+We apply the dynamics above to the public goods
+game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hofbauer_sigmund_1998}.
+In this game, individuals choose whether or not to contribute to a common
+resource pool. The total contribution is multiplied by a factor \(r > 1\) and
+distributed equally among all \(N\) players. The model captures the temptation
+to free-ride~\cite{hardin1968tragedy}: a player who withholds their contribution
+still receives an equal share of the multiplied pool, so individual incentives
+push against the collectively optimal outcome of universal cooperation.
 
 We can model a public goods game by providing the following payoff function:
 
@@ -1052,14 +763,13 @@ We can model a public goods game by providing the following payoff function:
 In the homogeneous public goods game, we have that \(\alpha_j\) can only take
 one of two values: some constant \(\alpha\) if individual j cooperates, and 0
 if not. However, the heterogeneous game will require a more tailored
-\(\alpha_j\). Thus, we consider two cases of contribution distributions. Let
-$M$ be the total possible contribution when all players cooperate. The
-first case, we consider a linear wealth distribution, under which a player $i$
-contributes $\frac{2Mi}{N(N+1)}$. In this population, each player
-contributes more than the last. The second population we call the binomial
-population. In this population, the first $n \lt N$ players contribute some low
-amount $\alpha_L$, and the final $N - n$ players contribute some greater amount
-$\alpha_H$.
+\(\alpha_j\). We consider two heterogeneous population structures. Let \(M\)
+denote the total contribution when all players cooperate. In the \emph{linear}
+population, player \(i\) contributes \(\frac{2Mi}{N(N+1)}\), so that
+contributions increase uniformly across the ordered population. In the
+\emph{binomial} population, the first \(n < N\) players each contribute a low
+amount \(\alpha_L\) and the remaining \(N - n\) players each contribute a
+greater amount \(\alpha_H\).
 
 \section{Results}
 
@@ -1168,7 +878,244 @@ cooperating, and thus a higher $p_C$ may be obtained by a higher value of
 $\beta$ in an intrinsic process. 
 
 
-\section{supplementary information}
+\section{Supplementary Information}
+
+\subsection{Explicit transition matrices for the two-player game}
+\label{sec:explicit_matrices}
+
+In each subsection below, states are ordered
+\(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\
+\mathbf{d} = (1,1)\); rows and columns of each matrix correspond to these
+states in the same order.
+
+\subsubsection*{Moran process}
+\begin{center}
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+\frac{f_{1}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})} &
+1 - \frac{f_{1}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})}
+  - \frac{f_{2}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})} &
+0 &
+\frac{f_{2}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})}\\
+\frac{f_{2}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})} &
+0 &
+1 - \frac{f_{1}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})}
+  - \frac{f_{2}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})} &
+\frac{f_{1}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})}\\
+0 & 0 & 0 & 1
+\end{bmatrix}$}
+\label{eqn:2x2_Moran_Transition}
+\end{equation}
+\end{center}
+
+\subsubsection*{Fermi imitation dynamics}
+\begin{center}
+\begin{equation}
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+\frac{1}{2}\phi(\pi_2(\mathbf{b}) - \pi_1(\mathbf{b})) &
+\frac{1}{2} &
+0 &
+\frac{1}{2}\phi(\pi_1(\mathbf{b}) - \pi_2(\mathbf{b}))\\
+\frac{1}{2}\phi(\pi_1(\mathbf{c}) - \pi_2(\mathbf{c})) &
+0 &
+\frac{1}{2} &
+\frac{1}{2}\phi(\pi_2(\mathbf{c}) - \pi_1(\mathbf{c}))\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\label{eqn:2x2_Fermi_Transition}
+\end{equation}
+\end{center}
+
+\subsubsection*{Introspective Imitation Dynamics}
+Let \(\eta_{i,j}(\mathbf{x}, \mathbf{y}) = 1 + e^{\beta(f_i(\mathbf{x}) - f_j(\mathbf{y}))}\).
+\begin{center}
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+\frac{f_{1}(b)}{2\eta_{2,2}(\mathbf{b},\mathbf{a})(f_{1}(b)+f_{2}(b))} &
+1 - \frac{f_{2}(b)}{\eta_{1,1}(\mathbf{b},\mathbf{d})(2f_{1}(b)+2f_{2}(b))}
+  - \frac{f_{1}(b)}{\eta_{2,2}(\mathbf{b},\mathbf{a})(2f_{1}(b)+2f_{2}(b))} &
+0 &
+\frac{f_{2}(b)}{2\eta_{1,1}(\mathbf{b},\mathbf{d})(f_{1}(b)+f_{2}(b))}\\
+\frac{f_{2}(c)}{2\eta_{1,1}(\mathbf{c},\mathbf{a})(f_{1}(c)+f_{2}(c))} &
+0 &
+1 - \frac{f_{1}(c)}{\eta_{2,2}(\mathbf{c},\mathbf{d})(2f_{1}(c)+2f_{2}(c))}
+  - \frac{f_{2}(c)}{\eta_{1,1}(\mathbf{c},\mathbf{a})(2f_{1}(c)+2f_{2}(c))} &
+\frac{f_{1}(c)}{2\eta_{2,2}(\mathbf{c},\mathbf{d})(f_{1}(c)+f_{2}(c))}\\
+0 & 0 & 0 & 1
+\end{bmatrix}$}
+\label{eqn:2x2_IID_Transition}
+\end{equation}
+\end{center}
+
+\subsubsection*{Moran process with mutation}
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1 &
+\frac{\mu_{22}}{2} &
+\frac{\mu_{12}}{2} &
+0\\[0.5em]
+\frac{\mu_{21}}{2}
++ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2}
+- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
+- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
++ 1 &
+0 &
+\frac{\mu_{12}}{2}
++ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}\\[0.5em]
+\frac{\mu_{11}}{2}
++ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
+& 0 &
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2}
+- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
+- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
++ 1 &
+\frac{\mu_{22}}{2}
++ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}\\[0.5em]
+0 & \frac{\mu_{11}}{2} & \frac{\mu_{21}}{2} &
+-\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+\end{bmatrix}$}
+\label{eqn:2x2_Moran_Mutation_Transition}
+\end{equation}
+
+\subsubsection*{Fermi imitation dynamics with mutation}
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1 &
+\frac{\mu_{22}}{2} & \frac{\mu_{12}}{2} & 0\\[1em]
+\frac{\mu_{21}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
+- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{2}(b))} + 1)}
+- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1)}
+& 0 &
+\frac{\mu_{12}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{2}(b))} + 1)}\\[1em]
+\frac{\mu_{11}}{2}
++ \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(c) - f_{2}(c))} + 1)}
+& 0 &
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
+- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(c) - f_{2}(c))} + 1)}
+- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1)}
+&
+\frac{\mu_{22}}{2}
++ \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1)}\\[1em]
+0 & \frac{\mu_{11}}{2} & \frac{\mu_{21}}{2} &
+-\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+\end{bmatrix}$}
+\label{eqn:2x2_Fermi_Mutation_Transition}
+\end{equation}
+
+\subsubsection*{Aspiration dynamics with mutation}
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\left[\begin{matrix}
+1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(a))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(a))}} &
+\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(a)}} &
+\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(a)}} & 0\\
+\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(b)}} &
+1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(b))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(b))}} &
+0 &
+\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(b)}}\\
+\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(c)}} & 0 &
+1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(c))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(c))}} &
+\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(c)}}\\
+0 &
+\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(d)}} &
+\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(d)}} &
+1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(d))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(d))}}
+\end{matrix}\right]$}
+\label{eqn:2x2_Aspiration_Mutation_Transition}
+\end{equation}
+
+\subsubsection*{Introspection dynamics with mutation}
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(a) - f_{2}(b))} + 1)}
+- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(a) - f_{1}(c))} + 1)} &
+\frac{\mu_{22}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(a) - f_{2}(b))} + 1)} &
+\frac{\mu_{12}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(a) - f_{1}(c))} + 1)} &
+0\\[1em]
+\frac{\mu_{21}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1)} &
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1)}
+- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{1}(d))} + 1)} &
+0 &
+\frac{\mu_{12}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{1}(d))} + 1)}\\[1em]
+\frac{\mu_{11}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1)} &
+0 &
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(c) - f_{2}(d))} + 1)}
+- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1)} &
+\frac{\mu_{22}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(c) - f_{2}(d))} + 1)}\\[1em]
+0 &
+\frac{\mu_{11}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1)} &
+\frac{\mu_{21}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1)} &
+-\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1)}
+- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1)}
+\end{bmatrix}$}
+\label{eqn:2x2_Introspection_Mutation_Transition}
+\end{equation}
+
+\subsubsection*{Introspective Imitation Dynamics with mutation}
+Let \(\eta_{i,j}(\mathbf{x}, \mathbf{y}) = 1 + e^{\beta(f_i(\mathbf{x}) - f_j(\mathbf{y}))}\).
+\begin{equation}
+\resizebox{\textwidth}{!}{$
+\begin{bmatrix}
+-\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1 &
+\frac{\mu_{22}}{2} & \frac{\mu_{12}}{2} & 0\\[1em]
+\frac{\mu_{21}}{2}
++ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\eta_{2,2}(\mathbf{b},\mathbf{a})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
+&
+-\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2}
+- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\eta_{2,2}(\mathbf{b},\mathbf{a})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
+- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\eta_{1,1}(\mathbf{b},\mathbf{d})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
++ 1 & 0 &
+\frac{\mu_{12}}{2}
++ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\eta_{1,1}(\mathbf{b},\mathbf{d})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}\\[1em]
+\frac{\mu_{11}}{2}
++ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\eta_{1,1}(\mathbf{c},\mathbf{a})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
+& 0 &
+-\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2}
+- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\eta_{2,2}(\mathbf{c},\mathbf{d})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
+- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
+       {2\eta_{1,1}(\mathbf{c},\mathbf{a})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
++ 1 &
+\frac{\mu_{22}}{2}
++ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
+       {2\eta_{2,2}(\mathbf{c},\mathbf{d})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}\\[1em]
+0 & \frac{\mu_{11}}{2} & \frac{\mu_{21}}{2} &
+-\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
+\end{bmatrix}$}
+\label{eqn:2x2_IID_Mutation_Transition}
+\end{equation}
+
 \subsection{Higher $N$ and other populations}
 \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_medium/main.pdf}\newpage
 \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_high/main.pdf}\newpage
