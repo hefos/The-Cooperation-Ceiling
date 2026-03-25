@@ -348,11 +348,10 @@ obtain:
 This shows that, similarly to the Moran process, our absorption probabilities
 rely on the fitness of players in transitive states and not those of players in
 the absorbing states.
-Thus, this dynamic is still not fully suited for modelling a heterogeneous
-system as a player can commonly copy a high-fitness strategy without
-considering the impact on their own fitness, and in some cases may enter an
-absorbing state with a transition which worsens their position with a high
-probability. 
+Fermi imitation dynamics is therefore poorly suited to heterogeneous
+populations: a player may copy a high-fitness strategy without considering
+whether that strategy would benefit them, and may even enter an absorbing state
+that worsens their own payoff.
 
 \subsubsection{Aspiration Dynamics}
 Instead of considering the difference between two players' fitness, aspiration
@@ -417,9 +416,9 @@ Thus, we no longer consider an absorption matrix, but instead we consider the
 steady state of our Markov chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}
 This is the proportion of time spent in each state when the Markov chain
 reaches a stable distribution across the states.
-It is well proven that any irreducible, finite Markov chain
-eventually reaches it's unique stationary distribution.
-This is also independent of the starting state of the distribution. \cite{levin2017markov}.
+Any irreducible, aperiodic, finite Markov chain has a unique stationary
+distribution, and the chain converges to it from any starting
+state~\cite{levin2017markov}..
 For our four state system, we acquire the following result for a stationary
 distribution:
 
@@ -439,7 +438,7 @@ the two player case, and it is expanded to multiple players in
 
 This process is well suited to a heterogeneous population. 
 This is because in some cases using imitation dynamics, a player may copy a
-strategy due it's fitness when played by another individual in the population,
+strategy due to its fitness when played by another individual in the population,
 despite the fact that such a strategy actually has a lower payoff for the focal player than their current strategy.
 In introspection dynamics, players do not consider the fitness of other
 individuals, and so cannot be fooled by high fitness strategies with attributes
