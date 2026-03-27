@@ -258,11 +258,6 @@ chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, and using standard results
 can investigate the probability of the population being absorbed into each
 absorbing state.
 
-Consider a game with two players, each playing one of two actions, giving the
-state space \(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\
-\mathbf{d} = (1,1)\). The explicit transition matrix for this case is given in
-equation~(\ref{eqn:2x2_Moran_Transition}) in the supplementary material.
-
 
 \subsubsection*{Fermi Imitation Dynamics} 
 
@@ -332,7 +327,22 @@ Here, \(A_i\) is player \(i\)'s \textit{aspiration}, meaning the payoff which
 they desire to make from a given game. A player will accept a new strategy with
 a higher than random probability if their current payoff is lower than their
 aspired payoff. This dynamic is almost always defined for two actions,
-traditionally cooperation and defection~\cite{du2014aspiration}. %TODO: confirm du2014aspiration once added to bibliography 
+traditionally cooperation and defection~\cite{du2014aspiration}. %TODO: confirm du2014aspiration once added to bibliography
+
+The process transitions between states according to:
+
+\begin{equation}
+T_{\textbf{ab}} =
+\begin{cases}
+\dfrac{1}{N} \, \phi(\pi_{I(\textbf{a}, \textbf{b})}(\textbf{a}) - A_{I(\textbf{a}, \textbf{b})} )
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
+0
+    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+\end{cases}
+\label{eqn:Aspiration_Probability_Function}
+\end{equation}
+
 
 \subsubsection*{Introspection Dynamics}
 
@@ -355,6 +365,23 @@ current strategy. In introspection dynamics, players do not consider the fitness
 of other individuals, and so cannot be fooled by high fitness strategies with
 attributes different to that of the focal player.
 
+The process transitions between states according to:
+
+\begin{equation}
+T_{\textbf{ab}} =
+\begin{cases}
+\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a}, \textbf{b})})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
+0
+    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
+1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
+\end{cases}
+\label{eqn:Introspection_Probability_Function}
+\end{equation}
+
+where \(m_j\) is the number of actions available to individual \(j\).
+Since we assume that all individuals have the same action set with size \(k\), we can replace \(m_j - 1\) with \(k-1\).
+The explicit transition matrix for the two-player case is given in equation~(\ref{eqn:2x2_Introspection_Transition}) in the supplementary material.
 
 \subsubsection*{Introspective Imitation Dynamics}
 
@@ -1019,21 +1046,8 @@ that worsens their own payoff.
 
 \subsubsection*{Aspiration Dynamics}
 
-
-The related transition matrix is:
-
-\begin{equation}
-T_{\textbf{ab}} =
-\begin{cases}
-\dfrac{1}{N} \, \phi(\pi_{I(\textbf{a}, \textbf{b})}(\textbf{a}) - A_{I(\textbf{a}, \textbf{b})} )
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
-0
-    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-\end{cases}
-\end{equation}
-
-Now, consider the transition matrix for our general four-state system:
+The transition matrix for the two-player, two-action case with state space
+\(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\ \mathbf{d} = (1,1)\) is:
 \begin{equation}
 \resizebox{\textwidth}{!}{
 $
@@ -1060,6 +1074,7 @@ $
 \end{bmatrix}
 $
 }
+\label{eqn:2x2_Aspiration_Transition}
 \end{equation}
 We can see that as our players no longer consider the actions of the rest of
 the population when considering their decision, we no longer have an absorbing
@@ -1078,25 +1093,9 @@ distribution:
 
 \subsubsection*{Introspective Dynamics}
 
-The transition matrix for the introspection dynamics process~\cite{Couto2023} is given by:
-
-\begin{equation}
-T_{\textbf{ab}} =
-\begin{cases}
-\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a}, \textbf{b})})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
-0
-    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-\end{cases}
-\end{equation}
-
-where \(m_j\) is the number of actions available to individual \(j\). 
-Since we assume that all individuals have the same action set with size \(k\), we can replace \(m_j - 1\) with \(k-1\).
-
-Now, Couto also calculated in \cite{Couto2022} the explicit strategy distribution for an asymmetric interaction between two players. 
-We can adapt these results to define our transition matrix for our example
-state space \textbf{a,b,c,d}:
+The transition matrix for the two-player, two-action case with state space
+\(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\ \mathbf{d} = (1,1)\),
+following Couto~\cite{Couto2022}, is:
 
 \begin{equation}
 \resizebox{\textwidth}{!}{$
@@ -1122,6 +1121,7 @@ state space \textbf{a,b,c,d}:
     & 1 - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)}\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)}\right)}
 \end{bmatrix}$
 }
+\label{eqn:2x2_Introspection_Transition}
 \end{equation}
 
 We then consider the steady state vectors for this system.
