@@ -233,7 +233,7 @@ this is as follows:
 \begin{equation}
     T_\textbf{ab} = 
     \begin{cases}
-        \frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{ab})\\
+        \frac{\sum_{a_i = b_{I(\textbf{a}, \textbf{b})}}{f(a_i)}}{N\sum_{a_j}f(a_j)} & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a}, \textbf{b})\\
         0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
         1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
     \end{cases}
@@ -298,7 +298,7 @@ We now define our transition matrix according to the Fermi function:
     \begin{equation}
         T_\textbf{ab}  = 
         \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a}, \textbf{b})}}\phi(\pi_{\text{I(\textbf{a}, \textbf{b})}}(a) - \pi_{j}(\textbf{a})))& \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -344,7 +344,7 @@ the selection intensity \(\beta\):
 \begin{enumerate}
     \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to reconsider their strategy \(a_{i,k}\)
     \item Player \(i\) chooses another possible strategy, \(a_{i,l}\), from the set of all possible strategies. 
-    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{ab})}\to b_{I(\textbf{ab})}}(a_{-I(\textbf{ab})}) = \phi (\Delta \pi_{I(\textbf{ab})})\), where \(\Delta \pi_{I(\textbf{ab})} = \pi_{I(a,b)}(\textbf{a})  - \pi_{I(a,b)}(\textbf{b})\) is the difference between the fitness of the player's current strategy and the possible fitness of the new strategy.
+    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{a}, \textbf{b})}\to b_{I(\textbf{a}, \textbf{b})}}(a_{-I(\textbf{a}, \textbf{b})}) = \phi (\Delta \pi_{I(\textbf{a}, \textbf{b})})\), where \(\Delta \pi_{I(\textbf{a}, \textbf{b})} = \pi_{I(\textbf{a}, \textbf{b})}(\textbf{a})  - \pi_{I(\textbf{a}, \textbf{b})}(\textbf{b})\) is the difference between the fitness of the player's current strategy and the possible fitness of the new strategy.
 \end{enumerate}
 
 This process is well suited to a heterogeneous population. This is because in
@@ -369,7 +369,7 @@ same action set. We define the introspective imitation process as follows:
     \item A focal player is chosen at random to reconsider their strategy
     \item Another player \(a_j\) in the population is chosen with a probability
    proportional to their fitness within the population to have their strategy considered
-    \item The focal player changes their strategy with probability \(\phi(\Delta(f_{I(\textbf{ab})}))\)
+    \item The focal player changes their strategy with probability \(\phi(\Delta(f_{I(\textbf{a}, \textbf{b})}))\)
 \end{enumerate}
 
 
@@ -377,7 +377,7 @@ We define the transition matrix \(T\) of an introspective imitation process as f
 
 \begin{equation}
 T_{\textbf{ab}} =  \begin{cases}
-    \frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{ab})})) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+    \frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a}, \textbf{b})})) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
@@ -1025,8 +1025,8 @@ The related transition matrix is:
 \begin{equation}
 T_{\textbf{ab}} =
 \begin{cases}
-\dfrac{1}{N} \, \phi(\pi_{I(\textbf{ab})}(\textbf{a}) - A_{I(\textbf{ab})} )
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
+\dfrac{1}{N} \, \phi(\pi_{I(\textbf{a}, \textbf{b})}(\textbf{a}) - A_{I(\textbf{a}, \textbf{b})} )
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
 1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
@@ -1083,8 +1083,8 @@ The transition matrix for the introspection dynamics process~\cite{Couto2023} is
 \begin{equation}
 T_{\textbf{ab}} =
 \begin{cases}
-\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
+\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a}, \textbf{b})})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
 1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
@@ -1359,7 +1359,7 @@ In the case of the Moran process, our transition matrix becomes:
     \begin{equation}
         T^{(m)}_\textbf{ab} = 
         \begin{cases}
-            (\frac{\sum_{a_i = b_{I(\textbf{ab})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{ab})\\
+            (\frac{\sum_{a_i = b_{I(\textbf{a}, \textbf{b})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a}, \textbf{b})\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -1381,7 +1381,7 @@ transition matrix:
     \begin{equation}
         T^{(m)}_\textbf{ab}  = 
         \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{ab})}}\phi(\pi_{\text{I(\textbf{ab})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
+            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a}, \textbf{b})}}\phi(\pi_{\text{I(\textbf{a}, \textbf{b})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
             0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
             1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
         \end{cases}
@@ -1403,8 +1403,8 @@ following transition matrix:
 \[
 T^{(m)}_{\textbf{ab}} =
 \begin{cases}
-(\dfrac{1}{N} \, \phi (\pi_{I(\textbf{ab})} - A_i))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
+(\dfrac{1}{N} \, \phi (\pi_{I(\textbf{a}, \textbf{b})} - A_i))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
 1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
@@ -1425,8 +1425,8 @@ mutation:
 \[
 T^{(m)}_{\textbf{ab}} =
 \begin{cases}
-(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{ab})}))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{ab}),\\[1.2em]
+(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a}, \textbf{b})}))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N})
+    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
 0
     & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
 1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
@@ -1443,7 +1443,7 @@ transition matrix with mutation:
 
 \begin{equation}
 T^{(m)}_{\textbf{ab}} =  \begin{cases}
-    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{ab})})))(1-\sum_{k}\mu_{I(\textbf{ab}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{ab})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
+    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a}, \textbf{b})})))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
     0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
     1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
 \end{cases}
