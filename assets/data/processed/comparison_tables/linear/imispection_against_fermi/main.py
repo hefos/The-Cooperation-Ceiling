@@ -1,10 +1,9 @@
 import pandas as pd
 
 print("hello")
-import numpy as np
-import matplotlib.pyplot as plt
-from pathlib import Path
-import sys
+import numpy as np  # noqa: E402
+from pathlib import Path  # noqa: E402
+import sys  # noqa: E402
 
 
 here = Path(__file__).resolve()

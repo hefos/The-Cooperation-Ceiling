@@ -7,12 +7,11 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import src.main as main  # noqa: E402
+import src.fitness_functions as fitness_functions  # noqa: E402
 
 
 def fitness_function_2_by_2(state, **kwargs):
-
-    f = sym.Function("f")
     if (state == np.array([0, 0])).all():
         state_symbol = sym.Symbol("a")
     elif (state == np.array([0, 1])).all():

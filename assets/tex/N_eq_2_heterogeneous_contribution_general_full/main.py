@@ -1,4 +1,3 @@
-import numpy as np
 import sympy as sym
 import pathlib
 import sys
@@ -8,8 +7,8 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.fitness_functions as fitness_functions
+import src.main as main  # noqa: E402
+import src.fitness_functions as fitness_functions  # noqa: E402
 
 
 r = sym.Symbol("r")

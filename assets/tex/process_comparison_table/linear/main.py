@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
 from pathlib import Path
-import fractions
 
 
 here = Path(__file__).resolve()

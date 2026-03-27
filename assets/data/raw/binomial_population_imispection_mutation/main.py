@@ -1,18 +1,16 @@
 import pandas as pd
 import numpy as np
-import sympy as sym
 import pathlib
 import sys
 import uuid
-import math
 
 file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.fitness_functions as fitness_functions
-import src.contribution_rules as contribution_rules
+import src.main as main  # noqa: E402
+import src.fitness_functions as fitness_functions  # noqa: E402
+import src.contribution_rules as contribution_rules  # noqa: E402
 
 
 r_min = 0.5

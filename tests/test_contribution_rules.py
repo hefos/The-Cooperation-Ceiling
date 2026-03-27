@@ -93,7 +93,6 @@ def test_binomial_contribution_rule_for_N_eq_5_n_eq_3():
 
     N = 5
     M = 9
-    n = 3
     index_1 = 1
     index_2 = 3
     alpha_h = 3

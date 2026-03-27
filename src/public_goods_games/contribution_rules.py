@@ -2,7 +2,6 @@ import scipy
 import sympy as sym
 import numpy as np
 import scipy.special
-import math
 
 
 def dirichlet_linear_alpha_rule(N):
