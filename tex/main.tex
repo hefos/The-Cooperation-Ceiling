@@ -344,7 +344,7 @@ the selection intensity \(\beta\):
 \begin{enumerate}
     \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to reconsider their strategy \(a_{i,k}\)
     \item Player \(i\) chooses another possible strategy, \(a_{i,l}\), from the set of all possible strategies. 
-    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{ab})}\to b_{I(\textbf{ab})}}(a_{-I(\textbf{ab})}) = \phi (\Delta \pi_{I(\textbf{ab})})\), where \(\Delta \pi_{I(\textbf{ab})} = \pi_{I(a,b)}(\textbf{a})  - \pi_{I(a,b)}(\textbf{b})\) is the difference between the possible fitness of the new strategy and the fitness of the player's current strategy.
+    \item The chosen player replaces their strategy with probability \(p_{a_{I(\textbf{ab})}\to b_{I(\textbf{ab})}}(a_{-I(\textbf{ab})}) = \phi (\Delta \pi_{I(\textbf{ab})})\), where \(\Delta \pi_{I(\textbf{ab})} = \pi_{I(a,b)}(\textbf{a})  - \pi_{I(a,b)}(\textbf{b})\) is the difference between the fitness of the player's current strategy and the possible fitness of the new strategy.
 \end{enumerate}
 
 This process is well suited to a heterogeneous population. This is because in
@@ -745,14 +745,15 @@ cooperation if and only if $r > N$.
 Individual $i$ evaluates switching from defection to cooperation by comparing
 their payoff $\pi_i(\mathbf{a})$ in the current state to the payoff
 $\pi_i(\mathbf{b})$ they would receive in the state where they cooperate and
-all others remain unchanged. The payoff difference is
+all others remain unchanged. Using the convention $\Delta\pi_i = \pi_i(\mathbf{a}) - \pi_i(\mathbf{b})$,
 \[
-\pi_i(\mathbf{b}) - \pi_i(\mathbf{a}) = \frac{r\alpha_i}{N} - \alpha_i
-= \alpha_i\!\left(\frac{r}{N} - 1\right).
+\Delta\pi_i = \alpha_i - \frac{r\alpha_i}{N}
+= \alpha_i\!\left(1 - \frac{r}{N}\right).
 \]
-Since $\alpha_i > 0$, this is positive if and only if $r > N$. Therefore the
-introspective step assigns probability greater than $\frac{1}{2}$ to accepting
-cooperation precisely when $r > N$, and less than $\frac{1}{2}$ when $r < N$.
+Since $\alpha_i > 0$, this is negative if and only if $r > N$. Since $\phi$ is
+a decreasing function, $\phi(\Delta\pi_i) > \frac{1}{2}$ precisely when
+$\Delta\pi_i < 0$, i.e.\ when $r > N$, and $\phi(\Delta\pi_i) < \frac{1}{2}$
+when $r < N$.
 \end{proof}
 
 When $r < N$, the introspective step actively suppresses cooperation relative
