@@ -100,7 +100,7 @@ def run_experiment(
     )
 
 
-N = 3
+N = 8
 while True:
     state_space = main.get_state_space(N=N, k=2)
     for mu in (0.001, 0.01, 0.05, 0.1):

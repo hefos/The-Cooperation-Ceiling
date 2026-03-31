@@ -13,9 +13,10 @@ import ludics.fitness_functions
 import public_goods_games.contribution_rules
 import stet
 
-try:
-    df = pd.read_csv(file_path.parent / "main.csv")
-except (FileNotFoundError, pd.errors.EmptyDataError):
+csv_path = pathlib.Path(file_path.parent / "main.csv")
+if csv_path.exists():
+    pass
+else:
     df = pd.DataFrame(
         columns=[
             "UID",
@@ -103,7 +104,7 @@ def run_experiment(
     )
 
 
-N = 3
+N = 8
 while True:
     state_space = ludics.main.get_state_space(N=N, k=2)
     for M in np.linspace(N, 4 * N, 30):

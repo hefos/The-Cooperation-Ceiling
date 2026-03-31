@@ -6,6 +6,7 @@ import uuid
 
 file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../../").resolve()
+csv_path = pathlib.Path(file_path.parent / "main.csv")
 
 sys.path.append(str(root_path))
 import ludics.main as main
@@ -13,9 +14,10 @@ import ludics.fitness_functions as fitness_functions
 import public_goods_games.contribution_rules
 import stet
 
-try:
-    df = pd.read_csv(file_path.parent / "main.csv")
-except (FileNotFoundError, pd.errors.EmptyDataError, KeyError):
+csv_path = pathlib.Path(file_path.parent / "main.csv")
+if csv_path.exists():
+    pass
+else:
     df = pd.DataFrame(
         columns=[
             "UID",
