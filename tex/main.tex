@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{subcaption}
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes.geometric}
@@ -12,7 +13,6 @@
 \newcommand{\lt}{\ensuremath <}
 \newcommand{\gt}{\ensuremath >}
 \usepackage{float}
-\usepackage[caption = false]{subfig}
 \usepackage{amsthm}
 \newtheorem{proposition}{Proposition}
 
@@ -20,10 +20,28 @@
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
 \date{\today}
 
-%TODO Write abstract (no big rush with this.)
-
 \begin{document}
 \maketitle
+
+\begin{abstract}
+    Evolutionary game theory provides a framework by which to study the
+    emergence of cooperation in a population of self-interested actors. In
+    such a framework, players' decision on whether or not to cooperate evolve
+    according to decision rules called population dynamics. However, often
+    games are studied under the assumption that all individuals play under the
+    same conditions. In this paper, we explore the effect of different
+    population dynamics in a heterogeneous public goods game. We consider
+    extrinsic population dynamics which update players' actions according to
+    the fitness of other players in the population. We also consider intrinsic
+    population dynamics, in which players update their actions by considering
+    their own fitness. We then introduce ``introspective imitation dynamics'',
+    a novel population dynamic which combines both fitness-proportional
+    extrinsic selection and self-referential intrinsic update
+    steps. Finally, we shall see the limit on cooperation which is imposed by
+    purely extrinsic population dynamics, and how it can be exceeded by
+    considering intrinsic population dynamics.
+\end{abstract}
+
 \section{Introduction}
 
 Reducing global carbon emissions is one of the defining collective action
@@ -31,13 +49,13 @@ problems of our time. Countries differ substantially in their economic
 capacity, historical emissions, and the costs they face when decarbonising,
 yet they share a mutual interest in the global public good of a stable
 climate. This structure maps onto a \emph{public goods game}
-\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social}: each actor %TODO add further PGG references (e.g. Nowak textbook)
+\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social, ARCHETTI20129, HauertDynamics2004}: each actor
 decides whether to incur a private cost to contribute to a shared resource
 whose total value is multiplied by some factor \(r\) and distributed equally.
 The temptation to free-ride means that purely selfish reasoning leads to a
 tragedy of the commons~\cite{hardin1968tragedy}, even when collective
 cooperation would benefit everyone. Both theory~\cite{santos2011risk} and controlled
-experiments~\cite{milinski2008collective} show that framing cooperation as a
+experiments~\cite{milinski2008collective, Milinski2011} show that framing cooperation as a
 collective-risk problem, where failure to meet a cooperation threshold incurs a
 shared loss, can substantially raise cooperation rates. The challenge of
 overcoming free-riding is not merely theoretical.
@@ -105,7 +123,7 @@ evolutionary dynamics remain rare. How the choice of update rule interacts with
 population heterogeneity is also poorly understood. The Moran
 process~\cite{Moran_1958, knight2018evolution}, Fermi imitation
 dynamics~\cite{PhysRevE.58.69},
-aspiration dynamics~\cite{du2014aspiration}, and introspection % TODO Add missing bib information
+aspiration dynamics~\cite{du2014aspiration}, and introspection
 dynamics~\cite{Couto2022, Couto2023} all model strategy revision in distinct
 ways, and each may respond differently to player-specific payoffs. In
 particular, \emph{intrinsic} dynamics, in which a player evaluates a
@@ -159,8 +177,8 @@ evolutionary dynamics on a fully heterogeneous, well-mixed population.
 The population consists of \(N\) \textbf{ordered} individuals. Each individual
 selects an action from a common action set \(A = (a_1, a_2, \ldots, a_k)\); we
 assume throughout that all individuals share the same action set of size
-\(k\) although this is not strictly required for the introspective and
-aspiration dynamics of \cite{Couto2022,}.
+\(k\) although this is not strictly required for introspection and
+aspiration dynamics \cite{Couto2022,du2014aspiration}.
 A \emph{state} of the population is an ordered \(N\)-tuple
 \(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in A^N\), and the \emph{state space}
 \(S\) is the set of all such tuples. A payoff function
@@ -177,10 +195,59 @@ unique coordinate at which \(\mathbf{a}\) and \(\mathbf{b}\) differ the
 The set of states reachable from \(\mathbf{a}\) in one step is
 \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a}, \mathbf{b}) = 1\}\)~\cite{Couto2023}.
 
-% TODO Possibly add discussion about how the state space and the process lives
-% on the N dimensional hypercube. Could include a nice picture of the state
-% space. This depends on the theoretic results but could be good to include
-% regardless.
+\subsubsection{Graphical representation}
+
+If we consider a game with two actions, for example cooperate and defect, we
+can compare the graph of such a Markov chain to an $N$-dimensional hypercube.
+This is the graph whose node set consists of the $2^N$ $N$-dimensional boolean
+vectors, and which has edges between edges if and only if they differ in
+exactly one position \cite{HARARY1988277}. The state space of an evolutionary
+game with two actions can be modelled in this way by denoting the strategies
+``$0$'' and ``$1$''. 
+
+The graphical representation of a birth-death process
+differs from a hypercube in exactly two ways. First, a population may remain
+the same at a given step, and thus each vertex contains a self-loop.
+Additionally, the probability of transitioning from a state \(\mathbf{a}\) to a
+state \(\mathbf{b}\) is not necessarily the same as the probability of
+transitioning from \(\mathbf{b}\) to \(\mathbf{a}\). Thus, instead of one edge
+between two states, we have two directed edges, one in each direction. Below we
+see a comparison of the $3$-dimensional hypercube and the graph of a 3 player
+game with 2 actions.
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \input{Figures/Tikz/hypercubes/hypercube_exact/main.tikz}
+        \caption*{\textbf{A}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \input{Figures/Tikz/hypercubes/game_graph/main.tikz}
+        \caption*{\textbf{B}}
+    \end{subfigure}
+    
+    \vspace{0.5cm}
+
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \input{Figures/Tikz/hypercubes/hypercube_flat/main.tikz}
+        \caption*{\textbf{C}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \input{Figures/Tikz/hypercubes/game_graph_flat/main.tikz}
+        \caption*{\textbf{D}}
+    \end{subfigure}
+
+    \caption{\textbf{A}, \textbf{C}: Two diagrams hypercube of dimension 3. 
+             \textbf{B}, \textbf{D}: Two diagrams of the graph of a population dynamic for a 3-player game with 2 actions}
+    \label{fig:main}
+\end{figure}
 
 \subsection{Population Dynamics}
 
@@ -327,7 +394,7 @@ Here, \(A_i\) is player \(i\)'s \textit{aspiration}, meaning the payoff which
 they desire to make from a given game. A player will accept a new strategy with
 a higher than random probability if their current payoff is lower than their
 aspired payoff. This dynamic is almost always defined for two actions,
-traditionally cooperation and defection~\cite{du2014aspiration}. %TODO: confirm du2014aspiration once added to bibliography
+traditionally cooperation and defection~\cite{du2014aspiration}.
 
 The process transitions between states according to:
 
@@ -479,8 +546,7 @@ across all models, we introduce mutation into our framework.
 
 Mutation ensures that all processes become ergodic, while also introducing a
 controlled amount of noise: at any moment, individuals may switch to a different
-strategy. % TODO: Add a reference to justify mutation as a key modeling
-assumption.
+strategy. \cite{FUDENBERG2006352} 
 
 Given an original process and two states \(\mathbf{a}\) and \(\mathbf{b}\), the
 probability of the original process \emph{with mutation} transitioning from
@@ -539,7 +605,7 @@ To illustrate all of the dynamics of Section~\ref{sec:the_general_heterogeneous_
 we will use the Public Goods game.
 
 We apply the dynamics above to the public goods
-game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}. %TODO add citation to social dilemmas and/or other pgg papers
+game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social, ARCHETTI20129, HauertDynamics2004}.
 In this game, individuals choose whether or not to contribute to a common
 resource pool. The total contribution is multiplied by a factor \(r > 1\) and
 distributed equally among all \(N\) players. The model captures the temptation
@@ -577,81 +643,113 @@ For the purpose of this research, the authors
 developed a software library \texttt{ludics} (written in python) which is
 installable. The archive of the software is at~\cite{}  % TODO Add archive of software 
 and the documentation can be found at~\url{}. % TODO Add url of docs
-All the development of the software can be found at~\url{}. % TODO Add github url
+All the development of the software can be found at~\url{https://github.com/hefos/ludics}.
 
 \subsubsection*{Parameter Space}
 
-% TODO Write this section, I'm drafting some stuff below but it needs a lot of
-% work.
+When we generate the data required for empirical analysis of the public goods
+game, we consider two popoulation structures, each defined by the value \(M\),
+the maximum total value of contribution to the public good, achieved when all
+players contribute resources. In such a case, the payoff of all players is
+\(\pi_i = \frac{rM}{N} - \alpha_i\). 
 
-\begin{itemize}
-    \item Number of experiments.
-    \item Size of population (simple 1 to 9 right?)
-    \item \(r\)
-    \item Total contribution of the population \(M\) (I don't think this
-        technically exist for the binomial population right? But include the
-        range.
-    \item Two population structures.
-    \item Mutation values.
-\end{itemize}
+The first structure is the ``binomial'' population. In this population, $n$
+players contribute a low amount \(\alpha_l\), and \(N-n\) players contribute a
+high amount \(\alpha_h\). We also consider a
+``linear'' population, in which a player in position \(i\) contributes
+\(\frac{2Mi}{N(N+1)}\). \ref{fig:parameter_sweep_table} shows the combinations of
+parameters considered across each of the population dynamics.
 
-% TODO Draw a nice panel figure that shows all of the above
-
-\subsubsection*{What we measure}  % TODO Find a better name for this.
-
-% TODO Define $p_C$ for absorbing and for ergodic chain. This needs to be
-% separated out from here on out I think... (Maybe not, could just see effect of
-% 0 mutation.)
-
-Figure~\ref{fig:overall_hist} shows the marginal distribution of the cooperation
-probability $p_C$ across all parameter combinations and dynamics. Most
-configurations yield low cooperation, but the right tail is non-trivial:
-meaningful cooperation is achievable under a subset of conditions.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/overall_histogram/main.pdf}
-\caption{Distribution of $p_C$ across all dynamics and parameter settings.}
-\label{fig:overall_hist}
+\begin{figure}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Parameter & Minimum & Maximum & Number of Values per $N$\\
+        \hline
+        $N$ & 3 & 8 & N/A\\
+        \hline
+        $r$ & $\frac{1}{2}$ & $\frac{N}{2}$ & 30\\
+        \hline
+        $\mu$ & 0.001 & 0.1 & 4\\
+        \hline
+        $\epsilon$ & 0 & $\frac{19}{20 \cdot \max_i \alpha_i}$ & 30\\
+        \hline
+        $\beta$ & 0 & 2 & 30\\
+        \hline
+        $A$ & 1 & \(\frac{1.01 \cdot M}{N}\) & 50\\
+        \hline
+        $n$ & 1 & \(N-1\) & \(N-1\)\\
+        \hline
+        \(\alpha_h\) & \(\frac{M}{N}\) & \(\frac{19 \cdot M}{20 (N-n)}\) & 30\\
+        \hline
+    \end{tabular}
+    \caption{The set of measured parameters and boundry values. Some parameters are only applicable to certain populations and processes, for example \(\alpha_h\) is not a parameter of a linear population structure}
+    \label{fig:parameter_sweep_table}
 \end{figure}
 
-Separating by dynamic (Figure~\ref{fig:by_process_hist}) reveals a striking
-difference: Fermi imitation dynamics consistently produces the lowest $p_C$
-values, while Introspective Imitation Dynamics achieves the highest among all
-absorbing-chain dynamics. This suggests that the choice of update rule is at
-least as consequential as the payoff parameters.
+\subsubsection*{Measures of Cooperation}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/by_process_hist/main.pdf}
-\caption{Distribution of $p_C$ broken down by population dynamic.}
-\label{fig:by_process_hist}
+We define $p_C$ to be the \emph{probability of cooperation}. This represents
+the mean proportion of cooperators at a given step once an evolutionary game
+reaches it's steady state, and
+can be calculated by the value $\frac{\sum_{\mathbf{a} \in S}\left(\pi_a \sum_{i=1}^N
+\mathbf{a}_i\right)}{N}$, where $\mathbf{a}_i$ takes the value $1$ if player
+$i$ cooperates in state $\mathbf{a}$, and $0$ if not. A special case of
+$p_C$ is in an extrinsic population dynamic where $\mu = 0$. In such a case, our
+dynamic forms an absorbing Markov chain, and as such rather than a
+steady state we obtain an absorption matrix which depends on the initial state
+of the system. In this case, $p_C$ can be interpreted as the probability that,
+given an initial state, the chain will be absorbed into the state where all
+players cooperate.
+% TODO: ALL DATA NEEDS TO BE UPDATED FOR N=8 WHEN DONE
+Figure~\ref{fig:pc_summaries} shows the marginal distribution of the cooperation
+probability $p_C$ across all parameter combinations and dynamics. Most
+configurations yield low cooperation, but the right tail is non-trivial:
+meaningful cooperation is achievable under a subset of conditions. We also see
+the distribution of $p_C$ across each population dynamic.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/overall_histogram/main.pdf}
+        \caption*{\textbf{A}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/by_process_hist/main.pdf}
+        %TODO: add aspiration dynamics
+        \caption*{\textbf{B}}
+    \end{subfigure}
+    \caption{\textbf{A}: The distribution of $p_C$ across all data. \textbf{B}:
+    The distribution of $p_C$ across each population dynamic}
+\label{fig:pc_summaries}
 \end{figure}
 
 \subsection{Effect of population heterogeneity on extrinsic dynamics}
 
-We examine how varying the degree of contribution heterogeneity (the spread of
-$\alpha_i$ values in the linear population) affects $p_C$ for a low-contributing
-mutant invading an $N = 3$ cooperating population.
+We first examine how varying the degree of contribution heterogeneity (the
+spread of $\alpha_i$ values in the linear population) affects $p_C$ for an $N =
+3$ cooperating population. We consider all processes under the effects of
+mutation, with $\mu$ varying according to \ref{fig:pc_summaries}.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_low/main.pdf}
-\caption{$p_C$ under Fermi imitation dynamics as heterogeneity varies ($N = 3$, linear population, low mutant).}
-\label{fig:fermi_het}
+\begin{tabular}{c c}
+\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf} &
+\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}\\
+\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3_binomial/main.pdf} &
+\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_binomial/main.pdf}\\
+\end{tabular}
+\caption*{}
+\label{fig:mutation_extrinsic_violins}
 \end{figure}
 
 Under Fermi imitation dynamics, greater heterogeneity decreases $p_C$. Higher
 values of $\alpha_i$ increase the payoff gap between cooperators and defectors
 within each state, making it more likely that a defector will be copied and less
 likely that a high contributor will persist.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_low/main.pdf}
-\caption{$p_C$ under the Moran process as heterogeneity varies ($N = 3$, linear population, low mutant).}
-\label{fig:moran_het}
-\end{figure}
 
 Under the Moran process, the degree of linear heterogeneity has no discernible
 effect on $p_C$ (Figure~\ref{fig:moran_het}): every violin across the
@@ -662,7 +760,7 @@ sensitive to the \emph{binomial} population structure.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_binomial_Low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_binomial_Low/main.pdf}
 \caption{$p_C$ under the Moran process as binomial heterogeneity varies ($N = 3$, binomial population, low mutant). Unlike the linear case, a clear upward trend in the median is visible.}
 \label{fig:moran_binom_het}
 \end{figure}
@@ -691,26 +789,26 @@ cannot exceed the neutral-drift baseline:
 \begin{proposition}[Extrinsic ceiling]
 \label{prop:ceiling}
 Under any purely extrinsic dynamic, the stationary probability of full
-    cooperation satisfies \(p_C \leq \frac{1}{N}\) for all \(\alpha_i > 0\).
+    cooperation satisfies \(p_C \leq \frac{1}{2}\) for all \(\alpha_i > 0\).
 \end{proposition}
 
-For the \(N = 3\) case shown, this gives a ceiling of \(p_C \leq \frac{1}{3}\),
-visible as a hard upper boundary in both Figures~\ref{fig:fermi_het}
-and~\ref{fig:moran_het}.
+For the \(N = 3\) case shown, this ceiling is
+visible as a hard upper boundary in all figures in Figures~\ref{fig:mutation_extrinsic_violins}.
 
 Although Introspective Imitation Dynamics breaks through this ceiling (see
 Section~\ref{sec:ceiling_break}), it does not escape it entirely: across all
 parameter combinations examined, \(p_C\) under Introspective Imitation Dynamics
 has an empirical upper bound near \(p_C \approx 0.35\) to \(0.40\) for \(N =
 3\). This is only modestly above the \(1/3\) extrinsic ceiling, and well below the
-values achievable by introspection dynamics, which can approach $p_C = 1$.  % TODO This will need to be fixed when we have mutation... 
+values achievable by introspection dynamics, which can approach $p_C = 1$. 
+ % TODO This will need to be fixed when we have mutation... 
 
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
 \label{sec:ceiling_break}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_low/main.pdf}
 \caption{$p_C$ under Introspective Imitation Dynamics ($N = 3$, linear population, low mutant).}
 \label{fig:iid_het}
 \end{figure}
@@ -724,7 +822,7 @@ $\frac{1}{2}$ to accepting it, enabling $p_C > \frac{1}{N}$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
+    %\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
     \caption{$p_C$ under introspection dynamics ($N = 3$, linear population).}
     \label{fig:introspection_het}
 \end{figure}
@@ -1457,59 +1555,59 @@ material. The resulting steady state is:
 \subsection{Extended parameter sweeps}
 
 \subsubsection*{Fermi imitation dynamics: linear population, $N = 3$--$8$}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_medium/main.pdf}\newpage
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_high/main.pdf}\newpage
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_medium/main.pdf}\newpage
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_high/main.pdf}\newpage
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_high/main.pdf}
 
 \subsubsection*{Introspective Imitation Dynamics: linear and binomial populations, $N = 3$--$4$}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_high/main.pdf}
 
 \subsubsection*{Moran process: linear population, $N = 3$--$8$}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_high/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_low/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_medium/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_high/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_low/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_medium/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_high/main.pdf}
 
 \subsubsection*{Introspection dynamics: binomial and linear populations, $N = 3$--$4$}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_binomial/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_binomial/main.pdf}
-\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_linear/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_binomial/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_binomial/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_linear/main.pdf}
 
 \subsubsection*{Moran process vs Introspective Imitation Dynamics: $N = 4, 5$}
-\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_4/main.pdf}
-\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_5/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_4/main.pdf}
+%\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_5/main.pdf}
 
 
 \bibliographystyle{plain}
