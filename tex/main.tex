@@ -708,65 +708,72 @@ configurations yield low cooperation, but the right tail is non-trivial:
 meaningful cooperation is achievable under a subset of conditions. We also see
 the distribution of $p_C$ across each population dynamic.
 
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figures/overall_histogram/main.pdf}
-        \caption*{\textbf{A}}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figures/by_process_hist/main.pdf}
-        %TODO: add aspiration dynamics
-        \caption*{\textbf{B}}
-    \end{subfigure}
-    \caption{\textbf{A}: The distribution of $p_C$ across all data. \textbf{B}:
-    The distribution of $p_C$ across each population dynamic}
-\label{fig:pc_summaries}
-\end{figure}
-
-\subsection{Effect of population heterogeneity on extrinsic dynamics}
-
-We first examine how varying the degree of contribution heterogeneity (the
-spread of $\alpha_i$ values in the linear population) affects $p_C$ for an $N =
-3$ cooperating population. We consider all processes under the effects of
-mutation, with $\mu$ varying according to \ref{fig:pc_summaries}.
-
 \begin{figure}[htbp]
 \centering
-\begin{tabular}{c c}
-\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf} &
-\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}\\
-\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3_binomial/main.pdf} &
-\includegraphics[width=0.4\textwidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_binomial/main.pdf}\\
-\end{tabular}
-\caption*{}
-\label{fig:mutation_extrinsic_violins}
+
+% ================= TOP ROW =================
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \textbf{A}\par
+    \includegraphics[width=\linewidth]{Figures/max_comparisons_over_N/max_linear_mutation/main.pdf}
+    \phantomcaption\label{fig:A}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+
+    % Row B
+    \textbf{B}\par
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3_binomial/main.pdf}
+
+    \vspace{0.2cm}
+
+    % Row C
+    \textbf{C}\par
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+
+\end{minipage}
+
+\vspace{0.5cm}
+
+% ================= BOTTOM ROW =================
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \textbf{D}\par
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \phantomcaption\label{fig:D}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \textbf{E}\par
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \phantomcaption\label{fig:E}
+\end{minipage}
+
+\caption{Composite figure with structured layout}
+\label{fig:all_alpha_range_violins}
 \end{figure}
 
-Under Fermi imitation dynamics, greater heterogeneity decreases $p_C$. Higher
-values of $\alpha_i$ increase the payoff gap between cooperators and defectors
+Figure~\ref{fig:fermi_mutation_alpha_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
+linear case. Higher values of $\alpha_i$ increase the payoff gap between cooperators and defectors
 within each state, making it more likely that a defector will be copied and less
-likely that a high contributor will persist.
+likely that a high contributor will persist. This effect is not seen under a
+binomial population, as %does this effect of heterogeneity depend on $n$?
 
 Under the Moran process, the degree of linear heterogeneity has no discernible
-effect on $p_C$ (Figure~\ref{fig:moran_het}): every violin across the
+effect on $p_C$ (Figure~\ref{fig:moran_mutation_alpha_violins}): every violin across the
 heterogeneity deciles is centred at the same median and has the same spread.
 The same invariance holds for Introspective Imitation Dynamics under linear
 population structures (see supplementary material). However, both dynamics are
 sensitive to the \emph{binomial} population structure.
 
-\begin{figure}[H]
-\centering
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_binomial_Low/main.pdf}
-\caption{$p_C$ under the Moran process as binomial heterogeneity varies ($N = 3$, binomial population, low mutant). Unlike the linear case, a clear upward trend in the median is visible.}
-\label{fig:moran_binom_het}
-\end{figure}
-
-Under the binomial population structure (Figure~\ref{fig:moran_binom_het}),
-both the Moran process and Introspective Imitation Dynamics exhibit a slight
+Under the binomial population structure ,
+both the Moran process(Figure~\ref{fig:moran_mutation_alpha_violins}) and Introspective Imitation Dynamics(Figure~\ref{fig:imi_mutation_alpha_violins}) exhibit a slight
 but consistent increase in $p_C$ as the contribution gap between low and high
 contributors widens. This suggests that the invariance observed under linear
 heterogeneity is specific to that population structure: it does not reflect a
@@ -795,48 +802,18 @@ Under any purely extrinsic dynamic, the stationary probability of full
 For the \(N = 3\) case shown, this ceiling is
 visible as a hard upper boundary in all figures in Figures~\ref{fig:mutation_extrinsic_violins}.
 
-Although Introspective Imitation Dynamics breaks through this ceiling (see
-Section~\ref{sec:ceiling_break}), it does not escape it entirely: across all
-parameter combinations examined, \(p_C\) under Introspective Imitation Dynamics
-has an empirical upper bound near \(p_C \approx 0.35\) to \(0.40\) for \(N =
-3\). This is only modestly above the \(1/3\) extrinsic ceiling, and well below the
-values achievable by introspection dynamics, which can approach $p_C = 1$. 
- % TODO This will need to be fixed when we have mutation... 
-
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
 \label{sec:ceiling_break}
 
-\begin{figure}[H]
-\centering
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_low/main.pdf}
-\caption{$p_C$ under Introspective Imitation Dynamics ($N = 3$, linear population, low mutant).}
-\label{fig:iid_het}
-\end{figure}
-
-Introspective Imitation Dynamics breaks through the extrinsic ceiling. The
+As seen in Figure~\ref{fig:mutation_intrinsic_violins}, both Introspection
+dynamics and Introspective Imitation Dynamics break through the extrinsic
+ceiling. The
 introspective step evaluates whether the focal player's own payoff would
 improve under the candidate strategy, independently of whether a defecting
 neighbour currently outperforms cooperators. When cooperation is individually
 beneficial for the focal player, this step assigns a probability greater than
-$\frac{1}{2}$ to accepting it, enabling $p_C > \frac{1}{N}$.
+$\frac{1}{2}$ to accepting it, enabling $p_C > \frac{1}{2}$.
 
-\begin{figure}[H]
-    \centering
-    %\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_linear/main.pdf}
-    \caption{$p_C$ under introspection dynamics ($N = 3$, linear population).}
-    \label{fig:introspection_het}
-\end{figure}
-
-The same qualitative result holds for introspection dynamics, though $p_C$
-there measures a steady-state probability rather than an absorption probability,
-so comparisons across dynamics should be made with care.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/maximum_compared/main.pdf}
-\caption{Maximum $p_C$ achieved by each dynamic across all parameter settings, for multiple values of $N$.}
-\label{fig:max_compared}
-\end{figure}
 
 The advantage of intrinsic dynamics over extrinsic dynamics holds across all
 values of $N$ and both population structures examined, as Figure~\ref{fig:max_compared}
