@@ -9,12 +9,15 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes.geometric}
+\usetikzlibrary{arrows.meta, positioning}
 \usepackage{latexsym}
 \newcommand{\lt}{\ensuremath <}
 \newcommand{\gt}{\ensuremath >}
 \usepackage{float}
 \usepackage{amsthm}
 \newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
 
 \title{Introspective Imitation Dynamics and the Limits of Extrinsic Update Rules in Heterogeneous Public Goods Games}
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
@@ -49,7 +52,8 @@ problems of our time. Countries differ substantially in their economic
 capacity, historical emissions, and the costs they face when decarbonising,
 yet they share a mutual interest in the global public good of a stable
 climate. This structure maps onto a \emph{public goods game}
-\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social, ARCHETTI20129, HauertDynamics2004}: each actor
+\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social, ARCHETTI20129,
+HauertDynamics2004, li2013redqueen}: each actor
 decides whether to incur a private cost to contribute to a shared resource
 whose total value is multiplied by some factor \(r\) and distributed equally.
 The temptation to free-ride means that purely selfish reasoning leads to a
@@ -605,7 +609,8 @@ To illustrate all of the dynamics of Section~\ref{sec:the_general_heterogeneous_
 we will use the Public Goods game.
 
 We apply the dynamics above to the public goods
-game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social, ARCHETTI20129, HauertDynamics2004}.
+game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social,
+ARCHETTI20129, HauertDynamics2004, li2013redqueen}.
 In this game, individuals choose whether or not to contribute to a common
 resource pool. The total contribution is multiplied by a factor \(r > 1\) and
 distributed equally among all \(N\) players. The model captures the temptation
@@ -692,7 +697,7 @@ parameters considered across each of the population dynamics.
 We define $p_C$ to be the \emph{probability of cooperation}. This represents
 the mean proportion of cooperators at a given step once an evolutionary game
 reaches it's steady state, and
-can be calculated by the value $\frac{\sum_{\mathbf{a} \in S}\left(\pi_a \sum_{i=1}^N
+can be calculated by the value $\frac{\sum_{\mathbf{a} \in S}\left(\Pi_a \sum_{i=1}^N
 \mathbf{a}_i\right)}{N}$, where $\mathbf{a}_i$ takes the value $1$ if player
 $i$ cooperates in state $\mathbf{a}$, and $0$ if not. A special case of
 $p_C$ is in an extrinsic population dynamic where $\mu = 0$. In such a case, our
@@ -711,69 +716,64 @@ the distribution of $p_C$ across each population dynamic.
 \begin{figure}[htbp]
 \centering
 
-% ================= TOP ROW =================
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{A}\par
     \includegraphics[width=\linewidth]{Figures/max_comparisons_over_N/max_linear_mutation/main.pdf}
-    \phantomcaption\label{fig:A}
+    \phantomcaption\label{fig:max_comparison}
 \end{minipage}%
 \hfill
 \begin{minipage}[t]{0.48\textwidth}
     \centering
 
-    % Row B
     \textbf{B}\par
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3_binomial/main.pdf}
-
     \vspace{0.2cm}
 
-    % Row C
     \textbf{C}\par
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
-
+    \phantomcaption\label{fig:fermi_moran_mutation_violins}
 \end{minipage}
 
 \vspace{0.5cm}
 
-% ================= BOTTOM ROW =================
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{D}\par
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
-    \phantomcaption\label{fig:D}
-\end{minipage}%
+    \phantomcaption\label{fig:imi_mutation_violins}
+\end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{E}\par
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
-    \phantomcaption\label{fig:E}
+    \phantomcaption\label{fig:intro_mutation_violins}
 \end{minipage}
 
-\caption{Composite figure with structured layout}
-\label{fig:all_alpha_range_violins}
+\caption{\textbf{A}: }
+\label{fig:all_alpha_range_violinplots}
 \end{figure}
 
-Figure~\ref{fig:fermi_mutation_alpha_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
+Figure~\ref{fig:fermi_moran_mutation_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
 linear case. Higher values of $\alpha_i$ increase the payoff gap between cooperators and defectors
 within each state, making it more likely that a defector will be copied and less
 likely that a high contributor will persist. This effect is not seen under a
 binomial population, as %does this effect of heterogeneity depend on $n$?
 
 Under the Moran process, the degree of linear heterogeneity has no discernible
-effect on $p_C$ (Figure~\ref{fig:moran_mutation_alpha_violins}): every violin across the
+effect on $p_C$ (Figure~\ref{fig:fermi_moran_mutation_violins}): every violin across the
 heterogeneity deciles is centred at the same median and has the same spread.
 The same invariance holds for Introspective Imitation Dynamics under linear
 population structures (see supplementary material). However, both dynamics are
 sensitive to the \emph{binomial} population structure.
 
 Under the binomial population structure ,
-both the Moran process(Figure~\ref{fig:moran_mutation_alpha_violins}) and Introspective Imitation Dynamics(Figure~\ref{fig:imi_mutation_alpha_violins}) exhibit a slight
+both the Moran process(Figure~\ref{fig:fermi_moran_mutation_violins}) and Introspective Imitation Dynamics(Figure~\ref{fig:imi_mutation_violins}) exhibit a slight
 but consistent increase in $p_C$ as the contribution gap between low and high
 contributors widens. This suggests that the invariance observed under linear
 heterogeneity is specific to that population structure: it does not reflect a
@@ -793,19 +793,10 @@ directly, the probability of adopting a cooperating strategy is therefore
 always lower than the probability of adopting a defecting one. Cooperation
 cannot exceed the neutral-drift baseline:
 
-\begin{proposition}[Extrinsic ceiling]
-\label{prop:ceiling}
-Under any purely extrinsic dynamic, the stationary probability of full
-    cooperation satisfies \(p_C \leq \frac{1}{2}\) for all \(\alpha_i > 0\).
-\end{proposition}
-
-For the \(N = 3\) case shown, this ceiling is
-visible as a hard upper boundary in all figures in Figures~\ref{fig:mutation_extrinsic_violins}.
-
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
 \label{sec:ceiling_break}
 
-As seen in Figure~\ref{fig:mutation_intrinsic_violins}, both Introspection
+As seen in Figure~\ref{fig:all_alpha_range_violinplots}, both Introspection
 dynamics and Introspective Imitation Dynamics break through the extrinsic
 ceiling. The
 introspective step evaluates whether the focal player's own payoff would
@@ -819,20 +810,37 @@ The advantage of intrinsic dynamics over extrinsic dynamics holds across all
 values of $N$ and both population structures examined, as Figure~\ref{fig:max_compared}
 and the extended parameter sweeps in the supplementary material confirm.
 
-\subsection{The $r = N$ threshold}
+\subsection{The $r = N$ threshold} 
+%from here on until the SI, we must update the data to include mutation
+
 \label{sec:rN}
+
+\begin{figure}[!h]
+\centering
+
+\begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_binomial/N_eq_3/main.pdf}
+    \caption{\textbf{A}}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_linear/N_eq_5/main.pdf}
+    \caption{\textbf{B}}
+\end{subfigure}
+\vspace{0.5cm}
+\caption{\textbf{A}: Comparison of $p_C$ (IID vs Moran, $N=3$, binomial
+population), \textbf{B}: Comparison of $p_C$ (IID vs Moran, $N=5$, linear
+population)}
+\ref{imi_vs_moran}
+\end{figure}
 
 To identify when intrinsic dynamics begin to outperform extrinsic ones, we
 compare $p_C$ values from the Moran process and Introspective Imitation
 Dynamics directly; the latter is the Moran process augmented with a single
 introspective step, making the comparison clean.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_3/main.pdf}
-\caption{Comparison of $p_C$ under the Moran process and Introspective Imitation Dynamics for $N = 3$.}
-\label{fig:comparison_N3}
-\end{figure}
 
 The parameter $r = N$ marks the precise threshold at which intrinsic dynamics
 begin to favour cooperation over defection.
@@ -859,24 +867,17 @@ when $r < N$.
 \end{proof}
 
 When $r < N$, the introspective step actively suppresses cooperation relative
-to the extrinsic baseline. This is visible in Figure~\ref{fig:comparison_N3}
+to the extrinsic baseline. This is visible in Figure~\ref{fig:imi_vs_moran}
 as a region where Introspective Imitation Dynamics underperforms the Moran
 process. The pattern holds across all values of $N$ (see supplementary material).
 
 A further empirical signature of the $r = N$ threshold is a sharp collapse of
-variance. In Figure~\ref{fig:iid_moran_diff}, which shows
+variance. In Figure~\ref{fig:imi_vs_moran}, which shows
 $p_C(\text{IID}) - p_C(\text{Moran})$ across the full $r$ range, the
 interquartile range narrows to nearly zero precisely at $r = N$, before
 widening again for larger $r$. This variance minimum coincides exactly with the
 theoretical threshold, providing an unusually clean empirical marker for the
 analytical result.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../assets/img/process_comparisons/moran_vs_imispection_linear/N_eq_3/main.pdf}
-\caption{$p_C(\text{IID}) - p_C(\text{Moran})$ as a function of $r$ for $N = 3$ (linear population). The dashed vertical line marks $r = N = 3$. The IQR collapses to near zero at the threshold before expanding for $r > N$.}
-\label{fig:iid_moran_diff}
-\end{figure}
 
 \subsection{Choice intensity and its interaction with dynamics type}
 
@@ -913,26 +914,50 @@ $\beta = 0$.
 
 \subsection{Dominance relations between dynamics}
 
+\begin{figure}
+    \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
+    \caption{\textbf{A}}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
+    \caption{\textbf{B}}
+\end{subfigure}
+
+\vspace{0.5cm}
+
+\begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
+    \caption{\textbf{C}}
+\end{subfigure}
+\hfill
+\caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
+function of $r$ for $N = 3$ (linear population). The difference is non-negative
+for all parameter combinations, establishing a uniform dominance of
+introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
+p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
+all other pairwise comparisons, the violin shape and median are approximately
+constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
+\ref{fig:process_comparisons}
+\end{figure}
+
 Having examined each dynamic in isolation, we now compare them directly to
 establish a dominance ordering in terms of $p_C$.
 
 \textbf{Introspection always outperforms Fermi.}
-Figure~\ref{fig:introspection_vs_fermi} shows $p_C(\text{Introspection}) -
+Figure~\ref{fig:process_comparisons} shows $p_C(\text{Introspection}) -
 p_C(\text{Fermi})$ across the full parameter sweep. The lower tail of every
 violin sits at or above zero: introspection dynamics \emph{uniformly dominates}
 Fermi imitation dynamics for all parameter combinations examined. The gap grows
 monotonically with $r$, reaching a median difference of approximately 0.7 at
 the upper end of the sweep.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
-\caption{$p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). The difference is non-negative for all parameter combinations, establishing a uniform dominance of introspection over Fermi dynamics.}
-\label{fig:introspection_vs_fermi}
-\end{figure}
-
 \textbf{The Moran--Fermi ordering is r-invariant.}
-Unlike every other pairwise comparison, Figure~\ref{fig:moran_vs_fermi} shows
+Unlike every other pairwise comparison, Figure~\ref{fig:process_comparisons} shows
 that $p_C(\text{Moran}) - p_C(\text{Fermi})$ has nearly identical violin
 shape, spread, and median across the entire $r$ range. There is no threshold
 effect at $r = N$: the comparison between these two dynamics is effectively
@@ -941,31 +966,16 @@ $r$-insensitive (Section on choice intensity). On average the Moran process
 outperforms Fermi imitation, though for some parameter configurations Fermi
 achieves a higher $p_C$.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
-% TODO The ylabel is broken here.
-\caption{$p_C(\text{Moran}) - p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike all other pairwise comparisons, the violin shape and median are approximately constant across the entire $r$ range.}
-\label{fig:moran_vs_fermi}
-\end{figure}
-
 \textbf{Introspection's advantage over Moran grows with $N$.}
 At $N = 3$, $p_C(\text{Introspection}) - p_C(\text{Moran})$ can be negative
 for $r < N$: there exist parameter configurations under which the Moran process
 outperforms introspection dynamics. However, at $N = 9$
-(Figure~\ref{fig:introspection_vs_moran_N9}), the same difference is
+(Figure~\ref{fig:process_comparisons}), the same difference is
 \emph{always non-negative} across the entire $r$ range, including values well
 below $r = N = 9$. This transition from a sign-changing difference to a
 uniformly positive one reflects the shrinking of the Moran ceiling $1/N$ as
 $N$ increases: with a lower ceiling, the Moran process is more easily
 dominated by introspection dynamics across all multipliers.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
-\caption{$p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
-\label{fig:introspection_vs_moran_N9}
-\end{figure}
 
 \section{Conclusion}
 
@@ -1532,60 +1542,316 @@ material. The resulting steady state is:
 \subsection{Extended parameter sweeps}
 
 \subsubsection*{Fermi imitation dynamics: linear population, $N = 3$--$8$}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_medium/main.pdf}\newpage
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_3_linear_high/main.pdf}\newpage
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_4_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_5_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_6_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_7_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/fermi_violins/N_eq_8_linear_high/main.pdf}
+\begin{figure}[!h]
+\centering
+
+% Row 1 (N=3)
+\resizebox{0.95\textwidth}{0.9\textheight}{%
+\begin{minipage}{\textwidth}
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \caption{$N=3$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \caption{$N=3$, high}
+\end{subfigure}
+
+\vspace{0.4cm}
+
+% Row 2 (N=4)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, high}
+\end{subfigure}
+
+\vspace{0.4cm}
+
+% Row 3 (N=5)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_5.0_linear/main.pdf}
+    \caption{$N=5$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_5.0_linear/main.pdf}
+    \caption{$N=5$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_5.0_linear/main.pdf}
+    \caption{$N=5$, high}
+\end{subfigure}
+
+\vspace{0.4cm}
+
+% Row 4 (N=6)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_6.0_linear/main.pdf}
+    \caption{$N=6$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_6.0_linear/main.pdf}
+    \caption{$N=6$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_6.0_linear/main.pdf}
+    \caption{$N=6$, high}
+\end{subfigure}
+
+\vspace{0.4cm}
+
+% Row 5 (N=7)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_7.0_linear/main.pdf}
+    \caption{$N=7$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_7.0_linear/main.pdf}
+    \caption{$N=7$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_7.0_linear/main.pdf}
+    \caption{$N=7$, high}
+\end{subfigure}
+
+\vspace{0.4cm}
+
+% Row 6 (N=8)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_8.0_linear/main.pdf}
+    \caption{$N=8$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_8.0_linear/main.pdf}
+    \caption{$N=8$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_8.0_linear/main.pdf}
+    \caption{$N=8$, high}
+\end{subfigure}
+
+\label{fig:fermi_full_grid}
+\end{minipage}
+}
+\end{figure}
 
 \subsubsection*{Introspective Imitation Dynamics: linear and binomial populations, $N = 3$--$4$}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_3_binomial_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/imispection_violins/N_eq_4_linear_high/main.pdf}
+\begin{figure}[!h]
+\centering
+
+\resizebox{0.95\textwidth}{!}{%
+\begin{minipage}{\textwidth}
+\centering
+
+% Row 1 (N=3)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \caption{$N=3$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \caption{$N=3$, high}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \caption{$N=3$, low}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 2 (N=4)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, high}
+\end{subfigure}
+
+\end{minipage}
+}
+
+\label{fig:introspection_grid}
+\end{figure}
 
 \subsubsection*{Moran process: linear population, $N = 3$--$8$}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_3_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_4_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_5_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_6_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_7_linear_high/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_low/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_medium/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/moran_violins/N_eq_8_linear_high/main.pdf}
+\begin{figure}[!h]
+\centering
+
+\resizebox{0.95\textwidth}{!}{%
+\begin{minipage}{\textwidth}
+\centering
+
+% Row 1 (N=3)
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \caption{$N=3$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \caption{$N=3$, high}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 2 (N=4)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, high}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 3 (N=5)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_5.0_linear/main.pdf}
+    \caption{$N=5$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_5.0_linear/main.pdf}
+    \caption{$N=5$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_5.0_linear/main.pdf}
+    \caption{$N=5$, high}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 4 (N=6)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_6.0_linear/main.pdf}
+    \caption{$N=6$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_6.0_linear/main.pdf}
+    \caption{$N=6$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_6.0_linear/main.pdf}
+    \caption{$N=6$, high}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 5 (N=7)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_7.0_linear/main.pdf}
+    \caption{$N=7$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_7.0_linear/main.pdf}
+    \caption{$N=7$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_7.0_linear/main.pdf}
+    \caption{$N=7$, high}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 6 (N=8)
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_8.0_linear/main.pdf}
+    \caption{$N=8$, low}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_8.0_linear/main.pdf}
+    \caption{$N=8$, medium}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_8.0_linear/main.pdf}
+    \caption{$N=8$, high}
+\end{subfigure}
+
+\end{minipage}
+}
+
+\label{fig:moran_full_grid}
+\end{figure}
 
 \subsubsection*{Introspection dynamics: binomial and linear populations, $N = 3$--$4$}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_3_binomial/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_binomial/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/standard_alpha_range_violins/introspection_violins/N_eq_4_linear/main.pdf}
+\begin{figure}[!h]
+\centering
 
-\subsubsection*{Moran process vs Introspective Imitation Dynamics: $N = 4, 5$}
-%\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_4/main.pdf}
-%\includegraphics[width=\textwidth]{Figures/comparison_violins/N_eq_5/main.pdf}
+\resizebox{0.95\textwidth}{!}{%
+\begin{minipage}{\textwidth}
+\centering
 
+% Row 1 (N=3)
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \caption{$N=3$, binomial}
+\end{subfigure}
+
+\vspace{0.25cm}
+
+% Row 2 (N=4)
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_4.0_binomial/main.pdf}
+    \caption{$N=4$, binomial}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_4.0_linear/main.pdf}
+    \caption{$N=4$, linear}
+\end{subfigure}
+
+\end{minipage}
+}
+
+\caption{
+Introspection dynamics across population sizes $N$ and population structures (binomial and linear).
+}
+\label{fig:introspection_structure}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}
