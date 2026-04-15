@@ -793,6 +793,63 @@ directly, the probability of adopting a cooperating strategy is therefore
 always lower than the probability of adopting a defecting one. Cooperation
 cannot exceed the neutral-drift baseline:
 
+\begin{definition}[Extrinsic population dynamic]
+    Let $T$ be the transition matrix of a birth-death process. T defines an
+    \emph{extrinsic} if it satisfies the following conditions:
+
+    \begin{enumerate}
+        \item $T_{\mathbf{a}\mathbf{b}}$ is dependent on some $a_j$ where $j
+        \neq I(\mathbf{a},\mathbf{b})$.
+        \item $T_{\mathbf{a} \mathbf{b}}$ is directly proportional to the
+        fitness of some nonempty subset of players such that $J
+        \subset \mathbf{a}: a_j = b_{I(\mathbf{a}\mathbf{b})}$ for all $j \in
+        J$.
+    \end{enumerate}
+
+    T defines a \emph{purely extrinsic} process if it satisfies:
+
+    \begin{enumerate}
+        \item $T$ is extrinsic
+        \item $T_{ab}$ is not dependent on fitness $f_j(\mathbf{x}):
+        \mathbf{x} \neq \mathbf{a}$ in any state other than $\mathbf{a}$
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}{Extrinsic Ceiling}
+
+    Let $T$ define purely extrinsic population dynamic playing an
+    $N$-player game with 2 actions, $C$ and $D$, such that in any given state
+    $\mathbf{a}$, $\min_{j: a_j = D} f_j(\mathbf{a}) > \min_{i: a_i = C}
+    f_i(\mathbf{a})$. Then $p_C$ for the Markov chain formed by a population
+    playing $G$ and evolving under $E$ is bounded above by $p_C \leq \frac{1}{2}$
+\end{theorem}
+
+\begin{proof}
+
+    Consider a state $\mathbf{a}$ and two players $i$ and $j$ who cooperate and
+    defect in state $\mathbf{a}$ respectively. Since $f_i(\mathbf{a}) \lt
+    f_j(\mathbf{a})$, we have that a transition $T_{ab}$ occurs with a higher
+    probability if it gains a cooperator rather than a defector. We can
+    see that the probability of gaining a cooperator in any given state is
+    bounded above by the case where $f_i(\mathbf{a}) = f_j(\mathbf{a})$ for all
+    cooperators $i$ and all defectors $j$ in any state $\mathbf{a}$. In this
+    case, we have that a player's fitness does not depend on their action.
+    In this case, the process becomes a birth death process under neutral
+    drift:
+
+    \centering
+    \input{Figures/Tikz/birth-death chain/main.tikz}
+
+    Now in this case we see that in this case we can interchange the roles of
+    cooperators and defectors freely. Thus, the probability of gaining a cooperator in a state with
+    $k$ cooperators is equal to the probability of gaining a defector in a
+    state with $k$ defectors, and the stationary probability $\Pi_k$ of
+    the state with $k$ cooperators is equal to the stationary probability
+    $\Pi_{N-k}$. Therefore $p_C = p_D$. Now as $p_C +
+    p_D = 1$, we get that $p_C = \frac{1}{2}$. Therefore, we have our upper bound.
+    
+\end{proof}
+
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
 \label{sec:ceiling_break}
 
