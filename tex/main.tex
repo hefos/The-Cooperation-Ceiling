@@ -15,6 +15,8 @@
 \newcommand{\gt}{\ensuremath >}
 \usepackage{float}
 \usepackage{framed}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
 \usepackage{amsthm}
 \newtheorem{proposition}{Proposition}
 \newtheorem{theorem}{Theorem}
@@ -225,32 +227,31 @@ game with 2 actions.
 
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \input{Figures/Tikz/hypercubes/hypercube_exact/main.tikz}
+        \input{Figures/Tikz/PGG/main.tikz}
         \caption*{\textbf{A}}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \input{Figures/Tikz/hypercubes/game_graph/main.tikz}
+        \input{Figures/Tikz/hypercubes/hypercube_exact/main.tikz}
         \caption*{\textbf{B}}
     \end{subfigure}
     
     \vspace{0.5cm}
 
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{\textwidth}
         \centering
-        \input{Figures/Tikz/hypercubes/hypercube_flat/main.tikz}
+        \input{Figures/Tikz/hypercube_N_4/main.tikz}
         \caption*{\textbf{C}}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \input{Figures/Tikz/hypercubes/game_graph_flat/main.tikz}
-        \caption*{\textbf{D}}
-    \end{subfigure}
 
-    \caption{\textbf{A}, \textbf{C}: Two diagrams hypercube of dimension 3. 
-             \textbf{B}, \textbf{D}: Two diagrams of the graph of a population dynamic for a 3-player game with 2 actions}
+    \caption{\textbf{A}: The public goods game with 8 players. Here 4 players contribute. 
+             \textbf{B}: The graph of a 3-player game with 2 actions under
+             a birth-death process. This is closely related to the hypercube of
+             dimension 3.
+             \textbf{C}: The graph of a 4-player game with 2 actions under a
+             birth-death process. This representation shows how one player
+             changes action at a given time.}
     \label{fig:main}
 \end{figure}
 
