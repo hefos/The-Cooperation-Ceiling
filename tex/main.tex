@@ -14,6 +14,7 @@
 \newcommand{\lt}{\ensuremath <}
 \newcommand{\gt}{\ensuremath >}
 \usepackage{float}
+\usepackage{framed}
 \usepackage{amsthm}
 \newtheorem{proposition}{Proposition}
 \newtheorem{theorem}{Theorem}
@@ -633,10 +634,6 @@ each player.
 
 \section{Results}
 
-\subsection{Analytic Results}
-\label{sec:analytic}
-%TODO: add bounds
-
 \subsection{Numeric Results}
 
 For the purposes of this section, a large scale parameter sweep is carried out.
@@ -794,58 +791,140 @@ always lower than the probability of adopting a defecting one. Cooperation
 cannot exceed the neutral-drift baseline:
 
 \begin{definition}[Extrinsic population dynamic]
-    Let $T$ be the transition matrix of a population dynamic with state space \(\{0, 1\} ^ N\). \(T\) defines an.
-    \emph{extrinsic} population dynamic if it satisfies the following conditions:
+    Let \(T\) be the transition matrix of a population dynamic on a state space
+    \(S\). We say that \(T\) defines a \emph{purely extrinsic} process if for
+    every \(\mathbf{a,b} \in S\) with \(\mathbf{b} \in \text{Neb}(\mathbf{a})\),
+    \(T_{\mathbf{ab}}\) satisfies:
 
     \begin{enumerate}
-        \item $\frac{dT_\mathbf{ab}}{da_j} \neq 0$ for some $j
-        \neq I(\mathbf{a},\mathbf{b})$.
-        \item $\frac{dT_\mathbf{ab}}{df_j(\mathbf{a})} \geq 0$ for all $j
-        \neq I(\mathbf{a},\mathbf{b})$
-    \end{enumerate}
-
-    T defines a \emph{purely extrinsic} process if it satisfies:
-
-    \begin{enumerate}
-        \item $T$ is extrinsic
-        \item $T_{ab}$ is not dependent on fitness $f_j(\mathbf{x}):
-        \mathbf{x} \neq \mathbf{a}$ in any state other than $\mathbf{a}$
+        \item $T_{\mathbf{ab}}$ is a function of payoffs evaluated in
+        $\mathbf{a}$ and in no other state.
+        \item $T_{\mathbf{ab}}$ is non-decreasing in the payoffs
+        $\pi_j(\mathbf{a})$ of all $j \in C$, where $C$ is defined as the set
+        of players $j$ such that $j \neq I(\mathbf{a,b})$ and $\mathbf{a}_j =
+        \mathbf{b}_{I(\mathbf{a,b})}$, and is strictly increasing
+        in at least one such $j$, if $C \neq \emptyset$.
+        \item $T_{ab}$ contains no term dependent on $a_{I(\mathbf{a,b})}$ or
+        $b_{I(\mathbf{a,b})}$, except in the payoff function
+        $\pi_{I(\mathbf{a,b})}(\mathbf{a})$, mutation parameters $\mu_{ij}$,
+        and in the definition of the set $C$.
     \end{enumerate}
 \end{definition}
 
-\begin{theorem}{Extrinsic Ceiling}
+\textit{Note}: Condition (3) in the above definition serves to exclude population dynamics
+which explicitly favour a certain action type, for example:
 
-    Let $T$ define purely extrinsic population dynamic playing an
-    $N$-player game with 2 actions, $C$ and $D$, such that in any given state
-    $\mathbf{a}$, $\min_{j: a_j = D} f_j(\mathbf{a}) > \min_{i: a_i = C}
-    f_i(\mathbf{a})$. Then $p_C$ for the Markov chain formed by a population
-    playing $G$ and evolving under $E$ is bounded above by $p_C \leq \frac{1}{2}$
+\[
+\bar{T}_{\mathbf{ab}} =
+\begin{cases}
+\delta_{I(\mathbf{a}, \mathbf{b})} \cdot T_{\mathbf{ab}} & \text{if } \mathbf{b} \neq \mathbf{a}, \\
+1 - \sum_{\mathbf{c} \neq \mathbf{a}} T_{\mathbf{ac}} & \text{if } \mathbf{b} = \mathbf{a}.
+\end{cases}
+\]
+
+where $T_{\mathbf{ab}}$ is the transition matrix of the some purely extrinsic dynamic, and
+$\delta_{I(\mathbf{a,b})}$ takes the value 1 if $b_{I(\mathbf{a,b})} = c$ and $\frac{1}{2}$
+if not. This population dynamic would be a purely extrinsic population dynamic,
+but would be tailored to favour a particular action type. We exclude cases such
+as this, as they do not conform to the framework in which fitness, is the single
+measure of the success of action types in the population, and thus of which
+strategy is passed on in each step of the process. While parameters such
+as choice intensity and selection intensity affect the transition probability
+$T_{\mathbf{ab}}$, they do not inherantly favour any specific
+action type.
+
+\begin{theorem}{The Moran process is a purely extrinsic process}
 \end{theorem}
 
 \begin{proof}
+By definition the Moran process satisfies conditions (1) and (3). It remains to
+be shown that for all $j \in C$, the Moran process is not decreasing in
+$\pi_j(\textbf{a})$, and that it is increasing for at least one such payoff.
+Recall $f_i(\mathbf{a}) = 1 + \epsilon \pi_i(\mathbf{a})$ for some selection intensity $\epsilon \gt 0$. Then we have:
 
-    Consider a state $\mathbf{a}$ and two players $i$ and $j$ who cooperate and
-    defect in state $\mathbf{a}$ respectively. Since $f_i(\mathbf{a}) \lt
-    f_j(\mathbf{a})$, we have that a transition $T_{ab}$ occurs with a higher
-    probability if it gains a cooperator rather than a defector. We can
-    see that the probability of gaining a cooperator in any given state is
-    bounded above by the case where $f_i(\mathbf{a}) = f_j(\mathbf{a})$ for all
-    cooperators $i$ and all defectors $j$ in any state $\mathbf{a}$. In this
-    case, we have that a player's fitness does not depend on their action.
-    In this case, the process becomes a birth death process under neutral
-    drift:
+$$T_{\mathbf{ab}} = \frac{\sum_{j \in C} f_j(\mathbf{a})}{N\sum_{l=1}^N
+f_l(\textbf{a})} (1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) +
+\frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$$
+$$
+\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = \frac{\epsilon \sum_{x \notin C}
+f_x(\textbf{a})}{N(\sum_{l=1}^N f_l(\mathbf{a}))^2}(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i})
+$$
 
-    \centering
-    \input{Figures/Tikz/birth-death chain/main.tikz}
+As we choose $\epsilon$ such that $f_i(\mathbf{a}) \gt 0$ for all $i \in
+\mathbf{a}$, and $\mu_{i,j}$ such that $\sum_{i=1}^k \mu_{I(\mathbf{a,b}), i} <
+1$ we can see that this is strictly greater than 0, and thus
+condition (2) holds in our definition.
+\end{proof}
 
-    Now in this case we see that in this case we can interchange the roles of
-    cooperators and defectors freely. Thus, the probability of gaining a cooperator in a state with
-    $k$ cooperators is equal to the probability of gaining a defector in a
-    state with $k$ defectors, and the stationary probability $\Pi_k$ of
-    the state with $k$ cooperators is equal to the stationary probability
-    $\Pi_{N-k}$. Therefore $p_C = p_D$. Now as $p_C +
-    p_D = 1$, we get that $p_C = \frac{1}{2}$. Therefore, we have our upper bound.
+\begin{theorem}{Fermi imitation dynamics is a purely extrinsic process}
+\end{theorem}
+
+\begin{proof}
+Once again, by definition Fermi imitation dynamics satisfies conditions (1) and
+(3). It remains to show that it satisfies condition 2.
+
+$$ T_{\mathbf{ab}} = \frac{1}{N(N-1)}\sum_{j \in C}\phi(\pi_{I(\mathbf{a,b})}(\mathbf{a}) -
+\pi_j(\mathbf{a}))(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) +
+\frac{\mu_{I(\mathbf{a,b})}, b_{I(\mathbf{a,b})}}{N} $$
+
+Now as $\phi(x)$ is strictly decreasing, every term in the sum in strictly
+increasing in $\pi_j(\mathbf{a})$. Thus, Fermi imitation dynamics satisfies
+condition (2).
+\end{proof}
+
+\begin{framed}
+\begin{theorem}{Extrinsic Ceiling}
+
+    Let $T$ define purely extrinsic process on an $N$-player game with 2 actions, $c$ and $d$, such that
+    in any given state $\mathbf{a}$, $\min_{j: a_j = d} f_j(\mathbf{a}) >
+    \min_{i: a_i = c} f_i(\mathbf{a})$ (that is, in any given state, any
+    defector will have a greater fitness than any cooperator). Suppose further that the system
+    exhibits action-invariant mutation $\mu_{ic} = \mu_{id}$ for all players $i
+    \in \mathbf{a}$. 
     
+    Then, $p_C \leq \frac{1}{2}$
+\end{theorem}
+\end{framed}
+\begin{proof}
+
+    Consider another transition matrix $\bar{T}$ defined by the same population
+    dynamic as $T$, but with a payoff function $\bar{\pi}_i(\mathbf{a}) :=
+    \min_{a_j = d} \pi_j(\mathbf{a})$ for all players $i \in \mathbf{a}$. In
+    such a transition matrix, we have the following:
+
+    \begin{enumerate}
+        \item All players in a given state have the same payoff 
+        \item All cooperators $i$ have $\pi_i(\mathbf{a}) \lt \bar{\pi}_i(\mathbf{a})$ for all states $\mathbf{a} \in S$
+        \item All defectors $j$ have $\pi_j(\mathbf{a}) \geq
+        \bar{\pi}_j(\mathbf{a})$ for all states $\mathbf{a} \in S$
+    \end{enumerate}
+
+    Thus, we have that, by condition (2) of a purely extrinsic population dynamic:
+
+\[
+    \begin{cases}
+    T_{\mathbf{ab}} < \bar{T}_{\mathbf{ab}} & \text{if } \mathbf{b}_{I(\mathbf{a}, \mathbf{b})} = c, \\
+    T_{\mathbf{ab}} \leq \bar{T}_{\mathbf{ab}} & \text{if } \mathbf{b}_{I(\mathbf{a}, \mathbf{b})} = d.
+    \end{cases}
+\]
+
+    Thus, in any given state $\mathbf{a}$, a
+    cooperator is gained with a higher probability in $\bar{T}$ than in $T$. Now, as $\bar{T}$ has equal fitness
+    for all players, and by condition (3) of a purely extrinsic dynamic, we
+    have that the process $\bar{T}$ exhibits neutral drift
+    \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7},
+    and so we can interchange the roles of cooperators and defectors freely.
+    Therefore, we have that in $\bar{T}$, $p_C = p_D$, where $p_D$ is defined as
+    the expected fraction of defectors at a given step during the steady state
+    of a system. Clearly, $p_C + p_D = 1$, and so $p_C = \frac{1}{2}$ in $\bar{T}$.
+
+    Now since in any given state $\mathbf{a} \in \mathbf{S}$, we have that
+    $\bar{T_\mathbf{ab}} \gt T_\mathbf{ab}$ if $b_{I(\mathbf{a,b})} = c$, we
+    have that the expected number of cooperators at a given step in the steady
+    state of $\bar{T}$ is greater than the expected number of cooperators in a
+    given step in the steady state of $T$. Therefore we have:
+
+    $$p_C^{(T)} = \frac{1}{N} E_T(n_c) \lt \frac{1}{N} E_{\bar{T}}(n_c) = p_C^{(\bar{T})} = \frac{1}{2}$$
 \end{proof}
 
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
