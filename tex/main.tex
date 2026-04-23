@@ -20,6 +20,7 @@
 \usepackage{amsthm}
 \newtheorem{proposition}{Proposition}
 \newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
 
 \title{Introspective Imitation Dynamics and the Limits of Extrinsic Update Rules in Heterogeneous Public Goods Games}
@@ -800,17 +801,32 @@ cannot exceed the neutral-drift baseline:
     \begin{enumerate}
         \item $T_{\mathbf{ab}}$ is a function of payoffs evaluated in
         $\mathbf{a}$ and in no other state.
-        \item $T_{\mathbf{ab}}$ is non-decreasing in the payoffs
-        $\pi_j(\mathbf{a})$ of all $j \in C$, where $C$ is defined as the set
-        of players $j$ such that $j \neq I(\mathbf{a,b})$ and $\mathbf{a}_j =
-        \mathbf{b}_{I(\mathbf{a,b})}$, and is strictly increasing
-        in at least one such $j$, if $C \neq \emptyset$.
+        \item Let $\mathcal{R}$ denote the set of players $j$ such that
+        $j \neq I(\mathbf{a,b})$ and $\mathbf{a}_j = \mathbf{b}_{I(\mathbf{a,b})}$.
+        Then $T_{\mathbf{ab}}$ is non-decreasing in the payoffs
+        $\pi_j(\mathbf{a})$ for all $j \in \mathcal{R}$ (and strictly
+        increasing in at least one such $j$ if $\mathcal{R} \neq \emptyset$),
+        and non-increasing in the payoffs $\pi_j(\mathbf{a})$ for all
+        $j \notin \mathcal{R}$.
         \item $T_{ab}$ contains no term dependent on $a_{I(\mathbf{a,b})}$ or
         $b_{I(\mathbf{a,b})}$, except in the payoff function
         $\pi_{I(\mathbf{a,b})}(\mathbf{a})$, mutation parameters $\mu_{ij}$,
-        and in the definition of the set $C$.
+        and in the definition of the set $\mathcal{R}$.
+        \item If all players share the same payoff in state $\mathbf{a}$
+        (that is, there exists $v \in \mathbb{R}$ such that
+        $\pi_i(\mathbf{a}) = v$ for every player $i$), then $T_{\mathbf{ab}}$
+        is independent of the common value $v$.
     \end{enumerate}
 \end{definition}
+
+Intuitively, a purely extrinsic process revises strategies through payoff
+comparison. Condition (2) captures the basic monotonicity: a higher payoff
+for a role model makes that role model more likely to be copied, and a
+higher payoff for a non-role-model pulls the other way. Conditions (3) and
+(4) ensure that the rule uses payoffs \emph{only} for comparison: no action
+is intrinsically preferred, and if all players share the same payoff (so
+no comparison is possible) the absolute level of that common payoff
+cannot influence the dynamic.
 
 \textit{Note}: Condition (3) in the above definition serves to exclude population dynamics
 which explicitly favour a certain action type, for example:
@@ -824,108 +840,196 @@ which explicitly favour a certain action type, for example:
 \]
 
 where $T_{\mathbf{ab}}$ is the transition matrix of the some purely extrinsic dynamic, and
-$\delta_{I(\mathbf{a,b})}$ takes the value 1 if $b_{I(\mathbf{a,b})} = c$ and $\frac{1}{2}$
+$\delta_{I(\mathbf{a,b})}$ takes the value 1 if $b_{I(\mathbf{a,b})} = C$ and $\frac{1}{2}$
 if not. This population dynamic would be a purely extrinsic population dynamic,
 but would be tailored to favour a particular action type. We exclude cases such
 as this, as they do not conform to the framework in which fitness, is the single
 measure of the success of action types in the population, and thus of which
 strategy is passed on in each step of the process. While parameters such
 as choice intensity and selection intensity affect the transition probability
-$T_{\mathbf{ab}}$, they do not inherantly favour any specific
+$T_{\mathbf{ab}}$, they do not inherently favour any specific
 action type.
 
-\begin{theorem}{The Moran process is a purely extrinsic process}
+\begin{theorem}[The Moran process is a purely extrinsic process]
 \end{theorem}
 
 \begin{proof}
 By definition the Moran process satisfies conditions (1) and (3). It remains to
-be shown that for all $j \in C$, the Moran process is not decreasing in
-$\pi_j(\textbf{a})$, and that it is increasing for at least one such payoff.
+be shown that $T_{\mathbf{ab}}$ is non-decreasing in $\pi_j(\mathbf{a})$ for
+$j \in \mathcal{R}$ (strictly increasing for at least one such $j$) and
+non-increasing in $\pi_j(\mathbf{a})$ for $j \notin \mathcal{R}$.
 Recall $f_i(\mathbf{a}) = 1 + \epsilon \pi_i(\mathbf{a})$ for some selection intensity $\epsilon \gt 0$. Then we have:
 
-$$T_{\mathbf{ab}} = \frac{\sum_{j \in C} f_j(\mathbf{a})}{N\sum_{l=1}^N
+$$T_{\mathbf{ab}} = \frac{\sum_{j \in \mathcal{R}} f_j(\mathbf{a})}{N\sum_{l=1}^N
 f_l(\textbf{a})} (1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) +
 \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$$
 $$
-\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = \frac{\epsilon \sum_{x \notin C}
+\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = \frac{\epsilon \sum_{x \notin \mathcal{R}}
 f_x(\textbf{a})}{N(\sum_{l=1}^N f_l(\mathbf{a}))^2}(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i})
+\quad\text{for } j \in \mathcal{R}
 $$
 
-As we choose $\epsilon$ such that $f_i(\mathbf{a}) \gt 0$ for all $i \in
+For $j \in \mathcal{R}$, as $\epsilon$ is chosen such that $f_i(\mathbf{a}) \gt 0$ for all $i \in
 \mathbf{a}$, and $\mu_{i,j}$ such that $\sum_{i=1}^k \mu_{I(\mathbf{a,b}), i} <
-1$ we can see that this is strictly greater than 0, and thus
-condition (2) holds in our definition.
+1$, this derivative is strictly positive. For $j \notin \mathcal{R}$, the
+analogous computation gives
+$\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\epsilon \sum_{x \in \mathcal{R}} f_x(\mathbf{a})}{N(\sum_{l=1}^N f_l(\mathbf{a}))^2}(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) \leq 0$,
+so condition (2) holds. Finally, for condition (4), setting
+$\pi_i(\mathbf{a}) = v$ for every player $i$ gives $f_i(\mathbf{a}) = 1 + \epsilon v$
+for every $i$, whence
+$T_{\mathbf{ab}} = \frac{|\mathcal{R}|(1+\epsilon v)}{N\cdot N (1+\epsilon v)}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}
+= \frac{|\mathcal{R}|}{N^2}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$,
+which is independent of $v$.
 \end{proof}
 
-\begin{theorem}{Fermi imitation dynamics is a purely extrinsic process}
+\begin{theorem}[Fermi imitation dynamics is a purely extrinsic process]
 \end{theorem}
 
 \begin{proof}
 Once again, by definition Fermi imitation dynamics satisfies conditions (1) and
-(3). It remains to show that it satisfies condition 2.
+(3). It remains to show that it satisfies condition (2).
 
-$$ T_{\mathbf{ab}} = \frac{1}{N(N-1)}\sum_{j \in C}\phi(\pi_{I(\mathbf{a,b})}(\mathbf{a}) -
+$$ T_{\mathbf{ab}} = \frac{1}{N(N-1)}\sum_{j \in \mathcal{R}}\phi(\pi_{I(\mathbf{a,b})}(\mathbf{a}) -
 \pi_j(\mathbf{a}))(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) +
-\frac{\mu_{I(\mathbf{a,b})}, b_{I(\mathbf{a,b})}}{N} $$
+\frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N} $$
 
-Now as $\phi(x)$ is strictly decreasing, every term in the sum in strictly
-increasing in $\pi_j(\mathbf{a})$. Thus, Fermi imitation dynamics satisfies
-condition (2).
+As $\phi$ is strictly decreasing, every term in the sum is strictly increasing
+in $\pi_j(\mathbf{a})$ for $j \in \mathcal{R}$. For $j \notin \mathcal{R}$
+with $j \neq I(\mathbf{a,b})$, $\pi_j(\mathbf{a})$ does not appear in the
+formula at all. For $j = I(\mathbf{a,b})$ (when
+$a_{I(\mathbf{a,b})} \neq b_{I(\mathbf{a,b})}$, so $I \notin \mathcal{R}$),
+each term is strictly decreasing in $\pi_{I(\mathbf{a,b})}(\mathbf{a})$
+because $\phi$ is. Thus, Fermi imitation dynamics satisfies condition (2).
+Finally, condition (4) holds: if $\pi_i(\mathbf{a}) = v$ for every player $i$,
+then every payoff difference appearing in the Fermi formula is zero, so
+$\phi(\pi_I(\mathbf{a}) - \pi_j(\mathbf{a})) = \phi(0) = \frac{1}{2}$
+in each summand, and
+$T_{\mathbf{ab}} = \frac{|\mathcal{R}|}{2N(N-1)}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$,
+independent of $v$.
+\end{proof}
+
+Before stating the theorem we record a comparison result for Markov chains
+on partially ordered spaces. The result is classical and we claim no
+novelty; we include a short proof for the reader's convenience, since its
+use in the proof of the theorem below may not be familiar to the reader.
+
+\begin{lemma}\label{lem:stationary-dominance}
+    Let $P$ and $Q$ be irreducible, aperiodic transition matrices on a
+    finite partially ordered set $(S, \leq)$, with stationary distributions
+    $\pi^P$ and $\pi^Q$. Suppose that
+    \begin{enumerate}
+        \item[(i)] $P(\mathbf{a}, \cdot) \preceq_{st} Q(\mathbf{a}, \cdot)$ for every $\mathbf{a} \in S$; and
+        \item[(ii)] $Q$ is stochastically monotone: $\mathbf{a} \leq \mathbf{a}'$ implies $Q(\mathbf{a}, \cdot) \preceq_{st} Q(\mathbf{a}', \cdot)$.
+    \end{enumerate}
+    Then $\pi^P \preceq_{st} \pi^Q$.
+\end{lemma}
+
+\begin{proof}
+    Kamae, Krengel, and O'Brien \cite{kamae1977stochastic} prove that
+    whenever two probability measures $\mu_1, \mu_2$ on a partially ordered
+    Polish space satisfy $\mu_1 \preceq_{st} \mu_2$, there exist random
+    variables $X_1 \sim \mu_1$ and $X_2 \sim \mu_2$ defined on a common
+    probability space with $X_1 \leq X_2$ almost surely (a \emph{monotone
+    coupling}).
+
+    Using this, we construct a coupling of the two chains by induction on
+    $t$. Start with any $X^P_0, X^Q_0 \in S$ satisfying $X^P_0 \leq X^Q_0$.
+    Given $X^P_t \leq X^Q_t$, hypothesis (ii) gives
+    $Q(X^P_t, \cdot) \preceq_{st} Q(X^Q_t, \cdot)$, which combined with (i)
+    at $\mathbf{a} = X^P_t$ yields
+    $P(X^P_t, \cdot) \preceq_{st} Q(X^Q_t, \cdot)$. Applying
+    Kamae--Krengel--O'Brien to this pair of measures produces
+    $(X^P_{t+1}, X^Q_{t+1})$ with the required marginals and
+    $X^P_{t+1} \leq X^Q_{t+1}$ almost surely. By induction,
+    $X^P_t \leq X^Q_t$ for every $t$. Since both chains are ergodic, their
+    marginal laws converge to $\pi^P$ and $\pi^Q$, and passing to the limit
+    gives $\pi^P \preceq_{st} \pi^Q$.
 \end{proof}
 
 \begin{framed}
-\begin{theorem}{Extrinsic Ceiling}
+\begin{theorem}[Extrinsic Ceiling]
 
-    Let $T$ define purely extrinsic process on an $N$-player game with 2 actions, $c$ and $d$, such that
-    in any given state $\mathbf{a}$, $\min_{j: a_j = d} f_j(\mathbf{a}) >
-    \min_{i: a_i = c} f_i(\mathbf{a})$ (that is, in any given state, any
-    defector will have a greater fitness than any cooperator). Suppose further that the system
-    exhibits action-invariant mutation $\mu_{ic} = \mu_{id}$ for all players $i
-    \in \mathbf{a}$. 
-    
+    Let $T$ define a purely extrinsic process on an $N$-player game with 2 actions, $C$ and $D$, such that
+    in any given state $\mathbf{a}$, $\min_{j: a_j = D} f_j(\mathbf{a}) >
+    \max_{i: a_i = C} f_i(\mathbf{a})$ (that is, in any given state, any
+    defector has greater fitness than any cooperator). Suppose further that the system
+    exhibits action-invariant mutation $\mu_{iC} = \mu_{iD}$ for all players $i
+    \in \mathbf{a}$.
+
     Then, $p_C \leq \frac{1}{2}$
 \end{theorem}
 \end{framed}
 \begin{proof}
 
-    Consider another transition matrix $\bar{T}$ defined by the same population
-    dynamic as $T$, but with a payoff function $\bar{\pi}_i(\mathbf{a}) :=
-    \min_{a_j = d} \pi_j(\mathbf{a})$ for all players $i \in \mathbf{a}$. In
-    such a transition matrix, we have the following:
+    Equip $S = \{C, D\}^N$ with the componentwise partial order, declaring
+    $D < C$. For a transition matrix $P$, write $P(\mathbf{a}, \cdot) \preceq_{st} P(\mathbf{a}', \cdot)$
+    to mean that the one-step distribution from $\mathbf{a}$ under $P$ is
+    stochastically dominated by the one-step distribution from $\mathbf{a}'$
+    under $P$ in this order. Let $T^{\mathrm{nd}}_{\mathbf{ab}}$ denote the
+    value of $T_{\mathbf{ab}}$ evaluated at $\pi_i(\mathbf{a}) = 0$ for every
+    $i$; by condition (4), $T^{\mathrm{nd}}_{\mathbf{ab}}$ is equally the value
+    of $T_{\mathbf{ab}}$ under any other choice of common payoff.
 
-    \begin{enumerate}
-        \item All players in a given state have the same payoff 
-        \item All cooperators $i$ have $\pi_i(\mathbf{a}) \lt \bar{\pi}_i(\mathbf{a})$ for all states $\mathbf{a} \in S$
-        \item All defectors $j$ have $\pi_j(\mathbf{a}) \geq
-        \bar{\pi}_j(\mathbf{a})$ for all states $\mathbf{a} \in S$
-    \end{enumerate}
+    \medskip
+    \noindent\textit{Step 1: $T(\mathbf{a}, \cdot) \preceq_{st} T^{\mathrm{nd}}(\mathbf{a}, \cdot)$ for every $\mathbf{a} \in S$.}
 
-    Thus, we have that, by condition (2) of a purely extrinsic population dynamic:
+    Set $v(\mathbf{a}) := \min_{a_j = D} \pi_j(\mathbf{a})$. In every mixed state
+    $\mathbf{a}$, the payoff-dominance hypothesis implies
+    $\pi_i(\mathbf{a}) < v(\mathbf{a})$ for every cooperator $i$ and
+    $\pi_j(\mathbf{a}) \geq v(\mathbf{a})$ for every defector $j$. Consider a
+    $C$-gaining transition $\mathbf{a} \to \mathbf{b}$, so
+    $b_{I(\mathbf{a,b})} = C$ and $\mathcal{R}$ is the set of current
+    cooperators. Replacing every $\pi_i(\mathbf{a})$ with $v(\mathbf{a})$
+    raises all role-model payoffs and lowers all non-role-model payoffs, so by
+    condition (2),
 
-\[
-    \begin{cases}
-    T_{\mathbf{ab}} < \bar{T}_{\mathbf{ab}} & \text{if } \mathbf{b}_{I(\mathbf{a}, \mathbf{b})} = c, \\
-    T_{\mathbf{ab}} \leq \bar{T}_{\mathbf{ab}} & \text{if } \mathbf{b}_{I(\mathbf{a}, \mathbf{b})} = d.
-    \end{cases}
-\]
+    \[
+        T_{\mathbf{ab}} \;\leq\; T_{\mathbf{ab}} \big|_{\pi_i(\mathbf{a}) = v(\mathbf{a})\text{ for all } i},
+    \]
 
-    Thus, in any given state $\mathbf{a}$, a
-    cooperator is gained with a higher probability in $\bar{T}$ than in $T$. Now, as $\bar{T}$ has equal fitness
-    for all players, and by condition (3) of a purely extrinsic dynamic, we
-    have that the process $\bar{T}$ exhibits neutral drift
-    \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7},
-    and so we can interchange the roles of cooperators and defectors freely.
-    Therefore, we have that in $\bar{T}$, $p_C = p_D$, where $p_D$ is defined as
-    the expected fraction of defectors at a given step during the steady state
-    of a system. Clearly, $p_C + p_D = 1$, and so $p_C = \frac{1}{2}$ in $\bar{T}$.
+    with strict inequality whenever $\mathcal{R} \neq \emptyset$. By condition
+    (4), the right-hand side equals $T^{\mathrm{nd}}_{\mathbf{ab}}$. The
+    analogous argument with reversed inequality applies to $D$-gaining
+    transitions. Hence $T(\mathbf{a}, \cdot) \preceq_{st} T^{\mathrm{nd}}(\mathbf{a}, \cdot)$.
 
-    Now since in any given state $\mathbf{a} \in \mathbf{S}$, we have that
-    $\bar{T_\mathbf{ab}} \gt T_\mathbf{ab}$ if $b_{I(\mathbf{a,b})} = c$, we
-    have that the expected number of cooperators at a given step in the steady
-    state of $\bar{T}$ is greater than the expected number of cooperators in a
-    given step in the steady state of $T$. Therefore we have:
+    \medskip
+    \noindent\textit{Step 2: $T^{\mathrm{nd}}$ is invariant under the $C \leftrightarrow D$ label swap.}
 
-    $$p_C^{(T)} = \frac{1}{N} E_T(n_c) \lt \frac{1}{N} E_{\bar{T}}(n_c) = p_C^{(\bar{T})} = \frac{1}{2}$$
+    Let $\sigma : S \to S$ be the map that swaps every $C$ and $D$. By
+    conditions (3) and (4), with common payoff $0$, the only features of
+    $(\mathbf{a}, \mathbf{b})$ that enter $T^{\mathrm{nd}}_{\mathbf{ab}}$ are
+    the mutation matrix and the set $\mathcal{R}$. Under action-invariant
+    mutation the mutation matrix is $\sigma$-invariant; and $|\mathcal{R}|$ is
+    $\sigma$-invariant because the set of players currently playing
+    $b_{I(\mathbf{a,b})}$ in $\mathbf{a}$ has the same size as the set of
+    players currently playing $\sigma(b_{I(\mathbf{a,b})})$ in $\sigma(\mathbf{a})$.
+    Hence $T^{\mathrm{nd}}_{\mathbf{ab}} = T^{\mathrm{nd}}_{\sigma(\mathbf{a})\sigma(\mathbf{b})}$
+    for every transition, so the stationary distribution of $T^{\mathrm{nd}}$
+    is $\sigma$-invariant, giving
+    $p_C^{(T^{\mathrm{nd}})} = p_D^{(T^{\mathrm{nd}})} = \tfrac{1}{2}$
+    \cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}.
+
+    \medskip
+    \noindent\textit{Step 3: $T^{\mathrm{nd}}$ is stochastically monotone.}
+
+    $T^{\mathrm{nd}}_{\mathbf{ab}}$ depends on $\mathbf{a}$ only through
+    $|\mathcal{R}|$, which equals $n_C(\mathbf{a})$ on $C$-gaining transitions
+    and $N - n_C(\mathbf{a})$ on $D$-gaining transitions. Combined with the
+    label-swap symmetry of Step 2, this implies that $T^{\mathrm{nd}}$
+    projects onto $n_C$ as a symmetric birth-death chain on $\{0, 1, \dots, N\}$,
+    and so $\mathbf{a} \leq \mathbf{a}'$ implies
+    $T^{\mathrm{nd}}(\mathbf{a}, \cdot) \preceq_{st} T^{\mathrm{nd}}(\mathbf{a}', \cdot)$.
+
+    \medskip
+    Applying Lemma~\ref{lem:stationary-dominance} to $P = T$ and
+    $Q = T^{\mathrm{nd}}$ (which satisfy (i) by Step 1 and (ii) by Step 3)
+    yields $\pi^T \preceq_{st} \pi^{T^{\mathrm{nd}}}$. Since $n_C$ is monotone
+    in the componentwise order,
+    \[
+        p_C^{(T)} \;=\; \tfrac{1}{N}\, \mathbb{E}_T[n_C]
+        \;\leq\; \tfrac{1}{N}\, \mathbb{E}_{T^{\mathrm{nd}}}[n_C]
+        \;=\; p_C^{(T^{\mathrm{nd}})} \;=\; \tfrac{1}{2}.
+    \]
 \end{proof}
 
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
@@ -946,30 +1050,30 @@ values of $N$ and both population structures examined, as Figure~\ref{fig:max_co
 and the extended parameter sweeps in the supplementary material confirm.
 
 \subsection{The $r = N$ threshold} 
-%from here on until the SI, we must update the data to include mutation
+% TODO from here on until the SI, we must update the data to include mutation
 
 \label{sec:rN}
 
-\begin{figure}[!h]
-\centering
-
-\begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_binomial/N_eq_3/main.pdf}
-    \caption{\textbf{A}}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_linear/N_eq_5/main.pdf}
-    \caption{\textbf{B}}
-\end{subfigure}
-\vspace{0.5cm}
-\caption{\textbf{A}: Comparison of $p_C$ (IID vs Moran, $N=3$, binomial
-population), \textbf{B}: Comparison of $p_C$ (IID vs Moran, $N=5$, linear
-population)}
-\ref{imi_vs_moran}
-\end{figure}
+% \begin{figure}[!h]
+% \centering
+%
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_binomial/N_eq_3/main.pdf}
+%     \caption{\textbf{A}}
+% \end{subfigure}
+% \hfill
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_linear/N_eq_5/main.pdf}
+%     \caption{\textbf{B}}
+% \end{subfigure}
+% \vspace{0.5cm}
+% \caption{\textbf{A}: Comparison of $p_C$ (IID vs Moran, $N=3$, binomial
+% population), \textbf{B}: Comparison of $p_C$ (IID vs Moran, $N=5$, linear
+% population)}
+% \ref{imi_vs_moran}
+% \end{figure}
 
 To identify when intrinsic dynamics begin to outperform extrinsic ones, we
 compare $p_C$ values from the Moran process and Introspective Imitation
@@ -1049,36 +1153,36 @@ $\beta = 0$.
 
 \subsection{Dominance relations between dynamics}
 
-\begin{figure}
-    \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
-    \caption{\textbf{A}}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
-    \caption{\textbf{B}}
-\end{subfigure}
-
-\vspace{0.5cm}
-
-\begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
-    \caption{\textbf{C}}
-\end{subfigure}
-\hfill
-\caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
-function of $r$ for $N = 3$ (linear population). The difference is non-negative
-for all parameter combinations, establishing a uniform dominance of
-introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
-p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
-all other pairwise comparisons, the violin shape and median are approximately
-constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
-\ref{fig:process_comparisons}
-\end{figure}
+% \begin{figure}
+%     \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
+%     \caption{\textbf{A}}
+% \end{subfigure}
+% \hfill
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
+%     \caption{\textbf{B}}
+% \end{subfigure}
+%
+% \vspace{0.5cm}
+%
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
+%     \caption{\textbf{C}}
+% \end{subfigure}
+% \hfill
+% \caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
+% function of $r$ for $N = 3$ (linear population). The difference is non-negative
+% for all parameter combinations, establishing a uniform dominance of
+% introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
+% p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
+% all other pairwise comparisons, the violin shape and median are approximately
+% constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
+% \ref{fig:process_comparisons}
+% \end{figure}
 
 Having examined each dynamic in isolation, we now compare them directly to
 establish a dominance ordering in terms of $p_C$.
