@@ -1,8 +1,7 @@
-\begin{tikzpicture}[scale=1.7]
+\begin{tikzpicture}[scale=2]
 
-% --- Central circle ---
 \coordinate (C) at (0,0);
-\draw[thick] (C) circle (0.8);
+\draw[thick] (C) ellipse (00.8 and 0.35);
 
 \tikzset{
     token/.style={thick},
@@ -10,44 +9,31 @@
 
 % --- Person with coin ---
 \newcommand{\person}{
-    % head
     \draw (0,0.11) circle (0.04);
-    
-    % body
     \draw (0,0.07) -- (0,-0.05);
-    
-    % arms
     \draw (-0.06,0.03) -- (0.06,0.03);
-    
-    % hand position
     \coordinate (hand) at (0.08,0.03);
-    
-    % coin (larger)
     \draw[token] (hand) circle (0.035);
-    
-    % legs
     \draw (0,-0.05) -- (-0.04,-0.11);
     \draw (0,-0.05) -- (0.04,-0.11);
 }
 
-% --- Place people around circle ---
-\foreach \angle in {0,45,90,135,180,225,270,315}
+% --- Place 6 people (slightly closer too) ---
+\foreach \angle in {0,60,120,180,240,300}
 {
-    \path (\angle:1.2) coordinate (P);
+    \path ({1.15*cos(\angle)},{0.7*sin(\angle)}) coordinate (P);
 
     \begin{scope}[shift={(P)}]
         \person
 
-        % Four players send coins inward
+        % Three contributors
         \ifnum\angle=0
             \draw[->, thick] (hand) -- ($(hand)!0.75!(C)$);
-        \else\ifnum\angle=90
+        \else\ifnum\angle=120
             \draw[->, thick] (hand) -- ($(hand)!0.75!(C)$);
-        \else\ifnum\angle=180
+        \else\ifnum\angle=240
             \draw[->, thick] (hand) -- ($(hand)!0.75!(C)$);
-        \else\ifnum\angle=315
-            \draw[->, thick] (hand) -- ($(hand)!0.75!(C)$);
-        \fi\fi\fi\fi
+        \fi\fi\fi
 
     \end{scope}
 }

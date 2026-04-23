@@ -1,6 +1,6 @@
 \begin{tikzpicture}[
-    node/.style={circle, draw, minimum size=6mm},
-    x=2.5cm, y=1.2cm
+    node/.style={circle, draw, minimum size=0.6mm, inner sep=0.5pt},
+    xscale=3, yscale=0.8
 ]
 
 % --- Weight 0 ---

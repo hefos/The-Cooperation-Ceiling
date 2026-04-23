@@ -2,8 +2,11 @@
     >=Stealth,
     node distance=2.5cm,
     every node/.style={circle, draw, minimum size=1cm},
-    every edge/.style={draw, ->, thick}
+    every edge/.style={draw, ->, thick},
+    xscale=2.5, yscale=1
 ]
+
+
 
 % Nodes
 \node (0) {0};
