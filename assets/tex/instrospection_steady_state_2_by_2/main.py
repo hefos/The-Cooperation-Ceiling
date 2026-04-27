@@ -7,8 +7,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main  # noqa: E402
-import src.fitness_functions as fitness_functions  # noqa: E402
+import ludics.main as main
 
 
 def fitness_function_2_by_2(state, **kwargs):

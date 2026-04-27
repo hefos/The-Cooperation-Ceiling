@@ -212,3 +212,79 @@ def power_law_contribution_rule(index, N, M, a=np.exp(1)):
     K = M / summation_term
 
     return (a ** (index + 1)) * K
+
+
+def get_deterministic_contribution_vector(contribution_rule, N, **kwargs):
+    """
+    Given the number of players and a function defining the contribution
+
+    given by each player, generates the contribution vector
+
+    for the state. The contribution vector may be stochastic, however in such
+
+    case this function cannot guarentee the sum of entries within the
+
+    contribution vector, and get_dirichlet_contribution_vector is better
+
+    placed to run.
+
+    Parameters
+    ------------
+
+    contribution_rule: a function that takes a player's index and Ns, and returns the contribution of that player.
+
+    N: int, the number of players
+
+    Returns
+    ---------
+
+    numpy.array: a vector of contributions by player"""
+
+    return np.array([contribution_rule(index=x, N=N, **kwargs) for x in range(N)])
+
+
+def get_dirichlet_contribution_vector(N, alpha_rule, M, scale, **kwargs):
+    """
+    Given the number of players and a function to generate a set of alpha
+    values, returns the contribution vector for a population according to a
+    dirichlet distribution. Creates a set of realisations from the dirichlet
+    distribution, then applies the transformation:
+
+    realisation * M
+
+    in order to guarentee that players contribute according to their action,
+    and that the population maximum contribution is M
+
+    The dirichlet distribution's components all sum to 1, and therefore we can
+    see that multiplying this realisation by M component-wise, we will have
+    that each vector sums to M - thus we make our maximum population
+    contribution equal to M. Taking the mean across these 100 realisations, we
+    therefore obtain a vector who's sum is also M (proof in main.tex).
+
+    Parameters
+    ------------
+
+    N: int, the number of players
+
+    alpha_rule: function, takes **kwargs and returns an array of alpha values
+    for the dirichlet distribution's parameters. Must return alphas with length
+
+    M: the population maximum contribution - the contribution when all players
+    give to the public good.
+
+    scale: float - alphas are multiplied by this value. Controls variance.
+
+
+    Returns
+    ---------
+
+    numpy.array: a vector of contributions by player"""
+
+    alphas = np.array(alpha_rule(N=N, **kwargs)) * scale
+
+    if len(alphas) != N:
+        raise ValueError("Expected alphas of length", N, "but received ", len(alphas))
+    else:
+        realisation = np.random.dirichlet(alpha=alphas, size=100).mean(axis=0)
+
+    return realisation * M
