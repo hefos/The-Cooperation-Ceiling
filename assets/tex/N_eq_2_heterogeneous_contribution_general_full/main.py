@@ -8,8 +8,8 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
-import src.fitness_functions as fitness_functions
+import ludics.main as main
+import ludics.fitness_functions as fitness_functions
 
 
 r = sym.Symbol("r")
