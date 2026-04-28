@@ -147,26 +147,19 @@ present work.
 We make the following contributions. First, we establish a general framework
 for evolutionary dynamics on fully heterogeneous, well-mixed populations of
 \(N\) ordered individuals, in which each player may have a distinct payoff
-function and contribution level. Second, for \(N=2\), we derive exact transition matrices
-and, where applicable, exact absorption and steady-state distributions for
-four established dynamics (the Moran process, Fermi imitation dynamics,
-aspiration dynamics, and introspection dynamics) together with their
-mutation-augmented variants, applied to a heterogeneous public goods game.
-Third, we introduce a novel update rule, \emph{Introspective Imitation
+function and contribution level.
+Second, we introduce a novel update rule, \emph{Introspective Imitation
 Dynamics}, in which players select a role model proportionally to fitness (as
 in the Moran process) but evaluate whether to adopt that strategy by comparing
 their own current and counterfactual payoffs (as in introspection dynamics).
 This rule is well suited to heterogeneous populations, where copying a
 high-fitness individual is likely although irrational if the same strategy yields a worse
-payoff for the copying player. Fourth, we show that purely extrinsic dynamics
+payoff for the copying player. Third, we show that purely extrinsic dynamics
 are subject to a ceiling on the probability of cooperation that intrinsic
 dynamics can exceed, and we characterise the conditions under which this
 advantage arises, with the ratio of the public goods multiplier \(r\) to
-population size \(N\) as the central governing parameter. We study two
-heterogeneous population structures: a \emph{linear} population, in which
-players' capacities are graded uniformly across the group, and a
-\emph{binomial} population, consisting of a low-capacity majority and a
-high-capacity minority.
+population size \(N\) as the central governing parameter. We study a \emph{linearly heterogeneous} population, in which
+players' capacities are graded uniformly across the group.
 
 The remainder of the paper is organised as follows. Section~2 introduces the
 population model, defines all five dynamics and their mutation variants, and
@@ -657,9 +650,7 @@ the maximum total value of contribution to the public good, achieved when all
 players contribute resources. In such a case, the payoff of all players is
 \(\pi_i = \frac{rM}{N} - \alpha_i\). 
 
-The first structure is the ``binomial'' population. In this population, $n$
-players contribute a low amount \(\alpha_l\), and \(N-n\) players contribute a
-high amount \(\alpha_h\). We also consider a
+We consider a
 ``linear'' population, in which a player in position \(i\) contributes
 \(\frac{2Mi}{N(N+1)}\). \ref{fig:parameter_sweep_table} shows the combinations of
 parameters considered across each of the population dynamics.
@@ -705,7 +696,6 @@ steady state we obtain an absorption matrix which depends on the initial state
 of the system. In this case, $p_C$ can be interpreted as the probability that,
 given an initial state, the chain will be absorbed into the state where all
 players cooperate.
-% TODO: ALL DATA NEEDS TO BE UPDATED FOR N=8 WHEN DONE
 Figure~\ref{fig:pc_summaries} shows the marginal distribution of the cooperation
 probability $p_C$ across all parameter combinations and dynamics. Most
 configurations yield low cooperation, but the right tail is non-trivial:
@@ -726,13 +716,11 @@ the distribution of $p_C$ across each population dynamic.
     \centering
 
     \textbf{B}\par
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3_binomial/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \vspace{0.2cm}
 
     \textbf{C}\par
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \phantomcaption\label{fig:fermi_moran_mutation_violins}
 \end{minipage}
 
@@ -741,16 +729,14 @@ the distribution of $p_C$ across each population dynamic.
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{D}\par
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \phantomcaption\label{fig:imi_mutation_violins}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{E}\par
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \includegraphics[width=0.45\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \phantomcaption\label{fig:intro_mutation_violins}
 \end{minipage}
 
@@ -761,22 +747,13 @@ the distribution of $p_C$ across each population dynamic.
 Figure~\ref{fig:fermi_moran_mutation_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
 linear case. Higher values of $\alpha_i$ increase the payoff gap between cooperators and defectors
 within each state, making it more likely that a defector will be copied and less
-likely that a high contributor will persist. This effect is not seen under a
-binomial population, as %does this effect of heterogeneity depend on $n$?
+likely that a high contributor will persist.
 
 Under the Moran process, the degree of linear heterogeneity has no discernible
 effect on $p_C$ (Figure~\ref{fig:fermi_moran_mutation_violins}): every violin across the
 heterogeneity deciles is centred at the same median and has the same spread.
 The same invariance holds for Introspective Imitation Dynamics under linear
-population structures (see supplementary material). However, both dynamics are
-sensitive to the \emph{binomial} population structure.
-
-Under the binomial population structure ,
-both the Moran process(Figure~\ref{fig:fermi_moran_mutation_violins}) and Introspective Imitation Dynamics(Figure~\ref{fig:imi_mutation_violins}) exhibit a slight
-but consistent increase in $p_C$ as the contribution gap between low and high
-contributors widens. This suggests that the invariance observed under linear
-heterogeneity is specific to that population structure: it does not reflect a
-general insensitivity of these dynamics to heterogeneity.
+population structures (see supplementary material).
 
 \subsection{The cooperation ceiling under purely extrinsic dynamics}
 \label{sec:ceiling}
@@ -1232,6 +1209,36 @@ $\beta = 0$.
 % constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
 % \ref{fig:process_comparisons}
 % \end{figure}
+% \begin{figure}
+%     \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
+%     \caption{\textbf{A}}
+% \end{subfigure}
+% \hfill
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
+%     \caption{\textbf{B}}
+% \end{subfigure}
+%
+% \vspace{0.5cm}
+%
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
+%     \caption{\textbf{C}}
+% \end{subfigure}
+% \hfill
+% \caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
+% function of $r$ for $N = 3$ (linear population). The difference is non-negative
+% for all parameter combinations, establishing a uniform dominance of
+% introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
+% p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
+% all other pairwise comparisons, the violin shape and median are approximately
+% constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
+% \ref{fig:process_comparisons}
+% \end{figure}
 
 Having examined each dynamic in isolation, we now compare them directly to
 establish a dominance ordering in terms of $p_C$.
@@ -1294,8 +1301,7 @@ size \(N\), becoming unconditional for large enough \(N\). The Moran--Fermi
 comparison, by contrast, is approximately \(r\)-invariant: neither dynamics has
 a meaningful threshold response to \(r\). Population heterogeneity affects the
 two extrinsic dynamics differently depending on structure: linear heterogeneity
-is neutral for both Moran and IID, but binomial heterogeneity produces a
-consistent positive effect on \(p_C\) for both.  %TODO I think this is interesting and could need more
+is neutral for both Moran and IID.
 
 Introspective Imitation Dynamics is introduced here as a novel hybrid dynamic,
 combining the imitative learning structure of the Moran process with the
@@ -1942,7 +1948,7 @@ material. The resulting steady state is:
 }
 \end{figure}
 
-\subsubsection*{Introspective Imitation Dynamics: linear and binomial populations, $N = 3$--$4$}
+\subsubsection*{Introspective Imitation Dynamics: linear populations, $N = 3$--$4$}
 \begin{figure}[!h]
 \centering
 
@@ -1951,19 +1957,9 @@ material. The resulting steady state is:
 \centering
 
 % Row 1 (N=3)
-\begin{subfigure}{0.32\textwidth}
+\begin{subfigure}{\textwidth}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
     \caption{$N=3$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
-    \caption{$N=3$, high}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
-    \caption{$N=3$, low}
 \end{subfigure}
 
 \vspace{0.25cm}
@@ -2105,7 +2101,7 @@ material. The resulting steady state is:
 \label{fig:moran_full_grid}
 \end{figure}
 
-\subsubsection*{Introspection dynamics: binomial and linear populations, $N = 3$--$4$}
+\subsubsection*{Introspection dynamics: linear population, $N = 3$--$4$}
 \begin{figure}[!h]
 \centering
 
@@ -2113,21 +2109,11 @@ material. The resulting steady state is:
 \begin{minipage}{\textwidth}
 \centering
 
-% Row 1 (N=3)
-\begin{subfigure}{0.48\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_binomial/main.pdf}
-    \caption{$N=3$, binomial}
-\end{subfigure}
+
 
 \vspace{0.25cm}
 
-% Row 2 (N=4)
-\begin{subfigure}{0.48\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_4.0_binomial/main.pdf}
-    \caption{$N=4$, binomial}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}
+\begin{subfigure}{\textwidth}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_4.0_linear/main.pdf}
     \caption{$N=4$, linear}
 \end{subfigure}
@@ -2136,7 +2122,7 @@ material. The resulting steady state is:
 }
 
 \caption{
-Introspection dynamics across population sizes $N$ and population structures (binomial and linear).
+Introspection dynamics across population sizes $N$.
 }
 \label{fig:introspection_structure}
 \end{figure}
