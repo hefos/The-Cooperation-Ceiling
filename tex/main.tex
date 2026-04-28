@@ -657,9 +657,7 @@ the maximum total value of contribution to the public good, achieved when all
 players contribute resources. In such a case, the payoff of all players is
 \(\pi_i = \frac{rM}{N} - \alpha_i\). 
 
-The first structure is the ``binomial'' population. In this population, $n$
-players contribute a low amount \(\alpha_l\), and \(N-n\) players contribute a
-high amount \(\alpha_h\). We also consider a
+We consider a
 ``linear'' population, in which a player in position \(i\) contributes
 \(\frac{2Mi}{N(N+1)}\). \ref{fig:parameter_sweep_table} shows the combinations of
 parameters considered across each of the population dynamics.
@@ -705,7 +703,6 @@ steady state we obtain an absorption matrix which depends on the initial state
 of the system. In this case, $p_C$ can be interpreted as the probability that,
 given an initial state, the chain will be absorbed into the state where all
 players cooperate.
-% TODO: ALL DATA NEEDS TO BE UPDATED FOR N=8 WHEN DONE
 Figure~\ref{fig:pc_summaries} shows the marginal distribution of the cooperation
 probability $p_C$ across all parameter combinations and dynamics. Most
 configurations yield low cooperation, but the right tail is non-trivial:
@@ -761,22 +758,13 @@ the distribution of $p_C$ across each population dynamic.
 Figure~\ref{fig:fermi_moran_mutation_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
 linear case. Higher values of $\alpha_i$ increase the payoff gap between cooperators and defectors
 within each state, making it more likely that a defector will be copied and less
-likely that a high contributor will persist. This effect is not seen under a
-binomial population, as %does this effect of heterogeneity depend on $n$?
+likely that a high contributor will persist.
 
 Under the Moran process, the degree of linear heterogeneity has no discernible
 effect on $p_C$ (Figure~\ref{fig:fermi_moran_mutation_violins}): every violin across the
 heterogeneity deciles is centred at the same median and has the same spread.
 The same invariance holds for Introspective Imitation Dynamics under linear
-population structures (see supplementary material). However, both dynamics are
-sensitive to the \emph{binomial} population structure.
-
-Under the binomial population structure ,
-both the Moran process(Figure~\ref{fig:fermi_moran_mutation_violins}) and Introspective Imitation Dynamics(Figure~\ref{fig:imi_mutation_violins}) exhibit a slight
-but consistent increase in $p_C$ as the contribution gap between low and high
-contributors widens. This suggests that the invariance observed under linear
-heterogeneity is specific to that population structure: it does not reflect a
-general insensitivity of these dynamics to heterogeneity.
+population structures (see supplementary material).
 
 \subsection{The cooperation ceiling under purely extrinsic dynamics}
 \label{sec:ceiling}
@@ -1232,6 +1220,36 @@ $\beta = 0$.
 % constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
 % \ref{fig:process_comparisons}
 % \end{figure}
+% \begin{figure}
+%     \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
+%     \caption{\textbf{A}}
+% \end{subfigure}
+% \hfill
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
+%     \caption{\textbf{B}}
+% \end{subfigure}
+%
+% \vspace{0.5cm}
+%
+% \begin{subfigure}{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
+%     \caption{\textbf{C}}
+% \end{subfigure}
+% \hfill
+% \caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
+% function of $r$ for $N = 3$ (linear population). The difference is non-negative
+% for all parameter combinations, establishing a uniform dominance of
+% introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
+% p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
+% all other pairwise comparisons, the violin shape and median are approximately
+% constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
+% \ref{fig:process_comparisons}
+% \end{figure}
 
 Having examined each dynamic in isolation, we now compare them directly to
 establish a dominance ordering in terms of $p_C$.
@@ -1294,8 +1312,7 @@ size \(N\), becoming unconditional for large enough \(N\). The Moran--Fermi
 comparison, by contrast, is approximately \(r\)-invariant: neither dynamics has
 a meaningful threshold response to \(r\). Population heterogeneity affects the
 two extrinsic dynamics differently depending on structure: linear heterogeneity
-is neutral for both Moran and IID, but binomial heterogeneity produces a
-consistent positive effect on \(p_C\) for both.  %TODO I think this is interesting and could need more
+is neutral for both Moran and IID.
 
 Introspective Imitation Dynamics is introduced here as a novel hybrid dynamic,
 combining the imitative learning structure of the Moran process with the
