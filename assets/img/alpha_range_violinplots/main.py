@@ -6,28 +6,28 @@ import dask.dataframe as dd
 from pathlib import Path
 
 here = Path(__file__).resolve()
-data_path = here.parents[2]
+data_path = here.parents[2] / "data"
 
 dataframes_asp = [
     data_path / "raw/aspiration_mu_eq_0.0/main.csv",
     data_path / "raw/aspiration_mu_eq_0.1/main.csv",
     data_path / "raw/aspiration_mu_eq_0.001/main.csv",
     data_path / "raw/aspiration_mu_eq_0.005/main.csv",
-    data_path / "raw/aspiration_mu_eq_0.05/main.csv"
+    data_path / "raw/aspiration_mu_eq_0.05/main.csv",
 ]
 
 dataframes_fermi = [
     data_path / "raw/fermi_mu_eq_0.1/main.csv",
     data_path / "raw/fermi_mu_eq_0.001/main.csv",
     data_path / "raw/fermi_mu_eq_0.005/main.csv",
-    data_path / "raw/fermi_mu_eq_0.05/main.csv"
+    data_path / "raw/fermi_mu_eq_0.05/main.csv",
 ]
 
 dataframes_imispection = [
     data_path / "raw/imispection_mu_eq_0.1/main.csv",
     data_path / "raw/imispection_mu_eq_0.001/main.csv",
     data_path / "raw/imispection_mu_eq_0.005/main.csv",
-    data_path / "raw/imispection_mu_eq_0.05/main.csv"
+    data_path / "raw/imispection_mu_eq_0.05/main.csv",
 ]
 
 dataframes_introspection = [
@@ -35,23 +35,24 @@ dataframes_introspection = [
     data_path / "raw/introspection_mu_eq_0.1/main.csv",
     data_path / "raw/introspection_mu_eq_0.001/main.csv",
     data_path / "raw/introspection_mu_eq_0.005/main.csv",
-    data_path / "raw/introspection_mu_eq_0.05/main.csv"
+    data_path / "raw/introspection_mu_eq_0.05/main.csv",
 ]
 
 dataframes_moran = [
     data_path / "raw/moran_mu_eq_0.1/main.csv",
     data_path / "raw/moran_mu_eq_0.001/main.csv",
     data_path / "raw/moran_mu_eq_0.005/main.csv",
-    data_path / "raw/moran_mu_eq_0.05/main.csv"
+    data_path / "raw/moran_mu_eq_0.05/main.csv",
 ]
 
 dataframes = [
-    #dataframes_imispection,
-    #dataframes_fermi,
-    #dataframes_asp,
+    dataframes_imispection,
+    dataframes_fermi,
+    dataframes_asp,
     dataframes_introspection,
-    #dataframes_moran
+    dataframes_moran
 ]
+
 
 def aggregate_dataframe(df):
 
@@ -70,7 +71,6 @@ def aggregate_dataframe(df):
     return aggregated_df.reset_index()
 
 
-
 for df_set in dataframes:
     df_total = dd.read_csv(df_set)
     df_total = aggregate_dataframe(df=df_total).compute()
@@ -79,8 +79,8 @@ for df_set in dataframes:
         if N == 1:
             continue
         df["alpha_range_bin"] = pd.qcut(
-                    df["alpha_range"], q=10, precision=3, duplicates="drop"
-                )
+            df["alpha_range"], q=10, precision=3, duplicates="drop"
+        )
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -96,7 +96,7 @@ for df_set in dataframes:
 
         # HARD SAFETY CHECK
         ax.violinplot(groups, showmeans=True)
-            
+
         ax.set_title(f"{process}_N_eq_{N}")
         folder = Path(here.parent / f"{process}_N_eq_{N}")
         folder.mkdir(exist_ok=True)
