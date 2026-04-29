@@ -54,12 +54,12 @@ parameter_sets = [
 fig, ax = plt.subplots()
 for r, M, beta, epsilon, marker in parameter_sets:
     data = []
-    for split in range(0,8):
+    for split in range(0,9):
         print([public_goods_games.contribution_rules.linear_contribution_rule(i, 8, M) for i in range(8)])
         contribution_vector = np.array([public_goods_games.contribution_rules.linear_contribution_rule(i, 8, M) for i in range(8)])
 
         data.append(get_data(beta=beta, epsilon=epsilon, r=r, contribution_vector=contribution_vector, split=split))
-    ax.scatter(x=range(0,8), y=data, marker=marker, color='black', label=fr"$r$={r}, $\beta$={beta}, $\epsilon$={epsilon}")
+    ax.scatter(x=range(0,9), y=data, marker=marker, color='black', label=fr"$r$={r}, $\beta$={beta}, $\epsilon$={epsilon}")
 ax.axhline(y=0.5, color='black', linestyle='dashed')
 ax.set_ylabel(r"$p_C$")
 ax.set_xlabel("Number of intrinsic players")
