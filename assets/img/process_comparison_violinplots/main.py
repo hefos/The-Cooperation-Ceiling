@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import seaborn as sns
-import numpy as np
 import argparse
 
 here = Path(__file__).resolve()
@@ -23,7 +22,7 @@ try:
         assets_path
         / f"data/processed/comparison_tables/{p1}_vs_{p2}/main.csv"
     )
-except:
+except FileNotFoundError:
     df = pd.read_csv(
         assets_path
         / f"data/processed/comparison_tables/{p2}_vs_{p1}/main.csv"
