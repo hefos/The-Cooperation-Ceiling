@@ -65,7 +65,7 @@ fig, ax = plt.subplots()
 sns.boxplot(data=plot_df, x="N", y="p_C", hue="process", width=0.5, ax=ax)
 
 plt.xlabel("N")
-plt.ylabel(f"$p_C$")
+plt.ylabel("$p_C$")
 
 plt.tight_layout()
 plt.savefig(here.parent / "main.pdf")
