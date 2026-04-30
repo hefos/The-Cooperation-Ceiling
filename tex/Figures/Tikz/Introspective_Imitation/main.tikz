@@ -1,0 +1,134 @@
+\begin{tikzpicture}[scale=0.6]
+
+%================ FIRST BOX ==================
+\draw (0,0) rectangle (4,4);
+
+\draw (0.5,3.5) rectangle (1.5,2.5);
+
+% Stripey diamond (sparser)
+\begin{scope}
+  \clip (2.5,3) -- (3,3.5) -- (3.5,3) -- (3,2.5) -- cycle;
+  \foreach \x in {2.0,2.1,...,4.0} {
+    \draw (\x,2.2) -- (\x+1,3.8);
+  }
+\end{scope}
+\draw (2.5,3) -- (3,3.5) -- (3.5,3) -- (3,2.5) -- cycle;
+
+% Cross-hatched circle (sparser)
+\begin{scope}
+  \clip (1,1.5) circle (0.5);
+  \foreach \x in {0.3,0.4,...,1.7} {
+    \draw (\x,1) -- (\x,2);
+  }
+  \foreach \y in {1,1.1,...,2} {
+    \draw (0.3,\y) -- (1.7,\y);
+  }
+\end{scope}
+\draw (1,1.5) circle (0.5);
+
+% Triangle (plain)
+\draw (3,1.5) -- (2.5,0.7) -- (3.5,0.7) -- cycle;
+
+
+%================ 2nd box (SHIFTED RIGHT) ==================
+\draw (6,0) rectangle (10,4);
+\node at (8,4.5) {\textbf{Selection \(\propto f\)}};
+
+\draw (6.5,3.5) rectangle (7.5,2.5);
+
+\begin{scope}
+  \clip (8.5,3) -- (9,3.5) -- (9.5,3) -- (9,2.5) -- cycle;
+  \foreach \x in {8.0,8.1,...,10.0} {
+    \draw (\x,2.2) -- (\x+1,3.8);
+  }
+\end{scope}
+\draw (8.5,3) -- (9,3.5) -- (9.5,3) -- (9,2.5) -- cycle;
+
+\begin{scope}
+  \clip (7,1.5) circle (0.5);
+  \foreach \x in {6.3,6.4,...,7.7} {
+    \draw (\x,1) -- (\x,2);
+  }
+  \foreach \y in {1,1.1,...,2} {
+    \draw (6.3,\y) -- (7.7,\y);
+  }
+\end{scope}
+\draw (7,1.5) circle (0.5);
+
+\draw (9,1.5) -- (8.5,0.7) -- (9.5,0.7) -- cycle;
+
+\draw[dotted, thick] (9,3) circle (0.9cm);
+
+
+%================ 3rd box (SHIFTED RIGHT) ==================
+\draw (12,0) rectangle (16,4);
+
+\node[scale=1.5] at (12.55,2) {$f($};
+\node[scale=1.5] at (14.55,2) {$f($};
+\begin{scope}[shift={(13.2,2)}, scale=0.75]
+    % --- plain (empty) triangle ---
+    \draw (0.15,0.5) -- (-0.35,-0.5) -- (0.65,-0.5) -- cycle;
+
+    % --- less-than symbol ---
+    \node at (1.15,0) {$<$};
+
+    % --- stripey black triangle ---
+    \draw (2.75,0.5) -- (2.25,-0.5) -- (3.25,-0.5) -- cycle;
+
+    \clip (2.75,0.5) -- (2.25,-0.5) -- (3.25,-0.5) -- cycle;
+        \foreach \x in {-1.05,-0.95,...,3.25} {
+            \draw (\x,-1) -- (\x+2,1);
+        }
+\end{scope}
+\node[scale=1.5] at (13.7,2) {$)$};
+\node[scale=1.5] at (15.7,2) {$)$};
+
+
+%================ 4th box (SHIFTED RIGHT) ==================
+\draw (18,0) rectangle (22,4);
+
+\draw (18.5,3.5) rectangle (19.5,2.5);
+
+\begin{scope}
+  \clip (20.5,3) -- (21,3.5) -- (21.5,3) -- (21,2.5) -- cycle;
+  \foreach \x in {20.0,20.1,...,22.0} {
+    \draw (\x,2.2) -- (\x+1,3.8);
+  }
+\end{scope}
+\draw (20.5,3) -- (21,3.5) -- (21.5,3) -- (21,2.5) -- cycle;
+
+\begin{scope}
+  \clip (19,1.5) circle (0.5);
+  \foreach \x in {18.3,18.4,...,19.7} {
+    \draw (\x,1) -- (\x,2);
+  }
+  \foreach \y in {1,1.1,...,2} {
+    \draw (18.3,\y) -- (19.7,\y);
+  }
+\end{scope}
+\draw (19,1.5) circle (0.5);
+
+\begin{scope}
+  \clip (21,1.5) -- (20.5,0.7) -- (21.5,0.7) -- cycle;
+  \foreach \x in {18.5,18.6,...,22} {
+    \draw (\x,0.0) -- (\x+1.2,1.4);
+  }
+\end{scope}
+\draw (21,1.5) -- (20.5,0.7) -- (21.5,0.7) -- cycle;
+
+
+%================ ARROWS (SHIFTED RIGHT) ==================
+\draw[->, thick] (4,2) -- (6,2);    
+\draw[->, thick] (10,2) -- (12,2);   
+\draw[->, thick] (16,2) -- (18,2);   
+
+
+%================ HEADERS ==================
+\node at (2,4.5) {\textbf{Selection}};
+\node at (12,5.5) {\textbf{Introspective Imitation Dynamics}};
+\node at (14,4.5) {\textbf{Comparison}};
+\node at (20,4.5) {\textbf{Update}};
+
+\draw[dotted, thick] (3,1) circle (0.9cm);
+
+\end{tikzpicture}
