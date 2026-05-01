@@ -639,7 +639,7 @@ further contribution of the work. % TODO Archive the data when done and add cita
 For the purpose of this research, the authors
 developed a software library \texttt{ludics} (written in python) which is
 installable. The archive of the software is at~\cite{}  % TODO Add archive of software 
-and the documentation can be found at~\url{}. % TODO Add url of docs
+and the documentation can be found at~\url{https://hefos.github.io/ludics/}.
 All the development of the software can be found at~\url{https://github.com/hefos/ludics}.
 
 \subsubsection*{Parameter Space}
@@ -708,7 +708,7 @@ the distribution of $p_C$ across each population dynamic.
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{A}\par
-    \includegraphics[width=\linewidth]{Figures/max_comparisons_over_N/max_linear_mutation/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/maximum_comparison/main.pdf}
     \phantomcaption\label{fig:max_comparison}
 \end{minipage}%
 \hfill
@@ -716,11 +716,11 @@ the distribution of $p_C$ across each population dynamic.
     \centering
 
     \textbf{B}\par
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_N_eq_8/main.pdf}
     \vspace{0.2cm}
 
     \textbf{C}\par
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_N_eq_8/main.pdf}
     \phantomcaption\label{fig:fermi_moran_mutation_violins}
 \end{minipage}
 
@@ -729,14 +729,21 @@ the distribution of $p_C$ across each population dynamic.
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{D}\par
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/imispection_N_eq_8/main.pdf}
     \phantomcaption\label{fig:imi_mutation_violins}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\textwidth}
     \centering
     \textbf{E}\par
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_3.0_linear/main.pdf}
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_N_eq_8/main.pdf}
+    \phantomcaption\label{fig:intro_mutation_violins}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \textbf{E}\par
+    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/aspiration_N_eq_8/main.pdf}
     \phantomcaption\label{fig:intro_mutation_violins}
 \end{minipage}
 
@@ -981,6 +988,7 @@ use in the proof of the theorem below may not be familiar to the reader.
     \in \mathbf{a}$.
 
     Then, $p_C \leq \frac{1}{2}$
+    \label{prop:ceiling}
 \end{theorem}
 \end{framed}
 \begin{proof}
@@ -1076,30 +1084,28 @@ values of $N$ and both population structures examined, as Figure~\ref{fig:max_co
 and the extended parameter sweeps in the supplementary material confirm.
 
 \subsection{The $r = N$ threshold} 
-% TODO from here on until the SI, we must update the data to include mutation
 
 \label{sec:rN}
 
-% \begin{figure}[!h]
-% \centering
-%
-% \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_binomial/N_eq_3/main.pdf}
-%     \caption{\textbf{A}}
-% \end{subfigure}
-% \hfill
-% \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_imispection_linear/N_eq_5/main.pdf}
-%     \caption{\textbf{B}}
-% \end{subfigure}
-% \vspace{0.5cm}
-% \caption{\textbf{A}: Comparison of $p_C$ (IID vs Moran, $N=3$, binomial
-% population), \textbf{B}: Comparison of $p_C$ (IID vs Moran, $N=5$, linear
-% population)}
-% \ref{imi_vs_moran}
-% \end{figure}
+ \begin{figure}[!h]
+ \centering
+
+ \begin{subfigure}{0.48\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
+     \caption{\textbf{A}}
+ \end{subfigure}
+ \hfill
+ \begin{subfigure}{0.48\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_imispection_N_eq_8/main.pdf}
+     \caption{\textbf{B}}
+ \end{subfigure}
+ \vspace{0.5cm}
+ \caption{\textbf{A}: Comparison of $p_C$ (IID - Moran, $N=8$), \textbf{B}:
+ Comparison of $p_C$ (Fermi - IID, $N=5$)}
+ \ref{imi_vs_extrinsic}
+ \end{figure}
 
 To identify when intrinsic dynamics begin to outperform extrinsic ones, we
 compare $p_C$ values from the Moran process and Introspective Imitation
@@ -1132,12 +1138,12 @@ when $r < N$.
 \end{proof}
 
 When $r < N$, the introspective step actively suppresses cooperation relative
-to the extrinsic baseline. This is visible in Figure~\ref{fig:imi_vs_moran}
+to the extrinsic baseline. This is visible in Figure~\ref{fig:imi_vs_extrinsic}
 as a region where Introspective Imitation Dynamics underperforms the Moran
 process. The pattern holds across all values of $N$ (see supplementary material).
 
 A further empirical signature of the $r = N$ threshold is a sharp collapse of
-variance. In Figure~\ref{fig:imi_vs_moran}, which shows
+variance. In Figure~\ref{fig:imi_vs_extrinsic}, which shows
 $p_C(\text{IID}) - p_C(\text{Moran})$ across the full $r$ range, the
 interquartile range narrows to nearly zero precisely at $r = N$, before
 widening again for larger $r$. This variance minimum coincides exactly with the
@@ -1149,7 +1155,7 @@ analytical result.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Figures/beta_r_graph/main.pdf}
-\caption{$p_C$ as a function of choice intensity $\beta$ and multiplier $r$, comparing extrinsic and intrinsic dynamics.}
+\caption{$p_C$ as a function of choice intensity $\beta$ and multiplier $r$}
 \label{fig:beta_r}
 \end{figure}
 
@@ -1174,71 +1180,34 @@ therefore serves as an anchor: introspection raises $p_C$ above 0.5 when
 $r > N$ and lowers it below 0.5 when $r < N$, always converging to 0.5 at
 $\beta = 0$.
 
-\subsection{Aspiration dynamics}
-%TODO: add aspiration dynamics results once data finishes running
-
 \subsection{Dominance relations between dynamics}
 
-% \begin{figure}
-%     \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
-%     \caption{\textbf{A}}
-% \end{subfigure}
-% \hfill
-% \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
-%     \caption{\textbf{B}}
-% \end{subfigure}
-%
-% \vspace{0.5cm}
-%
-% \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
-%     \caption{\textbf{C}}
-% \end{subfigure}
-% \hfill
-% \caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
-% function of $r$ for $N = 3$ (linear population). The difference is non-negative
-% for all parameter combinations, establishing a uniform dominance of
-% introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
-% p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
-% all other pairwise comparisons, the violin shape and median are approximately
-% constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
-% \ref{fig:process_comparisons}
-% \end{figure}
-% \begin{figure}
-%     \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_fermi_linear/N_eq_3/main.pdf}
-%     \caption{\textbf{A}}
-% \end{subfigure}
-% \hfill
-% \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/moran_vs_fermi_linear/N_eq_3/main.pdf}
-%     \caption{\textbf{B}}
-% \end{subfigure}
-%
-% \vspace{0.5cm}
-%
-% \begin{subfigure}{0.48\textwidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{../assets/img/process_comparisons/introspection_vs_moran_linear/N_eq_9/main.pdf}
-%     \caption{\textbf{C}}
-% \end{subfigure}
-% \hfill
-% \caption{\textbf{A}: $p_C(\text{Introspection}) - p_C(\text{Fermi})$ as a
-% function of $r$ for $N = 3$ (linear population). The difference is non-negative
-% for all parameter combinations, establishing a uniform dominance of
-% introspection over Fermi dynamics. \textbf{B}:$p_C(\text{Moran}) -
-% p_C(\text{Fermi})$ as a function of $r$ for $N = 3$ (linear population). Unlike
-% all other pairwise comparisons, the violin shape and median are approximately
-% constant across the entire $r$ range. \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 9$ (linear population). At this population size the difference is non-negative for all $r$, in contrast to the $N = 3$ case where the difference can be negative for $r < N$.}
-% \ref{fig:process_comparisons}
-% \end{figure}
+\begin{figure}
+     \begin{subfigure}{0.48\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_introspection_N_eq_8/main.pdf}
+    \caption{\textbf{A}}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_Moran_N_eq_8/main.pdf}
+     \caption{\textbf{B}}
+ \end{subfigure}
+
+ \vspace{0.5cm}
+
+ \begin{subfigure}{0.48\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/introspection_vs_Moran_N_eq_8/main.pdf}
+     \caption{\textbf{C}}
+ \end{subfigure}
+ \hfill
+ \caption{\textbf{A}: $p_C(\text{Fermi}) - p_C(\text{Introspection})$ as a
+ function of $r$ for $N = 8$. \textbf{B}:$p_C(\text{Fermi}) -
+ p_C(\text{Moran})$ as a function of $r$ for $N = 8$ \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 8$ (linear population).}
+ \ref{fig:process_comparisons}
+ \end{figure}
 
 Having examined each dynamic in isolation, we now compare them directly to
 establish a dominance ordering in terms of $p_C$.
@@ -1247,35 +1216,55 @@ establish a dominance ordering in terms of $p_C$.
 Figure~\ref{fig:process_comparisons} shows $p_C(\text{Introspection}) -
 p_C(\text{Fermi})$ across the full parameter sweep. The lower tail of every
 violin sits at or above zero: introspection dynamics \emph{uniformly dominates}
-Fermi imitation dynamics for all parameter combinations examined. The gap grows
-monotonically with $r$, reaching a median difference of approximately 0.7 at
-the upper end of the sweep.
+Fermi imitation dynamics for all parameter combinations examined.
 
-\textbf{The Moran--Fermi ordering is r-invariant.}
-Unlike every other pairwise comparison, Figure~\ref{fig:process_comparisons} shows
-that $p_C(\text{Moran}) - p_C(\text{Fermi})$ has nearly identical violin
-shape, spread, and median across the entire $r$ range. There is no threshold
-effect at $r = N$: the comparison between these two dynamics is effectively
-insensitive to $r$. This parallels the finding that Fermi dynamics is itself
-$r$-insensitive (Section on choice intensity). On average the Moran process
-outperforms Fermi imitation, though for some parameter configurations Fermi
-achieves a higher $p_C$.
+This is due to the difference in \(\Delta(f)\) in Introspection dynamics and
+Fermi imitation dynamics. We have the following values of \(\Delta\) for a
+cooperator accepting a defecting strategy:
 
-\textbf{Introspection's advantage over Moran grows with $N$.}
-At $N = 3$, $p_C(\text{Introspection}) - p_C(\text{Moran})$ can be negative
-for $r < N$: there exist parameter configurations under which the Moran process
-outperforms introspection dynamics. However, at $N = 9$
-(Figure~\ref{fig:process_comparisons}), the same difference is
-\emph{always non-negative} across the entire $r$ range, including values well
-below $r = N = 9$. This transition from a sign-changing difference to a
-uniformly positive one reflects the shrinking of the Moran ceiling $1/N$ as
-$N$ increases: with a lower ceiling, the Moran process is more easily
-dominated by introspection dynamics across all multipliers.
+$$ \Delta^{\text{Intro}}(f) = (\frac{r}{N} - 1)\alpha_i > -\alpha_i =
+\Delta^{\text{Fermi}}(f)$$
+
+The inequality is reversed for a defector accepting a cooperative strategy, as
+each \(\Delta\) is negated. As \(\phi\) is a decreasing function, we therefore
+have that Fermi dynamics accept cooperation with a lower probability and accept
+defection with a higher probability. Since both Fermi imitation dynamics and
+Introspection dynamics are stochastically monotone, we have by the
+Kamae-Krengel-O'brien theorem \cite{kamae1977stochastic} that
+\(p^{\text{Fermi}}_C \leq p^{\text{Intro}}_C\) for any parameter set.
+
+\textbf{Introspection's can outperform Moran for all $r$}
+Unlike introspective imitation dynamics, which has a hard line at \(r = N\) to
+begin outperforming the Moran process, Introspection dynamics can outperform
+the Moran process at all values of \(r\). At all values of \(r\), in fact,
+the mean value of \(p_C\) in introspection is higher than that of the Moran
+process, increasing with \(r\). At the point \(r = N\), we begin to see that
+all parameter combinations in introspection dynamics outperform their
+equivalent in the Moran process.
 
 \section{Conclusion}
 
-% TODO This will need a complete rewrite with mutation etc... Have written it as
-% is for now.
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/hybrid_dynamics/main.pdf}
+        \caption{\textbf{A}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/simulation/main.pdf}
+        \caption{\textbf{B}}
+    \end{subfigure}
+    \caption{\textbf{A}: \(p_C\) in various parameter combinations at \(N=8\),
+    varying the number of players using an intrinsic population dynamic.
+    \textbf{B}: for various parameter combinations, the mean value over
+    numerous simulations of an 8 player population playing introspective
+    imitation dynamics converging to the theoretic \(p_C\).}
+    \label{fig:conclusion-fig}
+\end{figure}
+
 We have introduced and analysed a framework for heterogeneous public goods
 games under five distinct population dynamics, two purely extrinsic (Moran
 process and Fermi imitation) and three intrinsic or mixed (aspiration,
@@ -1286,7 +1275,7 @@ numerically.
 
 The central theoretical finding is a dichotomy between extrinsic and intrinsic
 dynamics. Under any purely extrinsic dynamic, cooperation is bounded above by
-\(p_C \leq 1/N\) (Proposition~\ref{prop:ceiling}): payoff comparisons between
+\(p_C \leq 1/2\) (Proposition~\ref{prop:ceiling}): payoff comparisons between
 players always disfavour the cooperating strategy, so the neutral-drift
 baseline cannot be exceeded. Intrinsic dynamics, which evaluate payoffs from
 the focal player's own perspective, break through this ceiling whenever \(r > N\)
@@ -1296,836 +1285,25 @@ point at which the variance in that difference collapses to a minimum.
 
 The empirical results reveal a rich structure within and across dynamics.
 Introspection dynamics uniformly dominates Fermi imitation over all parameter
-combinations, and its advantage over the Moran process grows with population
-size \(N\), becoming unconditional for large enough \(N\). The Moran--Fermi
-comparison, by contrast, is approximately \(r\)-invariant: neither dynamics has
-a meaningful threshold response to \(r\). Population heterogeneity affects the
-two extrinsic dynamics differently depending on structure: linear heterogeneity
-is neutral for both Moran and IID.
+combinations, and its advantage over the Moran process grows with \(r\), while
+outperforming it on average for all values of \(r\). 
 
 Introspective Imitation Dynamics is introduced here as a novel hybrid dynamic,
 combining the imitative learning structure of the Moran process with the
 payoff self-evaluation of introspection dynamics. It is the only absorbing
-dynamic that exceeds the \(1/N\) ceiling, and its behaviour changes qualitatively
-at \(r = N\). Its hard empirical upper bound near \(p_C \approx 0.35\)--\(0.40\)
-for \(N = 3\), modestly above the ceiling, suggests that introspective
-self-evaluation alone cannot fully substitute for the unconstrained
-exploration of strategy space available to introspection dynamics.
-
-The framework developed here, however, provides a
-complete and exact treatment of the two-player heterogeneous public goods
-game under each dynamic, and establishes the key qualitative distinctions that
-persist across population sizes and structures.
-
-\section{Supplementary Information}
-% TODO Let us move the SI to its own seperate dir.
-
-\subsection{Explicit transition matrices for the two-player game}
-\label{sec:explicit_matrices}
-
-In each subsection below, states are ordered
-\(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\
-\mathbf{d} = (1,1)\); rows and columns of each matrix correspond to these
-states in the same order.
-
-\subsubsection*{Moran process}
-
-\begin{equation}
-    \resizebox{\textwidth}{!}{$
-    \begin{bmatrix}
-        1 & 0 & 0 & 0\\
-        \frac{f_{1}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})} &
-        1 - \frac{f_{1}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})}
-        - \frac{f_{2}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})} &
-        0 &
-        \frac{f_{2}(\mathbf{b})}{2 f_{1}(\mathbf{b}) + 2 f_{2}(\mathbf{b})}\\
-        \frac{f_{2}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})} &
-        0 &
-        1 - \frac{f_{1}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})}
-        - \frac{f_{2}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})} &
-        \frac{f_{1}(\mathbf{c})}{2 f_{1}(\mathbf{c}) + 2 f_{2}(\mathbf{c})}\\
-        0 & 0 & 0 & 1
-    \end{bmatrix}$}
-    \label{eqn:2x2_Moran_Transition}
-\end{equation}
-
-
-Now, by taking the fundamental matrix of \(T\) and performing a right
-multiplication by \(R\), the matrix with entries which represent transitions
-from transitive states to absorbing
-states\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}, we can obtain the absorption
-matrix for this system.
-
-For the above game, we find the following equation:
-
-\begin{equation}
-    \left(I - \begin{bmatrix}1 - \frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} - \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} & 0\\0 & 1 - \frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} - \frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}\end{bmatrix}\right)^{-1}
-        \begin{bmatrix}
-            \frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} & \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}}\\\frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} & \frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}
-        \end{bmatrix}
-\end{equation}
-
-And solve to find our absorption matrix:
-
-\begin{equation}
-    \begin{bmatrix}
-        \frac{f_{1}{\left(\textbf{b} \right)}}{\left(\frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} + \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}}\right) \left(2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}\right)} & \frac{f_{2}{\left(\textbf{b} \right)}}{\left(\frac{f_{1}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}} + \frac{f_{2}{\left(\textbf{b} \right)}}{2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}}\right) \left(2 f_{1}{\left(\textbf{b} \right)} + 2 f_{2}{\left(\textbf{b} \right)}\right)}\\\frac{f_{2}{\left(\textbf{c} \right)}}{\left(\frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} + \frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}\right) \left(2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}\right)} & \frac{f_{1}{\left(\textbf{c} \right)}}{\left(\frac{f_{1}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}} + \frac{f_{2}{\left(\textbf{c} \right)}}{2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}}\right) \left(2 f_{1}{\left(\textbf{c} \right)} + 2 f_{2}{\left(\textbf{c} \right)}\right)}
-    \end{bmatrix}
-    \label{eqn:2x2_Moran_Absorption}
-\end{equation}
-
-In this matrix, the rows represent our initial transitive state (in our system,
-row 1 represents \textbf{b} and row 2 represents \textbf{c}), and our columns
-represent which state the system is absorbed into (with \textbf{a} on the left,
-and \textbf{d} on the right). It is immediately clear from this result that the
-probability of the system ending up in a particular absorbing state does not
-rely on the fitness of individuals in the absorbing state, but rather their
-fitness in the transitive states. Thus, players can remain in a state which
-could be bettered by a single change, however they will not make such a change
-if no individual of another type exists in the population.
-
-\subsubsection*{Fermi imitation dynamics}
-\begin{center}
-\begin{equation}
-\begin{bmatrix}
-1 & 0 & 0 & 0\\
-\frac{1}{2}\phi(\pi_2(\mathbf{b}) - \pi_1(\mathbf{b})) &
-\frac{1}{2} &
-0 &
-\frac{1}{2}\phi(\pi_1(\mathbf{b}) - \pi_2(\mathbf{b}))\\
-\frac{1}{2}\phi(\pi_1(\mathbf{c}) - \pi_2(\mathbf{c})) &
-0 &
-\frac{1}{2} &
-\frac{1}{2}\phi(\pi_2(\mathbf{c}) - \pi_1(\mathbf{c}))\\
-0 & 0 & 0 & 1
-\end{bmatrix}
-\label{eqn:2x2_Fermi_Transition}
-\end{equation}
-\end{center}
-
-For the two-player state space \(\mathbf{a},\mathbf{b},\mathbf{c},\mathbf{d}\),
-the explicit transition matrix is given in
-equation~(\ref{eqn:2x2_Fermi_Transition}) in the supplementary material.
-Applying the same absorption matrix calculation as for the Moran process, we
-obtain:
-
-\begin{equation}
-    \begin{bmatrix}
-        \phi(\pi_2(\textbf{b}) - \pi_1(\textbf{b})) & \phi(\pi_1(\textbf{b})-\pi_2(\textbf{b}))\\\phi(\pi_1(\textbf{c}) - \pi_2(\textbf{c})) & \phi(\pi_2(\textbf{c}) - \pi_1(\textbf{c}))
-    \end{bmatrix}
-\end{equation}
-
-This shows that, similarly to the Moran process, our absorption probabilities
-rely on the fitness of players in transitive states and not those of players in
-the absorbing states.
-Fermi imitation dynamics is therefore poorly suited to heterogeneous
-populations: a player may copy a high-fitness strategy without considering
-whether that strategy would benefit them, and may even enter an absorbing state
-that worsens their own payoff.
-
-\subsubsection*{Aspiration Dynamics}
-
-The transition matrix for the two-player, two-action case with state space
-\(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\ \mathbf{d} = (1,1)\) is:
-\begin{equation}
-\resizebox{\textwidth}{!}{
-$
-\begin{bmatrix}
-1-\frac{1}{2(1+e^{-\beta(A_2-f_2(a))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(a))})} &
-\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(a)})} &
-\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(a)})} &
-0 \\
-
-\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(b)})} &
-1-\frac{1}{2(1+e^{-\beta(A_2-f_2(b))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(b))})} &
-0 &
-\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(b)})} \\
-
-\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(c)})} &
-0 &
-1-\frac{1}{2(1+e^{-\beta(A_2-f_2(c))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(c))})} &
-\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(c)})} \\
-
-0 &
-\frac{e^{A_1\beta}}{2(e^{A_1\beta}+e^{\beta f_1(d)})} &
-\frac{e^{A_2\beta}}{2(e^{A_2\beta}+e^{\beta f_2(d)})} &
-1-\frac{1}{2(1+e^{-\beta(A_2-f_2(d))})}-\frac{1}{2(1+e^{-\beta(A_1-f_1(d))})}
-\end{bmatrix}
-$
-}
-\label{eqn:2x2_Aspiration_Transition}
-\end{equation}
-We can see that as our players no longer consider the actions of the rest of
-the population when considering their decision, we no longer have an absorbing
-Markov chain.
-Thus, we no longer consider an absorption matrix, but instead we consider the
-steady state of our Markov chain \cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}
-This is the proportion of time spent in each state when the Markov chain
-reaches a stable distribution across the states.
-Any irreducible, aperiodic, finite Markov chain has a unique stationary
-distribution, and the chain converges to it from any starting
-state~\cite{levin2017markov}..
-For our four state system, we acquire the following result for a stationary
-distribution:
-
-%let thing finish running
-
-\subsubsection*{Introspective Dynamics}
-
-The transition matrix for the two-player, two-action case with state space
-\(\mathbf{a} = (0,0),\ \mathbf{b} = (0,1),\ \mathbf{c} = (1,0),\ \mathbf{d} = (1,1)\),
-following Couto~\cite{Couto2022}, is:
-
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
-    1 - \frac{1}{2\left(e^{\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)} + 1\right)} - \frac{1}{2\left(e^{\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)} + 1\right)} 
-    & \frac{1}{2\left(e^{\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)} + 1\right)} 
-    & \frac{1}{2\left(e^{\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)} + 1\right)} 
-    & 0 \\[6pt]
-
-    \frac{1}{2\left(e^{\beta\left(- \pi_{2}(a) + \pi_{2}(b)\right)} + 1\right)} 
-    & 1 - \frac{1}{2\left(e^{\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)} + 1\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{2}(a) - \pi_{2}(b)\right)}\right)} 
-    & 0 
-    & \frac{1}{2\left(e^{\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)} + 1\right)} \\[6pt]
-
-    \frac{1}{2\left(e^{\beta\left(- \pi_{1}(a) + \pi_{1}(c)\right)} + 1\right)} 
-    & 0 
-    & 1 - \frac{1}{2\left(e^{\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)} + 1\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{1}(a) - \pi_{1}(c)\right)}\right)} 
-    & \frac{1}{2\left(e^{\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)} + 1\right)} \\[6pt]
-
-    0 
-    & \frac{1}{2\left(e^{\beta\left(- \pi_{1}(b) + \pi_{1}(d)\right)} + 1\right)} 
-    & \frac{1}{2\left(e^{\beta\left(- \pi_{2}(c) + \pi_{2}(d)\right)} + 1\right)} 
-    & 1 - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{2}(c) - \pi_{2}(d)\right)}\right)} - \frac{1}{2\left(1 + e^{-\beta\left(\pi_{1}(b) - \pi_{1}(d)\right)}\right)}
-\end{bmatrix}$
-}
-\label{eqn:2x2_Introspection_Transition}
-\end{equation}
-
-We then consider the steady state vectors for this system.
-For this, we take the left eigenvector of the transition matrix, which is given by:
-
-
-
-
-Unlike in the case of imitation dynamics, there are no absorbing states for a Markov chain transitioning according to imitation dynamics.
-Therefore, we define a steady state vector \textbf{u} according to the method Couto uses in \cite{Couto2022}. 
-
-
-
-\subsubsection*{Introspective Imitation Dynamics}
-
-Note that Introspective Imitation Dynamics takes into
-account both selection intensity and choice intensity. This means that both the
-level to which a player's fitness is considered when their strategy is being chosen for
-consideration, and also how much it is considered when choosing whether to
-accept the new strategy, is present in the dynamic.
-
-Let \(\eta_{i,j}(\mathbf{x}, \mathbf{y}) = 1 + e^{\beta(f_i(\mathbf{x}) - f_j(\mathbf{y}))}\)
-be the denominator of the Fermi function. For the two-player state space
-\(S = \{\mathbf{a},\mathbf{b},\mathbf{c},\mathbf{d}\}\), the explicit
-transition matrix is given in equation~(\ref{eqn:2x2_IID_Transition}) in the
-supplementary material. Applying the absorption matrix calculation, we obtain:
-
-\begin{center}
-\begin{large}
-\begin{equation}
-\begin{bmatrix}
-\frac{\eta_{1,1}(\textbf{b,d})f_{1}{\left(b \right)}}{\eta_{1,1}(\textbf{b,d}) f_{1}{\left(b \right)} + \eta_{2,2}(\textbf{b,a}) f_{2}{\left(b \right)}} & \frac{\eta_{2,2}(\textbf{b,a}) f_{2}{\left(b \right)}}{\eta_{1,1}(\textbf{b,d}) f_{1}{\left(b \right)} + \eta_{2,2}(\textbf{b,a}) f_{2}{\left(b \right)}}\\\frac{\eta_{2,2}(\textbf{c,d}) f_{2}{\left(c \right)}}{\eta_{1,1}(\textbf{c,a}) f_{1}{\left(c \right)} + \eta_{2,2}(\textbf{c,d}) f_{2}{\left(c \right)}} & \frac{\eta_{1,1}(\textbf{c,a}) f_{1}{\left(c \right)}}{\eta_{1,1}(\textbf{c,a}) f_{1}{\left(c \right)} + \eta_{2,2}(\textbf{c,d}) f_{2}{\left(c \right)}}
-\end{bmatrix}
-\end{equation}
-\end{large}
-\end{center}
-
-Unlike other imitation dynamics, we can see that the absorption probability in an introspective imitation process relies on the fitness that at least one individual will possess in the absorbing state.
-This means that players will enter absorbing states with a higher probability if it improves their own fitness, despite any heterogeneity between payoffs for the same action played by different players.
-This solves the problem of players making worsening moves based on the fitness of another individual in the population, while still retaining the property of imitation dynamics that new strategies cannot be introduced to the system.
-
-Let \(\eta_{i,j}(\mathbf{x}, \mathbf{y}) = 1 + e^{\beta(f_i(\mathbf{x}) - f_j(\mathbf{y}))}\).
-\begin{center}
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
-1 & 0 & 0 & 0\\
-\frac{f_{1}(b)}{2\eta_{2,2}(\mathbf{b},\mathbf{a})(f_{1}(b)+f_{2}(b))} &
-1 - \frac{f_{2}(b)}{\eta_{1,1}(\mathbf{b},\mathbf{d})(2f_{1}(b)+2f_{2}(b))}
-  - \frac{f_{1}(b)}{\eta_{2,2}(\mathbf{b},\mathbf{a})(2f_{1}(b)+2f_{2}(b))} &
-0 &
-\frac{f_{2}(b)}{2\eta_{1,1}(\mathbf{b},\mathbf{d})(f_{1}(b)+f_{2}(b))}\\
-\frac{f_{2}(c)}{2\eta_{1,1}(\mathbf{c},\mathbf{a})(f_{1}(c)+f_{2}(c))} &
-0 &
-1 - \frac{f_{1}(c)}{\eta_{2,2}(\mathbf{c},\mathbf{d})(2f_{1}(c)+2f_{2}(c))}
-  - \frac{f_{2}(c)}{\eta_{1,1}(\mathbf{c},\mathbf{a})(2f_{1}(c)+2f_{2}(c))} &
-\frac{f_{1}(c)}{2\eta_{2,2}(\mathbf{c},\mathbf{d})(f_{1}(c)+f_{2}(c))}\\
-0 & 0 & 0 & 1
-\end{bmatrix}$}
-\label{eqn:2x2_IID_Transition}
-\end{equation}
-\end{center}
-
-\subsubsection*{Moran process with mutation}
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1 &
-\frac{\mu_{22}}{2} &
-\frac{\mu_{12}}{2} &
-0\\[0.5em]
-\frac{\mu_{21}}{2}
-+ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2}
-- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
-- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
-+ 1 &
-0 &
-\frac{\mu_{12}}{2}
-+ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}\\[0.5em]
-\frac{\mu_{11}}{2}
-+ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
-& 0 &
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2}
-- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
-- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
-+ 1 &
-\frac{\mu_{22}}{2}
-+ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}\\[0.5em]
-0 & \frac{\mu_{11}}{2} & \frac{\mu_{21}}{2} &
--\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-\end{bmatrix}$}
-\label{eqn:2x2_Moran_Mutation_Transition}
-\end{equation}
-
-\subsubsection*{Fermi imitation dynamics with mutation}
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1 &
-\frac{\mu_{22}}{2} & \frac{\mu_{12}}{2} & 0\\[1em]
-\frac{\mu_{21}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
-- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{2}(b))} + 1)}
-- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(b) + f_{2}(b))} + 1)}
-& 0 &
-\frac{\mu_{12}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{2}(b))} + 1)}\\[1em]
-\frac{\mu_{11}}{2}
-+ \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(c) - f_{2}(c))} + 1)}
-& 0 &
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
-- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(c) - f_{2}(c))} + 1)}
-- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1)}
-&
-\frac{\mu_{22}}{2}
-+ \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{1}(c) + f_{2}(c))} + 1)}\\[1em]
-0 & \frac{\mu_{11}}{2} & \frac{\mu_{21}}{2} &
--\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-\end{bmatrix}$}
-\label{eqn:2x2_Fermi_Mutation_Transition}
-\end{equation}
-
-\subsubsection*{Aspiration dynamics with mutation}
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\left[\begin{matrix}
-1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(a))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(a))}} &
-\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(a)}} &
-\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(a)}} & 0\\
-\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(b)}} &
-1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(b))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(b))}} &
-0 &
-\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(b)}}\\
-\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(c)}} & 0 &
-1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(c))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(c))}} &
-\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(c)}}\\
-0 &
-\frac{0.5 e^{A_{1}\beta}}{e^{A_{1}\beta} + e^{\beta f_{1}(d)}} &
-\frac{0.5 e^{A_{2}\beta}}{e^{A_{2}\beta} + e^{\beta f_{2}(d)}} &
-1 - \frac{0.5}{1 + e^{-\beta(A_{2} - f_{2}(d))}} - \frac{0.5}{1 + e^{-\beta(A_{1} - f_{1}(d))}}
-\end{matrix}\right]$}
-\label{eqn:2x2_Aspiration_Mutation_Transition}
-\end{equation}
-
-\subsubsection*{Introspection dynamics with mutation}
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(a) - f_{2}(b))} + 1)}
-- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(a) - f_{1}(c))} + 1)} &
-\frac{\mu_{22}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(a) - f_{2}(b))} + 1)} &
-\frac{\mu_{12}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(a) - f_{1}(c))} + 1)} &
-0\\[1em]
-\frac{\mu_{21}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1)} &
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(a) + f_{2}(b))} + 1)}
-- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{1}(d))} + 1)} &
-0 &
-\frac{\mu_{12}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(f_{1}(b) - f_{1}(d))} + 1)}\\[1em]
-\frac{\mu_{11}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1)} &
-0 &
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(c) - f_{2}(d))} + 1)}
-- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(a) + f_{1}(c))} + 1)} &
-\frac{\mu_{22}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(f_{2}(c) - f_{2}(d))} + 1)}\\[1em]
-0 &
-\frac{\mu_{11}}{2} + \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1)} &
-\frac{\mu_{21}}{2} + \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1)} &
--\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-- \frac{-\mu_{21} - \mu_{22} + 1}{2(e^{\beta(-f_{2}(c) + f_{2}(d))} + 1)}
-- \frac{-\mu_{11} - \mu_{12} + 1}{2(e^{\beta(-f_{1}(b) + f_{1}(d))} + 1)}
-\end{bmatrix}$}
-\label{eqn:2x2_Introspection_Mutation_Transition}
-\end{equation}
-
-\subsubsection*{Introspective Imitation Dynamics with mutation}
-Let \(\eta_{i,j}(\mathbf{x}, \mathbf{y}) = 1 + e^{\beta(f_i(\mathbf{x}) - f_j(\mathbf{y}))}\).
-\begin{equation}
-\resizebox{\textwidth}{!}{$
-\begin{bmatrix}
--\frac{\mu_{12}}{2} - \frac{\mu_{22}}{2} + 1 &
-\frac{\mu_{22}}{2} & \frac{\mu_{12}}{2} & 0\\[1em]
-\frac{\mu_{21}}{2}
-+ \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\eta_{2,2}(\mathbf{b},\mathbf{a})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
-&
--\frac{\mu_{12}}{2} - \frac{\mu_{21}}{2}
-- \frac{(\epsilon f_{1}(b) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\eta_{2,2}(\mathbf{b},\mathbf{a})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
-- \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\eta_{1,1}(\mathbf{b},\mathbf{d})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}
-+ 1 & 0 &
-\frac{\mu_{12}}{2}
-+ \frac{(\epsilon f_{2}(b) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\eta_{1,1}(\mathbf{b},\mathbf{d})(\epsilon f_{1}(b) + \epsilon f_{2}(b) + 2)}\\[1em]
-\frac{\mu_{11}}{2}
-+ \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\eta_{1,1}(\mathbf{c},\mathbf{a})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
-& 0 &
--\frac{\mu_{11}}{2} - \frac{\mu_{22}}{2}
-- \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\eta_{2,2}(\mathbf{c},\mathbf{d})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
-- \frac{(\epsilon f_{2}(c) + 1)(-\mu_{11} - \mu_{12} + 1)}
-       {2\eta_{1,1}(\mathbf{c},\mathbf{a})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}
-+ 1 &
-\frac{\mu_{22}}{2}
-+ \frac{(\epsilon f_{1}(c) + 1)(-\mu_{21} - \mu_{22} + 1)}
-       {2\eta_{2,2}(\mathbf{c},\mathbf{d})(\epsilon f_{1}(c) + \epsilon f_{2}(c) + 2)}\\[1em]
-0 & \frac{\mu_{11}}{2} & \frac{\mu_{21}}{2} &
--\frac{\mu_{11}}{2} - \frac{\mu_{21}}{2} + 1
-\end{bmatrix}$}
-\label{eqn:2x2_IID_Mutation_Transition}
-\end{equation}
-
-\subsection{Mutation}
-
-
-\subsubsection{The Moran Process}
-In the case of the Moran process, our transition matrix becomes:
-
-\begin{large}
-    \begin{equation}
-        T^{(m)}_\textbf{ab} = 
-        \begin{cases}
-            (\frac{\sum_{a_i = b_{I(\textbf{a}, \textbf{b})}}{f(a_i)}}{N\sum_{a_j}f(a_j)})(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\text{, differing at position }I(\textbf{a}, \textbf{b})\\
-            0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
-            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-        \end{cases}
-    \label{eqn:Moran_Probability_Function_mutation}
-    \end{equation}
-\end{large}
-
-The explicit transition matrix for the two-player case is given in
-equation~(\ref{eqn:2x2_Moran_Mutation_Transition}) in the supplementary
-material. This yields an ergodic Markov chain whose steady state is:
-%TODO: fill in once computation on siren completes
-
-
-\subsubsection{Fermi Imitation Dynamics}
-When we introduce mutation to Fermi Imitation Dynamics, we obtain the following
-transition matrix:
-
-\begin{large}
-    \begin{equation}
-        T^{(m)}_\textbf{ab}  = 
-        \begin{cases}
-            (\frac{1}{N(N-1)}\sum_{a_j=b_{I(\textbf{a}, \textbf{b})}}\phi(\pi_{\text{I(\textbf{a}, \textbf{b})}}(a) - \pi_{j}(\textbf{a})))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N}) & \text{if }\textbf{b} \in \text{Neb(\textbf{a})}\\
-            0 & \text{if }\textbf{b} \notin \text{Neb(\textbf{a}) and \textbf{a}}\neq \textbf{b}\\
-            1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-        \end{cases}
-    \label{eqn:imitation_prob_mutation}
-    \end{equation}
-\end{large}
-
-
-The explicit transition matrix for the two-player case is given in
-equation~(\ref{eqn:2x2_Fermi_Mutation_Transition}) in the supplementary
-material. The resulting steady state is:
-%TODO: fill in once computation on siren completes
-
-\subsubsection{Aspiration Dynamics}
-As aspiration and introspection dynamics do not form absorbing Markov chains,
-we do not need mutation to be applied in order to form an ergodic chain.
-However, we will consider these cases for completeness, and thus we obtain the
-following transition matrix:
-\[
-T^{(m)}_{\textbf{ab}} =
-\begin{cases}
-(\dfrac{1}{N} \, \phi (\pi_{I(\textbf{a}, \textbf{b})} - A_i))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
-0
-    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-\end{cases}
-\]
-
-The explicit transition matrix for the two-player case is given in
-equation~(\ref{eqn:2x2_Aspiration_Mutation_Transition}) in the supplementary
-material.
-
-
-\subsubsection{Introspection Dynamics}
-As introspection dynamics does not form an absorbing Markov chain, we do not
-need mutation to form an ergodic chain.
-However, we will consider the following transition matrix for the case with
-mutation:
-
-\[
-T^{(m)}_{\textbf{ab}} =
-\begin{cases}
-(\dfrac{1}{N(m_j - 1)} \, \phi (\Delta \pi_{I(\textbf{a}, \textbf{b})}))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N})
-    & \text{if } \textbf{b} \in \mathrm{Neb}(\textbf{a}) \text{ and } j = I(\textbf{a}, \textbf{b}),\\[1.2em]
-0
-    & \text{if } \textbf{b} \notin \mathrm{Neb}(\textbf{a}) \text{and \textbf{a}} \neq \textbf{b},\\[0.8em]
-1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-\end{cases}
-\]
-
-The explicit transition matrix for the two-player case is given in
-equation~(\ref{eqn:2x2_Introspection_Mutation_Transition}) in the supplementary
-material.
-
-\subsubsection{Introspective Imitation Dynamics}
-Finally, for the case of introspective imitation dynamics, we get the following
-transition matrix with mutation:
-
-\begin{equation}
-T^{(m)}_{\textbf{ab}} =  \begin{cases}
-    (\frac{1}{N}\frac{\sum_{a_{j} = b_{I(\textbf{a}, \textbf{b})}}f_j(\textbf{a})}{\sum_{k}f_k(\textbf{a})}\phi(\Delta(f_{I(\textbf{a}, \textbf{b})})))(1-\sum_{k}\mu_{I(\textbf{a}, \textbf{b}),k}) + (\frac{\mu_{i,\textbf{b}_I(\textbf{a}, \textbf{b})}}{N}) & \text{if \textbf{b}}\in \text{Neb(\textbf{a})}\\
-    0 & \text{if \textbf{b}}\notin \text{Neb(\textbf{a}) and \textbf{a}} \neq \textbf{b}\\
-    1 - \sum_{\textbf{b} \in S \setminus \text{\{\textbf{a}\}}}T_{\textbf{ab}} & \text{if }\textbf{a}=\textbf{b}
-\end{cases}
-\end{equation}
-
-The explicit transition matrix for the two-player case is given in
-equation~(\ref{eqn:2x2_IID_Mutation_Transition}) in the supplementary
-material. The resulting steady state is:
-%TODO: fill in once computation on siren completes
-
-\subsection{Extended parameter sweeps}
-
-\subsubsection*{Fermi imitation dynamics: linear population, $N = 3$--$8$}
-\begin{figure}[!h]
-\centering
-
-% Row 1 (N=3)
-\resizebox{0.95\textwidth}{0.9\textheight}{%
-\begin{minipage}{\textwidth}
-\centering
-\begin{subfigure}{0.48\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \caption{$N=3$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \caption{$N=3$, high}
-\end{subfigure}
-
-\vspace{0.4cm}
-
-% Row 2 (N=4)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, high}
-\end{subfigure}
-
-\vspace{0.4cm}
-
-% Row 3 (N=5)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_5.0_linear/main.pdf}
-    \caption{$N=5$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_5.0_linear/main.pdf}
-    \caption{$N=5$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_5.0_linear/main.pdf}
-    \caption{$N=5$, high}
-\end{subfigure}
-
-\vspace{0.4cm}
-
-% Row 4 (N=6)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_6.0_linear/main.pdf}
-    \caption{$N=6$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_6.0_linear/main.pdf}
-    \caption{$N=6$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_6.0_linear/main.pdf}
-    \caption{$N=6$, high}
-\end{subfigure}
-
-\vspace{0.4cm}
-
-% Row 5 (N=7)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_7.0_linear/main.pdf}
-    \caption{$N=7$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_7.0_linear/main.pdf}
-    \caption{$N=7$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_7.0_linear/main.pdf}
-    \caption{$N=7$, high}
-\end{subfigure}
-
-\vspace{0.4cm}
-
-% Row 6 (N=8)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_8.0_linear/main.pdf}
-    \caption{$N=8$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_8.0_linear/main.pdf}
-    \caption{$N=8$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_deterministic_mutation_N_eq_8.0_linear/main.pdf}
-    \caption{$N=8$, high}
-\end{subfigure}
-
-\label{fig:fermi_full_grid}
-\end{minipage}
-}
-\end{figure}
-
-\subsubsection*{Introspective Imitation Dynamics: linear populations, $N = 3$--$4$}
-\begin{figure}[!h]
-\centering
-
-\resizebox{0.95\textwidth}{!}{%
-\begin{minipage}{\textwidth}
-\centering
-
-% Row 1 (N=3)
-\begin{subfigure}{\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \caption{$N=3$, medium}
-\end{subfigure}
-
-\vspace{0.25cm}
-
-% Row 2 (N=4)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspective imitation_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, high}
-\end{subfigure}
-
-\end{minipage}
-}
-
-\label{fig:introspection_grid}
-\end{figure}
-
-\subsubsection*{Moran process: linear population, $N = 3$--$8$}
-\begin{figure}[!h]
-\centering
-
-\resizebox{0.95\textwidth}{!}{%
-\begin{minipage}{\textwidth}
-\centering
-
-% Row 1 (N=3)
-\begin{subfigure}{0.48\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \caption{$N=3$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_3.0_linear/main.pdf}
-    \caption{$N=3$, high}
-\end{subfigure}
-
-\vspace{0.25cm}
-
-% Row 2 (N=4)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, high}
-\end{subfigure}
-
-\vspace{0.25cm}
-
-% Row 3 (N=5)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_5.0_linear/main.pdf}
-    \caption{$N=5$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_5.0_linear/main.pdf}
-    \caption{$N=5$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_5.0_linear/main.pdf}
-    \caption{$N=5$, high}
-\end{subfigure}
-
-\vspace{0.25cm}
-
-% Row 4 (N=6)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_6.0_linear/main.pdf}
-    \caption{$N=6$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_6.0_linear/main.pdf}
-    \caption{$N=6$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_6.0_linear/main.pdf}
-    \caption{$N=6$, high}
-\end{subfigure}
-
-\vspace{0.25cm}
-
-% Row 5 (N=7)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_7.0_linear/main.pdf}
-    \caption{$N=7$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_7.0_linear/main.pdf}
-    \caption{$N=7$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_7.0_linear/main.pdf}
-    \caption{$N=7$, high}
-\end{subfigure}
-
-\vspace{0.25cm}
-
-% Row 6 (N=8)
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_8.0_linear/main.pdf}
-    \caption{$N=8$, low}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_8.0_linear/main.pdf}
-    \caption{$N=8$, medium}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_deterministic_mutation_N_eq_8.0_linear/main.pdf}
-    \caption{$N=8$, high}
-\end{subfigure}
-
-\end{minipage}
-}
-
-\label{fig:moran_full_grid}
-\end{figure}
-
-\subsubsection*{Introspection dynamics: linear population, $N = 3$--$4$}
-\begin{figure}[!h]
-\centering
-
-\resizebox{0.95\textwidth}{!}{%
-\begin{minipage}{\textwidth}
-\centering
-
-
-
-\vspace{0.25cm}
-
-\begin{subfigure}{\textwidth}
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_deterministic_mutation_N_eq_4.0_linear/main.pdf}
-    \caption{$N=4$, linear}
-\end{subfigure}
-
-\end{minipage}
-}
-
-\caption{
-Introspection dynamics across population sizes $N$.
-}
-\label{fig:introspection_structure}
-\end{figure}
+dynamic that exceeds the \(1/2\) ceiling, and its behaviour changes
+qualitatively at \(r = N\). We see in \ref{fig:conclusion-fig} that with just a
+few players updating according to introspective imitation dynamics in an
+otherwise extrinsic population, we can encourage \(p_C\) to exceed a the
+extrinsic ceiling of \(1/2\). Further work on this may look further into the
+effect of hybrid population dynamics, similar to the combination of Moran and
+Fermi processes in \cite{LIU2015242}, where extrinsic and intrinsic population
+dynamics are played in a mixed population. We also show that simulations
+converge to the theoretic value in introspective imitation dynamics across a
+large number of iterations in introspective imitation dynamics. There may be
+further study in the use of mixing times \cite{LevinPeresWilmer2006} to see
+which population dynamics converge to their theoretic \(p_C\) in the fewest
+iterations.
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}

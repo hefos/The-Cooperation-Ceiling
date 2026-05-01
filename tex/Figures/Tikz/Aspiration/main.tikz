@@ -1,0 +1,70 @@
+\begin{tikzpicture}[scale=0.6]
+
+%================ FIRST BOX ==================
+\draw (0,0) rectangle (4,4);
+
+\draw (0.5,3.5) rectangle (1.5,2.5);
+
+\fill[black] (2.5,3) -- (3,3.5) -- (3.5,3) -- (3,2.5) -- cycle;
+
+\fill[black] (1,1.5) circle (0.5);
+
+% Triangle (plain)
+\draw (3,1.5) -- (2.5,0.7) -- (3.5,0.7) -- cycle;
+
+
+%================ SECOND BOX (REPLACED) ==================
+\draw (5,0) rectangle (9,4);
+
+% Number line
+\draw[thick] (5.8,1.5) -- (8.2,1.5);
+
+% ticks
+\foreach \x in {5.8,7,8.2}
+\draw (\x,1.4) -- (\x,1.6);
+
+% labels
+\node at (5.8,1.0) {$0$};
+\node at (8.2,1.0) {$A$};
+
+% f(triangle) point
+\node at (7.4,2.1) {$f(\triangle)$};
+
+
+%================ THIRD BOX ==================
+\draw (10,0) rectangle (14,4);
+
+% square
+\draw (10.5,3.5) rectangle (11.5,2.5);
+
+\fill[black] (12.5,3) -- (13,3.5) -- (13.5,3) -- (13,2.5) -- cycle;
+
+\fill[black] (11,1.5) circle (0.5);
+
+% Triangle
+\begin{scope}
+  \clip (13,1.5) -- (12.5,0.7) -- (13.5,0.7) -- cycle;
+  \foreach \x in {11.5,11.6,...,15} {
+    \draw (\x,0.0) -- (\x+1.2,1.4);
+  }
+\end{scope}
+\fill[black] (13,1.5) -- (12.5,0.7) -- (13.5,0.7) -- cycle;
+
+
+%================ ARROWS ==================
+\draw[->, thick] (4,2) -- (5,2);
+\draw[->, thick] (9,2) -- (10,2);
+
+
+%================ LABELS ==================
+\node at (2,4.5) {\textbf{Selection}};
+\node at (7,4.5) {\textbf{Evaluation}};
+\node at (12,4.5) {\textbf{Update}};
+
+\node at (7,5.5) {\textbf{Aspiration Dynamics}};
+
+
+% highlight
+\draw[dotted, thick] (3,1) circle (0.9cm);
+
+\end{tikzpicture}

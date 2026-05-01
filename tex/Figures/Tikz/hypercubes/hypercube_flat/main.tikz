@@ -1,0 +1,44 @@
+\begin{tikzpicture}[scale=2,
+    vertex/.style={circle, draw, minimum size=6mm, inner sep=0pt, font=\small},
+    edge/.style={draw, thick}
+]
+
+% --- Layered by Hamming weight ---
+
+% Weight 0
+\node[vertex] (000) at (0,1.5) {$000$};
+
+% Weight 1
+\node[vertex] (100) at (-1,1) {$100$};
+\node[vertex] (010) at (0,1) {$010$};
+\node[vertex] (001) at (1,1) {$001$};
+
+% Weight 2
+\node[vertex] (110) at (-1,0.5) {$110$};
+\node[vertex] (101) at (0,0.5) {$101$};
+\node[vertex] (011) at (1,0.5) {$011$};
+
+% Weight 3
+\node[vertex] (111) at (0,0) {$111$};
+
+% --- Edges between vertices differing by 1 bit ---
+
+% Weight 0 → Weight 1
+\draw[edge] (000)--(100);
+\draw[edge] (000)--(010);
+\draw[edge] (000)--(001);
+
+% Weight 1 → Weight 2
+\draw[edge] (100)--(110);
+\draw[edge] (100)--(101);
+\draw[edge] (010)--(110);
+\draw[edge] (010)--(011);
+\draw[edge] (001)--(101);
+\draw[edge] (001)--(011);
+
+% Weight 2 → Weight 3
+\draw[edge] (110)--(111);
+\draw[edge] (101)--(111);
+\draw[edge] (011)--(111);
+
+\end{tikzpicture}
