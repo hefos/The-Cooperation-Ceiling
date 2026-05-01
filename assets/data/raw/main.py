@@ -1,20 +1,16 @@
 import pandas as pd
 import numpy as np
 import pathlib
-import sys
 import uuid
-
-file_path = pathlib.Path(__file__)
-root_path = (file_path / "../../../../../").resolve()
-
-sys.path.append(str(root_path))
 import ludics
 import ludics.fitness_functions
 import public_goods_games.contribution_rules
 import stet
-import sys
 import itertools
 import argparse
+
+file_path = pathlib.Path(__file__)
+root_path = (file_path / "../../../../../").resolve()
 
 parser = argparse.ArgumentParser(description="Process mu and dynamic inputs")
 

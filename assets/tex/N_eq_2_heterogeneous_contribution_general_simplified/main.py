@@ -2,44 +2,17 @@ import numpy as np
 import sympy as sym
 import sys
 import pathlib
-
+import ludics
+import ludics.fitness_functions
 sys.path.append("../../../src/")
-import ludics.main
-
-
-def heterogeneous_contribution_fitness_function(
-    state, omega, r, contribution_vector, **kwargs
-):
-    """Public goods fitness function where each player contributes H times
-
-    their position in the state."""
-
-    total_goods = (
-        r
-        * sum(
-            action * contribution
-            for action, contribution in zip(state, contribution_vector)
-        )
-        / len(state)
-    )
-
-    return np.array(
-        [
-            total_goods - (action * contribution)
-            for action, contribution in zip(state, contribution_vector)
-        ]
-    )
-
 
 file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../../").resolve()
 
 sys.path.append(str(root_path))
-import ludics.main as main
-import ludics.fitness_functions as fitness_functions
 
 r = sym.Symbol("r")
-omega = sym.Symbol(r"\omega")
+epsilon = sym.Symbol(r"\epsilon")
 N = 2
 M = sym.Symbol(r"\alpha_1") + sym.Symbol(r"\alpha_2")
 generic_alphas_N_eq_2 = [sym.Symbol(r"\alpha_1"), sym.Symbol(r"\alpha_2")]
@@ -49,9 +22,9 @@ state_space = ludics.main.get_state_space(N=N, k=2)
 general_heterogeneous_contribution_transition_matrix_N_2 = (
     ludics.main.generate_transition_matrix(
         state_space=state_space,
-        fitness_function=heterogeneous_contribution_fitness_function,
+        fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
         r=r,
-        omega=omega,
+        selection_intensity=epsilon,
         N=N,
         contribution_vector=generic_alphas_N_eq_2,
     )
