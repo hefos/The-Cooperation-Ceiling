@@ -703,76 +703,69 @@ the distribution of $p_C$ across each population dynamic.
 \begin{figure}[htbp]
 \centering
 
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.64\textwidth}
     \centering
-    \textbf{A}\par
+    \textbf{A}\par\vspace{0.1cm}
     \includegraphics[width=\linewidth]{Figures/maximum_comparison/main.pdf}
     \phantomcaption\label{fig:max_comparison}
 \end{minipage}%
 \hfill
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.32\textwidth}
     \centering
-
-    \textbf{B}\par
+    \textbf{B}\par\vspace{0.1cm}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_N_eq_8/main.pdf}
-    \vspace{0.2cm}
+    \phantomcaption\label{fig:fermi_mutation_violins}
 
-    \textbf{C}\par
+    \vspace{0.3cm}
+
+    \textbf{C}\par\vspace{0.1cm}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_N_eq_8/main.pdf}
-    \phantomcaption\label{fig:fermi_moran_mutation_violins}
+    \phantomcaption\label{fig:moran_mutation_violins}
 \end{minipage}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.32\textwidth}
     \centering
-    \textbf{D}\par
+    \textbf{D}\par\vspace{0.1cm}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/imispection_N_eq_8/main.pdf}
     \phantomcaption\label{fig:imi_mutation_violins}
-\end{minipage}
+\end{minipage}%
 \hfill
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.32\textwidth}
     \centering
-    \textbf{E}\par
+    \textbf{E}\par\vspace{0.1cm}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_N_eq_8/main.pdf}
     \phantomcaption\label{fig:intro_mutation_violins}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.32\textwidth}
     \centering
-    \textbf{E}\par
+    \textbf{F}\par\vspace{0.1cm}
     \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/aspiration_N_eq_8/main.pdf}
-    \phantomcaption\label{fig:intro_mutation_violins}
+    \phantomcaption\label{fig:aspiration_mutation_violins}
 \end{minipage}
 
-\caption{\textbf{A}: }
+\caption{\textbf{A}: The distribution of $p_C$ in all dynamics across $N$.
+\textbf{B - F}: The distribution of $p_C$ for each dynamic for different levels
+of heterogeneity in contribution. The greater the decile of range$(\alpha_i)$,
+the greater the heterogeneity in contribution.}
 \label{fig:all_alpha_range_violinplots}
 \end{figure}
 
-Figure~\ref{fig:fermi_moran_mutation_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
+Figure~\ref{fig:fermi_mutation_violins} shows that under Fermi imitation dynamics, greater heterogeneity decreases $p_C$ in the
 linear case. Higher values of $\alpha_i$ increase the payoff gap between cooperators and defectors
 within each state, making it more likely that a defector will be copied and less
 likely that a high contributor will persist.
 
 Under the Moran process, the degree of linear heterogeneity has no discernible
-effect on $p_C$ (Figure~\ref{fig:fermi_moran_mutation_violins}): every violin across the
+effect on $p_C$ (Figure~\ref{fig:moran_mutation_violins}): every violin across the
 heterogeneity deciles is centred at the same median and has the same spread.
 The same invariance holds for Introspective Imitation Dynamics under linear
 population structures (see supplementary material).
 
 \subsection{The cooperation ceiling under purely extrinsic dynamics}
 \label{sec:ceiling}
-
-Both extrinsic dynamics exhibit an upper bound on cooperation that cannot be
-exceeded by any parameter choice. When $\alpha_i > 0$ for all $i$, a
-contributing individual always earns less than a defector in the same state:
-the contributor pays $\alpha_i$ while receiving only $r\alpha_i / N$ of it
-back (since the multiplied pool is split equally), so a defector strictly
-benefits from the contributor's effort without bearing its cost. In a purely
-extrinsic dynamic, where strategy revision compares players' current payoffs
-directly, the probability of adopting a cooperating strategy is therefore
-always lower than the probability of adopting a defecting one. Cooperation
-cannot exceed the neutral-drift baseline:
 
 \begin{definition}[Extrinsic population dynamic]
     Let \(T\) be the transition matrix of a population dynamic on a state space
@@ -1064,6 +1057,17 @@ use in the proof of the theorem below may not be familiar to the reader.
     \]
 \end{proof}
 
+Both extrinsic dynamics exhibit an upper bound on cooperation that cannot be
+exceeded by any parameter choice. When $\alpha_i > 0$ for all $i$, a
+contributing individual always earns less than a defector in the same state:
+the contributor pays $\alpha_i$ while receiving only $r\alpha_i / N$ of it
+back (since the multiplied pool is split equally), so a defector strictly
+benefits from the contributor's effort without bearing its cost. In a purely
+extrinsic dynamic, where strategy revision compares players' current payoffs
+directly, the probability of adopting a cooperating strategy is therefore
+always lower than the probability of adopting a defecting one. Cooperation
+cannot exceed the neutral-drift baseline.
+
 \subsection{Intrinsic dynamics exceed the extrinsic ceiling}
 \label{sec:ceiling_break}
 
@@ -1091,18 +1095,18 @@ and the extended parameter sweeps in the supplementary material confirm.
  \begin{subfigure}{0.48\textwidth}
      \centering
      \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
-     \caption{\textbf{A}}
+     \caption*{\textbf{A}}
  \end{subfigure}
  \hfill
  \begin{subfigure}{0.48\textwidth}
      \centering
      \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_imispection_N_eq_8/main.pdf}
-     \caption{\textbf{B}}
+     \caption*{\textbf{B}}
  \end{subfigure}
  \vspace{0.5cm}
  \caption{\textbf{A}: Comparison of $p_C$ (IID - Moran, $N=8$), \textbf{B}:
  Comparison of $p_C$ (Fermi - IID, $N=5$)}
- \ref{imi_vs_extrinsic}
+ \label{imi_vs_extrinsic}
  \end{figure}
 
 To identify when intrinsic dynamics begin to outperform extrinsic ones, we
@@ -1184,13 +1188,13 @@ $\beta = 0$.
      \begin{subfigure}{0.48\textwidth}
      \centering
      \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_introspection_N_eq_8/main.pdf}
-    \caption{\textbf{A}}
+    \caption*{\textbf{A}}
 \end{subfigure}
 \hfill
 \begin{subfigure}{0.48\textwidth}
      \centering
      \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_Moran_N_eq_8/main.pdf}
-     \caption{\textbf{B}}
+     \caption*{\textbf{B}}
  \end{subfigure}
 
  \vspace{0.5cm}
@@ -1198,7 +1202,7 @@ $\beta = 0$.
  \begin{subfigure}{0.48\textwidth}
      \centering
      \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/introspection_vs_Moran_N_eq_8/main.pdf}
-     \caption{\textbf{C}}
+     \caption*{\textbf{C}}
  \end{subfigure}
  \hfill
  \caption{\textbf{A}: $p_C(\text{Fermi}) - p_C(\text{Introspection})$ as a
@@ -1210,7 +1214,7 @@ $\beta = 0$.
 Having examined each dynamic in isolation, we now compare them directly to
 establish a dominance ordering in terms of $p_C$.
 
-\textbf{Introspection always outperforms Fermi.}
+\textbf{Introspection almost always outperforms Fermi.}
 Figure~\ref{fig:process_comparisons} shows $p_C(\text{Introspection}) -
 p_C(\text{Fermi})$ across the full parameter sweep. The lower tail of every
 violin sits at or above zero: introspection dynamics \emph{uniformly dominates}
@@ -1231,7 +1235,7 @@ Introspection dynamics are stochastically monotone, we have by the
 Kamae-Krengel-O'brien theorem \cite{kamae1977stochastic} that
 \(p^{\text{Fermi}}_C \leq p^{\text{Intro}}_C\) for any parameter set.
 
-\textbf{Introspection's can outperform Moran for all $r$}
+\textbf{Introspection's can outperform Moran for all \(\mathbf{r}\)}
 Unlike introspective imitation dynamics, which has a hard line at \(r = N\) to
 begin outperforming the Moran process, Introspection dynamics can outperform
 the Moran process at all values of \(r\). At all values of \(r\), in fact,
@@ -1247,13 +1251,13 @@ equivalent in the Moran process.
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/hybrid_dynamics/main.pdf}
-        \caption{\textbf{A}}
+        \caption*{\textbf{A}}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/simulation/main.pdf}
-        \caption{\textbf{B}}
+        \caption*{\textbf{B}}
     \end{subfigure}
     \caption{\textbf{A}: \(p_C\) in various parameter combinations at \(N=8\),
     varying the number of players using an intrinsic population dynamic.
