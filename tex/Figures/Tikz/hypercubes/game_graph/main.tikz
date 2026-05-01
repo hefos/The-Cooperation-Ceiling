@@ -1,0 +1,57 @@
+\begin{tikzpicture}[scale=2,
+    vertex/.style={circle, draw, minimum size=6mm, inner sep=0pt, font=\small},
+    edge/.style={->, thick},
+    loop/.style={->, looseness=5, min distance=4mm}
+]
+
+% Front square
+\node[vertex] (000) at (0,0,0) {$000$};
+\node[vertex] (100) at (1,0,0) {$100$};
+\node[vertex] (110) at (1,1,0) {$110$};
+\node[vertex] (010) at (0,1,0) {$010$};
+
+% Back square
+\node[vertex] (001) at (0,0,1) {$001$};
+\node[vertex] (101) at (1,0,1) {$101$};
+\node[vertex] (111) at (1,1,1) {$111$};
+\node[vertex] (011) at (0,1,1) {$011$};
+
+% Bidirectional edges (reduced curvature)
+\newcommand{\bidedge}[2]{
+  \draw[edge, bend left=10] (#1) to (#2);
+  \draw[edge, bend left=10] (#2) to (#1);
+}
+
+% Front edges
+\bidedge{000}{100}
+\bidedge{100}{110}
+\bidedge{110}{010}
+\bidedge{010}{000}
+
+% Back edges
+\bidedge{001}{101}
+\bidedge{101}{111}
+\bidedge{111}{011}
+\bidedge{011}{001}
+
+% Connecting edges
+\bidedge{000}{001}
+\bidedge{100}{101}
+\bidedge{110}{111}
+\bidedge{010}{011}
+
+% Self-loops (organized)
+
+% Front face
+\draw[loop, out=225, in=135] (000) to (000);
+\draw[loop, out=315, in=45]  (100) to (100);
+\draw[loop, out=45, in=315]  (110) to (110);
+\draw[loop, out=135, in=225] (010) to (010);
+
+% Back face
+\draw[loop, out=200, in=160] (001) to (001);
+\draw[loop, out=340, in=20]  (101) to (101);
+\draw[loop, out=20, in=340]  (111) to (111);
+\draw[loop, out=160, in=200] (011) to (011);
+
+\end{tikzpicture}

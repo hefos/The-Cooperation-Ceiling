@@ -8,7 +8,7 @@ file_path = pathlib.Path(__file__)
 root_path = (file_path / "../../../").resolve()
 
 sys.path.append(str(root_path))
-import src.main as main
+import src.main as main  # noqa: E402
 
 n_range = 200
 step_size_n = 10
@@ -17,9 +17,9 @@ step_size_prob = 2
 
 
 def generate_stochastic_2_valency_cycle_matrix(n, prob_prior):
-    I = np.eye(n)
-    return prob_prior * (np.roll(I, -1, axis=1)) + (1 - prob_prior) * (
-        np.roll(I, 1, axis=1)
+    identity_matrix = np.eye(n)
+    return prob_prior * (np.roll(identity_matrix, -1, axis=1)) + (1 - prob_prior) * (
+        np.roll(identity_matrix, 1, axis=1)
     )
 
 

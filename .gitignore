@@ -1,1 +1,12 @@
 *.pyc
+/.pytest_cache
+
+# LaTeX
+tex/main.aux
+tex/main.bbl
+tex/main.blg
+tex/main.fdb_latexmk
+tex/main.fls
+tex/main.log
+tex/main.out
+tex/main.xdv

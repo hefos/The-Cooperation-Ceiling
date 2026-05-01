@@ -1,0 +1,29 @@
+uv run main.py --mu=0 --dynamic="moran" --absorbing
+uv run main.py --mu=0.001 --dynamic="moran"
+uv run main.py --mu=0.005 --dynamic="moran"
+uv run main.py --mu=0.05 --dynamic="moran"
+uv run main.py --mu=0.1 --dynamic="moran"
+
+uv run main.py --mu=0 --dynamic="aspiration"
+uv run main.py --mu=0.001 --dynamic="aspiration"
+uv run main.py --mu=0.005 --dynamic="aspiration"
+uv run main.py --mu=0.05 --dynamic="aspiration"
+uv run main.py --mu=0.1 --dynamic="aspiration"
+
+uv run main.py --mu=0 --dynamic="fermi"--absorbing
+uv run main.py --mu=0.001 --dynamic="fermi"
+uv run main.py --mu=0.005 --dynamic="fermi"
+uv run main.py --mu=0.05 --dynamic="fermi"
+uv run main.py --mu=0.1 --dynamic="fermi"
+
+uv run main.py --mu=0 --dynamic="imispection"--absorbing
+uv run main.py --mu=0.001 --dynamic="imispection"
+uv run main.py --mu=0.005 --dynamic="imispection"
+uv run main.py --mu=0.05 --dynamic="imispection"
+uv run main.py --mu=0.1 --dynamic="imispection"
+
+uv run main.py --mu=0 --dynamic="introspection"--absorbing
+uv run main.py --mu=0.001 --dynamic="introspection"
+uv run main.py --mu=0.005 --dynamic="introspection"
+uv run main.py --mu=0.05 --dynamic="introspection"
+uv run main.py --mu=0.1 --dynamic="introspection"
