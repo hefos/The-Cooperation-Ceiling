@@ -144,7 +144,7 @@ games in~\cite{Couto2023} formalises this distinction for homogeneous
 populations; extending it to the fully heterogeneous setting motivates the
 present work.
 
-We make the following contributions. First, we establish a general framework
+We make the following contributions. First, we build on an established a general framework
 for evolutionary dynamics on fully heterogeneous, well-mixed populations of
 \(N\) ordered individuals, in which each player may have a distinct payoff
 function and contribution level.
@@ -158,8 +158,7 @@ payoff for the copying player. Third, we show that purely extrinsic dynamics
 are subject to a ceiling on the probability of cooperation that intrinsic
 dynamics can exceed, and we characterise the conditions under which this
 advantage arises, with the ratio of the public goods multiplier \(r\) to
-population size \(N\) as the central governing parameter. We study a \emph{linearly heterogeneous} population, in which
-players' capacities are graded uniformly across the group.
+population size \(N\) as the central governing parameter. 
 
 The remainder of the paper is organised as follows. Section~2 introduces the
 population model, defines all five dynamics and their mutation variants, and
@@ -196,15 +195,13 @@ unique coordinate at which \(\mathbf{a}\) and \(\mathbf{b}\) differ the
 The set of states reachable from \(\mathbf{a}\) in one step is
 \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a}, \mathbf{b}) = 1\}\)~\cite{Couto2023}.
 
-\subsubsection{Graphical representation}
-
 If we consider a game with two actions, for example cooperate and defect, we
 can compare the graph of such a Markov chain to an $N$-dimensional hypercube.
 This is the graph whose node set consists of the $2^N$ $N$-dimensional boolean
 vectors, and which has edges between edges if and only if they differ in
 exactly one position \cite{HARARY1988277}. The state space of an evolutionary
 game with two actions can be modelled in this way by denoting the strategies
-``$0$'' and ``$1$''. 
+\(0\) and \(1\). 
 
 The graphical representation of a birth-death process
 differs from a hypercube in exactly two ways. First, a population may remain
@@ -448,7 +445,6 @@ T_{\textbf{ab}} =
 
 where \(m_j\) is the number of actions available to individual \(j\).
 Since we assume that all individuals have the same action set with size \(k\), we can replace \(m_j - 1\) with \(k-1\).
-The explicit transition matrix for the two-player case is given in equation~(\ref{eqn:2x2_Introspection_Transition}) in the supplementary material.
 
 \subsubsection*{Introspective Imitation Dynamics}
 
@@ -484,9 +480,6 @@ individuals learn from each other, but do not blindly trust that the strategy
 will work for themself just because it worked for another player. Instead,
 players look to others to see what action they \textit{could} play, but judge
 based on their own fitness to decide what action they \textit{should} play.
-
-
-\subsubsection*{Classification of dynamics}
 
 Figure~\ref{fig:diagrams_of_dynamics}, shows a diagrammatic representation of
 the population dynamics shown in this section. It also proposes a classification
@@ -766,6 +759,14 @@ population structures (see supplementary material).
 
 \subsection{The cooperation ceiling under purely extrinsic dynamics}
 \label{sec:ceiling}
+
+In figure \ref{fig:all_alpha_range_violinplots}, we see that Fermi imitation
+dynamics and the Moran process both admit a maximum \(p_C\) of \(1/2\). This
+behaviour is not specific to this value of \(N\) or these dynamics, but can
+actually be shown to hold for all purely extrinsic dynamics. We therefore
+define a purely extrinsic population dynamic, and show that the value \(p_C =
+1/2\) forms a maximum value of cooperation for all such dynamics in any game
+where defectors always outperform cooperators.
 
 \begin{definition}[Extrinsic population dynamic]
     Let \(T\) be the transition matrix of a population dynamic on a state space
@@ -1082,7 +1083,7 @@ $\frac{1}{2}$ to accepting it, enabling $p_C > \frac{1}{2}$.
 
 
 The advantage of intrinsic dynamics over extrinsic dynamics holds across all
-values of $N$ and both population structures examined, as Figure~\ref{fig:max_compared}
+values of $N$ and both population structures examined, as Figure~\ref{fig:all_alpha_range_violinplots}
 and the extended parameter sweeps in the supplementary material confirm.
 
 \subsection{The $r = N$ threshold} 
@@ -1154,13 +1155,6 @@ analytical result.
 
 \subsection{Choice intensity and its interaction with dynamics type}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Figures/beta_r_graph/main.pdf}
-\caption{$p_C$ as a function of choice intensity $\beta$ and multiplier $r$}
-\label{fig:beta_r}
-\end{figure}
-
 Higher choice intensity $\beta$ consistently reduces $p_C$ under purely
 extrinsic dynamics, regardless of $r$. A high $\beta$ causes players to
 respond sharply to payoff differences, and since defectors always have higher
@@ -1181,6 +1175,13 @@ cooperating, $p_C = 0.5$ follows immediately. This neutral-drift baseline
 therefore serves as an anchor: introspection raises $p_C$ above 0.5 when
 $r > N$ and lowers it below 0.5 when $r < N$, always converging to 0.5 at
 $\beta = 0$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Figures/beta_r_graph/main.pdf}
+\caption{$p_C$ as a function of choice intensity $\beta$ and multiplier $r$}
+\label{fig:beta_r}
+\end{figure}
 
 \subsection{Dominance relations between dynamics}
 
@@ -1208,7 +1209,7 @@ $\beta = 0$.
  \caption{\textbf{A}: $p_C(\text{Fermi}) - p_C(\text{Introspection})$ as a
  function of $r$ for $N = 8$. \textbf{B}:$p_C(\text{Fermi}) -
  p_C(\text{Moran})$ as a function of $r$ for $N = 8$ \textbf{C}: $p_C(\text{Introspection}) - p_C(\text{Moran})$ as a function of $r$ for $N = 8$ (linear population).}
- \ref{fig:process_comparisons}
+ \label{fig:process_comparisons}
  \end{figure}
 
 Having examined each dynamic in isolation, we now compare them directly to
