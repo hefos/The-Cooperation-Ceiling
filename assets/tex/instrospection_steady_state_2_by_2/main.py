@@ -1,4 +1,3 @@
-import numpy as np
 import sympy as sym
 import pathlib
 import sys
@@ -19,7 +18,7 @@ beta = sym.Symbol("beta")
 transition_matrix = ludics.generate_transition_matrix(
     state_space=state_space,
     fitness_function=ludics.fitness_functions.general_four_state_fitness_function,
-    compute_transition_probability=main.compute_introspection_transition_probability,
+    compute_transition_probability=ludics.compute_introspection_transition_probability,
     selection_intensity=beta,
     number_of_strategies=2,
 )

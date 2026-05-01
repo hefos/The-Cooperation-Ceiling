@@ -2,7 +2,7 @@ import sympy as sym
 import pathlib
 import sys
 import ludics
-import ludics.fitness_functions as fitness_functions
+import ludics.fitness_functions
 
 file_path = pathlib.Path(__file__)
 
