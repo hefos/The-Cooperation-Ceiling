@@ -26,6 +26,34 @@
 \begin{document}
 \maketitle
 
+\section{Parameter Sweep}
+\begin{figure}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Parameter & Minimum & Maximum & Number of Values per $N$\\
+        \hline
+        $N$ & 3 & 8 & N/A\\
+        \hline
+        $r$ & $\frac{1}{2}$ & $\frac{3N}{2}$ & 10\\
+        \hline
+        $M$ & $N$ & $4N$ & 10\\
+        \hline
+        $\mu$ & 0.001 & 0.1 & 4\\
+        \hline
+        $\epsilon$ & 0 & $0.99 \cdot \max_i \alpha_i$ &10\\
+        \hline
+        $\beta$ & 0 & 2 & 10\\
+        \hline
+        $A$ & 1 & \(\frac{M}{N}\) & 10\\
+        \hline
+    \end{tabular}
+    \caption{The set of measured parameters and boundry values. Some parameters
+    are only applicable to certain processes. The value $A$ is the
+    \emph{aspiration} considered in aspiration dynamics, in section~4}
+    \label{fig:parameter_sweep_table}
+\end{figure}
+
 
 \section{Explicit transition matrices for the two-player game}
 \label{sec:explicit_matrices}
