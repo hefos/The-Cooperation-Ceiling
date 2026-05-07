@@ -120,14 +120,14 @@ def run_experiment(N,M,r,alphas,aspiration,selection_intensity,choice_intensity,
         state_space = ludics.get_state_space(N=N,k=2)
         transition_matrix = ludics.generate_transition_matrix(
             state_space=state_space,
-            fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+            fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
             compute_transition_probability=dynamic_to_process[dynamic],
             aspiration_vector=aspiration_vector,
             selection_intensity=selection_intensity,
             choice_intensity=choice_intensity,
             individual_to_action_mutation_probability=np.full(shape=(N,2),fill_value=mu),
             r=r,
-            contribution_vector=alphas,
+            alpha=alphas,
             number_of_strategies=2
         )
         if absorbing:

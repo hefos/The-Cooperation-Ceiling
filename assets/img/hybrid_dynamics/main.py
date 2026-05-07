@@ -40,9 +40,9 @@ def get_data(beta, epsilon, r, contribution_vector, split, N=8):
 
     transition_matrix = ludics.generate_transition_matrix(
         state_space=state_space,
-        fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+        fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
         compute_transition_probability=hybrid_population_dynamic,
-        contribution_vector=contribution_vector,
+        alpha=contribution_vector,
         r=r,
         selection_intensity=epsilon,
         choice_intensity=beta,
@@ -82,7 +82,7 @@ for r, M, beta, epsilon, marker in parameter_sets:
                 beta=beta,
                 epsilon=epsilon,
                 r=r,
-                contribution_vector=contribution_vector,
+                alpha=contribution_vector,
                 split=split,
             )
         )

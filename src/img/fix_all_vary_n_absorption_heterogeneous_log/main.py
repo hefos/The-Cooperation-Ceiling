@@ -23,12 +23,12 @@ def get_absorption_probability_vector_1_contributor_low(
 
         transition_matrix = main.generate_transition_matrix(
             state_space=state_space,
-            fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+            fitness_function=fitness_functions.public_goods_game_fitness_function,
             r=1.8,
             selection_intensity=0.1,
             choice_intensity=0.5,
             compute_transition_probability=probability_function,
-            contribution_vector=main.get_deterministic_contribution_vector(
+            alpha=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
             **kwargs
@@ -61,12 +61,12 @@ def get_absorption_probability_vector_1_contributor_high(
 
         transition_matrix = main.generate_transition_matrix(
             state_space=state_space,
-            fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+            fitness_function=fitness_functions.public_goods_game_fitness_function,
             r=1.8,
             selection_intensity=0.1,
             choice_intensity=0.5,
             compute_transition_probability=probability_function,
-            contribution_vector=main.get_deterministic_contribution_vector(
+            alpha=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
             **kwargs
@@ -96,12 +96,12 @@ def get_absorption_probability_vector_n_minus_1_contributor_low(
 
         transition_matrix = main.generate_transition_matrix(
             state_space=state_space,
-            fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+            fitness_function=fitness_functions.public_goods_game_fitness_function,
             r=1.8,
             selection_intensity=0.1,
             choice_intensity=0.5,
             compute_transition_probability=probability_function,
-            contribution_vector=main.get_deterministic_contribution_vector(
+            alpha=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
             **kwargs
@@ -135,12 +135,12 @@ def get_absorption_probability_vector_n_minus_1_contributor_high(
 
         transition_matrix = main.generate_transition_matrix(
             state_space=state_space,
-            fitness_function=fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+            fitness_function=fitness_functions.public_goods_game_fitness_function,
             r=1.8,
             selection_intensity=0.1,
             choice_intensity=0.5,
             compute_transition_probability=probability_function,
-            contribution_vector=main.get_deterministic_contribution_vector(
+            alpha=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
             **kwargs
