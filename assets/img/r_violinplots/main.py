@@ -1,4 +1,3 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import dask.dataframe as dd
 

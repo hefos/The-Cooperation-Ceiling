@@ -45,7 +45,7 @@ sns.heatmap(
     ax=ax,
     vmin=vmin,
     vmax=vmax,
-    cbar=False,
+    cbar=True,
 )
 ax.set_title(r"$r < N$")
 ax.set_xlabel(r"$\epsilon$")
@@ -66,7 +66,7 @@ sns.heatmap(
     ax=ax,
     vmin=vmin,
     vmax=vmax,
-    cbar=False
+    cbar=True
 )
 ax.set_title(r"$r > N$")
 ax.set_xlabel(r"$\epsilon$")

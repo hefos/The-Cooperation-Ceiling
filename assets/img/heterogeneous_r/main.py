@@ -3,7 +3,6 @@ import pathlib
 import ludics
 import ludics.fitness_functions
 import numpy as np
-import public_goods_games.contribution_rules
 
 here = pathlib.Path(__file__).resolve()
 assets_path = here.parents[2]
