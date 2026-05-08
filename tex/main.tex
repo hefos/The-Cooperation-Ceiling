@@ -15,6 +15,7 @@
 \newcommand{\gt}{\ensuremath >}
 \usepackage{float}
 \usepackage{framed}
+\usepackage{mdframed}
 \usetikzlibrary{positioning}
 \usetikzlibrary{matrix}
 \usepackage{amsthm}
@@ -56,25 +57,35 @@ Reducing global carbon emissions is one of the defining collective action
 problems of our time. Countries differ substantially in their economic
 capacity, historical emissions, and the costs they face when decarbonising,
 yet they share a mutual interest in the global public good of a stable
-climate. This structure maps onto a \emph{public goods game}
+climate. However, they face the temptation to free-ride, accepting the benefits
+of the public good without contributing to the cost\cite{10.1257/aer.15000001}.
+International agreements have attempted to encourage a reduction in global
+emissions, for example the Kyoto protocol\cite{ALMER2017125} and Paris
+agreement\cite{bodle2016paris,Held_Roger_2018}. Most recently, the European
+Union's Carbon Border Adjustment Mechanism~\cite{EU_CBAM_2023}, which requires
+importers to purchase certificates reflecting the carbon content of goods
+produced under weaker environmental regulation, represents a real-world
+instance of this idea.
+
+This structure maps onto a \emph{public goods game}
 \cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social, ARCHETTI20129,
 HauertDynamics2004, hauert2002volunteering}: each actor
 decides whether to incur a private cost to contribute to a shared resource
 whose total value is multiplied by some factor \(r\) and distributed equally.
 The temptation to free-ride means that purely selfish reasoning leads to a
-tragedy of the commons~\cite{hardin1968tragedy}, even when collective
-cooperation would benefit everyone. Both theory~\cite{santos2011risk} and controlled
-experiments~\cite{milinski2008collective, Milinski2011} show that framing cooperation as a
-collective-risk problem, where failure to meet a cooperation threshold incurs a
+tragedy of the commons~\cite{hardin1968tragedy, Weitz043299}, even when
+collective cooperation would benefit everyone. Both
+theory~\cite{santos2011risk} and
+controlled experiments~\cite{milinski2008collective, Milinski2011} show that
+framing
+cooperation as a collective-risk problem, where failure to meet a cooperation
+threshold incurs a
 shared loss, can substantially raise cooperation rates. The challenge of
 overcoming free-riding is not merely theoretical.
 Nordhaus~\cite{10.1257/aer.15000001} proposed voluntary \emph{climate clubs}
 in which member nations adopt a common carbon price and levy tariffs on
 non-members, turning the international climate problem into a coordination game
-with enforcement. The European Union's Carbon Border Adjustment
-Mechanism~\cite{EU_CBAM_2023}, which requires importers to purchase
-certificates reflecting the carbon content of goods produced under weaker
-environmental regulation, represents a real-world instance of this idea.
+with enforcement. 
 
 Evolutionary game theory offers a framework for studying how cooperation can
 emerge among self-interested actors without assuming rational
@@ -139,11 +150,7 @@ particular, \emph{intrinsic} dynamics, in which a player evaluates a
 prospective strategy change based on their own counterfactual payoff, are
 better suited to heterogeneous populations than \emph{extrinsic} dynamics, in
 which a player may copy a high-fitness neighbour without considering whether
-the same strategy would serve them as well. The introspection dynamics
-framework developed in~\cite{Couto2022} and extended to multiplayer asymmetric
-games in~\cite{Couto2023} formalises this distinction for homogeneous
-populations; extending it to the fully heterogeneous setting motivates the
-present work.
+the same strategy would serve them as well.
 
 We make the following contributions. First, we build on an established a
 general framework for evolutionary dynamics on fully heterogeneous, well-mixed
@@ -231,7 +238,8 @@ between two states, we have two directed edges, one in each direction. Below we
 see a comparison of the $3$-dimensional hypercube and the graph of a 3 player
 game with 2 actions.
 
-\begin{figure}[htbp]
+\begin{figure}[!t]
+    \begin{mdframed}
     \centering
 
     \begin{subfigure}{0.45\textwidth}
@@ -261,6 +269,7 @@ game with 2 actions.
              \textbf{C}: The graph of a 4-player game with 2 actions under a
              birth-death process. This representation shows how one player
              changes action at a given time.}
+    \end{mdframed}
     \label{fig:main}
 \end{figure}
 
@@ -826,11 +835,13 @@ use in the proof of the theorem below may not be familiar to the reader.
 This shows that even in a game where an action change \(D \to C\) would
 result in an increase in payoff for a given player, under a purely extrinsic
 population dynamic we cannot achieve a probability of cooperation above that of
-the neutral drift baseline. This result shows that extrinsic processes always
+the neutral drift baseline. Purely extrinsic processes always
 favour the pointwise dominant strategy, regardless of which strategy provides
-the Nash equilibrium for the game. 
+the Nash equilibrium for the game. We now show this result in the public goods game.
 
-Take, for example, the public goods game. In \ref{fig:extrinsic_alpha_range_violinplots}, we
+
+In figure~\ref{fig:extrinsic_plot}, we show this result in the
+context of the public goods game. In figures \textbf{A} through \textbf{E}, we
 can see this limit as a hard ceiling on the value of \(p_C\) which no
 parameter set in our data is able to exceed. This includes parameter
 combinations which have high values of \(r > N\), and so we see that despite
@@ -845,28 +856,93 @@ types which improve a player's payoff. In other words, even when a switch \(D
 remain a defector under a purely extrinsic population dynamic, due to the
 greater fitness of a defector in a given state.
 
-\begin{figure}
+In Fermi imitation dynamics, we can also note the process' invariance under
+\(r\). Figures~\ref{fig:fermi_mutation_violins} and
+~\ref{fig:fermi_beta_heatmap} show an identical distribution
+of \(p_C\) for all values of \(r\). The latter of these two figures also give
+that an increase in \(\beta\) will have a negative effect upon \(p_C\), as the
+value \(\Delta(\pi)\) will always be negative for a \(C \to D\) transition, and
+positive for a \(D \to C\) transition. As the process with \(\beta=0\) gives us
+neutral drift, we see our result in practice, as moving towards a less rational
+process increases \(p_C\) in all empirical cases. \(p_C\) in the Moran process
+increases with the value of \(r\), however once again we see that it has a hard
+limit at \(p_C = \frac{1}{2}\), as a given defector is always more likely to be
+chosen for reproduction than a given cooperator. The Moran process' ability to
+consider the \(r\) parameter leads it to have a higher \(p_C\) than Fermi
+imitation dynamics in most parameter combinations, as shown in figure~\ref{fig:compare_Mor_Fer}.
+
+\begin{figure}[!t]
     \centering
-    \begin{minipage}[t]{0.45\textwidth}
+    \begin{mdframed}
+    % Row 1
+    \begin{minipage}[t]{0.30\textwidth}
         \centering
         \textbf{A}\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_N_eq_8/main.pdf}
+        \includegraphics[width=\linewidth]{Figures/r_violinplots/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_mutation_violins}
     \end{minipage}
     \hfill
-    \begin{minipage}[t]{0.45\textwidth}
+    \begin{minipage}[t]{0.30\textwidth}
         \centering
         \textbf{B}\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_N_eq_8/main.pdf}
-        \phantomcaption\label{fig:moran_mutation_violins}
+        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:fermi_alpha_violin}
     \end{minipage}
-    \caption{The distribution of $p_C$ for each dynamic for
+    \hfill
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{C}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/fermi_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:fermi_beta_heatmap}
+    \end{minipage}
+
+    \vspace{0.3cm}
+
+    % Row 2
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{D}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/r_violinplots/moran_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:moran_r_violin}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{E}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:moran_alpha_violin}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{F}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_Moran_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:compare_Mor_Fer}
+    \end{minipage}
+    
+
+    \caption{\textbf{A}: The distribution of \(p_C\) in Fermi imitation
+    dynamics for different values of \(r\). Since Fermi imitation dynamics is
+    invariant under the value of \(r\), this distribution does not change, and
+    for all values of \(r\) it admits a maximum value of \(p_C\) below the
+    neutral-drift baseline \(p_C = \frac{1}{2}\).\\
+    \textbf{B}: The distribution of $p_C$ for each dynamic for
     different levels of heterogeneity in contribution. The greater the decile
-    of range$(\alpha_i)$, the greater the heterogeneity in contribution.
-    \textbf{A} shows fermi imitation dynamics, \textbf{B} shows the
-    Moran process.}
-\label{fig:extrinsic_alpha_range_violinplots}
+    of range$(\alpha_i)$, the greater the heterogeneity in contribution.\\
+    \textbf{C}: A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
+    for Fermi imitation dynamics. We see that there is a negative correlation
+    between \(\beta\) and \(p_C\).\\
+    \textbf{D,E}: The equivalent of \textbf{A} and \textbf{B}, respectively,
+    for the Moran process\\
+    \textbf{F}: The distribution of difference in \(p_C\) between Fermi
+    imitation dynamics and the Moran process for different combinations of
+    shared parameters.}
+    \end{mdframed}
+    
+    \label{fig:extrinsic_alpha_range_violinplots}
 \end{figure}
+
+
 
 \section{Intrinsic Population Dynamics}
 
@@ -876,7 +952,7 @@ or payoff other than the payoff of other players in the population. We shall
 see two such population dynamics - aspiration dynamics, which compares a
 player's payoff to their individual baseline aspiration, and introspection
 dynamics, which compares a player's payoff to their counterfactual payoff when
-they change action type. Unlike 
+they change action type. 
 
 \subsection{Aspiration Dynamics}
 
