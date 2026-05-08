@@ -1168,66 +1168,99 @@ figure~\ref{fig:epsilon_beta_heatmap}.
 
 \section{Conclusion}
 
-\begin{figure}[h!]
+\begin{figure}
     \centering
+
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/hybrid_dynamics/main.pdf}
         \caption*{\textbf{A}}
+        \label{fig:conclusion1}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/simulation/main.pdf}
         \caption*{\textbf{B}}
+        \label{fig:conclusion2}
     \end{subfigure}
-    \caption{\textbf{A}: \(p_C\) in various parameter combinations at \(N=8\),
-    varying the number of players using an intrinsic population dynamic.
+
+    \vspace{1em}
+
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/heterogeneous_r/main.pdf}
+        \caption*{\textbf{C}}
+        \label{fig:conclusion3}
+    \end{subfigure}
+
+    \caption{
+    \textbf{A}: \(p_C\) in various parameter combinations at \(N=8\),
+    varying the number of players using an intrinsic population dynamic. 0
+    intrinsic players gives the \(p_C\) of the Moran process, whereas 8 gives
+    us the \(p_C\) in introspective imitation dynamics. We take a linear
+    population with a maximum contribution of 8.
     \textbf{B}: for various parameter combinations, the mean value over
     numerous simulations of an 8 player population playing introspective
-    imitation dynamics converging to the theoretic \(p_C\).}
+    imitation dynamics converging to the theoretic \(p_C\).
+    \textbf{C}: \(p_C\) for a heterogeneous $r$ in introspective imitation
+    dynamics. 0 high return players corresponds to a population with
+    homogeneous return \(r_{\text{low}}\). 8 high return players corresponds to
+    a population with a homogeneous return \(r_{\text{high}}\).
+    }
+
     \label{fig:conclusion-fig}
 \end{figure}
 
-We have introduced and analysed a framework for heterogeneous public goods
-games under five distinct population dynamics, two purely extrinsic (Moran
-process and Fermi imitation) and three intrinsic or mixed (aspiration,
-introspection, and Introspective Imitation Dynamics). Exact results are
-obtained by computing transition matrices and stationary distributions
-analytically for the two-player case, with the general-\(N\) case studied
-numerically.
+We have introduced and analysed a framework for heterogeneous evolutionary
+games under five distinct population dynamics in three catagories, as shown in figure~\ref{fig:diagrams_of_dynamics}. We have defined the
+catagorisation of a \emph{purely extrinsic population dynamic}, and given
+rigorous formulations of two widely used examples in the Moran process and
+Fermi imitation dynamics. We have shown that dynamics under this classification
+have a hard ceiling on the probability of cooperation \(p_C\) in social
+dilemmas where a defector \emph{always} outperforms a cooperator in a given
+state. In such a game, purely extrinsic population dynamics are unable to
+exceed the neutral-drfit baseline. We then give formulations of two intrinsic
+population dynamics - aspiration dynamics in which players change strategy
+based on their performance
+in relation to a target payoff, and introspection dynamics in which players
+compare their current payoff with their counterfactual payoff which they could
+obtain by switching action type. We have also shown empirical results for the
+public goods game with heterogeneous contributions which confirm the ability
+for intrinsic population dynamics to exceed the population ceiling imposed by
+purely extrinsic processes. Finally, we have introduced a novel population
+dynamic in Introspective imitation dynamics with both an extrinsic and
+intrinsic step. Our empirical results confirm that this dynamic is able
+to overcome the ceiling of purely extrinsic population dynamics, but still
+allows players to take into account the performance of strategies within the
+current state. We establish the threshold \(r = N\) for which the intrinsic
+step in introspection dynamics and introspective imitation dynamics are able to
+overcome the neutral-drift baseline.
 
-The central theoretical finding is a dichotomy between extrinsic and intrinsic
-dynamics. Under any purely extrinsic dynamic, cooperation is bounded above by
-\(p_C \leq 1/2\) (Proposition~\ref{prop:ceiling}): payoff comparisons between
-players always disfavour the cooperating strategy, so the neutral-drift
-baseline cannot be exceeded. Intrinsic dynamics, which evaluate payoffs from
-the focal player's own perspective, break through this ceiling whenever \(r > N\)
-(Proposition~\ref{prop:rN}). The \(r = N\) threshold is sharp: it is not only the
-point at which the expected difference in \(p_C\) changes sign, but also the
-point at which the variance in that difference collapses to a minimum.
-
-The empirical results reveal a rich structure within and across dynamics.
-Introspection dynamics uniformly dominates Fermi imitation over all parameter
-combinations, and its advantage over the Moran process grows with \(r\), while
-outperforming it on average for all values of \(r\). 
-
-Introspective Imitation Dynamics is introduced here as a novel hybrid dynamic,
-combining the imitative learning structure of the Moran process with the
-payoff self-evaluation of introspection dynamics. It is the only absorbing
-dynamic that exceeds the \(1/2\) ceiling, and its behaviour changes
-qualitatively at \(r = N\). We see in \ref{fig:conclusion-fig} that with just a
-few players updating according to introspective imitation dynamics in an
-otherwise extrinsic population, we can encourage \(p_C\) to exceed a the
-extrinsic ceiling of \(1/2\). Further work on this may look further into the
+Further work on this may look further into the
 effect of hybrid population dynamics, similar to the combination of Moran and
-Fermi processes in \cite{LIU2015242}, where extrinsic and intrinsic population
-dynamics are played in a mixed population. We also show that simulations
+Fermi processes in~\cite{LIU2015242}, where extrinsic and intrinsic population
+dynamics are played in a mixed population. Figure~\ref{fig:conclusion1} shows
+three populations where the population dynamic is treated as a heterogeneous
+attribute, with players learning according to either the Moran process or
+introspective imitation dynamics. We see that under different parameters, a
+different number of players may possess an intrinsic learning method in order
+to exceed the neutral drift baseline \(p_C\).  show that simulations
 converge to the theoretic value in introspective imitation dynamics across a
-large number of iterations in introspective imitation dynamics. There may be
-further study in the use of mixing times \cite{LevinPeresWilmer2006} to see
+large number of iterations in introspective imitation dynamics. Further study
+may make use of mixing times~\cite{LevinPeresWilmer2006} in order to show
 which population dynamics converge to their theoretic \(p_C\) in the fewest
-iterations.
+iterations. Finally, the heterogeneity considered in this paper is in the
+player's contributions, however the threshold for introspective imitation
+dynamics occurs at the point \(r = N\). Figure~\ref{fig:conclusion3} shows that
+in introspective imitation dynamics with certain heterogeneous values of \(r_i\), fewer players are required to
+receive a return \(r > N\) in order to exceed the cooperation threshold.
+Additionally, we see in both figures~\ref{fig:conclusion3} and
+\ref{fig:epsilon_beta_heatmap} that under certain values of \(\epsilon\) and
+\(\beta\), even a population which is entirely contributing a high value of
+\(r\) will be unable to exceed the \(p_C\) threshold, as the extrinsic step of
+the process occurs with a higher rationality. The relationship between such
+values and the heterogeneity of \(r\) may be a focus of further study.
 
 \begin{figure}[!htbp]
 \centering
@@ -1260,6 +1293,7 @@ by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
 for aspiration dynamics there is only one other strategy to accept.}
 \label{fig:diagrams_of_dynamics}
 \end{figure}
+
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}
