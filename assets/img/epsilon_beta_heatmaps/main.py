@@ -37,34 +37,46 @@ gt_plot = gt_plot.sort_index(ascending=False).sort_index(axis=1)
 vmin = min(lt_plot.min().min(), gt_plot.min().min())
 vmax = max(lt_plot.max().max(), gt_plot.max().max())
 
-fig, ax = plt.subplots(1, 2, figsize=(10, 4))
+fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
 sns.heatmap(
     lt_plot,
     cmap="coolwarm",
-    ax=ax[0],
+    ax=ax,
     vmin=vmin,
     vmax=vmax,
-    cbar=False
+    cbar=False,
 )
+ax.set_title(r"$r < N$")
+ax.set_xlabel(r"$\epsilon$")
+ax.set_ylabel(r"$\beta$")
+
+folder = Path(here.parent / "imispection_r_lt")
+folder.mkdir(exist_ok=True)
+
+plt.tight_layout(rect=[0, 0, 0.9, 1])
+plt.savefig(here.parent / "imispection_r_lt/main.pdf")
+plt.close()
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
 sns.heatmap(
     gt_plot,
     cmap="coolwarm",
-    ax=ax[1],
+    ax=ax,
     vmin=vmin,
     vmax=vmax,
-    cbar=True,
-    cbar_ax=fig.add_axes([0.92, 0.15, 0.02, 0.7])
+    cbar=False
 )
+ax.set_title(r"$r > N$")
+ax.set_xlabel(r"$\epsilon$")
+ax.set_ylabel(r"$\beta$")
 
-ax[0].set_title(r"$r < N$")
-ax[1].set_title(r"$r > N$")
+folder = Path(here.parent / "imispection_r_gt")
+folder.mkdir(exist_ok=True)
 
-ax[0].set_xlabel(r"$\epsilon$")
-ax[1].set_xlabel(r"$\epsilon$")
-ax[0].set_ylabel(r"$\beta$")
-ax[1].set_ylabel(r"$\beta$")
+plt.tight_layout(rect=[0, 0, 0.9, 1])
+plt.savefig(here.parent / "imispection_r_gt/main.pdf")
 
 plt.tight_layout(rect=[0, 0, 0.9, 1])
 plt.savefig(here.parent / "main.pdf")
