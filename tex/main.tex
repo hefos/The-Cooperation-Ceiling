@@ -1260,12 +1260,14 @@ extrinsic or intrinsic step of the dynamic.
         \centering
         \includegraphics[width=\linewidth]{Figures/r_violinplots/imispection_N_eq_8/main.pdf}
         \caption*{\textbf{A}}
+        \label{fig:imi_r_plot}
     \end{minipage}
     \hfill
     \begin{minipage}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/imispection_N_eq_8/main.pdf}
         \caption*{\textbf{B}}
+        \label{fig:imi_mutation_violins}
     \end{minipage}
     \hfill
     \begin{minipage}{0.3\textwidth}
@@ -1276,16 +1278,24 @@ extrinsic or intrinsic step of the dynamic.
 
     \vspace{0.5cm}
 
-    \begin{minipage}{0.6\textwidth}
+    \begin{minipage}{0.3\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/main.pdf}
+        \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/imispection_r_lt/main.pdf}
         \caption*{\textbf{D}}
     \end{minipage}
     \hfill
     \begin{minipage}{0.3\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
+        \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/imispection_r_gt/main.pdf}
         \caption*{\textbf{E}}
+        \label{fig:epsilon_beta_heatmap}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
+        \caption*{\textbf{F}}
+        \label{fig:mor_v_imi}
     \end{minipage}
 
     \caption{\textbf{A}: the distribution of \(p_C\) in introspective imitation
@@ -1296,59 +1306,92 @@ extrinsic or intrinsic step of the dynamic.
     \textbf{C}: A heatmap of mean(\(p_C\)) in introspective imitation dynamics
     for varying \(r\) and \(\beta\). We see a threshold for the effect of a
     stronger choice intensity at \(r=N\).\\
-    \textbf{D}: A heatmap of the effect of both selection and choice intensity
+    \textbf{D,E}: Heatmaps of the effect of both selection and choice intensity
     on mean(\(p_C\)) for \(r>N\) and \(r<N\).\\
-    \textbf{E}: The difference in \(p_C\) between introspective imitation
+    \textbf{F}: The difference in \(p_C\) between introspective imitation
     dynamics and the Moran process for populations with shared parameters,
     specifically for different values of \(r\).}
     \end{mdframed}
     \label{fig:IID_grid}
 \end{figure}
 
-We see in figure~\ref{fig:imi_mutation_violins} that in the same manner as the
+We see in figure~\ref{fig:imi_r_plot} that in the same manner as the
 purely intrinsic population dynamics, introspective imiation dynamics is able
 to exceed the \(p_C = \frac{1}{2}\) ceiling which is imposed by purely
 extrinsic population dynamics. Despite the extrinsic step in the dynamic, the
 intrinsic step is sufficient to enable the dynamic to produce high values of
-\(p_C\). We can see that in figure~\ref{fig:imi_v_Moran} that this occurs
-exactly at the threshold \(r=N\): the same threshold that we see
-\(\phi(\Delta(\pi))\) begin to favour cooperation in introspection dynamics.
-Before this threshold, we actually see that introspective imitation dynamics
-favours defection more severely than in the standard Moran process, as both
+\(p_C\) under the right parameters. We can see in figure~\ref{fig:imi_r_plot}
+that this occurs exactly at the threshold \(r=N\): the same threshold that we
+see \(\phi(\Delta(\pi))\) begin to favour cooperation in introspection dynamics.
+Before this threshold, we actually see in figure~\ref{fig:mor_v_imi} that
+introspective imitation dynamics favours defection more severely than in the
+standard Moran process, as both
 steps supress the probability of a \(D \to C\) transition. We can see,
 therefore, that the intrinsic step of introspective imitation dynamics and
 introspection dynamics will favour the strategy which admits a nash equilibrium
-in the public goods game. This does not necessarily imply that introspective
-imitation dynamics admits a value of \(p_C\) which favours cooperation in line
-with \(\phi\) when \(r \gt N\), as certain choices of \(\epsilon\) and
-\(\beta\) may cause the process to emphasise the extrinsic step over the
-intrinsic, which will always favour defection, as seen in
-figure~\ref{fig:epsilon_beta_heatmap}.
+in the one-shot public goods game (i.e, cooperation if the Nash equilibrium is
+for all players to cooperate, and defection if it is for all players to
+defect). 
+
+This does not necessarily imply that introspective imitation dynamics
+admits a value of \(p_C\) which favours cooperation in line with \(\phi\) when
+\(r \gt N\), as certain choices of \(\epsilon\) and \(\beta\) may cause the
+process to emphasise the extrinsic step, which will always
+favour defection, over the intrinsic, as seen in
+figure~\ref{fig:epsilon_beta_heatmap}. We have seen previously for
+introspection dynamics that a stronger choice intensity favours cooperation if
+\(r > N\) and favours defection if the inequality is reversed - this remains
+true in introspective imitation dynamics. A stronger selection intensity on the
+other hand always favours defection. There is no result which says, for a given
+pair of choice and selection intensity that favours defection, that there is no
+value of \(r\) which admits a \(p_C > \frac{1}{2}\) - in fact it is likely that
+such a value exists outside of the range of our empirical data, as the
+difference between a cooperator and defector in the extrinsic step becomes
+minimal, and the intrinsic step strongly favours cooperation.
+
+Previously, we saw that
+heterogeneity had no effect on \(p_C\) in the Moran
+process (figure~\ref{fig:moran_alpha_violin}), and that a greater level of
+heterogeneity caused a lower mean and more polarised extreme values in
+introspection dynamics (figure~\ref{fig:intrinsic_alpha_range_violinplots}). In
+introspective imitation dynamics, heterogeneity causes the mass of the
+distribution to
+approach the extremes of \(p_C\). This effect can once again be attributed to
+the threshold \(r = N\). In a very heterogeneous population, high
+contributors have a comparitively much worse payoff to defectors, and thus are
+chosen by the extrinsic step of the dynamic more often. One
+of two systems then appear. If \(r < N\), high contributors are tempted with a
+large improvement in payoff if they defect as \(\alpha_i\left(\frac{r}{N} -
+1\right)\) is much lower. Thus, high contributors cooperate much less in a more
+heterogeneous population with a low \(r\). If \(r > N\), then the return
+\(\frac{r\alpha_i}{N}\) given by a high contribution is much larger in a more
+heterogeneous population. Thus, the intrinsic step of the population dynamic
+will favour cooperation much more strongly in a population with a greater level
+of heterogeneity if \(r > N\). We see this polarisation once again favours the
+strategy which maximises the overall payoff of a given player.
 
 
 
 \section{Conclusion}
 
-\begin{figure}
-    \centering
+\begin{figure}[!t]
+    \begin{mdframed}
+    \centering  
 
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/hybrid_dynamics/main.pdf}
         \caption*{\textbf{A}}
         \label{fig:conclusion1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/simulation/main.pdf}
         \caption*{\textbf{B}}
         \label{fig:conclusion2}
     \end{subfigure}
-
-    \vspace{1em}
-
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/heterogeneous_r/main.pdf}
         \caption*{\textbf{C}}
@@ -1360,16 +1403,16 @@ figure~\ref{fig:epsilon_beta_heatmap}.
     varying the number of players using an intrinsic population dynamic. 0
     intrinsic players gives the \(p_C\) of the Moran process, whereas 8 gives
     us the \(p_C\) in introspective imitation dynamics. We take a linear
-    population with a maximum contribution of 8.
+    population with a maximum contribution of 8.\\
     \textbf{B}: for various parameter combinations, the mean value over
     numerous simulations of an 8 player population playing introspective
-    imitation dynamics converging to the theoretic \(p_C\).
+    imitation dynamics converging to the theoretic \(p_C\).\\
     \textbf{C}: \(p_C\) for a heterogeneous $r$ in introspective imitation
     dynamics. 0 high return players corresponds to a population with
     homogeneous return \(r_{\text{low}}\). 8 high return players corresponds to
     a population with a homogeneous return \(r_{\text{high}}\).
     }
-
+    \end{mdframed}
     \label{fig:conclusion-fig}
 \end{figure}
 
