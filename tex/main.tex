@@ -216,9 +216,55 @@ on \(S\). Transitions can only occur between states that differ in exactly one
 coordinate, that is, states \(\mathbf{a}\) and \(\mathbf{b}\) with Hamming
 distance \(h(\mathbf{a}, \mathbf{b}) = 1\)~\cite{kythe-book}. We call the
 unique coordinate at which \(\mathbf{a}\) and \(\mathbf{b}\) differ the
-\emph{index of difference}, denoted \(I(\mathbf{a}, \mathbf{b})\)~\cite{Couto2023}.
-The set of states reachable from \(\mathbf{a}\) in one step is
-\(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a}, \mathbf{b}) = 1\}\)~\cite{Couto2023}.
+\emph{index of difference}, denoted \(I(\mathbf{a},
+\mathbf{b})\)~\cite{Couto2023}. The set of states reachable from \(\mathbf{a}\)
+in one step is \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a},
+\mathbf{b}) = 1\}\)~\cite{Couto2023}. 
+
+We shall discuss 5 population dynamics in this paper, and classify them as
+shown in figure~\ref{fig:diagrams_of_dynamics}. Purely extrinsic population
+dynamics only consider the success of a strategy in the current population when
+updating a player's action type. This models a behaviour where players look
+outwardly to attempt to improve their payoff. Intrinsic population dynamics
+model a player who looks inwardly to improve their payoff - comparing their
+current payoff to some attribute other than the payoff of an action type in the
+current population. The final classification is our novel population dynamic,
+introspective imitation dynamics, which contains both an extrinsic step and an
+intrinsic step.
+
+\begin{figure}[!t]
+\begin{mdframed}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Purely extrinsic & Intrinsic\\
+\hline
+\input{Figures/Tikz/Moran_Process/main.tikz}
+&
+\input{Figures/Tikz/Aspiration/main.tikz}
+\\
+&\\
+\input{Figures/Tikz/Fermi/main.tikz}
+&
+\input{Figures/Tikz/Introspection_Dynamics/main.tikz}
+\\
+\hline
+\multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
+\hline
+\multicolumn{2}{|c|}{ 
+\input{Figures/Tikz/Introspective_Imitation/main.tikz}
+}\\
+\hline
+\end{tabular}
+\caption{A comparison of different population dynamics. We assume in all cases
+that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
+and the diamond is chosen with a varying probability depending on the process.
+In the case of Introspection dynamics, we assume that the strategy represented
+by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
+for aspiration dynamics there is only one other strategy to accept.}
+\label{fig:diagrams_of_dynamics}
+\end{mdframed}
+\end{figure}
 
 If we consider a game with two actions, for example cooperate and defect, we
 can compare the graph of such a Markov chain to an $N$-dimensional hypercube.
@@ -234,9 +280,9 @@ the same at a given step, and thus each vertex contains a self-loop.
 Additionally, the probability of transitioning from a state \(\mathbf{a}\) to a
 state \(\mathbf{b}\) is not necessarily the same as the probability of
 transitioning from \(\mathbf{b}\) to \(\mathbf{a}\). Thus, instead of one edge
-between two states, we have two directed edges, one in each direction. Below we
-see a comparison of the $3$-dimensional hypercube and the graph of a 3 player
-game with 2 actions.
+between two states, we have two directed edges, one in each direction. In
+figure~\ref{fig:3-cube} and ~\ref{fig:4-cube} we see the graph of a 3 and 4
+dimensional hypercubes.
 
 \begin{figure}[!t]
     \begin{mdframed}
@@ -245,13 +291,15 @@ game with 2 actions.
     \begin{subfigure}{0.45\textwidth}
         \centering
         \input{Figures/Tikz/PGG/main.tikz}
-        \caption*{\textbf{A}}
+        \subcaption{}
+        \label{fig:pgg}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         \input{Figures/Tikz/hypercubes/hypercube_exact/main.tikz}
-        \caption*{\textbf{B}}
+        \subcaption{}
+        \label{fig:3-cube}
     \end{subfigure}
     
     \vspace{0.5cm}
@@ -259,18 +307,17 @@ game with 2 actions.
     \begin{subfigure}{\textwidth}
         \centering
         \input{Figures/Tikz/hypercube_N_4/main.tikz}
-        \caption*{\textbf{C}}
+        \subcaption{}
+        \label{fig:4-cube}
     \end{subfigure}
 
-    \caption{\textbf{A}: The public goods game with 6 players. Here 3 players contribute. 
-             \textbf{B}: The graph of a 3-player game with 2 actions under
-             a birth-death process. This is closely related to the hypercube of
-             dimension 3.
-             \textbf{C}: The graph of a 4-player game with 2 actions under a
-             birth-death process. This representation shows how one player
-             changes action at a given time.}
+    \caption{(a): The public goods game with 6 players. Here 3 players contribute. \\
+             (b): The hypercube of dimension 3. This is closely related
+             to the graph of a 3-player population dynamic.\\
+             (c): The hypercube of dimension 4. This is closely related
+             to the graph of a 4-player population dynamic.}
+    \label{fig:intro}
     \end{mdframed}
-    \label{fig:main}
 \end{figure}
 
 \subsection{Mutation}
@@ -335,26 +382,6 @@ state. All processes in this paper are considered under the effect of
 homogeneous mutation, where \(\mu_{ik} = \mu_{il}\) for all action types
 \(k,l\). 
 
-\subsubsection*{Measures of Cooperation}
-
-We define $p_C$ to be the \emph{probability of cooperation}. This represents
-the mean proportion of cooperators at a given step once an evolutionary game
-reaches it's steady state, and
-can be calculated by the value $\frac{\sum_{\mathbf{a} \in S}\left(\Pi_a \sum_{i=1}^N
-\mathbf{a}_i\right)}{N}$, where $\mathbf{a}_i$ takes the value $1$ if player
-$i$ cooperates in state $\mathbf{a}$, and $0$ if not. A special case of
-$p_C$ is in an extrinsic population dynamic where $\mu = 0$. In such a case, our
-dynamic forms an absorbing Markov chain, and as such rather than a
-steady state we obtain an absorption matrix which depends on the initial state
-of the system. In this case, \(p_C\) can be interpreted as the probability that,
-given an initial state, the chain will be absorbed into the state where all
-players cooperate.
-Figure~\ref{fig:pc_summaries} shows the marginal distribution of the cooperation
-probability $p_C$ across all parameter combinations and dynamics. Most
-configurations yield low cooperation, but the right tail is non-trivial:
-meaningful cooperation is achievable under a subset of conditions. We also see
-the distribution of \(p_C\) across each population dynamic.
-
 \subsection{The Public Goods Game}
 
 To illustrate all of the dynamics of Section~\ref{sec:the_general_heterogeneous_population_dynamic_model}
@@ -398,7 +425,17 @@ Therefore, in the case \(r > N\), the Nash equilibrium of the one-shot game is
 full contribution. However, it is important to note that in a given mixed state
 in the evolutionary model of cooperation in the public goods game, a defector
 will have a higher payoff than a cooperator, no matter the value of \(r\). This
-is because all players receive the same return from the public good, whilst only cooperators incur a cost \(-\alpha_i\)
+is because all players receive the same return from the public good, whilst
+only cooperators incur a cost \(-\alpha_i\)
+
+\subsubsection*{Measures of Cooperation}
+
+We define $p_C$ to be the \emph{probability of cooperation}. This represents
+the mean proportion of cooperators at a given step once an evolutionary game
+reaches it's steady state, and
+can be calculated by the value $\frac{\sum_{\mathbf{a} \in S}\left(\Pi_a
+\sum_{i=1}^N \mathbf{a}_i\right)}{N}$, where $\mathbf{a}_i$ takes the value $1$
+if player $i$ cooperates in state $\mathbf{a}$, and $0$ if not.
 
 To consider the distribution of the probability of cooperation in a public
 goods game, a large scale parameter sweep is carried out.
@@ -531,7 +568,7 @@ player will choose a higher fitness strategy with a greater probability. This
 value of \(\epsilon\) must, however, be chosen in order that
 \(f_i(\mathbf{a})\) is strictly positive.
 
-The Moran process is classically defined for natural evolution, where a
+The Moran process is classically employed in order to model natural evolution, where a
 player's ``type'' represents a mutation within a population. In each time step,
 rather than a given player choosing a new action type, a randomly chosen
 individual in the population would die and be removed from the population.
@@ -845,75 +882,72 @@ game.
 \begin{figure}[!t]
     \centering
     \begin{mdframed}
-    % Row 1
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{A}\par\vspace{0.1cm}
+        (a)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/r_violinplots/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_mutation_violins}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{B}\par\vspace{0.1cm}
+        (b)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_alpha_violin}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{C}\par\vspace{0.1cm}
+        (c)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_beta_heatmap}
-    \end{minipage}
+    \end{subfigure}
 
     \vspace{0.3cm}
 
-    % Row 2
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{D}\par\vspace{0.1cm}
+        (d)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/r_violinplots/moran_N_eq_8/main.pdf}
         \phantomcaption\label{fig:moran_r_violin}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{E}\par\vspace{0.1cm}
+        (e)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/moran_N_eq_8/main.pdf}
         \phantomcaption\label{fig:moran_alpha_violin}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{F}\par\vspace{0.1cm}
+        (f)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/Fermi_vs_Moran_N_eq_8/main.pdf}
         \phantomcaption\label{fig:compare_Mor_Fer}
-    \end{minipage}
+    \end{subfigure}
     
 
-    \caption{\textbf{A}: The distribution of \(p_C\) in Fermi imitation
+    \caption{(a): The distribution of \(p_C\) in Fermi imitation
     dynamics for different values of \(r\). Since Fermi imitation dynamics is
     invariant under the value of \(r\), this distribution does not change, and
     for all values of \(r\) it admits a maximum value of \(p_C\) below the
     neutral-drift baseline \(p_C = \frac{1}{2}\).\\
-    \textbf{B}: The distribution of $p_C$ for Fermi imitation dynamics for
+    (b): The distribution of $p_C$ for Fermi imitation dynamics for
     different levels of heterogeneity in contribution. The greater the decile
     of range$(\alpha_i)$, the greater the heterogeneity in contribution.\\
-    \textbf{C}: A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
+    (c): A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
     for Fermi imitation dynamics. We see that there is a negative correlation
     between \(\beta\) and \(p_C\).\\
-    \textbf{D,E}: The equivalent of \textbf{A} and \textbf{B}, respectively,
+    (d), (e): The equivalent of (a) and (b), respectively,
     for the Moran process\\
-    \textbf{F}: The distribution of difference in \(p_C\) between Fermi
+    (f): The distribution of difference in \(p_C\) between Fermi
     imitation dynamics and the Moran process for different combinations of
     shared parameters.}
-    \end{mdframed}
-    
     \label{fig:extrinsic_alpha_range_violinplots}
+    \end{mdframed}
 \end{figure}
 
-In figure~\ref{fig:extrinsic_plot}, we show this result in the
+In figure~\ref{fig:extrinsic_alpha_range_violinplots}, we show our theoretical result in the
 context of the public goods game. In figures \textbf{A} through \textbf{E}, we
 can see this limit as a hard ceiling on the value of \(p_C\) which no
 parameter set in our data is able to exceed. This includes parameter
@@ -1064,71 +1098,70 @@ goods game.
     \centering
     \begin{mdframed}
     % Row 1
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{A}\par\vspace{0.1cm}
+        (a)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/r_violinplots/aspiration_N_eq_8/main.pdf}
         \phantomcaption\label{fig:aspiration_mutation_violins}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{B}\par\vspace{0.1cm}
+        (b)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/aspiration_N_eq_8/main.pdf}
         \phantomcaption\label{fig:aspiration_alpha_violin}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{C}\par\vspace{0.1cm}
+        (c)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/aspiration_N_eq_8/main.pdf}
         \phantomcaption\label{fig:aspiration_beta_heatmap}
-    \end{minipage}
+    \end{subfigure}
 
     \vspace{0.3cm}
 
     % Row 2
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{D}\par\vspace{0.1cm}
+        (d)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/r_violinplots/introspection_N_eq_8/main.pdf}
         \phantomcaption\label{fig:introspection_mutation_violins}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{E}\par\vspace{0.1cm}
+        (e)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_N_eq_8/main.pdf}
         \phantomcaption\label{fig:introspection_alpha_violin}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
-        \textbf{F}\par\vspace{0.1cm}
+        (f)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/introspection_N_eq_8/main.pdf}
         \phantomcaption\label{fig:introspection_beta_heatmap}
-    \end{minipage}
+    \end{subfigure}
     
 
-    \caption{\textbf{A}: The distribution of \(p_C\) in aspiration dynamics.
+    \caption{(a): The distribution of \(p_C\) in aspiration dynamics.
     For medium values of \(r\), players are able to achieve their aspired
     fitness with fewer cooperators, and so the value of \(p_C\) is reduced.
     However,
     when \(r>N\), players achieve a higher payoff in a state \textbf{a} where
     they cooperate than in the state $\textbf{a}_{-i}$ where they do
     not cooperate. Thus we have \(p_C > \frac{1}{2}\) in this case\\
-    \textbf{B}: The distribution of $p_C$ for aspiration dynamics for
+    (b): The distribution of $p_C$ for aspiration dynamics for
     different levels of heterogeneity in contribution. The greater the decile
     of range$(\alpha_i)$, the greater the heterogeneity in contribution.\\
-    \textbf{C}: A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
+    (c): A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
     for aspiration dynamics. We see that there is a negative correlation
     between \(\beta\) and \(p_C\). The mean \(p_C\) of aspiration dynamics is
     usually in the region (0.4, 0.6)\\
-    \textbf{D,E,F}: The equivalent of \textbf{A}, \textbf{B}, and \textbf{C}, respectively,
+    (d),(e), (f): The equivalent of (a), (b), and (c), respectively,
     for introspection dynamics\\}
-    \end{mdframed}
-    
     \label{fig:intrinsic_alpha_range_violinplots}
+    \end{mdframed}
 \end{figure}
 
 In figure~\ref{fig:intrinsic_alpha_range_violinplots}, we see that intrinsic
@@ -1236,7 +1269,7 @@ strategies in the rest of the population.
 
 We see that this dynamic does not break down into individual Markov chains like
 introspection dynamics due to the extrinsic step, however it is shown
-in figure~\ref{fig:imi_mutation_violins} able to exceed the extrinsic population
+in figure~\ref{fig:imi_alpha_violins} able to exceed the extrinsic population
 ceiling under the right conditions due to the
 intrinsic step. It is also defined for any number of strategies, and will
 consider each strategy proportional to both it's fitness within the state and
@@ -1256,63 +1289,63 @@ extrinsic or intrinsic step of the dynamic.
     \begin{mdframed}
     \centering
 
-    \begin{minipage}{0.3\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/r_violinplots/imispection_N_eq_8/main.pdf}
-        \caption*{\textbf{A}}
+        \subcaption{}
         \label{fig:imi_r_plot}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.3\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/imispection_N_eq_8/main.pdf}
-        \caption*{\textbf{B}}
-        \label{fig:imi_mutation_violins}
-    \end{minipage}
+        \subcaption{}
+        \label{fig:imi_alpha_violins}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.3\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/imispection_N_eq_8/main.pdf}
-        \caption*{\textbf{C}}
-    \end{minipage}
+        \subcaption{}
+    \end{subfigure}
 
     \vspace{0.5cm}
 
-    \begin{minipage}{0.3\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/imispection_r_lt/main.pdf}
-        \caption*{\textbf{D}}
-    \end{minipage}
+        \subcaption{}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.3\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/imispection_r_gt/main.pdf}
-        \caption*{\textbf{E}}
+        \subcaption{}
         \label{fig:epsilon_beta_heatmap}
-    \end{minipage}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.3\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
-        \caption*{\textbf{F}}
+        \subcaption{}
         \label{fig:mor_v_imi}
-    \end{minipage}
+    \end{subfigure}
 
-    \caption{\textbf{A}: the distribution of \(p_C\) in introspective imitation
+    \caption{(a): the distribution of \(p_C\) in introspective imitation
     dynamics for various values of \(r\).\\
-    \textbf{B}: the distribution of \(p_C\) in introspective imitation dynamics
+    (b): the distribution of \(p_C\) in introspective imitation dynamics
     for various levels of heterogeneity. The greater the value of
     range(\(\alpha\)), the greater the contribution heterogeneity.\\
-    \textbf{C}: A heatmap of mean(\(p_C\)) in introspective imitation dynamics
+    (c): A heatmap of mean(\(p_C\)) in introspective imitation dynamics
     for varying \(r\) and \(\beta\). We see a threshold for the effect of a
     stronger choice intensity at \(r=N\).\\
-    \textbf{D,E}: Heatmaps of the effect of both selection and choice intensity
+    (d),(e): Heatmaps of the effect of both selection and choice intensity
     on mean(\(p_C\)) for \(r>N\) and \(r<N\).\\
-    \textbf{F}: The difference in \(p_C\) between introspective imitation
+    (f): The difference in \(p_C\) between introspective imitation
     dynamics and the Moran process for populations with shared parameters,
     specifically for different values of \(r\).}
-    \end{mdframed}
     \label{fig:IID_grid}
+    \end{mdframed}
 \end{figure}
 
 We see in figure~\ref{fig:imi_r_plot} that in the same manner as the
@@ -1381,39 +1414,39 @@ strategy which maximises the overall payoff of a given player.
     \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/hybrid_dynamics/main.pdf}
-        \caption*{\textbf{A}}
+        \subcaption{}
         \label{fig:conclusion1}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/simulation/main.pdf}
-        \caption*{\textbf{B}}
+        \subcaption{}
         \label{fig:conclusion2}
     \end{subfigure}
     \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Figures/heterogeneous_r/main.pdf}
-        \caption*{\textbf{C}}
+        \subcaption{}
         \label{fig:conclusion3}
     \end{subfigure}
 
     \caption{
-    \textbf{A}: \(p_C\) in various parameter combinations at \(N=8\),
+    (a): \(p_C\) in various parameter combinations at \(N=8\),
     varying the number of players using an intrinsic population dynamic. 0
     intrinsic players gives the \(p_C\) of the Moran process, whereas 8 gives
     us the \(p_C\) in introspective imitation dynamics. We take a linear
     population with a maximum contribution of 8.\\
-    \textbf{B}: for various parameter combinations, the mean value over
+    (b): for various parameter combinations, the mean value over
     numerous simulations of an 8 player population playing introspective
     imitation dynamics converging to the theoretic \(p_C\).\\
-    \textbf{C}: \(p_C\) for a heterogeneous $r$ in introspective imitation
+    (c): \(p_C\) for a heterogeneous $r$ in introspective imitation
     dynamics. 0 high return players corresponds to a population with
     homogeneous return \(r_{\text{low}}\). 8 high return players corresponds to
     a population with a homogeneous return \(r_{\text{high}}\).
     }
-    \end{mdframed}
     \label{fig:conclusion-fig}
+    \end{mdframed}
 \end{figure}
 
 We have introduced and analysed a framework for heterogeneous evolutionary
@@ -1465,39 +1498,6 @@ Additionally, we see in both figures~\ref{fig:conclusion3} and
 \(r\) will be unable to exceed the \(p_C\) threshold, as the extrinsic step of
 the process occurs with a higher rationality. The relationship between such
 values and the heterogeneity of \(r\) may be a focus of further study.
-
-\begin{figure}[!htbp]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-Extrinsic Strategy Analysis & Intrinsic Strategy Analysis\\
-\hline
-\input{Figures/Tikz/Moran_Process/main.tikz}
-&
-\input{Figures/Tikz/Aspiration/main.tikz}
-\\
-&\\
-\input{Figures/Tikz/Fermi/main.tikz}
-&
-\input{Figures/Tikz/Introspection_Dynamics/main.tikz}
-\\
-\hline
-\multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
-\hline
-\multicolumn{2}{|c|}{ 
-\input{Figures/Tikz/Introspective_Imitation/main.tikz}
-}\\
-\hline
-\end{tabular}
-\caption{A comparison of different population dynamics. We assume in all cases
-that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
-and the diamond is chosen with a varying probability depending on the process.
-In the case of Introspection dynamics, we assume that the strategy represented
-by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
-for aspiration dynamics there is only one other strategy to accept.}
-\label{fig:diagrams_of_dynamics}
-\end{figure}
-
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}
