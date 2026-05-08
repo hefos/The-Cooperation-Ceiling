@@ -837,39 +837,10 @@ result in an increase in payoff for a given player, under a purely extrinsic
 population dynamic we cannot achieve a probability of cooperation above that of
 the neutral drift baseline. Purely extrinsic processes always
 favour the pointwise dominant strategy, regardless of which strategy provides
-the Nash equilibrium for the game. We now show this result in the public goods game.
+the Nash equilibrium for the game. We now show this result in the public goods
+game.
 
-
-In figure~\ref{fig:extrinsic_plot}, we show this result in the
-context of the public goods game. In figures \textbf{A} through \textbf{E}, we
-can see this limit as a hard ceiling on the value of \(p_C\) which no
-parameter set in our data is able to exceed. This includes parameter
-combinations which have high values of \(r > N\), and so we see that despite
-full cooperation being the Nash equilibrium of the one shot game, the pointwise
-dominance of defection's fitness over that of cooperation leads to defection
-becoming the dominant strategy in a repeated game according to a purely
-extrinsic population dynamic. This not only leads to a worse average payoff for
-all players in the population in the steady state, but also means that when \(r
-> N\), worsening moves occur with a higher probability than changes of action
-types which improve a player's payoff. In other words, even when a switch \(D
-\to C\) would always improve a player's payoff, the player will still prefer to
-remain a defector under a purely extrinsic population dynamic, due to the
-greater fitness of a defector in a given state.
-
-In Fermi imitation dynamics, we can also note the process' invariance under
-\(r\). Figures~\ref{fig:fermi_mutation_violins} and
-~\ref{fig:fermi_beta_heatmap} show an identical distribution
-of \(p_C\) for all values of \(r\). The latter of these two figures also give
-that an increase in \(\beta\) will have a negative effect upon \(p_C\), as the
-value \(\Delta(\pi)\) will always be negative for a \(C \to D\) transition, and
-positive for a \(D \to C\) transition. As the process with \(\beta=0\) gives us
-neutral drift, we see our result in practice, as moving towards a less rational
-process increases \(p_C\) in all empirical cases. \(p_C\) in the Moran process
-increases with the value of \(r\), however once again we see that it has a hard
-limit at \(p_C = \frac{1}{2}\), as a given defector is always more likely to be
-chosen for reproduction than a given cooperator. The Moran process' ability to
-consider the \(r\) parameter leads it to have a higher \(p_C\) than Fermi
-imitation dynamics in most parameter combinations, as shown in figure~\ref{fig:compare_Mor_Fer}.
+\subsection{Purely extrinsic population dynamics in the Public Goods Game}
 
 \begin{figure}[!t]
     \centering
@@ -926,7 +897,7 @@ imitation dynamics in most parameter combinations, as shown in figure~\ref{fig:c
     invariant under the value of \(r\), this distribution does not change, and
     for all values of \(r\) it admits a maximum value of \(p_C\) below the
     neutral-drift baseline \(p_C = \frac{1}{2}\).\\
-    \textbf{B}: The distribution of $p_C$ for each dynamic for
+    \textbf{B}: The distribution of $p_C$ for Fermi imitation dynamics for
     different levels of heterogeneity in contribution. The greater the decile
     of range$(\alpha_i)$, the greater the heterogeneity in contribution.\\
     \textbf{C}: A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
@@ -942,7 +913,36 @@ imitation dynamics in most parameter combinations, as shown in figure~\ref{fig:c
     \label{fig:extrinsic_alpha_range_violinplots}
 \end{figure}
 
+In figure~\ref{fig:extrinsic_plot}, we show this result in the
+context of the public goods game. In figures \textbf{A} through \textbf{E}, we
+can see this limit as a hard ceiling on the value of \(p_C\) which no
+parameter set in our data is able to exceed. This includes parameter
+combinations which have high values of \(r > N\), and so we see that despite
+full cooperation being the Nash equilibrium of the one shot game, the pointwise
+dominance of defection's fitness over that of cooperation leads to defection
+becoming the dominant strategy in a repeated game according to a purely
+extrinsic population dynamic. This not only leads to a worse average payoff for
+all players in the population in the steady state, but also means that when \(r
+> N\), worsening moves occur with a higher probability than changes of action
+types which improve a player's payoff. In other words, even when a switch \(D
+\to C\) would always improve a player's payoff, the player will still prefer to
+remain a defector under a purely extrinsic population dynamic, due to the
+greater fitness of a defector in a given state.
 
+In Fermi imitation dynamics, we can also note the process' invariance under
+\(r\). Figures~\ref{fig:fermi_mutation_violins} and
+~\ref{fig:fermi_beta_heatmap} show an identical distribution
+of \(p_C\) for all values of \(r\). The latter of these two figures also give
+that an increase in \(\beta\) will have a negative effect upon \(p_C\), as the
+value \(\Delta(\pi)\) will always be negative for a \(C \to D\) transition, and
+positive for a \(D \to C\) transition. As the process with \(\beta=0\) gives us
+neutral drift, we see our result in practice, as moving towards a less rational
+process increases \(p_C\) in all empirical cases. \(p_C\) in the Moran process
+increases with the value of \(r\), however once again we see that it has a hard
+limit at \(p_C = \frac{1}{2}\), as a given defector is always more likely to be
+chosen for reproduction than a given cooperator. The Moran process' ability to
+consider the \(r\) parameter leads it to have a higher \(p_C\) than Fermi
+imitation dynamics in most parameter combinations, as shown in figure~\ref{fig:compare_Mor_Fer}.
 
 \section{Intrinsic Population Dynamics}
 
@@ -1060,46 +1060,107 @@ goods game.
 
 \subsection{Intrinsic population dynamics in a public goods game}
 
-\begin{figure}
+\begin{figure}[!t]
     \centering
-    \begin{minipage}[t]{0.45\textwidth}
+    \begin{mdframed}
+    % Row 1
+    \begin{minipage}[t]{0.30\textwidth}
         \centering
         \textbf{A}\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/aspiration_N_eq_8/main.pdf}
+        \includegraphics[width=\linewidth]{Figures/r_violinplots/aspiration_N_eq_8/main.pdf}
         \phantomcaption\label{fig:aspiration_mutation_violins}
     \end{minipage}
     \hfill
-    \begin{minipage}[t]{0.45\textwidth}
+    \begin{minipage}[t]{0.30\textwidth}
         \centering
         \textbf{B}\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_N_eq_8/main.pdf}
+        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/aspiration_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:aspiration_alpha_violin}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{C}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/aspiration_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:aspiration_beta_heatmap}
+    \end{minipage}
+
+    \vspace{0.3cm}
+
+    % Row 2
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{D}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/r_violinplots/introspection_N_eq_8/main.pdf}
         \phantomcaption\label{fig:introspection_mutation_violins}
     \end{minipage}
-    \caption{The distribution of $p_C$ for each dynamic for
+    \hfill
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{E}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/introspection_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:introspection_alpha_violin}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.30\textwidth}
+        \centering
+        \textbf{F}\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/introspection_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:introspection_beta_heatmap}
+    \end{minipage}
+    
+
+    \caption{\textbf{A}: The distribution of \(p_C\) in aspiration dynamics.
+    For medium values of \(r\), players are able to achieve their aspired
+    fitness with fewer cooperators, and so the value of \(p_C\) is reduced.
+    However,
+    when \(r>N\), players achieve a higher payoff in a state \textbf{a} where
+    they cooperate than in the state $\textbf{a}_{-i}$ where they do
+    not cooperate. Thus we have \(p_C > \frac{1}{2}\) in this case\\
+    \textbf{B}: The distribution of $p_C$ for aspiration dynamics for
     different levels of heterogeneity in contribution. The greater the decile
-    of range$(\alpha_i)$, the greater the heterogeneity in contribution.
-    \textbf{A} shows aspiration dynamics, \textbf{B} shows introspection dynamics.}
-\label{fig:intrinsic_alpha_range_violinplots}
+    of range$(\alpha_i)$, the greater the heterogeneity in contribution.\\
+    \textbf{C}: A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
+    for aspiration dynamics. We see that there is a negative correlation
+    between \(\beta\) and \(p_C\). The mean \(p_C\) of aspiration dynamics is
+    usually in the region (0.4, 0.6)\\
+    \textbf{D,E,F}: The equivalent of \textbf{A}, \textbf{B}, and \textbf{C}, respectively,
+    for introspection dynamics\\}
+    \end{mdframed}
+    
+    \label{fig:intrinsic_alpha_range_violinplots}
 \end{figure}
 
-In~\ref{fig:intrinsic_alpha_range_violinplots}, we see that intrinsic
+In figure~\ref{fig:intrinsic_alpha_range_violinplots}, we see that intrinsic
 population dynamics are able to exceed the ceiling on \(p_C\) which is imposed
 on purely extrinsic population dynamics. In the case of aspiration dynamics,
-this is because for all players to make at least some amount of profit, at
-least one player must be cooperating at all times. If \(r < N\), then we have
-that multiple players must cooperate to allow all players to reach the
+\(p_C\) does not reach excessively low values as in the other processes we have
+discussed. This is because for all players to make at least some amount of
+profit, at least one player must be cooperating at all times. If no players
+cooperate, then no player will reach their target payoff threshold. Although
+the ceiling is not exceeded if \(r <
+N\) (both shown in figure~\ref{fig:aspiration_mutation_violins} and noted in ~\cite{du2014aspiration}), we must still have multiple players cooperate in order to allow all players to reach the
 cooperation threshold, and the furthest above the aspiration threshold is
-reached when all players cooperate (although in some levels of heterogeneity,
+reached when many players cooperate (although in some levels of heterogeneity,
 it may be that a certain number of players will defect more often in the steady
-state due to the large contributions needed to be made). When \(r > N\), each
-player will have \(\pi_i(\mathbf{a}) - A\) is greater when cooperating than
-defecting, and thus the transition \(D \to C\) will always occur with a higher
-probability than the reverse.
+state due to the large contributions needed to be made). The ceiling is
+exceeded at the threshold \(r > N\), as for all players, \(\pi_i(\mathbf{a}) - A\) is greater when cooperating than
+defecting in a given state \(\mathbf{a}_{-i}\), and thus the transition \(D \to
+C\) will always occur with a higher probability than the reverse. For
+intermediate values of \(r\), aspiration dynamics can achieve it's lowest
+\(p_C\), as players are able to achieve their aspiration with fewer cooperators,
+but still benefit from free-riding. Figure~\ref{fig:aspiration_beta_heatmap}
+shows that the mean value of \(p_C\) remains fairly steady for the values of
+\(r\) and \(\beta\). The aspiration level is the biggest indicator of
+cooperation in the population in a linear public goods game - it has been shown
+previously that for a high aspiration level, cooperation emerges at a level
+near the neutral-drift baseline, but for a low aspiration level defectors
+dominate the population~\cite{du2014aspiration}.
 
-In the case of introspection dynamics, we can see that the ceiling is breached
-at exactly the threshold \(r = N\). 
-\begin{proposition}[$r = N$ threshold]
-\label{prop:rN}
+In the case of introspection dynamics, we can see that the ceiling is once
+again breached at exactly the threshold \(r = N\). 
+
+\begin{proposition}[$r = N$ threshold] \label{prop:rN}
 For any heterogeneous population with $\alpha_i > 0$ for all $i$, the
 introspective evaluation step of Introspection Dynamics favours
 cooperation if and only if $r > N$.
@@ -1128,7 +1189,11 @@ suitable population dynamic for a heterogeneous population. However, as
 introspection dynamics can become independent of the rest of the
 population in a state-independent game, it cannot always fully model learning
 in a real world context without making assumptions which may not reflect how
-individuals make decisions in the real world. 
+individuals make decisions in the real world.
+Figure~\ref{fig:introspection_beta_heatmap} shows this further - a stronger
+choice intensity favours cooperation if a switch \(C \to D\) favours cooperation, and
+favours defection if the reverse is true. While this is the clear rational
+behaviour, it is not true for Fermi imitation dynamics, as shown in figure~\ref{fig:fermi_beta_heatmap}.
 
 \section{Introspective Imitation Dynamics}
 
@@ -1187,37 +1252,57 @@ extrinsic or intrinsic step of the dynamic.
 
 \subsection{introspective imitation dynamics in the public goods game}
 
-\begin{figure}
-
-\begin{subfigure}[t]{0.48\textwidth}
+\begin{figure}[!t]
+    \begin{mdframed}
     \centering
-    \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/imispection_N_eq_8/main.pdf}
-    \caption*{\textbf{A}}
-    \label{fig:imi_mutation_violins}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
-    \caption*{\textbf{B}}
-    \label{fig:imi_v_Moran}
-\end{subfigure}
 
-\vspace{0.5cm}
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/r_violinplots/imispection_N_eq_8/main.pdf}
+        \caption*{\textbf{A}}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/alpha_range_violinplots/imispection_N_eq_8/main.pdf}
+        \caption*{\textbf{B}}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/beta_r_heatmaps/imispection_N_eq_8/main.pdf}
+        \caption*{\textbf{C}}
+    \end{minipage}
 
-\begin{subfigure}[t]{\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/main.pdf}
-    \caption*{\textbf{C}}
-    \label{fig:epsilon_beta_heatmap}
-\end{subfigure}
+    \vspace{0.5cm}
 
-\caption{\textbf{A}: The distribution of $p_C$ depending on the heterogeneity
-of $\alpha_i$. \textbf{B}: $p_C^{\text{(IID)}} - p_C^{\text{(Moran)}}$ across
-values of $r$. Introspective imitation dynamics as a model can be described as
-the Moran process with an additional intrinsic step. \textbf{C}: $p_C$ in
-introspective imitation dynamics for varying $\epsilon$ and $\beta$.}
+    \begin{minipage}{0.6\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/epsilon_beta_heatmaps/main.pdf}
+        \caption*{\textbf{D}}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figures/process_comparison_violinplots/imispection_vs_Moran_N_eq_8/main.pdf}
+        \caption*{\textbf{E}}
+    \end{minipage}
 
+    \caption{\textbf{A}: the distribution of \(p_C\) in introspective imitation
+    dynamics for various values of \(r\).\\
+    \textbf{B}: the distribution of \(p_C\) in introspective imitation dynamics
+    for various levels of heterogeneity. The greater the value of
+    range(\(\alpha\)), the greater the contribution heterogeneity.\\
+    \textbf{C}: A heatmap of mean(\(p_C\)) in introspective imitation dynamics
+    for varying \(r\) and \(\beta\). We see a threshold for the effect of a
+    stronger choice intensity at \(r=N\).\\
+    \textbf{D}: A heatmap of the effect of both selection and choice intensity
+    on mean(\(p_C\)) for \(r>N\) and \(r<N\).\\
+    \textbf{E}: The difference in \(p_C\) between introspective imitation
+    dynamics and the Moran process for populations with shared parameters,
+    specifically for different values of \(r\).}
+    \end{mdframed}
+    \label{fig:IID_grid}
 \end{figure}
 
 We see in figure~\ref{fig:imi_mutation_violins} that in the same manner as the
