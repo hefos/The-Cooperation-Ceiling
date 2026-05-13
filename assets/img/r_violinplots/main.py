@@ -91,7 +91,7 @@ for df_set in dataframes:
         ax.set_xticks(r_values)
         ax.set_xticklabels(r_values)
 
-        ax.set_title(f"{process}_N_eq_{N}")
+        ax.set_title(fr"{process} $r$ against $p_C$")
         folder = Path(here.parent / f"{process}_N_eq_{N}")
         folder.mkdir(exist_ok=True)
 
