@@ -7,7 +7,6 @@ here = Path(__file__).resolve()
 data_path = here.parents[2] / "data"
 
 dataframes_asp = [
-    data_path / "raw/aspiration_mu_eq_0.0/main.csv",
     data_path / "raw/aspiration_mu_eq_0.1/main.csv",
     data_path / "raw/aspiration_mu_eq_0.001/main.csv",
     data_path / "raw/aspiration_mu_eq_0.005/main.csv",
@@ -29,7 +28,6 @@ dataframes_imispection = [
 ]
 
 dataframes_introspection = [
-    data_path / "raw/introspection_mu_eq_0.0/main.csv",
     data_path / "raw/introspection_mu_eq_0.1/main.csv",
     data_path / "raw/introspection_mu_eq_0.001/main.csv",
     data_path / "raw/introspection_mu_eq_0.005/main.csv",

@@ -112,8 +112,7 @@ aside is that actors are not identical. Players differ in wealth, productive
 capacity, and the costs they face, and this inequality can reshape the dynamics
 of cooperation~\cite{hauser2019social}. In spatial and graphical settings,
 where players sit on a network and participate simultaneously in multiple games
-with their neighbours~\cite{nowak1992evolutionary, szabo2007evolutionary,
-perc2013evolutionary}, heterogeneity generally
+with their neighbours~\cite{nowak1992evolutionary, perc2013evolutionary,szabo2007evolutionary}, heterogeneity generally
 promotes cooperation. In \cite{santos2008social} it is shown that social
 diversity in endowments promotes the emergence of cooperation in the public
 goods game directly: heterogeneous populations outperform their homogeneous
@@ -144,7 +143,7 @@ independently of any graph structure. Furthermore, most existing analyses rely
 on simulation or mean-field approximations; exact treatments of heterogeneous
 evolutionary dynamics remain rare. How the choice of update rule interacts with
 population heterogeneity is also poorly understood. The Moran
-process~\cite{Moran_1958, knight2018evolution}, Fermi imitation
+process~\cite{knight2018evolution,Moran_1958}, Fermi imitation
 dynamics~\cite{PhysRevE.58.69},
 aspiration dynamics~\cite{du2014aspiration}, and introspection
 dynamics~\cite{Couto2022, Couto2023} all model strategy revision in distinct
@@ -158,13 +157,28 @@ prospective strategy change based on their payoff in comparison with their own
 counterfactual payoff or aspiration level, are
 better suited to heterogeneous populations than \emph{extrinsic} dynamics, in
 which a player may copy a high-fitness neighbour without considering whether
-the same strategy would serve them as well.     
+the same strategy would serve them as well. 
+
+There is also precident in the literature for creating population dynamics from
+the combination of other processes. Previous works have studied this in terms
+of evidential reasoning~\cite{QUAN2020109634}, populations where the population
+dynamic is a heterogeneous attribute of the players~\cite{LIU2015242,
+PhysRevE.102.032120, PhysRevE.94.012124}, players choosing an update rule
+probablistically~\cite{XING2024107859, PhysRevE.102.032120, XWangCombining}, and
+explicit combinations of steps from different population
+dynamics~\cite{WANG2023128134}. Many of these works have focused on the
+combination of aspiration and imitation learning rules, or the
+combination of different methods of social learning, for instance combining
+the Moran process with Fermi imitation dynamics. The former method is of
+particular interest, as it combines social learning with aspirational
+self-asessment, creating a process in which a player considers multiple
+measures of a strategy's success when updating their action type.
 
 We make the following contributions. First, we build on an established general framework for evolutionary dynamics on fully heterogeneous, well-mixed
 populations of \(N\) ordered individuals, in which each player may have a
 distinct payoff function and contribution level. Second, we formalize the
 notion of a purely extrinsic population dynamic, a definition encompassing both
-the Moran process~\cite{Moran_1958, knight2018evolution} and Fermi imitation
+the Moran process~\cite{knight2018evolution,Moran_1958} and Fermi imitation
 dynamics~\cite{PhysRevE.58.69}, and establish that such dynamics are inherently
 constrained by an upper bound on the probability of cooperation. Third, we
 consider two intrinsic population dynamics, Aspiration
@@ -1072,11 +1086,15 @@ performance in a game is from an aspirational constant fitness value:
 Here, \(A_i\) is player \(i\)'s \textit{aspiration} - the payoff which
 they desire to make from a given game. A player will accept a new strategy with
 a higher than random probability if their current payoff is lower than their
-aspired payoff. This dynamic is almost always defined for two actions,
+aspired payoff. This dynamic is traditionally defined for two actions~\cite{du2014aspiration,Du2015AspirationDynamics,Zhou2021AspirationDynamics},
 traditionally cooperation and defection~\cite{du2014aspiration}, however it has
-been defined for games with 3 or more actions~\cite{Aspiration3Types}. In this
-paper, we consider a homogeneous aspiration value \(A\), and the two-action
-formulation of aspiration dynamics as presented in~\cite{du2014aspiration}.
+been defined for games with 3 or more actions~\cite{Aspiration3Types}.
+Aspiration dynamics has also often being combined with imitation dynamics to
+form a new population dynamic~\cite{PhysRevE.94.012124,QUAN2020109634,PhysRevE.102.032120,WANG2023128134}.
+However, there have been multiple methods of combining these update rules, from
+a direct combination of steps to evidential reasoning, and
+as such we only consider the original form of aspiration dynamics defined
+in~\cite{du2014aspiration}, with a homogeneous aspiration value \(A\).
 
 The process transitions between states according to the transition matrix:
 
@@ -1097,7 +1115,7 @@ which games it can be applied to. When aspiration is
 considered for three or more action types~\cite{Aspiration3Types}, a player
 chooses which action to consider with equal probability. Thus, players in
 3-action games do not choose their strategy in the next state based on the
-fitness of said strategy, but instead update according to ``trial and error''
+fitness of said strategy, but instead update hrough random chance 
 in order to reach their aspiration. Players may accept worsening moves
 with a high probability.
 
@@ -1109,6 +1127,8 @@ more frequently in aspiration dynamics under larger values of \(A\), as more
 cooperators are required in order for all players to reach their aspired
 payoff. At a lower value of \(A\), the reverse is true - fewer cooperators are
 required for all players to reach their target payoff.
+
+
 
 \subsection{Introspection Dynamics}
 
