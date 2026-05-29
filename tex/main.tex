@@ -74,8 +74,10 @@ HauertDynamics2004, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}: each actor
 % TODO I reordered the citations here so they all appear in increasing order.
 % Need to fix this throughout.
 decides whether to incur a private cost to contribute to a shared resource
-whose total value is multiplied by some factor \(r\) and distributed equally.
-The temptation to free-ride means that purely selfish reasoning leads to a
+whose total value is multiplied by some factor \(r\) and distributed equally amongst
+all players. The values \(1<r<N\) are usually considered; the case where \(r>N\) is
+not as well studied. This creates the temptation to free-ride, and so
+ purely selfish reasoning leads to a
 tragedy of the commons~\cite{hardin1968tragedy, Weitz043299}, even when
 collective cooperation would benefit everyone. Both
 theory~\cite{santos2011risk} and
@@ -88,7 +90,7 @@ overcoming free-riding is not merely theoretical.
 Nordhaus~\cite{10.1257/aer.15000001} proposed voluntary \emph{climate clubs}
 in which member nations adopt a common carbon price and levy tariffs on
 non-members, turning the international climate problem into a coordination game
-with enforcement. 
+with enforcement.
 
 Evolutionary game theory offers a framework for studying how cooperation can
 emerge among self-interested actors without assuming rational
@@ -104,7 +106,7 @@ pairwise dilemmas to \(N\) players~\cite{hauert2002volunteering}, making it
 well suited to studying multi-lateral cooperation such as climate agreements.
 In finite populations, evolutionary outcomes are stochastic: a rare mutant
 strategy spreads or vanishes with a probability that depends on the population
-size, payoff structure, and update rule~\cite{nowak2004emergence,
+size, payoff structure, and update rule~\cite{Nowak2004Emergence,
 traulsen2006stochastic}. 
 
 A feature of real-world collective action that standard models typically set
@@ -135,22 +137,45 @@ attribute, low-value contributions act as a form of defection against the most
 collectively beneficial strategies, so that the emergence of cooperation does
 not guarantee the emergence of high-value cooperation.
 
-The studies above are almost exclusively concerned with spatially structured
-populations, where network topology is central. Much less is known about fully
-heterogeneous, \emph{well-mixed} populations, in which all individuals are
-distinguished by a fixed attribute (such as their contribution capacity)
-independently of any graph structure. Furthermore, most existing analyses rely
-on simulation or mean-field approximations; exact treatments of heterogeneous
-evolutionary dynamics remain rare. How the choice of update rule interacts with
+The conditions under which one strategy may invade a population has been studied
+in depth for certain evolutionary processes. The \(\frac{1}{N}\) fixation probability
+for a single mutant in neutral drift~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} has been used
+as a benchmark for when a strategy is favoured by selection. Results such as the \(\frac{1}{3}\)
+rule~\cite{OHTSUKI2007289, third-equality} have been shown to hold even when 
+a population updates with both the Moran process and Fermi imitation dynamics~\cite{LIU2017336}. 
+For a symetric 2x2 game with payoff matrix:
+\begin{table}[!h]
+    \centering
+\begin{tabular}{c|cc}
+    &$A$&$B$\\
+    \hline
+    $A$& $a$ & $b$\\
+    $B$& $c$ & $d$ 
+\end{tabular}
+\phantomcaption
+\label{eq:abcd}
+\end{table}
+
+\noindent it has been shown that the condition \(a(N-2) + bN > cN + d(N-2)\)~\cite{Kandori}
+leads to an abundance of strategy \(A\).
+This has been shown to hold for a wide range of evolutionary 
+processes~\cite{ANTAL2009340, Amir1996AnotherAT}. The effects of mutation on this
+game have also been studied~\cite{ANTAL2009340, FUDENBERG2006352}, with the latter
+showing that under action-invariant
+mutation, \(b>c, a>d\) gives domination for \(A\) players. However, these results are
+given for a symetric game played pairwise between members of the population, rather
+than a heterogeneous population. They also do not take into account games where the payoff of a
+pair changes based on the population, such as the public goods ~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social,
+ARCHETTI20129, HauertDynamics2004, hauert2002volunteering}. We extend
+this work to consider all types of games where a defector outperforms a cooperator in
+a given population.
+
+How the choice of update rule interacts with
 population heterogeneity is also poorly understood. The Moran
 process~\cite{knight2018evolution,Moran_1958}, Fermi imitation
 dynamics~\cite{PhysRevE.58.69},
 aspiration dynamics~\cite{du2014aspiration}, and introspection
 dynamics~\cite{Couto2022, Couto2023} all model strategy revision in distinct
-% TODO Aspiration and introsopection are not capitalised here. This is
-% inconsistancy further on. I suggest we stick with the way it is here (keeping
-% Moran and Fermi but using introspection and aspiration). Don't feel strong: it
-% just needs to be consistant.
 ways, and each may respond differently to player-specific payoffs. In
 particular, \emph{intrinsic} dynamics, in which a player evaluates a
 prospective strategy change based on their payoff in comparison with their own
@@ -174,23 +199,24 @@ particular interest, as it combines social learning with aspirational
 self-asessment, creating a process in which a player considers multiple
 measures of a strategy's success when updating their action type.
 
-We make the following contributions. First, we build on an established general framework for evolutionary dynamics on fully heterogeneous, well-mixed
+We make the following contributions. First, we build on an established general 
+framework for evolutionary dynamics on fully heterogeneous, well-mixed
 populations of \(N\) ordered individuals, in which each player may have a
 distinct payoff function and contribution level. Second, we formalize the
 notion of a purely extrinsic population dynamic, a definition encompassing both
 the Moran process~\cite{knight2018evolution,Moran_1958} and Fermi imitation
-dynamics~\cite{PhysRevE.58.69}, and establish that such dynamics are inherently
+dynamics~\cite{PhysRevE.58.69}, and show that such dynamics are inherently
 constrained by an upper bound on the probability of cooperation. Third, we
-consider two intrinsic population dynamics, aspiration
+consider two purely intrinsic population dynamics, aspiration
 dynamics~\cite{du2014aspiration} and introspection dynamics~\cite{Couto2022,
-Couto2023}, show that these processes can overcome the ceiling of purely
+Couto2023}, showing that these processes can overcome the ceiling of purely
 extrinsic dynamics, and discuss their weaknesses. Finally, we introduce a novel
 update rule, \emph{Introspective Imitation Dynamics}, in which players select a
 role model proportionally to fitness (as in the Moran process) but evaluate
 whether to adopt that strategy by comparing their own current and
 counterfactual payoffs (as in introspection dynamics). This rule is well suited
-to heterogeneous populations, where copying a high-fitness individual is likely
-although irrational if the same strategy yields a worse payoff for the copying
+to heterogeneous populations, where copying a high-fitness individual occurs with
+a high probability, but is irrational if the considered strategy yields a worse payoff for the copying
 player. For each population dynamic, we will use the public goods
 game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social,
 ARCHETTI20129, HauertDynamics2004, hauert2002volunteering} to demonstrate our
@@ -221,36 +247,65 @@ ceiling in the public goods game.
 As in~\cite{Couto2022, Couto2023}, we define a general framework for
 evolutionary dynamics on a fully heterogeneous, well-mixed population.
 
-\subsection{Population and State Space}
-% TODO With the other subsection in this section being mutation, I think this
-% should be broken up in to two. State space should be one. I'm not sure
-% Population is the right name for the other one.
+\subsection{The State Space}
 
-The population consists of \(N\) \textbf{ordered} individuals. Each individual
+We model a population consisting of \(N\) \textbf{ordered} individuals. Each individual
 selects an action from a common action set \(A = (a_1, a_2, \ldots, a_k)\); we
-% TODO Q (VK): How much of a change is it to assume we have $A_i=(a_{i1}, a_{i2},...)$
-% (both in the paper AND in ludics?)
 assume throughout that all individuals share the same action set of size
-\(k\) although this is not strictly required for introspection and
-aspiration dynamics \cite{Couto2022,du2014aspiration}.
-A \emph{state} of the population is an ordered \(N\)-tuple
+\(k\). A \emph{state} of the population is an ordered \(N\)-tuple
 \(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in A^N\), and the \emph{state space}
 \(S\) is the set of all such tuples. A payoff function
 \(\pi \colon S \to \mathbb{R}^N\) assigns to each state a vector of individual
 payoffs; we write \(\pi_i(\mathbf{a})\) for the payoff of individual \(i\) in
 state \(\mathbf{a}\).
 
-The population evolves as a Markov chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}
-on \(S\). Transitions can only occur between states that differ in exactly one
-coordinate, that is, states \(\mathbf{a}\) and \(\mathbf{b}\) with Hamming
-distance \(h(\mathbf{a}, \mathbf{b}) = 1\)~\cite{kythe-book}. We call the
-unique coordinate at which \(\mathbf{a}\) and \(\mathbf{b}\) differ the
-\emph{index of difference}, denoted \(I(\mathbf{a},
+The state space of an evolutionary game can be described as the graph who's nodes
+are the states \(\mathbf{a} \in S\), with an edge between two vertices
+\(\mathbf{a}, \mathbf{b}\) if and only if they differ in exactly one position.
+This defines an evolutionary process in which one player changes action type at
+each time step. Each state also has a self-loop, as at a given time step, a player
+may accept the same strategy they currently posess, or reject the strategy which
+they have considered. We call the unique coordinate at which \(\mathbf{a}\) and 
+\(\mathbf{b}\) differ the \emph{index of difference}, denoted \(I(\mathbf{a},
 \mathbf{b})\)~\cite{Couto2023}. The set of states reachable from \(\mathbf{a}\)
-in one step is \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a},
-\mathbf{b}) = 1\}\)~\cite{Couto2023}. 
+in one step is denoted \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a},
+\mathbf{b}) = 1\}\). This notation follows~\cite{Couto2023}.
 
-We therefore obtain a transition matrix
+In the case of a game with two actions, the 
+state space of the Markov chain is analogous to an \(N\)-dimensional hypercube.
+This is the graph whose node set consists of the \(2^N\) \(N\)-dimensional boolean
+vectors, and which has edges between edges if and only if they differ in
+exactly one position \cite{HARARY1988277}. The state space of an evolutionary
+game with two actions can be modelled in this way by denoting the strategies
+\(0\) and \(1\). The graphical representation of a birth-death process
+differs from a hypercube in exactly two ways. First, a population may remain
+the same at a given step, and thus each vertex contains a self-loop.
+Second, the probability of transitioning from a state \(\mathbf{a}\) to a
+state \(\mathbf{b}\) is not necessarily the same as the probability of
+transitioning from \(\mathbf{b}\) to \(\mathbf{a}\). Thus, instead of one edge
+between two states, we have two directed edges, \(\mathbf{a} \to \mathbf{b}\) and 
+\(\mathbf{b} \to \mathbf{a}\).Figure~\ref{fig:4-cube} shows the 4 dimensional hypercube.
+
+\begin{figure}[!htbp]
+    \begin{mdframed}
+    \centering
+
+    \begin{subfigure}{\textwidth}
+        \centering
+        \input{figures/Tikz/hypercube_N_4/main.tikz}
+        \subcaption{}
+        \label{fig:4-cube}
+    \end{subfigure}
+    \end{mdframed}
+    \caption{(a): The hypercube of dimension 4. This is closely related
+             to the graph of a 4-player population dynamic.}
+    \label{fig:intro}
+\end{figure}
+
+\subsection{Population Dynamics and mutation}
+
+The population evolves as a Markov chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}
+on \(S\). We therefore obtain a transition matrix
 \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of transitioning from
 a state \(\mathbf{a}\) to a state \(\mathbf{b}\). They take the general form:
 
@@ -266,132 +321,107 @@ a state \(\mathbf{a}\) to a state \(\mathbf{b}\). They take the general form:
     \end{cases}
 \end{equation}
 
-where \(P\) is the probability that player \(I(\mathbf{a,b})\) changes from
+where \(P(\mathbf{a} \to \mathbf{b})\) is the probability that player \(I(\mathbf{a,b})\) changes from
 its action type in \(\mathbf{a}\) to its action type in \(\mathbf{b}\). The
 process which determines this probability is called a \emph{population dynamic}.
 We shall discuss five population dynamics in this paper, and classify them as
 shown in Figure~\ref{fig:diagrams_of_dynamics}. Purely extrinsic population
 dynamics only consider the success of a strategy in the current population when
 updating a player's action type. This models a behaviour where players look
-outwardly to attempt to improve their payoff. Intrinsic population dynamics
+outwardly to attempt to improve their payoff. Purely intrinsic population dynamics
 model a player who looks inwardly to improve their payoff - comparing their
 current payoff to some value which does not depend on the payoffs of an action
 type in the current population. The final classification is our novel
 population dynamic, introspective imitation dynamics, which contains both an
 extrinsic step and an intrinsic step.
 
-\begin{figure}[!htbp]
-    % TODO Comment (VK): You were using JUST [!htbp] here which allows the figure
-    % to ONLY float to the top of a page. Give it all these options for more
-    % flexibility. Essentially LaTeX will choose the "nicest" spot (for some
-    % definition of nice that us mere mortals need not concern ourselves with)
+\begin{table}[!htbp]
 \begin{mdframed}
 \centering
+
 \begin{tabular}{|c|c|}
 \hline
 Purely extrinsic & Intrinsic\\
 \hline
+
+\begin{subfigure}{0.45\textwidth}
+\centering
 \input{figures/Tikz/Moran_Process/main.tikz}
+\phantomcaption
+\label{fig:Moran_Dia}
+\end{subfigure}
 &
+\begin{subfigure}{0.45\textwidth}
+\centering
 \input{figures/Tikz/Aspiration/main.tikz}
-\\
-&\\
+\phantomcaption
+\label{fig:Asp_Dia}
+\end{subfigure}
+\\[1em]
+
+\begin{subfigure}{0.45\textwidth}
+\centering
 \input{figures/Tikz/Fermi/main.tikz}
+\phantomcaption
+\label{fig:Fermi_Dia}
+\end{subfigure}
 &
+\begin{subfigure}{0.45\textwidth}
+\centering
 \input{figures/Tikz/Introspection_Dynamics/main.tikz}
+\phantomcaption
+\label{fig:Intro_dia}
+\end{subfigure}
 \\
+
 \hline
+
 \multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
 \hline
-\multicolumn{2}{|c|}{ 
+
+\multicolumn{2}{|c|}{
+\begin{subfigure}{0.8\textwidth}
+\centering
 \input{figures/Tikz/Introspective_Imitation/main.tikz}
-}\\
+\phantomcaption
+\label{fig:Introspective_Imitation}
+\end{subfigure}
+}
+\\
+
 \hline
 \end{tabular}
+
+\end{mdframed}
+
 \caption{A comparison of different population dynamics. We assume in all cases
 that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
 and the diamond is chosen with a varying probability depending on the process.
-In the case of I=introspection dynamics, we assume that the strategy represented
+In the case of introspection dynamics, we assume that the strategy represented
 by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
 for aspiration dynamics there is only one other strategy to accept.}
 \label{fig:diagrams_of_dynamics}
-\end{mdframed}
-\end{figure}
 
-In the case of a game with two actions, for example cooperate and defect, the 
-state space of the Markov chain is
-an $N$-dimensional hypercube.
-This is the graph whose node set consists of the $2^N$ $N$-dimensional boolean
-% TODO \(
-vectors, and which has edges between edges if and only if they differ in
-exactly one position \cite{HARARY1988277}. The state space of an evolutionary
-game with two actions can be modelled in this way by denoting the strategies
-\(0\) and \(1\). The graphical representation of a birth-death process
-differs from a hypercube in exactly two ways. First, a population may remain
-the same at a given step, and thus each vertex contains a self-loop.
-Additionally, the probability of transitioning from a state \(\mathbf{a}\) to a
-state \(\mathbf{b}\) is not necessarily the same as the probability of
-transitioning from \(\mathbf{b}\) to \(\mathbf{a}\). Thus, instead of one edge
-between two states, we have two directed edges, one in each direction. In
-Figure~\ref{fig:3-cube} and ~\ref{fig:4-cube} we see the graph of a 3 and 4
-dimensional hypercubes.
+\end{table}
 
-\begin{figure}[!htbp]
-    \begin{mdframed}
-    \centering
-
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \input{figures/Tikz/PGG/main.tikz}
-        \subcaption{}
-        \label{fig:pgg}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \input{figures/Tikz/hypercubes/hypercube_exact/main.tikz}
-        \subcaption{}
-        \label{fig:3-cube}
-    \end{subfigure}
-    
-    \vspace{0.5cm}
-
-    \begin{subfigure}{\textwidth}
-        \centering
-        \input{figures/Tikz/hypercube_N_4/main.tikz}
-        \subcaption{}
-        \label{fig:4-cube}
-        % TODO Can we space out the states in this picture?
-    \end{subfigure}
-
-    \caption{(a): The public goods game with 6 players. Here 3 players contribute.
-             (b): The hypercube of dimension 3. This is closely related
-             to the graph of a 3-player population dynamic.
-             (c): The hypercube of dimension 4. This is closely related
-             to the graph of a 4-player population dynamic.}
-    \label{fig:intro}
-    \end{mdframed}
-\end{figure}
-
-\subsection{Mutation}
-
-Three of the dynamics that we discuss in this paper correspond to absorbing Markov chains, where
+Three of the dynamics discussed in this paper correspond to absorbing Markov chains, where
 the measurable outcome is the probability of absorption into a given
 absorbing state. The remaining two dynamics are ergodic chains, for which we can
-compute the long-run abundance of a given strategy in the population. To enable meaningful comparison
-across all models, we introduce mutation.
+compute the long-run abundance of a given strategy in the population. 
+To enable meaningful comparison across all models, we introduce mutation.
 Mutation ensures that all processes become ergodic, while also introducing a
 controlled amount of noise: at any moment, individuals may switch to a different
-strategy \cite{FUDENBERG2006352}.
+strategy~\cite{FUDENBERG2006352}.
 
-Given an original process and two states \(\mathbf{a}\) and \(\mathbf{b}\), the
+Given a process defined by transition matrix \(T\) and two states 
+\(\mathbf{a}\) and \(\mathbf{b}\), the
 probability of the original process \emph{with mutation} transitioning from
 \(\mathbf{a}\) to \(\mathbf{b}\) is given by:
 
 \[
-    P(\mathbf{a} \to \mathbf{b})
+    P^{(\mu)}(\mathbf{a} \to \mathbf{b})
     = P(\text{pick individual } I(\mathbf{a}, \mathbf{b})) \cdot \left(
-        P(\mathbf{a} \to \mathbf{b}) \cdot
+        P(\mathbf{a}_{I(\mathbf{a,b})} transitions \to \mathbf{b}_{I(\mathbf{a,b})}) \cdot
         P(\text{no mutation})
         + P(\mathbf{a}_{I(\mathbf{a}, \mathbf{b})}\text{ mutates} \to
         \mathbf{b}_{I(\mathbf{a}, \mathbf{b})})
@@ -420,84 +450,14 @@ matrix \(T^{(\mu)}\) for the process with mutation is given by:
 \end{equation}
 
 Note that if \(\sum_{j=1}^k \mu_{ij} = 1\), mutation fully
-determines the behavior of individual \(i\). This construction ensures that all processes are ergodic, rather than absorbing.
-Consequently, we no longer obtain absorption matrices for models with mutation;
+determines the behavior of individual \(i\). This construction ensures that all 
+processes are ergodic, rather than absorbing.
+Consequently, we no longer obtain absorption matrices for any model with mutation;
 instead, we derive a unique steady state that is independent of the initial
 state. All processes in this paper are considered under the effect of
-action-invariant mutation, where \(\mu_{ik} = \mu_{il}\) for all action types
-\(k,l\). This ensures that mutation does not cause an inherent bias towards a
+action-invariant mutation, where \(\mu_{iw} = \mu_{il}\) for all action types
+\(w,l\). This ensures that mutation does not cause an inherent bias towards a
 given action type.
-
-\subsection{The Public Goods Game}
-
-We apply the dynamics above to the public goods
-game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social,
-ARCHETTI20129, HauertDynamics2004, hauert2002volunteering} to illustrate the
-results in the following sections.
-In this game, individuals choose whether or not to contribute to a common
-resource pool. The total contribution is multiplied by a factor \(r > 1\) and
-distributed equally among all \(N\) players. The model captures the temptation
-to free-ride~\cite{hardin1968tragedy}: a player who withholds their contribution
-still receives an equal share of the multiplied pool, so individual incentives
-push against the collectively optimal outcome of universal cooperation.
-
-We can model a public goods game by providing the following payoff function:
-
-\begin{equation}
-   \pi_i(\mathbf{a}) = \frac{r\sum_{j=1}^N{\alpha_j}}{N} - \alpha_i
-  \label{eqn:General Model}
-\end{equation}
-
-Where \(\alpha_j\) is the contribution by individual \(j\). This is a similar
-heterogeneous public good game as the one described in~\cite{hauser2019social} 
-although in that model the return \(r\) is also a heterogeneous property of
-each player, whereas we only consider heterogeneity in contributions. 
-
-We measure the abundance of cooperation that emerges in the population, and for
-this purpose we define $p_C$ to be the \emph{probability of cooperation}. This represents
-the mean proportion of cooperators at a given step once an evolutionary game
-reaches its steady state, and
-can be calculated by the value $\frac{\sum_{\mathbf{a} \in S}\left(\pi_{\mathbf{a}}
-\sum_{i=1}^N \mathbf{a}_i\right)}{N}$, where $\mathbf{a}_i$ takes the value $1$
-if player $i$ cooperates in state $\mathbf{a}$, and $0$ if not, and \(\pi_{\mathbf{a}}\)
-is the fraction of time spent in state \(\mathbf{a}\) in the steady state of the process.
-
-
-% TODO This paragraph seems a bit out of place here.
-It can be seen that full contribution is the Pareto optimal state, however if
-\(r < N\), full defection forms the Nash equilibrium for the one shot game.
-When \(r > N\), i.e the value of the public good is multiplied by a greater
-amount than the number of players, each player will profit from their own contribution, as we have
-the value \(\Delta(\pi_i) = \pi_C(\mathbf{a}) -
-\pi_D(\mathbf{b}) = \alpha_i(\frac{r}{N} - 1) > 0\) if and only if \(r > N\).
-Therefore, in the case \(r > N\), the Nash equilibrium of the one-shot game is
-full contribution. However, it is important to note that in a given mixed state
-in the evolutionary model of cooperation in the public goods game, a defector
-will have a higher payoff than a cooperator, no matter the value of \(r\). This
-is because all players receive the same return from the public good, whilst
-only cooperators incur a cost \(-\alpha_i\)
-
-% TODO This paragraph ALSO seems out of place here. We're talking about the
-% parameter sweep and then immediately NOT doing it. We are also not going to
-% the PGG yet right? Should the next section (Extrinsic population dynamics) not
-% come before the PGG?
-To consider the distribution of the probability of cooperation in a public
-goods game, a large scale parameter sweep is carried out.
-We consider a ``linear'' population, in which a player in position \(i\)
-contributes \(\frac{2Mi}{N(N+1)}\), where $M$ is the total amount contributed
-when all players play \(C\). In such a case, the payoff of all players is
-\(\pi_i = \frac{rM}{N} - \alpha_i\). Supplementary Information Figure 1 shows the
-combinations of parameters considered across each of the population dynamics.
-To the authors knowledge this is the largest such parameter sweep. It is done to
-the highest standards of reproducibility~\cite{wilson2014, sandve2013,
-wilson2017, stodden2018, turingway2022} and all data has been archived and is a
-further contribution of the work.
-% TODO Archive the data when done and add citation information for the data. 
-For the purpose of this research, the authors
-developed a software library \texttt{ludics} (written in python) which is
-installable. The archive of the software is at~\cite{}  % TODO Add archive of software 
-and the documentation can be found at~\url{https://hefos.github.io/ludics/}.
-The full development of the software can be found at~\url{https://github.com/hefos/ludics}.
 
 \section{Extrinsic population dynamics}
 \label{sec:extrinsic_population_dynamics}
@@ -505,7 +465,7 @@ We begin by defining a \emph{purely extrinsic population dynamic}. Intuitively,
 a purely extrinsic process revises strategies through payoff comparison between
 members of a population.
 
-\begin{definition}[Extrinsic population dynamic]
+\begin{definition}[Purely extrinsic population dynamic]
     Let \(T\) be the transition matrix of a population dynamic on a state space
     \(S\). We say that \(T\) defines a \emph{purely extrinsic} process if for
     every \(\mathbf{a,b} \in S\) with \(\mathbf{b} \in \text{Neb}(\mathbf{a})\),
@@ -525,17 +485,6 @@ members of a population.
         $b_{I(\mathbf{a,b})}$, except in the payoff function
         $\pi_{I(\mathbf{a,b})}(\mathbf{a})$, mutation parameters $\mu_{ij}$,
         and in the definition of the set $\mathcal{R}$.
-        \item If all players share the same payoff in state $\mathbf{a}$
-        (that is, there exists $v \in \mathbb{R}$ such that
-        $\pi_i(\mathbf{a}) = v$ for every player $i$), then $T_{\mathbf{ab}}$
-        is independent of the common value $v$.
-        \item Let $T^{\mathrm{nd}}$ denote $T$ with all payoffs set to a common
-        value, well-defined by~(4). Order $\{C, D\}^N$ componentwise with
-        $D < C$. For every $\mathbf{a} \leq \mathbf{a}'$, there exist random
-        variables $\mathbf{X}, \mathbf{X}'$ on a common probability space, with
-        $\mathbf{X} \sim T^{\mathrm{nd}}(\mathbf{a}, \cdot)$ and
-        $\mathbf{X}' \sim T^{\mathrm{nd}}(\mathbf{a}', \cdot)$, such that
-        $\mathbf{X} \leq \mathbf{X}'$ almost surely.
     \end{enumerate}
     \label{def:purely_extrinsic}
 \end{definition}
@@ -543,24 +492,7 @@ members of a population.
 Condition (2) captures the basic monotonicity: a higher payoff
 for a role model makes that role model more likely to be copied, and a
 higher payoff for a non-role-model pulls the other way. Condition (3) rules
-out an intrinsic preference for either action. Conditions (4) and (5) work
-as a pair, ruling out hidden biases that survive when no payoff comparison
-is available. 
-
-Condition (4) captures payoff-scale neutrality: when all
-players earn the same payoff, the absolute level of that common value
-cannot influence $T_{\mathbf{ab}}$. Condition (5) captures configuration
-neutrality: under those same neutral payoffs, starting from a more
-cooperative profile cannot make the next state any less cooperative. Put
-simply: at neutral payoffs, a population that starts at least as
-cooperative as another remains at least as cooperative one step later.
-Without (5), a process could satisfy (1)--(4) and still embed a
-configuration-dependent pull toward defection at neutral payoffs, which is
-an intrinsic bias rather than truly neutral behaviour. ~\cite{KEILSON1977231}
-notes that birth-death processes are stochastically monotone, and we shall show
-that the Moran process and Fermi imitation dynamics are also stochastically monotone.
-
-\textit{Note}: Condition (3) in the above definition serves to exclude population dynamics
+out an inherant bias towards either action. Without (3), we must consider population dynamics
 which explicitly favour a certain action type, for example:
 
 \[
@@ -584,7 +516,7 @@ action type.
 
 We now show two classical examples of purely extrinsic population dynamics
 
-\subsection{The Moran Process}
+\subsection{The Moran Process}\ref{fig:Moran_Dia}
 
 The Moran process~\cite{Moran_1958} is defined by the following algorithm:
 \begin{enumerate}
@@ -593,7 +525,7 @@ The Moran process~\cite{Moran_1958} is defined by the following algorithm:
         strategy
 \end{enumerate}
 
-The transition matrix which defines the Moran process for a given game is:
+And the transition matrix is given by:
 
 \begin{equation}
     T_{\mathbf{ab}} =
@@ -616,29 +548,29 @@ value of \(\epsilon\) must, however, be chosen in order that
 \(f_i(\mathbf{a})\) is strictly positive.
 
 The Moran process is traditionally employed as a model of natural evolution
-\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7,Moran_1958}, where a
-player's ``type'' represents a mutation within a population. In each time step,
+\cite{Moran_1958,568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a
+player's ``type'' represents a species or allele within a population. In each time step,
 rather than a given player choosing a new action type, a randomly chosen
 individual in the population would die and be removed from the population.
-Another individual would reproduce with a probability proportional to their
+At the same time, an individual would reproduce with a probability proportional to their
 fitness, introducing an exact copy of themselves to the population to replace
 the removed individual. As a result of the model's original purpose, the Moran
 process contains no decision step where a player chooses whether or not to
-accept a considered strategy, as in natural selection a player cannot choose
-their action type. Instead, at each time step, a player \emph{must}
+accept a considered strategy. Instead, at each time step, a player \emph{must}
 accept another player's action, and we remain in the same state when a player
 accepts the same action as they currently play.
 
 One implication of this is that in a heterogeneous population, worsening moves
-may be taken with a high probability. This is because an action that provides a
+may be taken with a high probability, as an action that provides a
 high payoff for one player in a population may not provide the same return for
 another. In nature, an offspring is unable to choose its parents, and thus
 cannot choose which attributes it is born with. Furthermore, parents will
 choose a partner based on its success in the population, and thus traits
 which give a high fitness will be passed on with high probabilities, regardless
-of how they will perform for the offspring. However, when modelling the
-adoption of behaviours, these assumptions are not realistic, and may often lead
-to players making decisions which are harmful for their own payoff. For example, in the public goods game with heterogeneous returns, a
+of how they will perform for the offspring. When modelling the
+adoption of behaviours, these assumptions may lead
+to players making decisions which are harmful for their own payoff. 
+For example, in the public goods game with heterogeneous returns, a
 player with a low \(r_i < N\) may copy a player who contributes with a high
 \(r_j > N\) due to their high individual payoff. However, this would be a
 worsening move for the focal player \(i\), as due to their low individual rate
@@ -674,43 +606,24 @@ For $j \in \mathcal{R}$, as $\epsilon$ is chosen such that $f_i(\mathbf{a}) \gt 
 1$, this derivative is strictly positive. For $j \notin \mathcal{R}$, the
 analogous computation gives
 $\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\epsilon \sum_{x \in \mathcal{R}} f_x(\mathbf{a})}{N(\sum_{l=1}^N f_l(\mathbf{a}))^2}(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) \leq 0$,
-so condition (2) holds. Finally, for condition (4), setting
-$\pi_i(\mathbf{a}) = v$ for every player $i$ gives $f_i(\mathbf{a}) = 1 + \epsilon v$
-for every $i$, whence
-$T_{\mathbf{ab}} = \frac{|\mathcal{R}|(1+\epsilon v)}{N\cdot N (1+\epsilon v)}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}
-= \frac{|\mathcal{R}|}{N^2}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$,
-which is independent of $v$.
-
-For condition (5), specialise to two actions $\{C, D\}$ with $D < C$. Under
-$T^{\mathrm{nd}}$, the dynamic samples a focal player $i$ uniformly, a role
-model $k$ uniformly from the population (since all fitnesses are equal),
-and a mutation outcome $m$ from the action-invariant mutation distribution;
-player $i$ then adopts $a_k$, or $m$ if a mutation occurs. Couple the chains
-started at $\mathbf{a} \leq \mathbf{a}'$ on the common probability space
-generated by $(i, k, m)$, applying the same draw to both. Coordinate $i$ in
-the successor of $\mathbf{a}$ is $a_k$ (or $m$); coordinate $i$ in the
-successor of $\mathbf{a}'$ is $a'_k$ (or the same $m$). Since
-$\mathbf{a} \leq \mathbf{a}'$ gives $a_k \leq a'_k$, and every other
-coordinate $j$ is left unchanged with $a_j \leq a'_j$, the two successors
-$\mathbf{X}$ and $\mathbf{X}'$ satisfy $\mathbf{X} \leq \mathbf{X}'$
-pointwise on this probability space, so condition (5) holds.
+so condition (2) holds. 
 \end{proof}
 
-\subsection{Fermi Imitation Dynamics}
+\subsection{Fermi Imitation Dynamics}\ref{fig:Fermi_Dia}
 
-The Fermi Imitation Dynamic is another
-method of modelling evolution in a population. It models the following process:
+Fermi Imitation Dynamics~\cite{PhysRevE.58.69}, or simply imitation dynamics, is another
+method of modelling evolution in a population. It follows the process:
 
 \begin{itemize}
   \item Two players, \(i\) and \(j\) are selected at random. Unlike the
-  original formulation~\cite{PhysRevE.58.69}, player \(j\) need not be a
+  original formulation, player \(j\) need not be a
   neighbour of player \(i\), reflecting the well-mixed setting considered here.
   \item Player \(i\) copies the action type of the player \(j\) with a
   probability according to the Fermi function \(
     \phi(\pi_{i}(\mathbf{a}) - \pi_{j}(\mathbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\mathbf{a}) - \pi_{j}(\mathbf{a}))}\right)}}\)
 \end{itemize}
 
-Where \(\beta\) is the choice intensity of the system, representing how
+Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current
 payoff, and the payoff which they are considering.
 This method has been commonly used in studies of evolutionary games, for
@@ -728,10 +641,9 @@ We now define our transition matrix according to the Fermi function:
 \end{equation}
 
 Unlike a Moran Process, we can see that the players are not selected with a
-probability proportional to their fitness. Instead, Fermi Imitation Dynamics
-compares the fitness after the selection of players. This gives the comparison
-step in which a player may choose not to adopt a new strategy if it admits a
-lower fitness in the current population. However, equivalently to the Moran
+probability proportional to their fitness. Instead, Fermi Imitation Dynamics selects
+a pair of players and compares their payoffs directly, giving players the option
+not to accept a strategy in a given time step. However, similarly to the Moran
 process, in a heterogeneous population the method of adopting a new strategy
 based entirely on the payoff of another individual may lead to worsening moves
 in which players adopt strategies which currently admit a higher fitness, but
@@ -744,8 +656,11 @@ occurs in any game in which one action type's payoff in any given state can be
 expressed as another action type's payoff up to the addition of some
 factor $\gamma$,  where $\gamma$ depends only on a subset of the game's
 parameters. In that case, $\Delta(\pi) = \pm\gamma$, and is therefore invariant
-to any parameters of the game which do not influence $\gamma$. Take, for example, the public goods game. When comparing a
-cooperator and defector under \(\phi\), we have the value \(\Delta(\pi) = \pm
+to any parameters of the game which do not influence $\gamma$. 
+Take, for example, the public goods game, with a player's payoff 
+\(\pi_i(\mathbf{a}) = \frac{r}{N}\sum_{j=1}^N \alpha_j -  \alpha_i\)
+for contribution \(\alpha_i\) and rate of return \(r\) (here \(\alpha_i = 0\) if \(i\) defects).
+When comparing a cooperator and defector under \(\phi\), we have the value \(\Delta(\pi) = \pm
 \alpha_i\), and thus we see that the parameter \(r\) has no effect on the
 probability of accepting a new strategy under this population dynamic. 
 
@@ -755,12 +670,12 @@ extrinsic population dynamic.
 \begin{theorem}[Fermi imitation dynamics is a purely extrinsic population dynamic]
     Fermi imitation dynamics, as defined by
     Equation~\eqref{eqn:imitation_prob}, is a purely extrinsic population
-    dynamic in the sense of Definition~\ref{def:purely_extrinsic}.
+    dynamic.
 \end{theorem}
 
 \begin{proof}
 By definition, Fermi imitation dynamics satisfies conditions (1) and (3).
-It remains to show that it satisfies conditions (2), (4), and (5).
+It remains to show that it satisfies condition (2).
 
 \[ T_{\mathbf{ab}} = \frac{1}{N(N-1)}\sum_{j \in \mathcal{R}}\phi(\pi_{I(\mathbf{a,b})}(\mathbf{a}) -
 \pi_j(\mathbf{a}))\left(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}\right) +
@@ -773,35 +688,95 @@ formula at all. For $j = I(\mathbf{a,b})$ (when
 $a_{I(\mathbf{a,b})} \neq b_{I(\mathbf{a,b})}$, so $I \notin \mathcal{R}$),
 each term is strictly decreasing in $\pi_{I(\mathbf{a,b})}(\mathbf{a})$
 because $\phi$ is. Thus, Fermi imitation dynamics satisfies condition (2).
-Finally, condition (4) holds: if $\pi_i(\mathbf{a}) = v$ for every player $i$,
-then every payoff difference appearing in the Fermi formula is zero, so
-$\phi(\pi_I(\mathbf{a}) - \pi_j(\mathbf{a})) = \phi(0) = \frac{1}{2}$
-in each summand, and
-$T_{\mathbf{ab}} = \frac{|\mathcal{R}|}{2N(N-1)}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$,
-independent of \(v\).
-
-For condition (5), specialise to two actions $\{C, D\}$ with $D < C$. Under
-$T^{\mathrm{nd}}$, the dynamic samples a focal player $i$ uniformly, a role
-model $k$ uniformly from the remaining $N - 1$ players, an independent
-Bernoulli outcome with success probability $\phi(0) = \tfrac{1}{2}$, and a
-mutation outcome $m$ from the action-invariant mutation distribution; player
-$i$ adopts $a_k$ on a success (or $m$ if a mutation occurs) and otherwise
-keeps $a_i$. Couple the chains started at $\mathbf{a} \leq \mathbf{a}'$ on
-the common probability space generated by $(i, k, \text{Bernoulli}, m)$,
-applying the same draw to both. On a mutation step, both successors set
-coordinate $i$ to the same $m$. On a successful imitation step, they set
-coordinate $i$ to $a_k$ and $a'_k$ respectively, with $a_k \leq a'_k$. On
-a no-update step, coordinate $i$ retains $a_i \leq a'_i$. Every other
-coordinate is unchanged, so the two successors $\mathbf{X}$ and
-$\mathbf{X}'$ satisfy $\mathbf{X} \leq \mathbf{X}'$ pointwise on this
-probability space, and condition (5) holds.
 \end{proof}
 
-\subsection{The Cooperation Ceiling under Purely Extrinsic Population Dynamics}
+\subsection{Purely Extrinsic population dynamics in Two-action games}
 
-We will now show
-that a there is a theoretic limit on the probability of cooperation \(p_C\) for
-any purely extrinsic population dynamic. Before stating the theorem we record a comparison result for Markov chains
+We now consider purely extrinsic population dynamics in
+games with two actions, \(C\) and \(D\). We first define a further classification
+of population dynamic:
+
+\begin{definition}[ND-monotone population dynamic]
+    Let \(T\) be the transition matrix for a population dynamic on a game with
+    two actions, \(\{C, D\}\), and equip the state space \(S =\{C, D\}^N\) with the 
+    componentwise partial ordering with \(D < C\).
+    Let \(T^{\mathrm{nd}}\) denote \(T\) with all payoffs set to a common
+    value (we denote by \(v_{\mathbf{a}}\) the common
+    value in state \textbf{a}). We say that \(T\) defines an ND-monotone population dynamic if:
+    
+    \begin{enumerate}
+    \item $T_{\mathbf{ab}}^{nd}$ is independent of \(v_{\mathbf{a}}\).
+    \item \(T^{\mathrm{nd}}\) For every pair of states $\mathbf{a} \leq \mathbf{a}'$, there exist random
+        variables $\mathbf{X}, \mathbf{X}'$ on a common probability space, with
+        $\mathbf{X} \sim T^{\mathrm{nd}}(\mathbf{a}, \cdot)$ and
+        $\mathbf{X}' \sim T^{\mathrm{nd}}(\mathbf{a}', \cdot)$, such that
+        $\mathbf{X} \leq \mathbf{X}'$ almost surely.
+
+    \end{enumerate}
+\end{definition}
+
+ND-monotonicity captures configuration
+neutrality: under the same neutral payoffs, starting from a more
+cooperative profile cannot make the next state any less cooperative, and the chosen
+common value does not impact this neutrality.
+In a process which is not ND-monotone, there could be a
+configuration-dependent pull toward a given action type at neutral payoffs, which is
+an inherant bias rather than truly neutral behaviour. 
+It can be shown that this definition holds for both the Moran process, and Fermi imitation dynamics:
+
+\begin{theorem}
+    The Moran process and Fermi imitation dynamics are ND-monotone under action-invariant mutation.
+\end{theorem}
+
+\begin{proof}
+
+    We begin with the Moran process. Set
+    $\pi_i(\mathbf{a}) = v$ for every player $i$ gives $f_i(\mathbf{a}) = 1 + \epsilon v$
+    for every $i$, whence
+    $T_{\mathbf{ab}} = \frac{|\mathcal{R}|(1+\epsilon v)}{N\cdot N (1+\epsilon v)}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}
+    = \frac{|\mathcal{R}|}{N^2}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$,
+    which is independent of $v$. Therefore, condition (1) holds
+
+    Under $T^{\mathrm{nd}}$, as defined above, the Moran process samples a focal player 
+    $i$ uniformly, a role
+    model $k$ uniformly from the population (since all fitnesses are equal),
+    and a mutation outcome $m$ from the action-invariant mutation distribution;
+    player $i$ then adopts $a_k$, or $m$ if a mutation occurs. Couple the chains
+    started at $\mathbf{a} \leq \mathbf{a}'$ on the common probability space
+    generated by $(i, k, m)$, applying the same draw to both. Coordinate $i$ in
+    the successor of $\mathbf{a}$ is $a_k$ (or $m$); coordinate $i$ in the
+    successor of $\mathbf{a}'$ is $a'_k$ (or the same $m$). Since
+    $\mathbf{a} \leq \mathbf{a}'$ gives $a_k \leq a'_k$, and every other
+    coordinate $j$ is left unchanged with $a_j \leq a'_j$, the two successors
+    $\mathbf{X}$ and $\mathbf{X}'$ satisfy $\mathbf{X} \leq \mathbf{X}'$
+    pointwise on this probability space, so condition (2) holds.
+
+    For Fermi imitation dynamics, if $\pi_i(\mathbf{a}) = v$ for every player $i$,
+    then every payoff difference appearing in the Fermi formula is zero, so
+    $\phi(\pi_I(\mathbf{a}) - \pi_j(\mathbf{a})) = \phi(0) = \frac{1}{2}$
+    in each summand, and
+    $T_{\mathbf{ab}} = \frac{|\mathcal{R}|}{2N(N-1)}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}$,
+    independent of \(v\). Therefore, condition (1) holds.
+
+    Under $T^{\mathrm{nd}}$, the dynamic samples a focal player $i$ uniformly, a role
+    model $k$ uniformly from the remaining $N - 1$ players, an independent
+    Bernoulli outcome with success probability $\phi(0) = \tfrac{1}{2}$, and a
+    mutation outcome $m$ from the action-invariant mutation distribution; player
+    $i$ adopts $a_k$ on a success (or $m$ if a mutation occurs) and otherwise
+    keeps $a_i$. Couple the chains started at $\mathbf{a} \leq \mathbf{a}'$ on
+    the common probability space generated by $(i, k, \text{Bernoulli}, m)$,
+    applying the same draw to both. On a mutation step, both successors set
+    coordinate $i$ to the same $m$. On a successful imitation step, they set
+    coordinate $i$ to $a_k$ and $a'_k$ respectively, with $a_k \leq a'_k$. On
+    a no-update step, coordinate $i$ retains $a_i \leq a'_i$. Every other
+    coordinate is unchanged, so the two successors $\mathbf{X}$ and
+    $\mathbf{X}'$ satisfy $\mathbf{X} \leq \mathbf{X}'$ pointwise on this
+    probability space, and condition (2) holds.
+\end{proof}
+
+We will now show that a there is a theoretic limit on the abundance of cooperators in
+any ND-monotone purely extrinsic population dynamic. Before stating the 
+theorem we record a comparison result for Markov chains
 on partially ordered spaces. The result is classical and we claim no
 novelty; we include a short proof for the reader's convenience, since its
 use in the proof of the theorem below may not be familiar to the reader.
@@ -839,17 +814,56 @@ use in the proof of the theorem below may not be familiar to the reader.
     gives $\pi^P \preceq_{st} \pi^Q$.
 \end{proof}
 
+\subsubsection{The Ceiling of Cooperation}
+
+We now consider the ceiling on the average abundance of cooperatorss in purely extrinsic population dynamics.
+Our result is comparable to that of~\cite{ANTAL2009340}, which showed that for the game defined by~\ref{eq:abcd} and
+a wide range of evolutionary processes, the condition \(a(N-2) + bN > cN + d(N-2)\) is
+crucial for a strategy \(A\) to dominate strategy \(B\) in pairwise comparison processes. This builds upon
+the work of~\cite{Kandori, Nowak2004Emergence}, generalising it to arbitrary mutation and selection intensity. We
+now show that for ND-monotone 
+purely extrinsic population dynamics, pointwise domination of defection over cooperation
+is sufficient for defection to dominate cooperation in a heterogeneous population. This
+extends the understanding of when defection dominates cooperation to any population, game, and 
+population dynamic such that the above conditions are satisfied. 
+
+Crucially, we show that
+even if a player may increase their payoff by a switch \(D \to C\) at all times, pointwise dominance
+of \(D\) will still cause the process to favour \(D\). In the words of a 2x2 symmetric game as discussed
+in~\cite{ANTAL2009340, Kandori, Nowak2004Emergence}, pointwise domination corresponds to a system where:
+\begin{equation}
+    \frac{j-1}{N-1}a + \frac{N-j}{N-1}b > \frac{j}{N-1}c + \frac{N-j-1}{N-1}d
+    \label{eq:point_dominance_2x2}
+\end{equation}
+where \(j < N\) is the number of \(D\) players.
+In 2x2 pairwise games, it is not possible to formulate a system where~\ref{eq:point_dominance_2x2} is satisfied
+and yet in a given state a change \(D \to C\) improves a player's fitness, as the following would need to be
+satisfied:
+\begin{equation}
+    \frac{j-1}{N-1}a + \frac{N-j}{N-1}b < \frac{j+1-1}{N-1} + \frac{N-(j+1)}{N-1} = \frac{j}{N-1} + \frac{N-j-1}{N-1}
+\end{equation}
+which contradicts~\ref{eq:point_dominance_2x2}.
+
+An example of this is the public goods game with \(r > N\). This satisfies both pointwise 
+dominance and a fitness increase for any player under the \(D \to C\) swap, and so we can see that it
+cannot be described as pairwise interactions in the manner of~\cite{ANTAL2009340, Kandori, Nowak2004Emergence}.
+The case of such a public goods game is considered in figure 3 of~\cite{g10010001}, where a subset of a 
+homogeneous population play a public goods game at each time step.
+The following result extends previous work to the general set of games where cooperators outperform defectors at a given times, 
+as well as to heterogeneous populations. Our result gives the ceiling on the abundance of cooperation in 
+ND-monotone purely extrinsic population dynamics.
+
 \begin{framed}
 \begin{theorem}[Extrinsic Ceiling]
 
-    Let $T$ define a purely extrinsic process on an $N$-player game with 2 actions, $C$ and $D$, such that
-    in any given state $\mathbf{a}$, $\min_{j: a_j = D} f_j(\mathbf{a}) >
-    \max_{i: a_i = C} f_i(\mathbf{a})$ (that is, in any given state, any
-    defector has greater fitness than any cooperator). Suppose further that the system
-    exhibits action-invariant mutation $\mu_{iC} = \mu_{iD}$ for all players $i
-    \in \mathbf{a}$.
+    Let $T$ define an ND-monotone purely extrinsic process on an $N$-player game with 2 actions, 
+    $C$ and $D$, such that
+    in any given state \(\mathbf{a}\), \(\min_{j: a_j = D} f_j(\mathbf{a}) >
+    \max_{i: a_i = C} f_i(\mathbf{a})\) (that is, in any given state, any
+    defector has greater fitness than any cooperator), under action-invariant mutation. 
 
-    Then, $p_C \leq \frac{1}{2}$
+    Then the mean number of cooperators in the steady state of \(T\), denoted \(p_C\),
+     satisfies \(p_C \leq \frac{1}{2}\)
     \label{prop:ceiling}
 \end{theorem}
 \end{framed}
@@ -928,35 +942,67 @@ use in the proof of the theorem below may not be familiar to the reader.
     \]
 \end{proof}
 
-This shows that even in a game where an action change \(D \to C\) would
-result in an increase in payoff for a given player, under a purely extrinsic
-population dynamic we cannot achieve a probability of cooperation above that of
-the neutral drift baseline. Purely extrinsic processes always
-favour the pointwise dominant strategy, regardless of which strategy provides
-the Nash equilibrium for the one shot game. Thus, a player's chosen strategy does
+This shows that a player's chosen strategy does
 not necessarily favour the action type which maximises their payoff in
 \emph{either} the one-step or the long-run strategy distribution, instead
-favouring the strategy which is pointwise dominant over its peers. We now show
-this result in the context of the public goods game with heterogeneous contributions.
-% TODO I think we need to move the previous PGG section here. Possibly modifying the
-% sentence above as an introduction.
-% TODO I also think we need the table and/or a figure with the parameter sweep.
+favouring the strategy which is pointwise dominant over its peers.
 
+\subsubsection{Purely extrinsic population dynamics in the Public Goods Game}
 
-% TODO I'm not entire sure the PGG section (that I think needs to move here)
-% even has to be a section, or the next subsection. I think this just becomes:
-% Figure bla illustrates this theorem over a large parameter sweep (parameters
-% given in Table bla).
-\subsection{Purely extrinsic population dynamics in the Public Goods Game}
+To illustrate for the results of section~\ref{sec:extrinsic_population_dynamics}, 
+we carry out a large parameter sweep across parameters of a public goods 
+game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, 
+hauser2019social, ARCHETTI20129, HauertDynamics2004, hauert2002volunteering}. This
+is done to the highest standards of reproducibility~\cite{wilson2014, sandve2013,
+wilson2017, stodden2018, turingway2022} and all data has been archived and is a
+further contribution of the work.
+In order to perform this sweep, the authors have developed an
+installable software library \texttt{ludics} (written in python).
+ The archive of the software is at~\cite{}  % TODO Add archive of software 
+and the documentation can be found at~\url{https://hefos.github.io/ludics/}.
+The full development of the software can be found at~\url{https://github.com/hefos/ludics}.
+The parameters considered, as well as their meanings in reference to the public goods
+game are considered in table~\ref{fig:parameter_sweep_table}.
 
-In Figure~\ref{fig:extrinsic_alpha_range_violinplots}, we explore Theorem~\ref{}
-% TODO Add the ref.
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Parameter & Meaning &Minimum & Maximum & Number of Values per $N$\\
+        \hline
+        $N$ & Number of players &3 & 8 & N/A\\
+        \hline
+        $r$ & Return on investment & $\frac{1}{2}$ & $\frac{3N}{2}$ & 10\\
+        \hline
+        $\alpha_i$ & Contribution of player $i$ & N/A & N/A & N/A\\
+        \hline
+        $M$ & Maximum total contribution & $N$ & $4N$ & 10\\
+        \hline
+        $\mu$ & Mutation value & 0.001 & 0.1 & 4\\
+        \hline
+        $\epsilon$ & Selection intensity & 0 & $0.99 \cdot \max_i \alpha_i$ &10\\
+        \hline
+        $\beta$ & Choice intensity & 0 & 2 & 10\\
+        \hline
+        $A$ & Aspiration & 1 & \(\frac{M}{N}\) & 10\\
+        \hline
+    \end{tabular}
+    \caption{The set of measured parameters and boundry values. Some parameters
+    are only applicable to certain processes. \(\alpha_i\) is entirely
+    controlled by the value $M$, which controls the maximum total contribution. The distribution
+    of wealth remains the same for a given \(N\), however as \(M\) increases, so
+    too does the size of each player's contribution \(\alpha_i\). The value $A$ is the
+    \emph{aspiration} considered in aspiration dynamics, in section~4. We consider a homogeneous return $r$.}
+    \label{fig:parameter_sweep_table}
+\end{table}
+
+Our results for the purely extrinsic dynamics are shown in
+Figure~\ref{fig:extrinsic_alpha_range_violinplots}, and we explore Theorem~\ref{prop:ceiling}
 numerically in the
-context of the public goods game. In panels (a) through (e), we
+context of the 8-player public goods game. All other values of \(N\) are given
+as supplimentary information. In panels (a) through (e), we
 can see this limit as a hard ceiling on the value of \(p_C\) which no
-parameter set in our data 
-% TODO Point at the table/figure that needs to be added (showing the parameter
-% sweep)
+parameter set in our data
 is able to exceed. This includes parameter
 combinations which have high values of \(r > N\), and so we see that despite
 full cooperation being the Nash equilibrium of the one shot game, and
@@ -985,52 +1031,85 @@ chosen for reproduction than a given cooperator. The Moran process' ability to
 consider the \(r\) parameter leads it to have a higher \(p_C\) than Fermi
 imitation dynamics in most parameter combinations, as shown in Figure~\ref{fig:compare_Mor_Fer}.
 
+One interesting point is the invariance of the Moran process under the size of each player's contribution. 
+The probability of selecting a defector in a state with \(q\) defectors is given by:
+\begin{equation}
+    \frac{qr\sum_{j=1}^N \alpha_j}{Nr\sum_{j=1}^N \alpha_j - \sum_{\mathbf{a}_l = C}\alpha_l} =
+    \frac{qr\sum_{j=1}^N \alpha_j}{(Nr)\sum_{j=1}^N \alpha_j - \sum_{j=1}^N \alpha_j}=
+    \frac{qr\sum_{j=1}^N \alpha_j}{(Nr-1)\sum_{j=1}^N \alpha_j} = \frac{qr}{Nr-1}
+\end{equation}
+The analogous result for choosing a defector is given by \(1 - \frac{qr}{Nr-1}\), which is once again 
+invariant under \(\alpha_i\).
+Therefore, as Fermi imitation dynamics is invariant under the return parameter \(r\), the Moran process is
+invariant under the contribution parameter \(\alpha_i\). 
+We can observe this effect in figures~\ref{fig:moran_alpha_violin_lt} and~\ref{fig:moran_alpha_violin_gt}.
+
+
 \begin{figure}[!htbp]
     \centering
     \begin{mdframed}
-    \begin{subfigure}[t]{0.30\textwidth}
-        \centering
+
+    %==================== ROW 1 ====================%
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering)
         (a)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/r_violinplots/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_mutation_violins}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (b)\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{figures/alpha_range_violinplots/fermi_N_eq_8/main.pdf}
-        \phantomcaption\label{fig:fermi_alpha_violin}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/fermi_N_eq_8_r_lt/main.pdf}
+        \phantomcaption\label{fig:fermi_alpha_violin_lt}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (c)\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/fermi_N_eq_8_r_gt/main.pdf}
+        \phantomcaption\label{fig:fermi_alpha_violin_gt}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        (d)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/beta_r_heatmaps/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_beta_heatmap}
     \end{subfigure}
 
-    \vspace{0.3cm}
+    \vspace{0.5cm}
 
-    \begin{subfigure}[t]{0.30\textwidth}
+    %==================== ROW 2 ====================%
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
-        (d)\par\vspace{0.1cm}
+        (e)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/r_violinplots/moran_N_eq_8/main.pdf}
         \phantomcaption\label{fig:moran_r_violin}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
-        \centering
-        (e)\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{figures/alpha_range_violinplots/moran_N_eq_8/main.pdf}
-        \phantomcaption\label{fig:moran_alpha_violin}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (f)\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/moran_N_eq_8_r_lt/main.pdf}
+        \phantomcaption\label{fig:moran_alpha_violin_lt}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        (g)\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/moran_N_eq_8_r_gt/main.pdf}
+        \phantomcaption\label{fig:moran_alpha_violin_gt}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        (h)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/process_comparison_violinplots/Fermi_vs_Moran_N_eq_8/main.pdf}
         \phantomcaption\label{fig:compare_Mor_Fer}
     \end{subfigure}
+
+    \end{mdframed}
     
 
     \caption{(a): The distribution of \(p_C\) in Fermi imitation
@@ -1038,19 +1117,18 @@ imitation dynamics in most parameter combinations, as shown in Figure~\ref{fig:c
     invariant under the value of \(r\), this distribution does not change, and
     for all values of \(r\) it admits a maximum value of \(p_C\) below the
     neutral-drift baseline \(p_C = \frac{1}{2}\).
-    (b): The distribution of $p_C$ for Fermi imitation dynamics for
-    different levels of heterogeneity in contribution. The greater the decile
-    of range$(\alpha_i)$, the greater the heterogeneity in contribution.
-    (c): A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
+    (b) \& (c): The distribution of $p_C$ for Fermi imitation dynamics for
+    different sizes of contribution. The greater the decile
+    of range$(\alpha_i)$, the greater the size of each player's contribution. 
+    (b) shows when \(r < N\), and (c) shows \(r > N\).
+    (d): A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
     for Fermi imitation dynamics. We see that there is a negative correlation
     between \(\beta\) and \(p_C\).
-    (d), (e): The equivalent of (a) and (b), respectively,
-    for the Moran process.
+    (e - g): The equivalent of (a - c) for the Moran process.
     (f): The distribution of difference in \(p_C\) between Fermi
     imitation dynamics and the Moran process for different combinations of
     shared parameters.}
     \label{fig:extrinsic_alpha_range_violinplots}
-    \end{mdframed}
 \end{figure}
 
 
@@ -1058,21 +1136,31 @@ imitation dynamics in most parameter combinations, as shown in Figure~\ref{fig:c
 \label{sec:intrinsic_population_dynamics}
 
 Another classification of population dynamics is intrinsic population dynamics.
-% TODO We are so strict and rigorous with what we mean by extrinsic and here we
-% kind of just pass over intrinsic. I do not think we should define intrinsic
-% rigorously (it would be a pain in the ass to get right) but I think we should
-% essentially say something like: "we refer to processes that are not purely
-% extrinsic as intrinsic".
-In such population dynamics, a player compares their payoff to some attribute
+We define a purely intrinsic population dynamic as follows:
+\begin{definition}[Purely intrinsic population dynamic]
+    A population dynamic defined by a transition matrix \(T\) 
+    is said to be \emph{purely intrinsic} if it satisfies the following conditions:
+    \begin{enumerate}
+        \item \(T_{\mathbf{ab}}\) is a function of the payoffs of no player other
+        than \(I(\mathbf{ab})\).
+        \item \(T_{\mathbf{ab}}\) is decreasing in the payoff \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\)
+        \item $T_{\mathbf{ab}}$ contains no term dependent on $a_{I(\mathbf{a,b})}$ or
+        $b_{I(\mathbf{a,b})}$, except in the payoff function
+        $\pi_{I(\mathbf{a,b})}(\mathbf{a})$, mutation parameters $\mu_{ij}$,
+        and in the definition of the set $\mathcal{R}$.
+    \end{enumerate}
+\end{definition}
+
+In purely intrinsic population dynamics, a player compares their payoff to some attribute
 or payoff other than the payoff of other players in the population. We shall
 see two such population dynamics - aspiration dynamics, which compares a
 player's payoff to their individual baseline aspiration, and introspection
 dynamics, which compares a player's payoff to their counterfactual payoff when
-they change action type. 
+they change action type.
 
-\subsection{Aspiration Dynamics}
-% TODO For all of these (including the previous ones, can we refer to the sub
-% diagram in the perfect diagram?)
+
+
+\subsection{Aspiration Dynamics}\ref{fig:Asp_Dia}
 
 Aspiration dynamics models an update rule based on how far away a player's
 performance in a game is from an aspirational constant fitness value:
@@ -1126,16 +1214,26 @@ underperforming in comparison to their target \(A\). Thus, cooperation emerges
 more frequently in aspiration dynamics under larger values of \(A\), as more
 cooperators are required in order for all players to reach their aspired
 payoff. At a lower value of \(A\), the reverse is true - fewer cooperators are
-required for all players to reach their target payoff.
+required for all players to reach their target payoff. We now show that Aspiration dynamics
+is a purely intrinsic population dynamic:
 
+\begin{theorem}[Aspiration dynamics is a purely intrinsic population dynamic]
+\end{theorem}
+\begin{proof}
+    It is clear from the definition of \(T_{\mathbf{ab}}\) that aspiration dynamics satisfies conditions (1) and (3).
+    It remains to show that aspiration dynamics is decreasing in the payoff
+    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\). Since \(\phi(x)\) is decreasing, and \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\)
+    appears only in the value \(\pi_{I(\mathbf{a,b})}(\mathbf{a}) - A_i\). Therefore, 
+    setting \(x = \pi_{I(\mathbf{a,b})}(\mathbf{a})\), we get that \(\phi\) is decreasing in 
+    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\), and therefore so is \(T_{\mathbf{ab}}\).
+\end{proof}
 
 
 \subsection{Introspection Dynamics}
 
-In introspection dynamics \cite{Couto2022, Couto2023}, individuals are selected to consider
+Under introspection dynamics \cite{Couto2022, Couto2023}, individuals are selected to consider
 if a change of their action choice would lead to an increase in payoff. The new
-action is selected with a probability that depends on the potential increase and
-the selection intensity \(\beta\):
+action is selected with a probability that depends on their counterfactual payoff \(\pi_i(\mathbf{b})\):
 
 \begin{enumerate}
     \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to reconsider their strategy \(a_{i,k}\)
@@ -1156,7 +1254,7 @@ The process transitions between states according to:
 \begin{equation}
 T_{\mathbf{ab}} =
 \begin{cases}
-\dfrac{1}{N(k - 1)} \, \phi (\Delta \pi_{I(\mathbf{a}, \mathbf{b})})\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N}
+\dfrac{1}{N(k - 1)} \, \phi (\Delta (\pi_{I(\mathbf{a}, \mathbf{b})}))\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N}
     & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\[1.2em]
 0
     & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\[0.8em]
@@ -1165,19 +1263,7 @@ T_{\mathbf{ab}} =
 \label{eqn:Introspection_Probability_Function}
 \end{equation}
 
-where \(k\) is the number of actions available to each individual. It has been shown~\cite{} that in
-state-independent %TODO: add citation to exact PGG paper
-games, such as the public goods game and certain forms of the prisoners
-dilemma, introspection dynamics can be modelled as \(N\) individual Markov
-chains, where each player changes action independently of the action types of
-the rest of the state. Thus, \(p_C\) breaks down into the mean \(p_i\), the
-probability that player \(i\) cooperates. This makes introspection
-dynamics an unrealistic model of the evolution of cooperation in many common
-abstractions of real-world interactions, as players do not consider the current
-success of a strategy when choosing to consider or accept it, but only consider
-the fitness of a strategy in the next step after adoption. 
-
-Intrinsic dynamics are more aligned with classic static game theory, 
+Introspection dynamics is aligned with classic static game theory, 
 where a well informed and rational
 actor maximises their own payoff. We can contrast this with purely extrinsic
 population dynamics, which are the traditional method of modelling populations
@@ -1185,76 +1271,102 @@ in evolutionary games, where actors are not typically well-informed and choose
 their next strategy according to fitnesses in the current population, without
 knowledge of the impact of their transition on their fitness. 
 
+\begin{definition}[Introspection dynamics is a purely intrinsic population dynamic]
+\end{definition}
+\begin{proof}
+    It is once again clear that introspection dynamics satisfies conditions (1) and (3).
+    For condition (2), consider that \(\phi(x)\) is decreasing. Setting 
+    \(x = \pi_{I(\mathbf{a,b})}(\mathbf{a})- \pi_{I(\mathbf{a,b})}(\mathbf{b})\), we have our result.
+\end{proof}
+
+Unlike purely extrinsic population dynamics, introspection dynamics does not necessarily 
+cancel out certain parameters of games, unless said parameter does not affect the
+difference in a player's payoff when playing different action types. For example,
+if we consider the public goods game, we can see that for introspection dynamics,
+\(\Delta(\pi_{I(\mathbf{a}, \mathbf{b})}) = \alpha_i(\frac{r}{N} - 1)\), which considers
+both \(\alpha_i\) and \(r\).
+
 \subsection{Intrinsic population dynamics in a public goods game}
 
 \begin{figure}[!htbp]
     \centering
     \begin{mdframed}
-    % Row 1
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (a)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/r_violinplots/aspiration_N_eq_8/main.pdf}
         \phantomcaption\label{fig:aspiration_mutation_violins}
-    \end{subfigure}
+    \end{subfigure}%
     \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (b)\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{figures/alpha_range_violinplots/aspiration_N_eq_8/main.pdf}
-        \phantomcaption\label{fig:aspiration_alpha_violin}
-    \end{subfigure}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/aspiration_N_eq_8_r_lt/main.pdf}
+        \phantomcaption\label{fig:aspiration_alpha_violin_lt}
+    \end{subfigure}%
     \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (c)\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/aspiration_N_eq_8_r_gt/main.pdf}
+        \phantomcaption\label{fig:aspiration_alpha_violin_gt}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        (d)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/beta_r_heatmaps/aspiration_N_eq_8/main.pdf}
         \phantomcaption\label{fig:aspiration_beta_heatmap}
     \end{subfigure}
 
-    \vspace{0.3cm}
+    \vspace{0.4cm}
 
-    % Row 2
-    \begin{subfigure}[t]{0.30\textwidth}
-        \centering
-        (d)\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{figures/r_violinplots/introspection_N_eq_8/main.pdf}
-        \phantomcaption\label{fig:introspection_mutation_violins}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (e)\par\vspace{0.1cm}
-        \includegraphics[width=\linewidth]{figures/alpha_range_violinplots/introspection_N_eq_8/main.pdf}
-        \phantomcaption\label{fig:introspection_alpha_violin}
-    \end{subfigure}
+        \includegraphics[width=\linewidth]{figures/r_violinplots/introspection_N_eq_8/main.pdf}
+        \phantomcaption\label{fig:introspection_mutation_violins}
+    \end{subfigure}%
     \hfill
-    \begin{subfigure}[t]{0.30\textwidth}
+    \begin{subfigure}[t]{0.23\textwidth}
         \centering
         (f)\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/introspection_N_eq_8_r_lt/main.pdf}
+        \phantomcaption\label{fig:introspection_alpha_violin_lt}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        (g)\par\vspace{0.1cm}
+        \includegraphics[width=\linewidth]{figures/alpha_for_different_r/introspection_N_eq_8_r_gt/main.pdf}
+        \phantomcaption\label{fig:introspection_alpha_violin_gt}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        (h)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/beta_r_heatmaps/introspection_N_eq_8/main.pdf}
         \phantomcaption\label{fig:introspection_beta_heatmap}
     \end{subfigure}
-    
 
-    \caption{(a): The distribution of \(p_C\) in aspiration dynamics.
-    For medium values of \(r\), players are able to achieve their aspired
-    fitness with fewer cooperators, and so the value of \(p_C\) is reduced.
-    However,
-    when \(r>N\), players achieve a higher payoff in a state \(\mathbf{a}\) where
-    they cooperate than in the state \(\mathbf{a}_{-i}\) where they do
-    not cooperate. Thus we have \(p_C > \frac{1}{2}\) in this case
-    (b): The distribution of $p_C$ for aspiration dynamics for
-    different levels of heterogeneity in contribution. The greater the decile
-    of range$(\alpha_i)$, the greater the heterogeneity in contribution.
-    (c): A heatmap of mean(\(p_C\)) for values of \(r\) and \(\beta\)
-    for aspiration dynamics. We see that there is a negative correlation
-    between \(\beta\) and \(p_C\). The mean \(p_C\) of aspiration dynamics is
-    usually in the region (0.4, 0.6)
-    (d),(e), (f): The equivalent of (a), (b), and (c), respectively,
-    for introspection dynamics.}
-    \label{fig:intrinsic_alpha_range_violinplots}
     \end{mdframed}
+
+    \caption{
+    (a): The distribution of \(p_C\) in aspiration dynamics.
+    For medium values of \(r\), players are able to achieve their aspired
+    fitness with fewer cooperators, reducing the value of \(p_C\).
+    However, when \(r>N\), players obtain a higher payoff in a state
+    \(\mathbf{a}\) where they cooperate than in the state
+    \(\mathbf{a}_{-i}\) where they defect. Consequently,
+    \(p_C > \frac{1}{2}\) in this regime.\\
+    (b)--(c): The distribution of \(p_C\) for aspiration dynamics
+    for different magnitudes of contribution.
+    Higher deciles of range\((\alpha_i)\) correspond to larger player contributions.
+    Panel (b) shows the case \(r < N\), while panel (c) shows \(r > N\).\\
+    (d): A heatmap of mean\((p_C)\) for values of \(r\) and \(\beta\)
+    under aspiration dynamics.\\
+    (e)--(h): The equivalent results for introspection dynamics.
+    }
 \end{figure}
 
 In Figure~\ref{fig:intrinsic_alpha_range_violinplots}, we see that intrinsic
@@ -1324,20 +1436,45 @@ Figure~\ref{fig:fermi_beta_heatmap}. The intrinsic step can therefore be said
 to favour the strategy which admits the Nash equilibrium in the public goods
 game.
 
-% TODO Add a sentence here reaffirming the weaknesses of the intrinsic dynamics
-% OR perhaps move the weaknesses of the dynamics here... I think moving them
-% here makes more sense.
+We also see in figures~\ref{fig:aspiration_alpha_violin_lt},~\ref{fig:aspiration_alpha_violin_gt},
+ ~\ref{fig:introspection_alpha_violin_lt}, ~\ref{fig:introspection_alpha_violin_gt} that the \(r = N\)
+ threshold provides the point at which the effect of the size of a player's contribution
+  on \(p_C\) changes. When \(r < N\), we
+ have that a higher contribution causes a negative effect on \(p_C\), whereas when \(r > N\), 
+ a larger contribution causes \(p_C\) to inrease significantly. The difference between
+ the payoff for a contributor, given by \(\alpha_i(\frac{r}{N} - 1)\) is greater for a higher contribution.
+ Therefore, when \(r > N\), a higher contributor has a much larger payoff difference 
+ in favour of cooperation, whereas the reverse is true if \(r < N\). This leads to our result
+ in both cases.
+
+\subsection{The weaknesses of purely intrinsic population dynamics}
+
+Purely intrinsic population dynamics are able to take into account many more
+factors than purely extrinsic population dynamics, for example performance
+in the next state, not cancelling out certain parameters, and being able to break
+the ceiling on \(p_C\). However, these process have the inherant limitation
+that they do not take into account the rest of the population. It has been shown~\cite{couto2023} that in
+additive games, such as the public goods game and certain forms of the prisoners
+dilemma, introspection dynamics can be modelled as \(N\) individual Markov
+chains, where each player changes action independently of the action types of
+the rest of the state. Thus, \(p_C\) breaks down into the mean \(p_i\), the
+probability that player \(i\) cooperates, with \(p_i\) invariant under the actions
+or fitnesses of and player \(j \neq i\) in any state.
+
+Aspiration dynamics is not invariant under the actions of other players, however it still does not 
+consider the fitness of other strategies when accepting them. Consider a 
 
 \section{Introspective Imitation Dynamics}
 \label{sec:introspective_imitation_dynamics}
 
 We introduce a novel population dynamic \emph{introspective imitation
-dynamics}. This population dynamic combines the introspective step of
-introspection dynamics with the fitness-proportional selection of the Moran
+dynamics}. This population dynamic combines the purely intrinsic step of
+introspection dynamics with the purely extrinsic fitness-proportional selection of the Moran
 process, in order that each individual takes into account both the fitness of
 strategies in the current state, and the counterfactual payoff obtained when
 accepting a new strategy. This models both extrinsic learning and intrinsic
-learning. We define the introspective imitation process as follows:
+learning, and is defined neither as purely extrinsic or purely intrinsic.
+We define the introspective imitation process as follows:
 
 \begin{enumerate}
     \item A focal player is chosen at random to reconsider their strategy
@@ -1368,7 +1505,7 @@ they \textit{should} play. This means that introspective imitation dynamics is
 well-suited to a heterogeneous population, but does not ignore the success of
 strategies in the rest of the population.
 
-This dynamic will not break down into individual Markov chains like
+Introspective imitation dynamics does not break down into individual Markov chains like
 introspection dynamics due to the extrinsic step, however it is shown
 in Figure~\ref{fig:imi_alpha_violins} able to exceed the extrinsic population
 ceiling under the right conditions due to the
@@ -1596,8 +1733,6 @@ values and the heterogeneity of \(r\) may be a focus of further study.
     intrinsic players gives the \(p_C\) of the Moran process, whereas 8 gives
     us the \(p_C\) in introspective imitation dynamics. We take a linear
     population with a maximum contribution of 8.
-    % TODO Refer to equation (which is not labelled just yet, see a previous
-    % todo) and use M=8 etc...
     (b): for various parameter combinations, the mean value over
     numerous simulations of an 8 player population playing introspective
     imitation dynamics converging to the theoretic \(p_C\).
