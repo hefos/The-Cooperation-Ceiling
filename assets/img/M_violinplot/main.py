@@ -64,7 +64,7 @@ def aggregate_dataframe(df):
         process=("process", "first"),
     )
 
-    aggregated_df["r_band"] = (aggregated_df["r"] > aggregated_df["N"]).astype(int).map({1:"gt", 0:"lt"}, meta=("r_band", "object"))
+    aggregated_df["M_band"] = (aggregated_df["r"] > aggregated_df["N"]).astype(int).map({1:"gt", 0:"lt"}, meta=("M_band", "object"))
 
     return aggregated_df.reset_index()
 
@@ -76,31 +76,35 @@ for df_set in dataframes:
     for N, df in df_total.groupby("N"):
         if N == 1:
             continue
-        for r_band, r_band_frame in df.groupby("r_band"):
+        for M_band, M_band_frame in df.groupby("M_band"):
 
             fig = plt.figure()
             ax = fig.add_subplot(111)
             ax.set_ylim(0, 1)
 
             groups = []
-            
+            M_values = []
 
-            for _, g in r_band_frame.groupby("M", sort=True):
+            for M,g in M_band_frame.groupby("M", sort=True):
                 vals = g["p_C"].dropna().to_numpy()
 
                 if vals.size > 0:
                     groups.append(vals)
+                    M_values.append(round(M,2))
 
-            ax.violinplot(groups, showmeans=True)
-            if r_band == "gt":
+            ax.violinplot(groups, positions=M_values, showmeans=True)
+
+            ax.set_xticks(M_values)
+            ax.set_xticklabels(M_values)
+            if M_band == "gt":
                 ax.set_title(fr"{process}, $p_C$ against $M$, r > N")
             else:
                 ax.set_title(fr"{process}, $p_C$ against $M$, r < N")
-            folder = Path(here.parent / f"{process}_N_eq_{N}_r_{r_band}")
+            folder = Path(here.parent / f"{process}_N_eq_{N}_r_{M_band}")
             folder.mkdir(exist_ok=True)
 
             ax.set_xlabel(r"M")
             ax.set_ylabel(r"$p_C$")
 
-            plt.savefig(here.parent / f"{process}_N_eq_{N}_r_{r_band}/main.pdf")
+            plt.savefig(here.parent / f"{process}_N_eq_{N}_r_{M_band}/main.pdf")
             plt.close()
