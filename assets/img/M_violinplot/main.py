@@ -90,7 +90,7 @@ for df_set in dataframes:
 
                 if vals.size > 0:
                     groups.append(vals)
-                    M_values.append(round(M,2))
+                    M_values.append(round(M,1))
 
             ax.violinplot(groups, positions=M_values, showmeans=True)
 
