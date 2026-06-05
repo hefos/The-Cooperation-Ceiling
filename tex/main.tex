@@ -141,7 +141,7 @@ The conditions under which one strategy may invade a population has been studied
 in depth for certain evolutionary processes. The \(\frac{1}{N}\) fixation probability
 for a single mutant in neutral drift~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} has been used
 as a benchmark for when a strategy is favoured by selection. Results such as the \(\frac{1}{3}\)
-rule~\cite{OHTSUKI2007289, third-equality} have been shown to hold even when 
+rule~\cite{third-equality,OHTSUKI2007289} have been shown to hold even when 
 a population updates with both the Moran process and Fermi imitation dynamics~\cite{LIU2017336}. 
 Much study also focuses on symetric 2x2 games with payoff matrix:
 \begin{table}[!h]
@@ -187,9 +187,9 @@ the same strategy would serve them as well.
 There is also precident in the literature for creating population dynamics from
 the combination of other processes. Previous works have studied this in terms
 of evidential reasoning~\cite{QUAN2020109634}, populations where the population
-dynamic is a heterogeneous attribute of the players~\cite{LIU2015242,
-PhysRevE.102.032120, PhysRevE.94.012124}, players choosing an update rule
-probablistically~\cite{XING2024107859, PhysRevE.102.032120, XWangCombining}, and
+dynamic is a heterogeneous attribute of the players~\cite{PhysRevE.102.032120, PhysRevE.94.012124, LIU2015242},
+players choosing an update rule
+probablistically~\cite{PhysRevE.102.032120, XWangCombining, XING2024107859}, and
 explicit combinations of steps from different population
 dynamics~\cite{WANG2023128134}. Many of these works have focused on the
 combination of aspiration and imitation learning rules, or the
@@ -217,9 +217,9 @@ whether to adopt that strategy by comparing their own current and
 counterfactual payoffs (as in introspection dynamics). This rule is well suited
 to heterogeneous populations, where copying a high-fitness individual occurs with
 a high probability, but is irrational if the considered strategy yields a worse payoff for the copying
-player. For each population dynamic, we will use the public goods
-game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, hauser2019social,
-, HauertDynamics2004, hauert2002volunteering} to demonstrate our
+player. For each population dynamic, we use the public goods
+game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004, hauser2019social, 
+2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64} to demonstrate our
 results. 
 
 The remainder of the paper is organised as follows.
@@ -267,7 +267,7 @@ each time step. Each state also has a self-loop, as at a given time step, a play
 may accept the same strategy they currently posess, or reject the strategy which
 they have considered. We call the unique coordinate at which \(\mathbf{a}\) and 
 \(\mathbf{b}\) differ the \emph{index of difference}, denoted \(I(\mathbf{a},
-\mathbf{b})\)~\cite{Couto2023}. The set of states reachable from \(\mathbf{a}\)
+\mathbf{b})\). The set of states reachable from \(\mathbf{a}\)
 in one step is denoted \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S : h(\mathbf{a},
 \mathbf{b}) = 1\}\). This notation follows~\cite{Couto2023}.
 
@@ -420,7 +420,7 @@ probability of the original process \emph{with mutation} transitioning from
 \[
     P^{(\mu)}(\mathbf{a} \to \mathbf{b})
     = P(\text{pick individual } I(\mathbf{a}, \mathbf{b})) \cdot \left(
-        P(\mathbf{a}_{I(\mathbf{a,b})} transitions \to \mathbf{b}_{I(\mathbf{a,b})}) \cdot
+        P(\mathbf{a}_{I(\mathbf{a,b})} \text{ transitions} \to \mathbf{b}_{I(\mathbf{a,b})}) \cdot
         P(\text{no mutation})
         + P(\mathbf{a}_{I(\mathbf{a}, \mathbf{b})}\text{ mutates} \to
         \mathbf{b}_{I(\mathbf{a}, \mathbf{b})})
@@ -546,8 +546,8 @@ player will choose a higher fitness strategy with a greater probability. This
 value of \(\epsilon\) must, however, be chosen in order that
 \(f_i(\mathbf{a})\) is strictly positive.
 
-The Moran process is traditionally employed as a model of natural evolution
-\cite{Moran_1958,568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a
+The Moran process has often employed as a model of natural evolution
+\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a
 player's ``type'' represents a species or allele within a population. In each time step,
 rather than a given player choosing a new action type, a randomly chosen
 individual in the population would die and be removed from the population.
@@ -956,14 +956,14 @@ on the pointwise dominance of defectors in the state.
 
 To illustrate for the results of section~\ref{sec:extrinsic_population_dynamics}, 
 we carry out a large parameter sweep across parameters of a public goods 
-game~\cite{2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64, 
-hauser2019social, ARCHETTI20129, HauertDynamics2004, hauert2002volunteering}. In such a game,
+game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004, hauser2019social, 
+2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}. In such a game,
 players choose to contribute some amount \(\alpha_i\). The total contribution is multiplied
 by some factor \(r > 0\) and split between all players. We consider heterogeneous contributions
 and a homogeneous return.
 
-The parameter sweep is done to the highest standards of reproducibility~\cite{wilson2014, sandve2013,
-wilson2017, stodden2018, turingway2022} and all data has been archived at~\cite{}%TODO archive DATA
+The parameter sweep is done to the highest standards of reproducibility~\cite{wilson2017, stodden2018, 
+turingway2022, wilson2014, sandve2013} and all data has been archived at~\cite{}%TODO archive DATA
 and is a further contribution of the work.
 In order to perform this sweep, the authors have developed an
 installable software library \texttt{ludics} (written in python).
@@ -1177,10 +1177,10 @@ Here, \(A_i\) is player \(i\)'s \textit{aspiration} - the payoff which
 they desire to make from a given game. A player will accept a new strategy with
 a higher than random probability if their current payoff is lower than their
 aspired payoff. This dynamic is traditionally paired with two 
-action games~\cite{du2014aspiration,Du2015AspirationDynamics,Zhou2021AspirationDynamics},
+action games~\cite{Du2015AspirationDynamics,du2014aspiration,Zhou2021AspirationDynamics},
 though it can be defined for games with 3 or more actions~\cite{Aspiration3Types}.
 Aspiration dynamics has also often being combined with imitation dynamics to
-form a new population dynamic~\cite{PhysRevE.94.012124,QUAN2020109634,PhysRevE.102.032120,WANG2023128134}.
+form a new population dynamic~\cite{PhysRevE.102.032120,PhysRevE.94.012124,QUAN2020109634,WANG2023128134}.
 We the original form of aspiration dynamics defined
 in~\cite{du2014aspiration}, with a homogeneous aspiration value \(A\).
 
@@ -1392,11 +1392,11 @@ previously that for a high aspiration level, cooperation emerges at a level
 near the neutral-drift baseline, but for a low aspiration level defectors
 dominate the population~\cite{du2014aspiration}.
 
-As the heterogeneous public goods game is an additive game~\cite{couto2023}, we
+As the heterogeneous public goods game is an additive game~\cite{Couto2023}, we
 can show that many of the analytical results of~\cite{foster_knight_2026} about the structure
 of introspection dynamics in a public goods game hold empirically.
 Each player \(i\) cooperates with probability \(p_i = \phi_i(\alpha_i(1 - \frac{r}{N}))(1 - 2\mu) + \mu\), and
-\(p_C\) is given as a product measure~\cite{couto2023}. Thus, we have that as the value
+\(p_C\) is given as a product measure~\cite{Couto2023}. Thus, we have that as the value
 \(\Delta(\pi_{I(\mathbf{a,b})}) = \alpha_i(\frac{r}{N} - 1)\)
 is positive for \(r > N\) and negative for \(r < N\), there is a sharp turning
 point at \(r = N\) where introspection dynamics begins to favour cooperation, as shown in
@@ -1423,7 +1423,7 @@ but have been shown empirically for our large data sweep in figure~\ref{fig:intr
 While purely intrinsic population dynamics are able to exceed the ceiling placed on
 \(p_C\) by purely extrinsic population dynamics, they are not without their own
 inherant limitations. While the property of introspection dynamics under additive games
-shown in~\ref{couto2023} is useful for obtaining analytical results, it shows that
+shown in~\ref{Couto2023} is useful for obtaining analytical results, it shows that
 introspection dynamics does not take into account the remainder of the state's actions.
 Players pay no attention to how successful a strategy is in the population, and instead 
 consider strategies at random, accepting them with a probability which often does
