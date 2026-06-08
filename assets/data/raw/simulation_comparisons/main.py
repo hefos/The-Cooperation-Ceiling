@@ -153,37 +153,23 @@ def run_sim(
     individual_to_action_mutation_probability = np.full(shape=(N, 2), fill_value=mu)
     aspiration_vector = np.array([aspiration for _ in range(N)])
     transition_matrix = ludics.generate_transition_matrix(
-        state_space=state_space,
-        fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-        compute_transition_probability=process_function,
-        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
-        r=r,
-        contribution_vector=alphas,
-        choice_intensity=beta,
-        aspiration_vector=aspiration_vector,
-        selection_intensity=epsilon,
-        number_of_strategies=2,
-    )
+            state_space=state_space,
+            fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
+            compute_transition_probability=process_function,
+            individual_to_action_mutation_probability=individual_to_action_mutation_probability,
+            r=r,
+            alpha=alphas,
+            choice_intensity=beta,
+            aspiration_vector=aspiration_vector,
+            selection_intensity=epsilon,
+            number_of_strategies=2
+        )
 
     theoretical_pc = (
         ludics.compute_steady_state(transition_matrix) @ state_space
     ).sum() / N
 
-    _, simulation_distribution = ludics.simulate_markov_chain(
-        initial_state=initial_state,
-        number_of_strategies=2,
-        fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
-        compute_transition_probability=process_function,
-        seed=seed,
-        individual_to_action_mutation_probability=individual_to_action_mutation_probability,
-        iterations=iterations,
-        warmup=50,
-        choice_intensity=beta,
-        r=r,
-        contribution_vector=alphas,
-        aspiration_vector=aspiration_vector,
-        selection_intensity=epsilon,
-    )
+    _, simulation_distribution = ludics.simulate_markov_chain(initial_state=initial_state, number_of_strategies=2, fitness_function=ludics.fitness_functions.public_goods_game_fitness_function, compute_transition_probability=process_function, seed=seed, individual_to_action_mutation_probability=individual_to_action_mutation_probability, iterations=iterations, warmup=50, choice_intensity=beta, r=r, alpha=alphas, aspiration_vector=aspiration_vector, selection_intensity=epsilon)
 
     simulation_pc = (
         sum(

@@ -19,12 +19,12 @@ state_space = ludics.get_state_space(N=N, k=2)
 
 general_heterogeneous_contribution_transition_matrix_n_2 = ludics.generate_transition_matrix(
     state_space=state_space,
-    fitness_function=ludics.fitness_functions.heterogeneous_contribution_pgg_fitness_function,
+    fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
     compute_transition_probability=ludics.compute_moran_transition_probability,
     selection_intensity=epsilon,
     r=r,
     N=N,
-    contribution_vector=generic_alphas_N_eq_2,
+    alpha=generic_alphas_N_eq_2,
 )
 
 general_heterogeneous_absorption_matrix_n_2 = ludics.calculate_absorption_matrix(
