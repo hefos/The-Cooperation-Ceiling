@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import dask.dataframe as dd
-import numpy as np
 from pathlib import Path
 
 here = Path(__file__).resolve()
