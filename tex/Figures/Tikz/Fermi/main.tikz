@@ -36,8 +36,8 @@
 \draw (5,0) rectangle (9,4);
 % middle comparison: empty triangle < small striped diamond
 
-\node[scale=1.5] at (5.5,2) {$f($};
-\node[scale=1.5] at (7.5,2) {$f($};
+\node[scale=1.4] at (5.5,2) {$\pi($};
+\node[scale=1.4] at (7.5,2) {$\pi($};
 \begin{scope}[shift={(6.15,2)}, scale=0.75]
     % --- plain (empty) triangle ---
     \draw (0.15,0.5) -- (-0.35,-0.5) -- (0.65,-0.5) -- cycle;
@@ -57,8 +57,8 @@
             }
 \end{scope}
 \end{scope}
-\node[scale=1.5] at (6.75,2) {$)$};
-\node[scale=1.5] at (8.65,2) {$)$};
+\node[scale=1.4] at (6.75,2) {$)$};
+\node[scale=1.4] at (8.65,2) {$)$};
 
 
 

@@ -28,7 +28,7 @@
 \node at (8.2,1.0) {$A$};
 
 % f(triangle) point
-\node at (7.4,2.1) {$f(\triangle)$};
+\node at (7.4,2.1) {$\pi(\triangle)$};
 
 
 %================ THIRD BOX ==================

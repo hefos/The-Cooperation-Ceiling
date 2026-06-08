@@ -32,7 +32,7 @@
 
 %================ 2nd box (SHIFTED RIGHT) ==================
 \draw (6,0) rectangle (10,4);
-\node at (8,4.5) {\textbf{Selection \(\propto f\)}};
+\node at (8,4.5) {\textbf{Selection \(\propto \pi\)}};
 
 \draw (6.5,3.5) rectangle (7.5,2.5);
 
@@ -63,8 +63,8 @@
 %================ 3rd box (SHIFTED RIGHT) ==================
 \draw (12,0) rectangle (16,4);
 
-\node[scale=1.5] at (12.55,2) {$f($};
-\node[scale=1.5] at (14.55,2) {$f($};
+\node[scale=1.4] at (12.55,2) {$\pi($};
+\node[scale=1.4] at (14.55,2) {$\pi($};
 \begin{scope}[shift={(13.2,2)}, scale=0.75]
     % --- plain (empty) triangle ---
     \draw (0.15,0.5) -- (-0.35,-0.5) -- (0.65,-0.5) -- cycle;
@@ -80,8 +80,8 @@
             \draw (\x,-1) -- (\x+2,1);
         }
 \end{scope}
-\node[scale=1.5] at (13.7,2) {$)$};
-\node[scale=1.5] at (15.7,2) {$)$};
+\node[scale=1.4] at (13.7,2) {$)$};
+\node[scale=1.4] at (15.7,2) {$)$};
 
 
 %================ 4th box (SHIFTED RIGHT) ==================

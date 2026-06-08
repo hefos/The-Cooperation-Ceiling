@@ -122,7 +122,7 @@
 
 
 \node at (2,4.5) {\textbf{Selection}};
-\node at (7,4.5) {\textbf{Selection \(\propto f\)}};
+\node at (7,4.5) {\textbf{Selection \(\propto \pi\)}};
 \node at (12,4.5) {\textbf{Update}};
 
 \node at (7, 5.5) {\textbf{Moran Process}};
