@@ -50,7 +50,7 @@ dataframes = [
     dataframes_fermi,
     dataframes_asp,
     dataframes_introspection,
-    dataframes_moran
+    dataframes_moran,
 ]
 
 
@@ -64,7 +64,11 @@ def aggregate_dataframe(df):
         process=("process", "first"),
     )
 
-    aggregated_df["M_band"] = (aggregated_df["r"] > aggregated_df["N"]).astype(int).map({1:"gt", 0:"lt"}, meta=("M_band", "object"))
+    aggregated_df["M_band"] = (
+        (aggregated_df["r"] > aggregated_df["N"])
+        .astype(int)
+        .map({1: "gt", 0: "lt"}, meta=("M_band", "object"))
+    )
 
     return aggregated_df.reset_index()
 
@@ -77,7 +81,6 @@ for df_set in dataframes:
         if N == 1:
             continue
         for M_band, M_band_frame in df.groupby("M_band"):
-
             fig = plt.figure()
             ax = fig.add_subplot(111)
             ax.set_ylim(0, 1)
@@ -85,21 +88,21 @@ for df_set in dataframes:
             groups = []
             M_values = []
 
-            for M,g in M_band_frame.groupby("M", sort=True):
+            for M, g in M_band_frame.groupby("M", sort=True):
                 vals = g["p_C"].dropna().to_numpy()
 
                 if vals.size > 0:
                     groups.append(vals)
-                    M_values.append(round(M,1))
+                    M_values.append(round(M, 1))
 
             ax.violinplot(groups, positions=M_values, showmeans=True)
 
             ax.set_xticks(M_values)
             ax.set_xticklabels(M_values)
             if M_band == "gt":
-                ax.set_title(fr"{process}, $p_C$ against $M$, r > N")
+                ax.set_title(rf"{process}, $p_C$ against $M$, r > N")
             else:
-                ax.set_title(fr"{process}, $p_C$ against $M$, r < N")
+                ax.set_title(rf"{process}, $p_C$ against $M$, r < N")
             folder = Path(here.parent / f"{process}_N_eq_{N}_r_{M_band}")
             folder.mkdir(exist_ok=True)
 

@@ -31,7 +31,7 @@ def get_absorption_probability_vector_1_contributor_low(
             contribution_vector=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
-            **kwargs
+            **kwargs,
         )
 
         state = np.zeros(N, dtype=int)
@@ -69,7 +69,7 @@ def get_absorption_probability_vector_1_contributor_high(
             contribution_vector=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
-            **kwargs
+            **kwargs,
         )
         print(state_space[1])
 
@@ -104,7 +104,7 @@ def get_absorption_probability_vector_n_minus_1_contributor_low(
             contribution_vector=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
-            **kwargs
+            **kwargs,
         )
 
         state = np.ones(N, dtype=int)
@@ -143,7 +143,7 @@ def get_absorption_probability_vector_n_minus_1_contributor_high(
             contribution_vector=main.get_deterministic_contribution_vector(
                 contribution_rules.log_contribution_rule, N=N, M=M
             ),
-            **kwargs
+            **kwargs,
         )
 
         state = np.ones(N, dtype=int)

@@ -36,7 +36,7 @@ def get_absorption_probability_vector_1_contributor_low(
                 n=math.ceil(N / 2),
                 alpha_h=1.5 * M / N,
             ),
-            **kwargs
+            **kwargs,
         )
 
         state = np.zeros(N, dtype=int)
@@ -79,7 +79,7 @@ def get_absorption_probability_vector_1_contributor_high(
                 n=math.ceil(N / 2),
                 alpha_h=1.5 * M / N,
             ),
-            **kwargs
+            **kwargs,
         )
         print(state_space[1])
 
@@ -118,7 +118,7 @@ def get_absorption_probability_vector_n_minus_1_contributor_low(
                 n=math.ceil(N / 2),
                 alpha_h=1.5 * M / N,
             ),
-            **kwargs
+            **kwargs,
         )
 
         state = np.ones(N, dtype=int)
@@ -161,7 +161,7 @@ def get_absorption_probability_vector_n_minus_1_contributor_high(
                 n=math.ceil(N / 2),
                 alpha_h=1.5 * M / N,
             ),
-            **kwargs
+            **kwargs,
         )
 
         state = np.ones(N, dtype=int)

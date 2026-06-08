@@ -19,26 +19,22 @@ p2 = args.p2
 
 try:
     df = pd.read_csv(
-        assets_path
-        / f"data/processed/comparison_tables/{p1}_vs_{p2}/main.csv"
+        assets_path / f"data/processed/comparison_tables/{p1}_vs_{p2}/main.csv"
     )
 except FileNotFoundError:
     df = pd.read_csv(
-        assets_path
-        / f"data/processed/comparison_tables/{p2}_vs_{p1}/main.csv"
+        assets_path / f"data/processed/comparison_tables/{p2}_vs_{p1}/main.csv"
     )
     p3 = p1
     p1 = p2
     p2 = p3
 
 N = 8
-N_frame = df[df["N"]==N]
+N_frame = df[df["N"] == N]
 fig, ax = plt.subplots()
 N_frame = N_frame[N_frame["winner"] != "draw"]
 
-N_frame["p_C_difference"] = (
-        N_frame[f"p_C_in_{p1}"] - N_frame[f"p_C_in_{p2}"]
-    )
+N_frame["p_C_difference"] = N_frame[f"p_C_in_{p1}"] - N_frame[f"p_C_in_{p2}"]
 N_frame["r"] = N_frame["r"].round(3)
 
 sns.violinplot(data=N_frame, x="r", y="p_C_difference", ax=ax, native_scale=True)

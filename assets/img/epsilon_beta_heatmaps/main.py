@@ -60,14 +60,7 @@ plt.close()
 
 fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
-sns.heatmap(
-    gt_plot,
-    cmap="coolwarm",
-    ax=ax,
-    vmin=vmin,
-    vmax=vmax,
-    cbar=True
-)
+sns.heatmap(gt_plot, cmap="coolwarm", ax=ax, vmin=vmin, vmax=vmax, cbar=True)
 ax.set_title(r"$r > N$")
 ax.set_xlabel(r"$\epsilon$")
 ax.set_ylabel(r"$\beta$")

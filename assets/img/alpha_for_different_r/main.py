@@ -50,7 +50,7 @@ dataframes = [
     dataframes_fermi,
     dataframes_asp,
     dataframes_introspection,
-    dataframes_moran
+    dataframes_moran,
 ]
 
 
@@ -65,7 +65,11 @@ def aggregate_dataframe(df):
         process=("process", "first"),
     )
 
-    aggregated_df["r_band"] = (aggregated_df["r"] > aggregated_df["N"]).astype(int).map({1:"gt", 0:"lt"}, meta=("r_band", "object"))
+    aggregated_df["r_band"] = (
+        (aggregated_df["r"] > aggregated_df["N"])
+        .astype(int)
+        .map({1: "gt", 0: "lt"}, meta=("r_band", "object"))
+    )
 
     aggregated_df["alpha_range"] = (
         aggregated_df["alpha_max"] - aggregated_df["alpha_min"]
@@ -91,7 +95,6 @@ for df_set in dataframes:
             ax.set_ylim(0, 1)
 
             groups = []
-            
 
             for _, g in r_band_frame.groupby("alpha_range_bin", sort=True):
                 vals = g["p_C"].dropna().to_numpy()
@@ -102,9 +105,9 @@ for df_set in dataframes:
             # HARD SAFETY CHECK
             ax.violinplot(groups, showmeans=True)
             if r_band == "gt":
-                ax.set_title(fr"{process}, range($\alpha$) against $p_C$, r > N")
+                ax.set_title(rf"{process}, range($\alpha$) against $p_C$, r > N")
             else:
-                ax.set_title(fr"{process}, range($\alpha$) against $p_C$, r < N")
+                ax.set_title(rf"{process}, range($\alpha$) against $p_C$, r < N")
             folder = Path(here.parent / f"{process}_N_eq_{N}_r_{r_band}")
             folder.mkdir(exist_ok=True)
 

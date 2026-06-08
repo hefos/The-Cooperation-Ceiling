@@ -17,7 +17,12 @@ def get_pc(transition_matrix, state_space, N):
 def get_data(beta, epsilon, alpha, r_high, r_low, split, N=8):
     state_space = ludics.get_state_space(N=N, k=2)
 
-    r_vector = np.concatenate([np.array([r_high for _ in range(split)]), np.array([r_low for _ in range(N - split)])])
+    r_vector = np.concatenate(
+        [
+            np.array([r_high for _ in range(split)]),
+            np.array([r_low for _ in range(N - split)]),
+        ]
+    )
 
     transition_matrix = ludics.generate_transition_matrix(
         state_space=state_space,
@@ -46,7 +51,6 @@ fig, ax = plt.subplots()
 for r_low, r_high, beta, epsilon, marker in parameter_sets:
     data = []
     for split in range(0, 9):
-
         data.append(
             get_data(
                 beta=beta,

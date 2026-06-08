@@ -36,7 +36,12 @@ dataframes_introspection = [
     data_path / "raw/introspection_mu_eq_0.05/main.csv",
 ]
 
-dataframes = [dataframes_fermi, dataframes_imispection, dataframes_introspection, dataframes_asp]
+dataframes = [
+    dataframes_fermi,
+    dataframes_imispection,
+    dataframes_introspection,
+    dataframes_asp,
+]
 
 process_order = ["Fermi", "Introspective Imitation", "Introspection", "Aspiration"]
 
@@ -56,7 +61,9 @@ axarray = axis.flatten()
 
 
 for df_path in dataframes:
-    df_plot = pd.concat([pd.read_csv(csv_path) for csv_path in df_path], ignore_index=True).drop_duplicates("UID", keep="first")
+    df_plot = pd.concat(
+        [pd.read_csv(csv_path) for csv_path in df_path], ignore_index=True
+    ).drop_duplicates("UID", keep="first")
     df_plot = df_plot[df_plot["N"] == 8]
 
     param_name_formatted = param_name[0].upper() + param_name[1:].replace("_", " ")
@@ -97,5 +104,5 @@ for df_path in dataframes:
 
     plt.subplots_adjust(right=0.82, top=0.88, hspace=0.3, wspace=0.2)
 
-plt.legend(bbox_to_anchor=(1.05,0.5))
+plt.legend(bbox_to_anchor=(1.05, 0.5))
 plt.savefig(here.parent / "main.pdf")

@@ -69,17 +69,9 @@ for df_set in dataframes:
         ax = fig.add_subplot(111)
         ax.set_ylim(0, 1)
 
-        heatmap_df = (
-            df.groupby(["beta", "r"])["p_C"]
-            .mean()
-            .reset_index()
-        )
+        heatmap_df = df.groupby(["beta", "r"])["p_C"].mean().reset_index()
 
-        heatmap_matrix = heatmap_df.pivot(
-            index="beta",
-            columns="r",
-            values="p_C"
-        )
+        heatmap_matrix = heatmap_df.pivot(index="beta", columns="r", values="p_C")
 
         im = ax.imshow(
             heatmap_matrix,

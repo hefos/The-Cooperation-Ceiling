@@ -99,7 +99,6 @@ fig.suptitle(
 
 axis = 0
 for alpha_i in np.array([2, 3, 4, 5]):
-
     ax = axes[axis]
     ax.set_xlim(0, 2)
     ax.set_ylim(0, 0.6)

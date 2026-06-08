@@ -22,7 +22,7 @@ for i, process_1 in enumerate(table_columns):
         df_row = df[df["process_numerator"] == process_1]
         df_row = df_row[df_row["process_other"] == process_2]
         data.append(
-            f"\\frac{{ {df_row["wins"].iloc[0]} }}{{ {df_row["total_compared"].iloc[0]} }}"
+            f"\\frac{{ {df_row['wins'].iloc[0]} }}{{ {df_row['total_compared'].iloc[0]} }}"
         )
     table[process_1] = data
 

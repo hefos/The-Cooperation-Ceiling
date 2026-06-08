@@ -46,13 +46,15 @@ dataframes = [
     dataframes_fermi,
     dataframes_asp,
     dataframes_introspection,
-    dataframes_moran
+    dataframes_moran,
 ]
 
 small_frames = []
 
 for df_path in dataframes:
-    df = pd.concat([pd.read_csv(path, usecols=["N", "p_C", "process"]) for path in df_path])
+    df = pd.concat(
+        [pd.read_csv(path, usecols=["N", "p_C", "process"]) for path in df_path]
+    )
 
     df = df[df["N"].isin([2, 3, 4, 5, 6, 7, 8])]
 
