@@ -85,7 +85,7 @@ omega=0.1
 main.generate_transition_matrix(
     state_space=state_space,
     fitness_function=heterogeneous_contribution_fitness_function,
-    contribution_vector=contribution_vector,
+    alpha=contribution_vector,
     r=r
     omega=omega
 )
