@@ -152,14 +152,12 @@ B & c & d
 \noindent It has been shown that the condition \(a(N-2) + bN > cN +
 d(N-2)\)~\cite{Kandori} in such games leads to an abundance of strategy \(A\).
 This has been shown to hold for a wide range of evolutionary
-processes~\cite{ANTAL2009340}. One strategy may dominate strictly under certain
-relationships between \(a,b,c,\) and \(d\)~\cite{Amir1996AnotherAT}. The effects
-of mutation on such a game have also been studied~\cite{ANTAL2009340,
-FUDENBERG2006352}, with the latter showing that under action-invariant mutation,
-\(b>c, a>d\) gives domination for \(A\) players. However, these results are
-given for a symmetric game played pairwise between members of the population,
-rather than a heterogeneous population. We extend this work to consider all
-types of games where a defector outperforms a cooperator in a given population.
+processes~\cite{ANTAL2009340}. This gives the case \(b>c, a>d\), where strategy
+\(A\) dominates~\cite{Amir1996AnotherAT}. The effects of mutation on such a game
+have also been studied~\cite{ANTAL2009340, FUDENBERG2006352}. However, these
+results are given for a symmetric game played pairwise between members of the
+population, rather than a heterogeneous population. We consider all \(N\)-player
+games where a defector outperforms a cooperator in a given population.
 
 How the choice of update rule interacts with population heterogeneity is also
 poorly understood. The Moran process~\cite{knight2018evolution,Moran_1958},
@@ -279,7 +277,6 @@ Figure~\ref{fig:4-cube} shows the 4 dimensional hypercube.
     \begin{mdframed}
     \centering
     \input{figures/Tikz/hypercube_N_4/main.tikz}
-    \subcaption{}
     \end{mdframed}
     \caption{The hypercube of dimension 4. This is closely related
              to the graph of a 4-player population dynamic.}
@@ -321,7 +318,6 @@ classification is our novel population dynamic, introspective imitation
 dynamics, which contains both an extrinsic step and an intrinsic step.
 
 \begin{table}[!htbp]
-\begin{mdframed}
 \centering
 
 \begin{tabular}{|c|c|}
@@ -380,8 +376,6 @@ Purely extrinsic & Intrinsic\\
 
 \hline
 \end{tabular}
-
-\end{mdframed}
 
 \caption{A comparison of different population dynamics. We assume in all cases
 that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
@@ -618,7 +612,7 @@ Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current payoff,
 and the payoff which they are considering. This algorithm is also shown in
 table~\ref{fig:Fermi_Dia} This method has been commonly used in studies of
-evolutionary games, for example \cite{MA2021111353, LEI20104708,PhysRevE.58.69}.
+evolutionary games, for example \cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
 We now define our transition matrix according to the Fermi function:
 
 \begin{equation}
@@ -664,8 +658,8 @@ extrinsic population dynamic.
 \end{theorem}
 
 \begin{proof}
-By definition, Fermi imitation dynamics satisfies conditions (1) and (3).
-It remains to show that it satisfies condition (2).
+By definition, Fermi imitation dynamics satisfies conditions (1) and (3). It
+remains to show that it satisfies condition (2).
 
 \[ T_{\mathbf{ab}} = \frac{1}{N(N-1)}\sum_{j \in
 \mathcal{R}}\phi(\pi_{I(\mathbf{a,b})}(\mathbf{a}) - \pi_j(\mathbf{a}))\left(1 -
@@ -809,7 +803,15 @@ below may not be familiar to the reader.
 \end{proof}
 
 We now state the ceiling on the average abundance of cooperators in purely
-extrinsic population dynamics.
+extrinsic population dynamics. Our result is comparable to that
+of~\cite{ANTAL2009340}, which showed that for the game defined by~\ref{eq:abcd}
+and a wide range of evolutionary processes with mutation, the condition \(a(N-2)
++ bN > cN + d(N-2)\) is crucial for a strategy \(A\) to dominate strategy \(B\)
+in pairwise comparison processes at any mutation rate. This builds upon the work
+of~\cite{Kandori, Nowak2004Emergence}, generalising it to arbitrary mutation and
+selection intensity. We now show that for ND-monotone purely extrinsic
+population dynamics, pointwise domination of defection over cooperation is
+sufficient for defection to dominate cooperation in a heterogeneous population.
 
 \begin{framed}
 \begin{theorem}[Extrinsic Ceiling]
@@ -902,55 +904,25 @@ extrinsic population dynamics.
     \]
 \end{proof}
 
-Our result is comparable to that of~\cite{ANTAL2009340}, which showed that for
-the game defined by~\ref{eq:abcd} and a wide range of evolutionary processes
-with mutation, the condition \(a(N-2) + bN > cN + d(N-2)\) is crucial for a
-strategy \(A\) to dominate strategy \(B\) in pairwise comparison processes at
-any mutation rate. This builds upon the work of~\cite{Kandori,
-Nowak2004Emergence}, generalising it to arbitrary mutation and selection
-intensity. We now show that for ND-monotone purely extrinsic population
-dynamics, pointwise domination of defection over cooperation is sufficient for
-defection to dominate cooperation in a heterogeneous population. This extends
-the understanding of when defection dominates cooperation to any population,
-game, and population dynamic such that the above conditions are satisfied. 
-
-Crucially, we show that even if a player may increase their payoff by a switch
-\(D \to C\) at all times, pointwise dominance of \(D\) will still cause the
-process to favour \(D\). In the words of a 2x2 symmetric game as discussed
-in~\cite{ANTAL2009340, Kandori, Nowak2004Emergence}, pointwise domination
-corresponds to a system where:
-\begin{equation}
-    \frac{j-1}{N-1}a + \frac{N-j}{N-1}b > \frac{j}{N-1}c + \frac{N-j-1}{N-1}d
-    \label{eq:point_dominance_2x2}
-\end{equation}
-where \(j < N\) is the number of \(D\) players. In 2x2 pairwise games, it is not
-possible to formulate a system where~\ref{eq:point_dominance_2x2} is satisfied
-and yet in a given state a change \(D \to C\) improves a player's fitness, as
-the following would need to be satisfied:
-\begin{equation}
-    \frac{j-1}{N-1}a + \frac{N-j}{N-1}b < \frac{j+1-1}{N-1} + \frac{N-(j+1)}{N-1} = \frac{j}{N-1} + \frac{N-j-1}{N-1}
-\end{equation}
-which contradicts~\ref{eq:point_dominance_2x2}.
+Crucially, theorem~\ref{prop:ceiling} shows that even if a player may increase
+their payoff by a switch \(D \to C\) at all times, pointwise dominance of \(D\)
+will still cause the process to favour \(D\). This shows that a player's chosen
+strategy does not necessarily favour the action type which maximises their
+payoff in \emph{either} the one-step or the long-run strategy distribution,
+instead favouring the strategy which is pointwise dominant over its peers. Even
+if there is no temptation to free-ride, players will still choose to defect
+based on the pointwise dominance of defectors in the state.
 
 An example of this is the public goods game with \(r > N\). This satisfies both
 pointwise dominance and a fitness increase for any player under the \(D \to C\)
-swap, and so we can see that it cannot be described as pairwise interactions in
-the manner of~\cite{ANTAL2009340, Kandori, Nowak2004Emergence}. In such a game,
-there is no temptation to free ride; players will obtain a greater payoff by
-cooperating regardless of the population structure. The case of such a public
-goods game is considered in figure 3 of~\cite{g10010001}, where a subset of a
-homogeneous population play a public goods game at each time step. The following
-result extends previous work to the general set of games where cooperators
-outperform defectors in a given state, as well as to heterogeneous populations.
-Our result gives the ceiling on the abundance of cooperation in ND-monotone
-purely extrinsic population dynamics.
+swap. In such a game, there is no temptation to free ride; players will obtain a
+greater payoff by cooperating regardless of the population structure. The case
+of such a public goods game is considered in figure 3 of~\cite{g10010001}, where
+a subset of a homogeneous population play a public goods game at each time step.
+The following section considers the heterogeneous public goods game as an
+example of therorem~\ref{prop:ceiling}.
 
-This shows that a player's chosen strategy does not necessarily favour the
-action type which maximises their payoff in \emph{either} the one-step or the
-long-run strategy distribution, instead favouring the strategy which is
-pointwise dominant over its peers. Even if there is no temptation to free-ride,
-players will still choose to defect based on the pointwise dominance of
-defectors in the state.
+
 
 \subsubsection{Purely extrinsic population dynamics in the Public Goods Game}
 
@@ -1149,13 +1121,13 @@ population dynamic} as follows:
     is said to be \emph{purely intrinsic} if it satisfies the following conditions:
     \begin{enumerate}
         \item \(T_{\mathbf{ab}}\) is a function of the payoffs of no player
-        other than \(I(\mathbf{ab})\).
+        other than \(I(\mathbf{ab}) for a \neq b\).
         \item \(T_{\mathbf{ab}}\) is decreasing in the payoff
-        \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\)
+        \(\pi_{I(\mathbf{a,b})}(\mathbf{a}) for a \neq b\)
         \item $T_{\mathbf{ab}}$ contains no term dependent on
         $a_{I(\mathbf{a,b})}$ or $b_{I(\mathbf{a,b})}$, except in the payoff
-        function $\pi_{I(\mathbf{a,b})}(\mathbf{a})$, mutation parameters
-        $\mu_{ij}$, and in the definition of the set $\mathcal{R}$.
+        function $\pi_{I(\mathbf{a,b})}$ and mutation parameters
+        $\mu_{ij}$.
     \end{enumerate}
 \end{definition}
 
