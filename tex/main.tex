@@ -524,16 +524,15 @@ This is shown in table~\ref{fig:Moran_Dia}, and the transition matrix is given b
 
 Where \(f_i(\mathbf{a}) = 1 + \epsilon\pi_i(\mathbf{a})\) is the fitness of a
 player \(i\) in state \(\mathbf{a}\) scaled with selection intensity
-\(\epsilon\). This ensures a positive fitness for all players in order that the
-probability \(T_{\mathbf{ab}}\) is always well defined. The selection intensity
-\(\epsilon\) controls the rationality with which players choose which strategy
-to adopt in each time step - a larger \(\epsilon\) indicates that a player will
-choose a higher fitness strategy with a greater probability. This value of
-\(\epsilon\) must, however, be chosen in order that \(f_i(\mathbf{a})\) is
-strictly positive.
+\(\epsilon>0\). The value of \(\epsilon\) is chosen to ensure a positive fitness
+for all players in order that the probability \(T_{\mathbf{ab}}\) is always well
+defined. The selection intensity \(\epsilon\) controls the rationality with
+which players choose which strategy to adopt in each time step - a larger
+\(\epsilon\) indicates that a player will choose a higher fitness strategy with
+a greater probability.
 
-The Moran process has often employed as a model of natural evolution
-~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a player's ``type''
+The Moran process has often been employed as a model of biological
+evolution~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a player's ``type''
 represents a species or allele within a population. In each time step, rather
 than a given player choosing a new action type, a randomly chosen individual in
 the population would die and be removed from the population. At the same time,
@@ -549,16 +548,10 @@ One implication of this is that in a heterogeneous population, worsening moves
 may be taken with a high probability, as an action that provides a high payoff
 for one player in a population may not provide the same return for another. In
 nature, an offspring is unable to choose its parents, and thus cannot choose
-which attributes it is born with. Furthermore, parents will choose a partner
-based on its success in the population, and thus traits which give a high
-fitness will be passed on with high probabilities, regardless of how they will
-perform for the offspring. When modelling the adoption of behaviours, these
-assumptions may lead to players making decisions which are harmful for their own
-payoff. For example, in the public goods game with heterogeneous returns, a
-player with a low \(r_i < N\) may copy a player who contributes with a high
-\(r_j > N\) due to their high individual payoff. However, this would be a
-worsening move for the focal player \(i\), as due to their low individual rate
-of return they would lower their payoff.
+which attributes it is born with, whereas when choosing a new action type,
+players would be able to decide whether a change would be beneficial to them.
+When modelling the adoption of behaviours, these assumptions may lead to players
+making decisions which are harmful for their own payoff.
 
 We now show that the Moran process satisfies the conditions of Definition~\ref{def:purely_extrinsic}
 
@@ -597,11 +590,11 @@ $\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\epsilon \sum_{x \in
 
 \subsection{Fermi Imitation Dynamics}
 
-Fermi Imitation Dynamics~\cite{PhysRevE.58.69}, or simply imitation dynamics, is another
+Fermi imitation dynamics~\cite{PhysRevE.58.69} is another commonly employed
 method of modelling evolution in a population. It follows the process:
 
 \begin{itemize}
-  \item Two players, \(i\) and \(j\) are selected at random.
+  \item Two players, \(i\) and \(j\) are selected at random from the population.
   \item Player \(i\) copies the action type of the player \(j\) with a
   probability according to the Fermi function \( \phi(\pi_{i}(\mathbf{a}) -
   \pi_{j}(\mathbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\mathbf{a}) -
@@ -609,7 +602,7 @@ method of modelling evolution in a population. It follows the process:
 \end{itemize}
 
 Where \(\beta\) is the \emph{choice} intensity of the system, representing how
-sensitive our players' choice is to the difference between their current payoff,
+sensitive our players' choice is to the difference between their current payoff
 and the payoff which they are considering. This algorithm is also shown in
 table~\ref{fig:Fermi_Dia} This method has been commonly used in studies of
 evolutionary games, for example ~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
@@ -628,7 +621,7 @@ We now define our transition matrix according to the Fermi function:
 Unlike a Moran Process, we can see that the players are not selected with a
 probability proportional to their fitness. Instead, Fermi Imitation Dynamics selects
 a pair of players and compares their payoffs directly, giving players the option
-not to accept a strategy in a given time step. However, similarly to the Moran
+not to accept a strategy at a given time step. However, similarly to the Moran
 process, in a heterogeneous population the method of adopting a new strategy
 based entirely on the payoff of another individual may lead to worsening moves
 in which players adopt strategies which currently admit a higher fitness, but
@@ -638,15 +631,9 @@ We also see that due to the formulation of the logit function
 \(\phi(\Delta(\pi))\), Fermi imitation dynamics can become invariant under
 certain parameters. This occurs in any game in which one action type's payoff in
 any given state can be expressed as another action type's payoff up to the
-addition of some factor $\gamma$,  where $\gamma$ depends only on a subset of
-the game's parameters. In that case, $\Delta(\pi) = \pm\gamma$, and is therefore
-invariant to any parameters of the game which do not influence $\gamma$. Take,
-for example, the public goods game, with a player's payoff \(\pi_i(\mathbf{a}) =
-\frac{r}{N}\sum_{j=1}^N \alpha_j -  \alpha_i\) for contribution \(\alpha_i\) and
-rate of return \(r\) (here \(\alpha_i = 0\) if \(i\) defects). When comparing a
-cooperator and defector under \(\phi\), we have the value \(\Delta(\pi) = \pm
-\alpha_i\), and thus we see that the parameter \(r\) has no effect on the
-probability of accepting a new strategy under this population dynamic. 
+addition of some term $\gamma$, which depends only on a subset of the game's
+parameters. In that case, $\Delta(\pi) = \pm\gamma$, and is therefore invariant
+to any parameters of the game of which $\gamma$ is not a function.
 
 We now show that Fermi imitation dynamics satisfies the definition of a purely
 extrinsic population dynamic.
@@ -804,14 +791,15 @@ below may not be familiar to the reader.
 
 We now state the ceiling on the average abundance of cooperators in purely
 extrinsic population dynamics. Our result is comparable to that
-of~\cite{ANTAL2009340}, which showed that for the game defined by~\ref{eq:abcd}
-and a wide range of evolutionary processes with mutation, the condition \(a(N-2)
-+ bN > cN + d(N-2)\) is crucial for a strategy \(A\) to dominate strategy \(B\)
-in pairwise comparison processes at any mutation rate. This builds upon the work
-of~\cite{Kandori, Nowak2004Emergence}, generalising it to arbitrary mutation and
-selection intensity. We now show that for ND-monotone purely extrinsic
-population dynamics, pointwise domination of defection over cooperation is
-sufficient for defection to dominate cooperation in a heterogeneous population.
+of~\cite{ANTAL2009340}, which showed that for the game defined by
+matrix(~\ref{eq:abcd}) and a wide range of evolutionary processes with mutation,
+the condition \(a(N-2) + bN > cN + d(N-2)\) is crucial for a strategy \(A\) to
+dominate strategy \(B\) in pairwise comparison processes at any mutation rate.
+This builds upon the work of~\cite{Kandori, Nowak2004Emergence}, generalising
+results to arbitrary mutation and selection intensity. We now show that for
+ND-monotone purely extrinsic population dynamics, pointwise domination of
+defection over cooperation is sufficient for defection to dominate cooperation
+in a heterogeneous population.
 
 \begin{framed}
 \begin{theorem}[Extrinsic Ceiling]
@@ -1030,58 +1018,57 @@ Moran process is invariant under the contribution parameter \(\alpha_i\). We can
 observe this effect in figures~\ref{fig:moran_M_violin_lt}
 and~\ref{fig:moran_M_violin_gt}.
 
-
 \begin{figure}[!htbp]
     \centering
     \begin{mdframed}
 
-    %==================== ROW 1 ====================%
-    \begin{subfigure}[t]{0.23\textwidth}
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (a)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/r_violinplots/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_r_violins}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.23\textwidth}
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (b)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/M_violinplot/fermi_N_eq_8_r_lt/main.pdf}
         \phantomcaption\label{fig:fermi_M_violin_lt}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.23\textwidth}
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (c)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/M_violinplot/fermi_N_eq_8_r_gt/main.pdf}
         \phantomcaption\label{fig:fermi_M_violin_gt}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.23\textwidth}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (d)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/beta_r_heatmaps/fermi_N_eq_8/main.pdf}
         \phantomcaption\label{fig:fermi_beta_heatmap}
     \end{subfigure}
-
-    \vspace{0.5cm}
-
-    %==================== ROW 2 ====================%
-    \begin{subfigure}[t]{0.23\textwidth}
+    \hfill
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (e)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/r_violinplots/moran_N_eq_8/main.pdf}
         \phantomcaption\label{fig:moran_r_violin}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.23\textwidth}
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (f)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/M_violinplot/moran_N_eq_8_r_lt/main.pdf}
         \phantomcaption\label{fig:moran_M_violin_lt}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.23\textwidth}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[t]{0.31\textwidth}
         \centering
         (g)\par\vspace{0.1cm}
         \includegraphics[width=\linewidth]{figures/M_violinplot/moran_N_eq_8_r_gt/main.pdf}
@@ -1089,7 +1076,6 @@ and~\ref{fig:moran_M_violin_gt}.
     \end{subfigure}
 
     \end{mdframed}
-    
 
     \caption{(a): The distribution of \(p_C\) in Fermi imitation dynamics for
     different values of \(r\). Since Fermi imitation dynamics is invariant under
@@ -1106,7 +1092,6 @@ and~\ref{fig:moran_M_violin_gt}.
     for different combinations of shared parameters.}
     \label{fig:extrinsic_violinplots}
 \end{figure}
-
 
 \section{Intrinsic Population Dynamics}
 \label{sec:intrinsic_population_dynamics}
