@@ -96,12 +96,12 @@ for df_set in dataframes:
         # HARD SAFETY CHECK
         ax.violinplot(groups, showmeans=True)
 
-        ax.set_title(f"{process}_N_eq_{N}")
-        folder = Path(here.parent / f"{process}_N_eq_{N}")
+        ax.set_title(f"{process}_n_eq_{N}")
+        folder = Path(here.parent / f"{process}_n_eq_{N}")
         folder.mkdir(exist_ok=True)
 
         ax.set_xlabel(r"decile of range($\alpha$)")
         ax.set_ylabel(r"$p_C$")
 
-        plt.savefig(here.parent / f"{process}_N_eq_{N}/main.pdf")
+        plt.savefig(here.parent / f"{process}_n_eq_{N}/main.pdf")
         plt.close()

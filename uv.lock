@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.13"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -302,7 +302,7 @@ wheels = [
 
 [[package]]
 name = "ludics"
-version = "0.2.1"
+version = "0.3.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "black" },
@@ -311,9 +311,9 @@ dependencies = [
     { name = "scipy" },
     { name = "sympy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4d/75/1d6be681d8548e57eab39243af103004ee08382208301a00b5048854fd5f/ludics-0.2.1.tar.gz", hash = "sha256:f3be5a978d870603b36945685b942d78ee1c97679c4ff4fb64ad00407a8c7084", size = 8610, upload-time = "2026-04-15T15:16:32.983Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/80/15/c83ddf24dd2b1f36176821d32dd837366fef330c07d15e895f41b55c3b49/ludics-0.3.2.tar.gz", hash = "sha256:7f2b22fe226bb49cc829d2a2e7f2b92f2a3ab5dd09da452bc6557a5c83cdb184", size = 8601, upload-time = "2026-05-07T12:11:06.4Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8e/83/4b1eac1cf2c16e046d408a09d62ad0de09f7dc8f6716bbe0bdcadf6579b3/ludics-0.2.1-py3-none-any.whl", hash = "sha256:44f7791b53451f4a46267b7126b61b571912bac1bac14c1f492bcba561428d93", size = 9655, upload-time = "2026-04-15T15:16:31.631Z" },
+    { url = "https://files.pythonhosted.org/packages/be/84/aa41c1414e66942cdca5671d3b3ea4a89a6d891f461bc7cec67ee0b3d101/ludics-0.3.2-py3-none-any.whl", hash = "sha256:816885857538d0623d5eeb049802ef7c2bc372e7399c7802a1ce9f28d4b4e984", size = 9666, upload-time = "2026-05-07T12:11:05.084Z" },
 ]
 
 [[package]]
@@ -596,7 +596,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ludics", specifier = ">=0.2.1" },
+    { name = "ludics", specifier = ">=0.3.2" },
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "numpy", specifier = "==2.3.3" },
     { name = "pandas", specifier = "==3.0.0" },

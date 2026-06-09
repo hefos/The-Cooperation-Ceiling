@@ -90,11 +90,11 @@ for df_set in dataframes:
         ax.set_xticklabels(r_values)
 
         ax.set_title(rf"{process} $r$ against $p_C$")
-        folder = Path(here.parent / f"{process}_N_eq_{N}")
+        folder = Path(here.parent / f"{process}_n_eq_{N}")
         folder.mkdir(exist_ok=True)
 
         ax.set_xlabel(r"$r$")
         ax.set_ylabel(r"$p_C$")
 
-        plt.savefig(here.parent / f"{process}_N_eq_{N}/main.pdf")
+        plt.savefig(here.parent / f"{process}_n_eq_{N}/main.pdf")
         plt.close()

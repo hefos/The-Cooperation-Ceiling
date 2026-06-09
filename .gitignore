@@ -1,6 +1,11 @@
 *.pyc
 /.pytest_cache
 
+# Raw simulation data (archived on Zenodo; regenerated via assets/data/raw/main.py).
+# The data-generation scripts (main.py, jobs.txt) stay tracked; the bulk outputs do not.
+assets/data/raw/**/*.csv
+assets/data/raw/**/*.sqlite
+
 # LaTeX
 tex/main.aux
 tex/main.bbl
@@ -10,3 +15,6 @@ tex/main.fls
 tex/main.log
 tex/main.out
 tex/main.xdv
+
+#
+.DS_store

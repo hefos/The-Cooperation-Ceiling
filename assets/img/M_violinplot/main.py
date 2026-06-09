@@ -101,11 +101,11 @@ for df_set in dataframes:
                 ax.set_title(rf"{process}, $p_C$ against $M$, r > N")
             else:
                 ax.set_title(rf"{process}, $p_C$ against $M$, r < N")
-            folder = Path(here.parent / f"{process}_N_eq_{N}_r_{M_band}")
+            folder = Path(here.parent / f"{process}_n_eq_{N}_r_{M_band}")
             folder.mkdir(exist_ok=True)
 
             ax.set_xlabel(r"M")
             ax.set_ylabel(r"$p_C$")
 
-            plt.savefig(here.parent / f"{process}_N_eq_{N}_r_{M_band}/main.pdf")
+            plt.savefig(here.parent / f"{process}_n_eq_{N}_r_{M_band}/main.pdf")
             plt.close()

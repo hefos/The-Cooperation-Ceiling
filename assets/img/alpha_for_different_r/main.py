@@ -107,11 +107,11 @@ for df_set in dataframes:
                 ax.set_title(rf"{process}, range($\alpha$) against $p_C$, r > N")
             else:
                 ax.set_title(rf"{process}, range($\alpha$) against $p_C$, r < N")
-            folder = Path(here.parent / f"{process}_N_eq_{N}_r_{r_band}")
+            folder = Path(here.parent / f"{process}_n_eq_{N}_r_{r_band}")
             folder.mkdir(exist_ok=True)
 
             ax.set_xlabel(r"decile of range($\alpha$)")
             ax.set_ylabel(r"$p_C$")
 
-            plt.savefig(here.parent / f"{process}_N_eq_{N}_r_{r_band}/main.pdf")
+            plt.savefig(here.parent / f"{process}_n_eq_{N}_r_{r_band}/main.pdf")
             plt.close()

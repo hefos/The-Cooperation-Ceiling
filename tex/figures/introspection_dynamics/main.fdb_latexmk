@@ -1,0 +1,17 @@
+# Fdb version 4
+["xdvipdfmx"] 0 "main.xdv" "main.pdf" "main" 0 -1
+  "main.xdv" 0 -1 0 "xelatex"
+  (generated)
+  "main.pdf"
+  (rewritten before read)
+["xelatex"] 1779789272 "main.tikz" "main.xdv" "main" 1779789277 2
+  "/usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf" 1677365944 40745 87bb86a62d462f93a1efc6b0c65c872e ""
+  "/usr/local/texlive/2023/texmf-var/web2c/xetex/xelatex.fmt" 1693047327 10502840 489fd7da616a772cb13dca131c750481 ""
+  "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
+  "main.aux" 1779789272 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "main.tikz" 1768575916 2640 7a9ecb409cb3dcc061d3a1c29d32b34b ""
+  (generated)
+  "main.aux"
+  "main.log"
+  "main.xdv"
+  (rewritten before read)

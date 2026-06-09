@@ -40,7 +40,7 @@ N_frame["r"] = N_frame["r"].round(3)
 sns.violinplot(data=N_frame, x="r", y="p_C_difference", ax=ax, native_scale=True)
 
 ax.set_ylabel(r"Difference in $p_C$")
-folder = Path(here.parent / f"{p1}_vs_{p2}_N_eq_{N}")
+folder = Path(here.parent / f"{p1}_vs_{p2}_n_eq_{N}")
 folder.mkdir(exist_ok=True)
 
 xmin, xmax = ax.get_xlim()
@@ -48,5 +48,5 @@ ax.set_xticks([0.5, N, xmax])
 ax.set_xticklabels(["0.5", f"{N}", f"{xmax:.2f}"])
 
 plt.tight_layout()
-plt.savefig(here.parent / f"{p1}_vs_{p2}_N_eq_{N}/main.pdf")
+plt.savefig(here.parent / f"{p1}_vs_{p2}_n_eq_{N}/main.pdf")
 plt.close()
