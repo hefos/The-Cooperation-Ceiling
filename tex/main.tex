@@ -25,10 +25,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
 
-% TODO (structure): if Introspective Imitation Dynamics becomes its own paper,
-% drop the IID clause from the title and refocus on the cooperation ceiling.
-% See REVIEW_ANNOTATIONS.md.
-\title{Introspective Imitation Dynamics and the Ceiling of Cooperation in Extrinsic Update Rules}
+\title{The Ceiling of Cooperation in Extrinsic Update Rules}
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
 \date{\today}
 
@@ -49,10 +46,7 @@
     show that extrinsic population dynamics have a ceiling on the rate of
     cooperation which can be exceeded by intrinsic population dynamics, and
     demonstrate this using the public goods game with heterogeneous
-    contributions. We then introduce ``introspective imitation dynamics'', a
-    novel population dynamic which combines both fitness-proportional extrinsic
-    selection and self-referential intrinsic update steps, which overcomes the
-    inherent limitations of the other four population dynamics.
+    contributions.
 \end{abstract}
 
 \section{Introduction}
@@ -188,17 +182,10 @@ constrained by an upper bound on the probability of cooperation. Third, we
 consider two purely intrinsic population dynamics, aspiration
 dynamics~\cite{du2014aspiration} and introspection dynamics~\cite{Couto2022,
 Couto2023}, showing that these processes can overcome the ceiling of purely
-extrinsic dynamics, and discuss their weaknesses. Finally, we introduce a novel
-update rule, \emph{Introspective Imitation Dynamics}, in which players select a
-role model proportionally to fitness (as in the Moran process) but evaluate
-whether to adopt that strategy by comparing their own current and counterfactual
-payoffs (as in introspection dynamics). This rule is well suited to
-heterogeneous populations, where copying a high-fitness individual occurs with a
-high probability, but is irrational if the considered strategy yields a worse
-payoff for the copying player. For each population dynamic, we use the public
-goods game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004,
-hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64} to demonstrate our
-results. 
+extrinsic dynamics, and discuss their weaknesses. For each population dynamic, we
+use the public goods game~\cite{ARCHETTI20129, hauert2002volunteering,
+HauertDynamics2004, hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64} to
+demonstrate our results.
 
 The remainder of the paper is organised as follows.
 Section~\ref{sec:the_general_heterogeneous_population_dynamic_model} introduces
@@ -213,11 +200,6 @@ Section~\ref{sec:intrinsic_population_dynamics} gives formulations of two
 intrinsic population dynamics and shows that they can exceed the ceiling on the
 probability of cooperation. We also discuss their disadvantages, and show their
 results in the public goods game.
-Section~\ref{sec:introspective_imitation_dynamics} introduces
-\emph{introspective imitation dynamics}, a novel population dynamic, which
-exhibits none of the disadvantages present in the other four dynamics. We then
-show under which conditions introspective imitation dynamics is able to exceed
-the cooperation ceiling in the public goods game.
 
 \section{The General Heterogeneous Population Dynamic Model}
 \label{sec:the_general_heterogeneous_population_dynamic_model}
@@ -299,16 +281,14 @@ the general form:
 where \(P(\mathbf{a} \to \mathbf{b})\) is the probability that player
 \(I(\mathbf{a,b})\) changes from its action type in \(\mathbf{a}\) to its action
 type in \(\mathbf{b}\). The process which determines this probability is called
-a \emph{population dynamic}. We shall discuss five population dynamics in this
+a \emph{population dynamic}. We shall discuss four population dynamics in this
 paper, and classify them as shown in Figure~\ref{fig:diagrams_of_dynamics}.
 Purely extrinsic population dynamics only consider the success of a strategy in
 the current population when updating a player's action type. This models a
 behaviour where players look outwardly to attempt to improve their payoff.
 Purely intrinsic population dynamics model a player who looks inwardly to
 improve their payoff, comparing their current payoff to some value which does
-not depend on the payoffs of an action type in the current population. The final
-classification is our novel population dynamic, introspective imitation
-dynamics, which contains both an extrinsic step and an intrinsic step.
+not depend on the payoffs of an action type in the current population.
 
 \begin{table}[!htbp]
 \centering
@@ -353,21 +333,6 @@ Purely extrinsic & Intrinsic\\
 \\
 
 \hline
-
-\multicolumn{2}{|c|}{Both Extrinsic and Intrinsic Strategy Analysis}\\
-\hline
-
-\multicolumn{2}{|c|}{
-\begin{subfigure}{0.8\textwidth}
-\centering\scalebox{0.75}{
-\input{figures/introspective_imitation/main.tex}}
-\phantomcaption
-\label{fig:Imi_Dia}
-\end{subfigure}
-}
-\\
-
-\hline
 \end{tabular}
 
 \caption{A comparison of different population dynamics. We assume in all cases
@@ -376,8 +341,6 @@ and the diamond is chosen with a varying probability depending on the process.
 In the case of introspection dynamics, we assume that the strategy represented
 by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
 for aspiration dynamics there is only one other strategy to accept.}
-% TODO: promote this Table to a figure; restyled panel version drafted in
-% figures/dynamics_panels. If IID is split out, drop panel E here.
 \label{fig:diagrams_of_dynamics}
 
 \end{table}
@@ -977,16 +940,6 @@ Table~\ref{fig:parameter_sweep_table}.
         \(A\) & Aspiration & 1 & \(M\) & 100\\
         \hline
     \end{tabular}
-    \caption{The set of measured parameters and boundary values. Some parameters
-    are only applicable to certain processes. \(\alpha_i\) is entirely
-    controlled by the value \(M\), which controls the maximum total contribution.
-    The distribution of wealth remains the same for a given \(N\), however as
-    \(M\) increases, so too does the size of each player's contribution
-    \(\alpha_i\). The value \(A\) is the \emph{aspiration} considered in
-    aspiration dynamics, in section~4. We consider a homogeneous return \(r\).
-    Values of \(\epsilon\) and \(A\) depend on \(M\) rather than \(N\), and as
-    such there are a large number of values per \(N\) for these parameters.}
-    \label{fig:parameter_sweep_table}
 \end{table}
 
 Our results for the purely extrinsic dynamics are shown in
@@ -1375,177 +1328,15 @@ strategy may be a worsening move with a high probability. Additionally, a player
 may be satisfied too easily, not changing strategy in favour of a better one as
 they have already reached their aspiration.
 
-As a result of these shortcomings, and the ceiling on \(p_C\) in purely
-extrinsic population dynamics, we introduce a new population dynamic which can
-overcome the drawbacks of the previous four.
-
-% TODO (structure): if IID becomes its own paper, move this section and the
-% conclusion's IID figures (fig:conclusion1, fig:conclusion3) to the IID paper,
-% and update the abstract, the fourth contribution, and the roadmap accordingly.
-% The new theoretic results for IID are sketched in REVIEW_ANNOTATIONS.md.
-\section{Introspective Imitation Dynamics}
-\label{sec:introspective_imitation_dynamics}
-
-We now introduce a novel population dynamic \emph{introspective imitation
-dynamics}. This process combines the purely intrinsic decision step of
-introspection dynamics with the purely extrinsic fitness-proportional selection
-of the Moran process, such that each individual takes into account both the
-payoff of strategies in the current state, and the counterfactual payoff
-obtained when accepting a new strategy. This models both extrinsic learning and
-intrinsic learning, and is defined neither as purely extrinsic or purely
-intrinsic. We define introspective imitation dynamics by the following
-algorithm:
-
-\begin{enumerate}
-    \item A focal player is chosen at random to reconsider their strategy
-    \item Another player \(a_j\) in the population is chosen with a probability
-   proportional to their fitness within the population to have their strategy
-   considered, as in the Moran process.
-    \item The focal player changes their strategy with probability
-    \(\phi(\Delta\pi_i)\), as in introspection dynamics
-\end{enumerate}
-
-Recall that \(f_i(\mathbf{a}) = 1 + \epsilon \cdot \pi_i(\mathbf{a})\). 
-We define the transition matrix \(T\) of an introspective imitation process as follows:
-
-\begin{equation}
-T_{\mathbf{ab}} = \begin{cases}
-    \dfrac{1}{N}\dfrac{\sum_{j:\, a_j = b_{I(\mathbf{a}, \mathbf{b})}} f_j(\mathbf{a})}{\sum_l f_l(\mathbf{a})}\,\phi(\Delta\pi_{I(\mathbf{a},\mathbf{b})})\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N} & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\
-    0 & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\
-    1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
-\end{cases}
-\end{equation}
-
-This models a behaviour where individuals learn from each other, but do not
-blindly trust that the strategy will work for themselves solely because it
-worked for another player in the population. Instead, players look to the payoff
-of others in the population to see what action they \textit{could} play, but
-judge based on their own counterfactual payoff to decide what action they
-\textit{should} play. This means that introspective imitation dynamics is
-well-suited to a heterogeneous population, while not ignoring the success of
-strategies in a given state.
-
-Introspective imitation dynamics does not break down into individual Markov
-chains like introspection dynamics due to the extrinsic step, and is defined for
-any number of strategies. It considers each strategy proportional to both its
-payoff within the state and the counterfactual payoff which the focal player is
-able to obtain by adopting the new action type, and as such it can take both a
-choice intensity \(\beta\) and a selection intensity \(\epsilon\). This gives
-introspective imitation dynamics the ability to emphasise either the extrinsic
-or intrinsic step of the dynamic, which is suited to game theoretic models of
-real-world systems where different individuals make decisions based on different
-factors. We can also describe introspective imitation dynamics as a meeting
-point of classic static game theory with traditional evolutionary game theory.
-The fitness-proportional selection step being identical to that of the Moran
-process, and the intrinsic decision step being analogous to a well-informed
-rational actor attempting to maximise their own payoff.
-
-We now show introspective imitation dynamics in a public goods game and compare its 
-results to that of the previous four population dynamics.
-
-\subsection{Introspective Imitation Dynamics in the Public Goods Game}
-
-\begin{figure}[!htbp]
-    \begin{mdframed}
-    \centering
-
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/r_violinplots/imispection_n_eq_8/main.pdf}
-        \subcaption{}
-        \label{fig:imi_r_plot}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/M_violinplot/imispection_n_eq_8_r_lt/main.pdf}
-        \subcaption{}
-        \label{fig:imi_M_violins_lt}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/M_violinplot/imispection_n_eq_8_r_gt/main.pdf}
-        \subcaption{}
-        \label{fig:imi_M_violins_gt}
-    \end{subfigure}
-
-    \vspace{0.5cm}
-
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/epsilon_beta_heatmaps/imispection_r_lt/main.pdf}
-        \subcaption{}
-        \label{fig:epsilon_beta_lt}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/epsilon_beta_heatmaps/imispection_r_gt/main.pdf}
-        \subcaption{}
-        \label{fig:epsilon_beta_gt}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/beta_r_heatmaps/imispection_n_eq_8/main.pdf}
-        \subcaption{}
-        \label{fig:beta_r_imi}
-    \end{subfigure}
-
-    \caption{(a): the distribution of \(p_C\) in introspective imitation
-    dynamics for various values of \(r\).\\
-    (b), (c): the distribution of \(p_C\) in introspective imitation dynamics
-    for various values of \(M\). (b) shows \(r<N\), (c) shows \(r>N\)\\
-    (d),(e): Heatmaps of the the mean(\(p_C\)) for the data across pairs of
-    selection and choice intensity, for \(r>N\) and \(r<N\) respectively.\\
-    (f): A heatmap of mean(\(p_C\)) in introspective imitation dynamics
-    for varying \(r\) and \(\beta\). We see a threshold for the effect of a
-    stronger choice intensity at \(r=N\).}
-    % TODO (figure): replace this parameter sweep with a hand-picked panel figure
-    % (see REVIEW_ANNOTATIONS.md); keep the sweep envelope in the SI. If IID is
-    % split out, this figure moves to the IID paper.
-    \label{fig:IID_grid}
-    \end{mdframed}
-\end{figure}
-
-We see in Figure~\ref{fig:imi_r_plot} that in the same manner as the purely
-intrinsic population dynamics, introspective imitation dynamics is able to
-exceed the \(p_C = \frac{1}{2}\) ceiling which is imposed by purely extrinsic
-population dynamics at the threshold \(r=N\). Despite the extrinsic step in the
-dynamic, the intrinsic step is sufficient to enable the dynamic to admit high
-values of \(p_C\) under the right parameters. However, unlike the purely
-intrinsic population dynamics which we have seen, the \(r=N\) threshold does not
-\emph{guarantee} the exceeding of the cooperation ceiling. For certain values of
-\(\epsilon\) and \(\beta\), the extrinsic step supersedes the intrinsic step,
-and suppresses the probability of a \(D \to C\) transition, as shown in
-figures~\ref{fig:epsilon_beta_lt} and~\ref{fig:epsilon_beta_gt}, reducing the
-overall \(p_C\). However, for a given pair \((\epsilon, \beta)\) with \(\beta >
-0\), there is no result which guarantees a \(p_C < \frac{1}{2}\); where the
-value falls with regards to this threshold is reliant upon \(r\). 
-
-Introspective imitation dynamics also satisfies the same threshold for
-\(\frac{\partial p_C}{\partial \beta}\) as introspection dynamics, giving us
-that when \(r > N\), \(\frac{\partial p_C}{\partial \beta} >0\), but the
-opposite is true when \(r < N\). Figure~\ref{fig:beta_r_imi} shows this effect,
-and it is clear that as \(\beta\) only appears in the intrinsic step, its
-effect would have the same effect as in the purely intrinsic dynamic. For this
-same reason, the \(r>N\) requirement for \(\frac{\partial p_C}{\partial
-\alpha_i} > 0\) is also equivalent to that of introspection dynamics, with the
-inequality reversed for \(r < N\). The purely extrinsic step of the process
-cancels out \(\alpha_i\), as seen in equation~\ref{eq:Moran_invariant}. We can
-see this effect in figures~\ref{fig:imi_M_violins_lt} and
-~\ref{fig:imi_M_violins_gt}. 
-
-When \(r < N\), the intrinsic step of the dynamic suppresses cooperation compared
-to a Moran process, taking a value \(\phi < \frac{1}{2}\) for a \(D \to C\)
-transition, and \(\phi > \frac{1}{2}\) for a \(C \to D\) transition.
-
+These shortcomings, together with the ceiling on \(p_C\) in purely extrinsic
+population dynamics, suggest that population dynamics combining an extrinsic and
+an intrinsic update step are a promising direction for future work, a point we
+return to in the conclusion.
 
 \section{Conclusion}
 
 We have introduced and analysed a framework for heterogeneous evolutionary games
-under five distinct population dynamics in three categories, as shown in
+under four distinct population dynamics in two categories, as shown in
 Figure~\ref{fig:diagrams_of_dynamics}. We have defined the categorisation of a
 \emph{purely extrinsic population dynamic}, and given rigorous formulations of
 two widely used examples in the Moran process and Fermi imitation dynamics. We
@@ -1560,65 +1351,49 @@ compare their current payoff with their counterfactual payoff which they could
 obtain by switching action type. We have also shown empirical results for the
 public goods game with heterogeneous contributions which confirm the extrinsic
 ceiling, as well as the ability for purely intrinsic population dynamics to
-exceed it. Finally, we have introduced a novel population dynamic in
-Introspective imitation dynamics with both an extrinsic and intrinsic step. Our
-empirical results confirm that this dynamic is able to overcome the ceiling of
-purely extrinsic population dynamics, but still allows players to take into
-account the performance of strategies within the current state.
+exceed it.
 
-Further work may look into the effect of populations where the use of intrinsic
-or extrinsic update rules is a heterogeneous attribute of the players, similar
-to the combination of Moran and Fermi processes in~\cite{LIU2015242}.
-Figure~\ref{fig:conclusion1} shows three populations where the population
-dynamic is treated as a heterogeneous attribute, with players learning according
-to either the Moran process or introspective imitation dynamics. We see that
-under different parameters, a different number of players may possess an
-intrinsic learning method in order to exceed the neutral drift baseline \(p_C\).
-The heterogeneity considered in this paper is also only in the player's
-contributions, however the threshold for introspective imitation dynamics occurs
-at the point \(r = N\). Figure~\ref{fig:conclusion3} shows that in introspective
-imitation dynamics with certain heterogeneous values of \(r_i\), fewer players
-are required to receive a return \(r > N\) in order to exceed the cooperation
-threshold. Additionally, we see in both Figures~\ref{fig:conclusion3} and
-\ref{fig:epsilon_beta_gt} that under certain values of \(\epsilon\) and
-\(\beta\), even a population which is entirely contributing a high value of
-\(r\) will be unable to exceed the \(p_C\) threshold, as the extrinsic step of
-the process contributes with too high intensity. The relationship between such
-values and the heterogeneity of \(r\) may be a focus of further study. Finally,
-we only consider the ceiling of \(p_C\) in two-action games for purely extrinsic
-population dynamics. It is entirely possible that there is a formulation of a
-\(k-\)action game such that a ceiling is posed on the abundance of a certain
-action. This may be a focus of future work, extending the limitation of purely
-extrinsic population dynamics to a larger set of games.
+Further work may consider populations in which the choice between intrinsic and
+extrinsic update rules is itself a heterogeneous attribute of the players, in the
+spirit of the combination of Moran and Fermi processes in~\cite{LIU2015242}.
+Figure~\ref{fig:conclusion-fig}(a) illustrates this for a population that mixes
+Moran and introspection players: once the return exceeds the threshold
+\(r = N\) the population can exceed the neutral-drift baseline, though the number
+of intrinsic players required depends on the relative strength of the two steps.
+A stronger extrinsic selection intensity \(\varepsilon\), or a weaker choice
+intensity \(\beta\), demands more intrinsic players before \(p_C\) crosses the
+baseline. For \(r < N\) the same intrinsic players instead suppress cooperation. The heterogeneity considered in this paper is also
+only in the players' contributions, whereas the introspection threshold acts at
+the level of each player's own return. Figure~\ref{fig:conclusion-fig}(b) shows
+that under a heterogeneous return \(r_i\), cooperation crosses the ceiling once
+enough players sit above the \(r = N\) threshold. The interplay between such
+heterogeneous returns, contributions and update rules is a natural direction for
+further study. Finally, we only consider the ceiling of \(p_C\) in two-action
+games for purely extrinsic population dynamics. It is entirely possible that there
+is a formulation of a \(k\)-action game such that a ceiling is posed on the
+abundance of a certain action. This may be a focus of future work, extending the
+limitation of purely extrinsic population dynamics to a larger set of games.
 
 \begin{figure}[!htbp]
+    \centering
     \begin{mdframed}
-    \centering  
-
-    \begin{subfigure}{0.43\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/hybrid_dynamics/main.pdf}
-        \subcaption{}
-        \label{fig:conclusion1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.43\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/heterogeneous_r/main.pdf}
-        \subcaption{}
-        \label{fig:conclusion3}
-    \end{subfigure}
-
-    \caption{ (a): \(p_C\) in various parameter combinations at \(N=8\), varying
-    the number of players using an intrinsic decision process. 0 intrinsic
-    players gives the \(p_C\) of the Moran process, whereas 8 gives us the
-    \(p_C\) in introspective imitation dynamics. We take a linear population
-    with a maximum contribution of 8. (b): \(p_C\) for a heterogeneous \(r\) in
-    introspective imitation dynamics. 0 high return players corresponds to a
-    population with homogeneous return \(r_{\text{low}}\). 8 high return players
-    corresponds to a population with a homogeneous return \(r_{\text{high}}\). }
-    \label{fig:conclusion-fig}
+    \includegraphics[width=\linewidth]{figures/ceiling_conclusion/main.pdf}
     \end{mdframed}
+    \caption{\textbf{Heterogeneous update rules and heterogeneous returns.} Both
+    panels are computed exactly from the steady state of the corresponding
+    transition matrix, with \(N = 8\), a linear contribution profile of scale
+    \(M = 16\), and mutation \(\mu = 0.05\); the dashed line marks the
+    neutral-drift baseline \(p_C = \frac{1}{2}\). \textbf{(a)} A population that
+    mixes Moran (extrinsic) and introspection (intrinsic) players, against the
+    number of introspection players: with \(r > N\) the population can exceed the
+    baseline, but the number of intrinsic players required grows as the extrinsic
+    selection intensity \(\varepsilon\) increases or the choice intensity
+    \(\beta\) falls; with \(r < N\) the intrinsic players instead suppress
+    cooperation. \textbf{(b)} Introspection dynamics with a heterogeneous return,
+    against the number of players receiving the high return \(r_{\mathrm{high}}\);
+    cooperation crosses the ceiling once enough players sit above the threshold
+    \(r = N\).}
+    \label{fig:conclusion-fig}
 \end{figure}
 
 
