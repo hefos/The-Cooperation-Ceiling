@@ -1305,33 +1305,53 @@ fraction switches on precisely at \(r = N\) (Table~\ref{tab:ceiling_crossing}).
     \label{tab:ceiling_crossing}
 \end{table}
 
-\subsection{The weaknesses of purely intrinsic population dynamics}
+\section{Robustness to population size}
+\label{sec:robustness_to_population_size}
 
-While purely intrinsic population dynamics are able to exceed the ceiling placed
-on \(p_C\) by purely extrinsic population dynamics, they are not without their
-own inherent limitations. While the property of introspection dynamics under
-additive games shown in~\cite{Couto2023} is useful for obtaining analytical
-results, it shows that introspection dynamics does not take into account the
-remainder of the state's actions. Players pay no attention to how successful a
-strategy is in the population, and instead consider strategies at random,
-accepting them with a probability which often does not depend on the actions of
-their co-players (that is, the state \(\mathbf{a}_{-i}\)). 
+The exact steady-state analysis and the parameter sweep so far have used small
+populations, for which the transition matrix can be formed explicitly. Since the
+state space grows as \(2^N\), this is infeasible for large \(N\). To confirm that
+the cooperation ceiling and its breaking are not artefacts of small populations,
+we estimate \(p_C\) for populations as large as \(N = 100\) by simulating the
+Markov chain directly with the \texttt{ludics} library and averaging the
+cooperator fraction over an ergodic run with mutation \(\mu = 0.05\).
 
-Aspiration dynamics is not invariant under the actions of other players
-(assuming the actions of other players affect a given player's payoff, as in the
-public goods game), however it still does not consider the fitness of other
-strategies when accepting them. A player may achieve a payoff beneath their
-target by defecting, and so will change strategy with a probability greater than
-\(\frac{1}{2}\). However, the adopted strategy is not accepted according to its
-payoff, either in the current state or counterfactual, and so the accepted
-strategy may be a worsening move with a high probability. Additionally, a player
-may be satisfied too easily, not changing strategy in favour of a better one as
-they have already reached their aspiration.
+Figure~\ref{fig:large_n} shows that every conclusion of the paper survives at
+\(N = 100\). Panel~\ref{fig:large_n}A shows that the purely extrinsic dynamics
+remain at or below the neutral-drift baseline \(p_C = \frac{1}{2}\) for all
+returns, while the intrinsic dynamics exceed it once \(r > N\). Panel
+\ref{fig:large_n}B shows the maximum \(p_C\) attained over the return for each
+population size: it stays at or below \(\frac{1}{2}\) for the extrinsic dynamics
+across the whole range \(10 \leq N \leq 100\), and lies above \(\frac{1}{2}\) for
+the intrinsic dynamics. Panel~\ref{fig:large_n}C shows that the introspection
+threshold remains exactly at \(r = N\) as \(N\) grows, with the crossing
+sharpening for larger populations. Panel~\ref{fig:large_n}D validates the
+simulator against the exact steady state for \(2 \leq N \leq 8\): the simulated
+estimates bracket the exact value for both an extrinsic (Moran) and an intrinsic
+(introspection) dynamic. The dichotomy between extrinsic and intrinsic update
+rules is therefore a property of the dynamics themselves, and not of the
+population size.
 
-These shortcomings, together with the ceiling on \(p_C\) in purely extrinsic
-population dynamics, suggest that population dynamics combining an extrinsic and
-an intrinsic update step are a promising direction for future work, a point we
-return to in the conclusion.
+\begin{figure}[!htbp]
+    \centering
+    \begin{mdframed}
+    \includegraphics[width=\linewidth]{figures/ceiling_large_n/main.pdf}
+    \end{mdframed}
+    \caption{\textbf{The cooperation ceiling persists for large populations.}
+    Cooperation \(p_C\) is estimated by simulating the Markov chain (mutation
+    \(\mu = 0.05\), linear contributions); bands and boxes show the variation over
+    independent seeds. \textbf{A,} \(p_C\) against \(r / N\) at \(N = 100\): the
+    extrinsic dynamics (Moran, Fermi) stay at or below \(\frac{1}{2}\), while the
+    intrinsic dynamics (introspection, aspiration) cross it at \(r = N\).
+    \textbf{B,} The maximum \(p_C\) over the return, against the population size
+    \(N\): at or below \(\frac{1}{2}\) for the extrinsic dynamics at every \(N\).
+    \textbf{C,} Introspection \(p_C\) against \(r / N\) for
+    \(N \in \{10, 50, 100\}\), all crossing \(\frac{1}{2}\) at \(r = N\).
+    \textbf{D,} Validation against the exact steady state for \(2 \leq N \leq 8\)
+    at \(r / N = 1.2\): the boxes show the simulated estimates over seeds and the
+    markers the exact values, for the Moran process and introspection dynamics.}
+    \label{fig:large_n}
+\end{figure}
 
 \section{Conclusion}
 

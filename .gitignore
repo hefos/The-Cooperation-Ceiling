@@ -6,6 +6,10 @@
 assets/data/raw/**/*.csv
 assets/data/raw/**/*.sqlite
 
+# Large-N simulation outputs (regenerated via assets/data/large_n/main.py).
+assets/data/large_n/*.csv
+assets/data/large_n/*.sqlite
+
 # LaTeX
 tex/main.aux
 tex/main.bbl
