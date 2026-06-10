@@ -82,6 +82,7 @@
     \node[dnode] (Bi) at (1.9,2.3) {i};
     \draw[focal] (Bi) circle (0.33);
     \node[cnode] (Bj) at (3.7,2.3) {j};
+    \node[note, text=accent!80!black] at (3.7,3.0) {$j$ picked at random};
     \draw[<->, accent, line width=0.9pt] (Bi) -- (Bj);
 
     \node[note] at (\pw/2,1.35)
@@ -99,6 +100,7 @@
 
     \node[dnode] (Ci) at (1.5,2.5) {i};
     \draw[focal] (Ci) circle (0.33);
+    \node[note, text=accent!80!black] at (1.5,3.25) {$i$ picked at random};
 
     % aspiration number line
     \draw[->, black!55, line width=0.7pt] (2.6,2.0) -- (4.8,2.0);
@@ -126,7 +128,8 @@
     \draw[focal] (Di) circle (0.33);
     \node[ghost] (Dg) at (3.7,2.3) {i$'$};
     \draw[<->, black!45, line width=0.8pt, dashed] (Di) -- (Dg);
-    \node[note] at (3.7,3.05) {counterfactual};
+    \node[note] at (3.7,2.72) {counterfactual};
+    \node[note, text=accent!80!black] at (1.9,3.15) {$i$ picked at random};
 
     \node[note] at (\pw/2,1.35)
         {switch with prob};
