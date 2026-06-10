@@ -105,20 +105,23 @@ ax_ceiling.set_xlabel(r"return per player $r / N$")
 ax_ceiling.set_title(rf"(a) the ceiling holds at $N = {int(largest)}$")
 ax_ceiling.legend(loc="upper left")
 
-# Panel B: maximum p_C over the return, against N.
+# Panel B: p_C at a high return (the largest r / N in the sweep), against N.
+high_return = aggregated["r_over_N"].max()
 for dynamic in extrinsic + intrinsic:
-    rows = aggregated[aggregated["dynamic"] == dynamic]
+    rows = aggregated[
+        (aggregated["dynamic"] == dynamic)
+        & np.isclose(aggregated["r_over_N"], high_return)
+    ].sort_values("N")
     if rows.empty:
         continue
-    peak = rows.groupby("N")["mean"].max().sort_index()
     line_style, marker = styles[dynamic]
     ax_scaling.plot(
-        peak.index, peak.to_numpy(), line_style, marker=marker, ms=4,
+        rows["N"], rows["mean"], line_style, marker=marker, ms=4,
         color=colours[dynamic], label=labels[dynamic], zorder=3, path_effects=halo,
     )
 ax_scaling.axhline(0.5, color=baseline_colour, linestyle="--", linewidth=0.9, zorder=0)
 ax_scaling.set_ylim(0.0, 1.0)
-ax_scaling.set_ylabel(r"$\max_r p_C$ over the sweep")
+ax_scaling.set_ylabel(rf"$p_C$ at $r / N = {high_return:g}$")
 ax_scaling.set_xlabel(r"number of players $N$")
 ax_scaling.set_title(r"(b) the ceiling persists as $N$ grows")
 ax_scaling.legend(loc="upper left")

@@ -244,17 +244,21 @@ from a state \(\mathbf{a}\) to a state \(\mathbf{b}\) is not necessarily the
 same as the probability of transitioning from \(\mathbf{b}\) to \(\mathbf{a}\).
 Thus, instead of one edge between two states, we have two directed edges,
 \(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
-Figure~\ref{fig:4-cube} shows the 4 dimensional hypercube.
+Figure~\ref{fig:4-cube} illustrates the population model, its state space, which
+for \(N\) players is an \(N\)-dimensional hypercube, a single transition, and the
+role of mutation.
 
 \begin{figure}[!htbp]
     \begin{mdframed}
     \centering
-    \input{figures/hypercube_n_4/main.tex}
+    \includegraphics[width=\linewidth]{figures/state_space_panels/main.pdf}
     \end{mdframed}
-    \caption{The hypercube of dimension 4. This is closely related
-             to the graph of a 4-player population dynamic.}
-    % TODO (figure): consider replacing with the panel figure
-    % figures/state_space_panels (model, state space, transition, mutation).
+    \caption{\textbf{The heterogeneous population as a Markov chain.} \textbf{A,}
+    A heterogeneous population, in which each player has its own payoff function.
+    \textbf{B,} Each state is a vertex of \(\{C, D\}^N\), so the state space is an
+    \(N\)-dimensional hypercube. \textbf{C,} A single transition between
+    neighbouring states. \textbf{D,} Mutation connects the chain and makes it
+    ergodic.}
     \label{fig:4-cube}
 \end{figure}
 
@@ -290,69 +294,36 @@ Purely intrinsic population dynamics model a player who looks inwardly to
 improve their payoff, comparing their current payoff to some value which does
 not depend on the payoffs of an action type in the current population.
 
-\begin{table}[!htbp]
-\centering
+\begin{figure}[!htbp]
+    \centering
+    \begin{mdframed}
+    \includegraphics[width=\linewidth]{figures/dynamics_panels/main.pdf}
+    \end{mdframed}
+    \caption{\textbf{The four population dynamics.} In each panel the triangle is
+    chosen for replacement with probability \(\frac{1}{N}\) and the diamond is
+    chosen with a probability that depends on the process; the filled shape is the
+    action that may be adopted. \textbf{A,} the Moran process and \textbf{B,}
+    Fermi imitation dynamics are purely extrinsic. \textbf{C,} aspiration dynamics
+    and \textbf{D,} introspection dynamics are purely intrinsic. For introspection
+    dynamics the candidate action is chosen with probability \(\frac{1}{k-1}\),
+    and for aspiration dynamics there is only one other action to accept.}
+    \label{fig:diagrams_of_dynamics}
+\end{figure}
 
-\begin{tabular}{|c|c|}
-\hline
-Purely extrinsic & Intrinsic\\
-\hline
-
-\begin{subfigure}{0.4\textwidth}
-\centering
-\scalebox{0.75}{
-\input{figures/moran_process/main.tex}}
-\phantomcaption
-\label{fig:Moran_Dia}
-\end{subfigure}
-&
-\begin{subfigure}{0.4\textwidth}
-\centering
-\scalebox{0.75}{
-\input{figures/aspiration/main.tex}}
-\phantomcaption
-\label{fig:Asp_Dia}
-\end{subfigure}
-\\[1em]
-
-\begin{subfigure}{0.4\textwidth}
-\centering
-\scalebox{0.75}{
-\input{figures/fermi/main.tex}}
-\phantomcaption
-\label{fig:Fermi_Dia}
-\end{subfigure}
-&
-\begin{subfigure}{0.4\textwidth}
-\centering
-\scalebox{0.75}{
-\input{figures/introspection_dynamics/main.tex}}
-\phantomcaption
-\label{fig:Intro_Dia}
-\end{subfigure}
-\\
-
-\hline
-\end{tabular}
-
-\caption{A comparison of different population dynamics. We assume in all cases
-that the triangle is chosen for replacement with a probability \(\frac{1}{N}\)
-and the diamond is chosen with a varying probability depending on the process.
-In the case of introspection dynamics, we assume that the strategy represented
-by the shape being filled in is chosen with probability \(\frac{1}{k-1}\), and
-for aspiration dynamics there is only one other strategy to accept.}
-\label{fig:diagrams_of_dynamics}
-
-\end{table}
-
-Three of the dynamics discussed in this paper correspond to absorbing Markov
-chains, where the measurable outcome is the probability of absorption into a
-given absorbing state. The remaining two dynamics are ergodic chains, for which
-we can compute the long-run abundance of a given strategy in the population. To
-enable meaningful comparison across all models, we introduce mutation. Mutation
-ensures that all processes become ergodic, while also introducing a controlled
-amount of noise: at any moment, individuals may switch to a different
-strategy~\cite{FUDENBERG2006352}.
+Two of the dynamics discussed in this paper, the Moran process and Fermi
+imitation dynamics, correspond to absorbing Markov chains, where the measurable
+outcome is the probability of absorption into a given absorbing state. The
+remaining two, introspection and aspiration dynamics, are ergodic chains, for
+which we can compute the long-run abundance of a given strategy in the
+population. To enable meaningful comparison across all models, we introduce
+mutation. Mutation ensures that all processes become ergodic, while also
+introducing a controlled amount of noise: at any moment, individuals may switch
+to a different strategy~\cite{FUDENBERG2006352}. The stationary cooperation
+probability \(p_C\) is therefore well defined only with mutation for the Moran
+process and Fermi imitation dynamics, so we report these for \(\mu > 0\); the
+introspection and aspiration dynamics are ergodic for every \(\mu \geq 0\). The
+figures throughout use the mutation rates \(\mu \in \{0.001, 0.005, 0.05,
+0.1\}\).
 
 Given a process defined by transition matrix \(T\) and two states \(\mathbf{a}\)
 and \(\mathbf{b}\), the probability of the original process \emph{with mutation}
@@ -468,7 +439,7 @@ The Moran process~\cite{Moran_1958} is defined by the following algorithm:
         strategy
 \end{enumerate}
 
-This is shown in Table~\ref{fig:Moran_Dia}, and the transition matrix is given by:
+This is shown in Figure~\ref{fig:diagrams_of_dynamics}A, and the transition matrix is given by:
 
 \begin{equation}
     T_{\mathbf{ab}} =
@@ -562,7 +533,7 @@ method of modelling evolution in a population. It follows the process:
 Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current payoff
 and the payoff which they are considering. This algorithm is also shown in
-Table~\ref{fig:Fermi_Dia} This method has been commonly used in studies of
+Figure~\ref{fig:diagrams_of_dynamics}B This method has been commonly used in studies of
 evolutionary games, for example ~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
 We now define our transition matrix according to the Fermi function:
 
@@ -623,8 +594,26 @@ imitation dynamics satisfies condition (2).
 \subsection{The cooperation ceiling}
 
 We now consider purely extrinsic population dynamics in
-games with two actions, \(C\) and \(D\). We first define a further classification
-for population dynamics:
+games with two actions, \(C\) and \(D\). Figure~\ref{fig:ceiling_argument}
+sketches the argument that follows: in a social dilemma a defector pointwise
+dominates a cooperator, a relabelling of the two actions fixes a symmetric point
+at neutral payoffs, and together these bound the cooperation probability at one
+half. We first define a further classification for population dynamics:
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{mdframed}
+    \includegraphics[width=\linewidth]{figures/ceiling_panels/main.pdf}
+    \end{mdframed}
+    \caption{\textbf{Why purely extrinsic dynamics cannot exceed
+    \(p_C = \frac{1}{2}\).} \textbf{A,} In a social dilemma a defector pointwise
+    dominates a cooperator: in any state, switching to \(D\) does not lower the
+    payoff. \textbf{B,} At neutral payoffs the dynamic is unchanged by the label
+    swap \(\sigma\) that exchanges \(C\) and \(D\), fixing the symmetric point.
+    \textbf{C,} Stochastic monotonicity then bounds the stationary cooperation
+    probability at the neutral-drift baseline \(p_C = \frac{1}{2}\).}
+    \label{fig:ceiling_argument}
+\end{figure}
 
 \begin{definition}[Neutrally monotone population dynamic]
     Let \(T\) be the transition matrix for a population dynamic on a game with
@@ -1059,7 +1048,8 @@ payoff when they change action type.
 \subsection{Aspiration Dynamics}
 
 Under aspiration dynamics, players choose to change action based on how far away
-their current payoff is from a target payoff, as shown in~\ref{fig:Asp_Dia}. It
+their current payoff is from a target payoff, as shown in
+Figure~\ref{fig:diagrams_of_dynamics}C. It
 follows the algorithm:
 
 \begin{enumerate}
@@ -1123,7 +1113,7 @@ Unlike the previous population dynamics we have seen, introspection
 dynamics~\cite{Couto2022, Couto2023} allows players to consider the payoff they
 will have if they change action. Under this population dynamic, players compare
 their current payoff with their counterfactual payoff upon changing action type.
-The process, as shown in~\ref{fig:Intro_Dia} is given by the algorithm:
+The process, as shown in Figure~\ref{fig:diagrams_of_dynamics}D is given by the algorithm:
 
 \begin{enumerate}
     \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to
@@ -1233,7 +1223,13 @@ aspiration dynamics can achieve its lowest \(p_C\), as with a low value of
 \(A\), players are able to achieve their aspiration by free-riding in a state
 with fewer cooperators, and so there is no incentive to begin cooperating in
 such a state. Figure~\ref{fig:intrinsic_PGG}(d) shows how \(p_C\) depends on the
-aspiration level \(A\). The
+aspiration level \(A\). For \(r > N\), \(p_C\) is non-monotone in \(A\): it rises
+to a peak and then falls back towards \(\frac{1}{2}\). Aspiration only
+discriminates between the two actions when \(A\) lies between the payoffs of a
+defector and a cooperator. A low \(A\) leaves defectors content and unwilling to
+switch, whereas an \(A\) above even the cooperator's payoff leaves every player
+dissatisfied, so switching becomes action-independent and the advantage of
+cooperation is washed out. The
 aspiration level is the biggest indicator of cooperation in a linear public
 goods game where a player's fitness is given by their expected return in a
 2-player game. It has been shown previously that for a high aspiration level,
@@ -1316,21 +1312,23 @@ we estimate \(p_C\) for populations as large as \(N = 100\) by simulating the
 Markov chain directly with the \texttt{ludics} library and averaging the
 cooperator fraction over an ergodic run with mutation \(\mu = 0.05\).
 
-Figure~\ref{fig:large_n} shows that every conclusion of the paper survives at
+Figure~\ref{fig:large_n} shows that the conclusions of the paper survive at
 \(N = 100\). Panel~\ref{fig:large_n}A shows that the purely extrinsic dynamics
 remain at or below the neutral-drift baseline \(p_C = \frac{1}{2}\) for all
-returns, while the intrinsic dynamics exceed it once \(r > N\). Panel
-\ref{fig:large_n}B shows the maximum \(p_C\) attained over the return for each
-population size: it stays at or below \(\frac{1}{2}\) for the extrinsic dynamics
-across the whole range \(10 \leq N \leq 100\), and lies above \(\frac{1}{2}\) for
-the intrinsic dynamics. Panel~\ref{fig:large_n}C shows that the introspection
-threshold remains exactly at \(r = N\) as \(N\) grows, with the crossing
+returns; introspection dynamics rise clearly through \(\frac{1}{2}\) at
+\(r = N\), while aspiration dynamics stay close to it. Panel~\ref{fig:large_n}B
+shows the cooperation probability at a high return (\(r / N = 1.3\)) for each
+population size: the extrinsic dynamics stay well below \(\frac{1}{2}\) across the
+whole range \(10 \leq N \leq 100\), introspection lies clearly above it, and
+aspiration sits just above \(\frac{1}{2}\) with a margin that narrows as \(N\)
+grows. Panel~\ref{fig:large_n}C shows that the introspection threshold remains
+exactly at \(r = N\) as \(N\) grows: the curves for \(N \in \{10, 50, 100\}\)
+essentially collapse onto a single function of \(r / N\), with the crossing
 sharpening for larger populations. Panel~\ref{fig:large_n}D validates the
 simulator against the exact steady state for \(2 \leq N \leq 8\): the simulated
 estimates bracket the exact value for both an extrinsic (Moran) and an intrinsic
-(introspection) dynamic. The dichotomy between extrinsic and intrinsic update
-rules is therefore a property of the dynamics themselves, and not of the
-population size.
+(introspection) dynamic. The extrinsic ceiling is therefore unbroken at every
+population size, and an intrinsic dynamic continues to exceed it for large \(N\).
 
 \begin{figure}[!htbp]
     \centering
@@ -1341,12 +1339,14 @@ population size.
     Cooperation \(p_C\) is estimated by simulating the Markov chain (mutation
     \(\mu = 0.05\), linear contributions); bands and boxes show the variation over
     independent seeds. \textbf{A,} \(p_C\) against \(r / N\) at \(N = 100\): the
-    extrinsic dynamics (Moran, Fermi) stay at or below \(\frac{1}{2}\), while the
-    intrinsic dynamics (introspection, aspiration) cross it at \(r = N\).
-    \textbf{B,} The maximum \(p_C\) over the return, against the population size
-    \(N\): at or below \(\frac{1}{2}\) for the extrinsic dynamics at every \(N\).
-    \textbf{C,} Introspection \(p_C\) against \(r / N\) for
-    \(N \in \{10, 50, 100\}\), all crossing \(\frac{1}{2}\) at \(r = N\).
+    extrinsic dynamics (Moran, Fermi) stay at or below \(\frac{1}{2}\);
+    introspection crosses it at \(r = N\), while aspiration only marginally
+    exceeds it. \textbf{B,} \(p_C\) at a high return (\(r / N = 1.3\)), against the
+    population size \(N\): below \(\frac{1}{2}\) for the extrinsic dynamics at
+    every \(N\), clearly above it for introspection, and just above it for
+    aspiration. \textbf{C,} Introspection \(p_C\) against \(r / N\) for
+    \(N \in \{10, 50, 100\}\): the curves collapse onto one another and all cross
+    \(\frac{1}{2}\) at \(r = N\).
     \textbf{D,} Validation against the exact steady state for \(2 \leq N \leq 8\)
     at \(r / N = 1.2\): the boxes show the simulated estimates over seeds and the
     markers the exact values, for the Moran process and introspection dynamics.}

@@ -41,14 +41,14 @@ returns_over_n = [0.7, 0.9, 1.0, 1.1, 1.2, 1.3]
 validation_return_index = returns_over_n.index(1.2)
 large_population_sizes = [10, 30, 50, 75, 100]
 small_population_sizes = [2, 3, 4, 5, 6, 7, 8]
-seeds_main = range(0, 3)
+seeds_main = range(0, 8)
 seeds_validation = range(0, 12)
 iterations = 3000
 
 mutation = 0.05
 selection_intensity = 0.5
 choice_intensity = 2.0
-aspiration_fraction = 0.4
+aspiration_fraction = 0.6
 
 
 def contribution_scale(number_of_players):
