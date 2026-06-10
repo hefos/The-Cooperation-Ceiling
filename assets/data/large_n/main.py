@@ -39,9 +39,9 @@ store = here / "_stet_store.sqlite"
 dynamics = ["moran", "fermi", "introspection", "aspiration"]
 returns_over_n = [0.7, 0.9, 1.0, 1.1, 1.2, 1.3]
 validation_return_index = returns_over_n.index(1.2)
-large_population_sizes = [10, 30, 50, 75, 100]
+large_population_sizes = [10, 30, 50, 75, 100, 200]
 small_population_sizes = [2, 3, 4, 5, 6, 7, 8]
-seeds_main = range(0, 8)
+seeds_main = range(0, 20)
 seeds_validation = range(0, 12)
 iterations = 3000
 
