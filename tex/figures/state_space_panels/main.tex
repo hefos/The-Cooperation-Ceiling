@@ -41,9 +41,7 @@
 \coordinate (P3) at (0, 0);
 \coordinate (P4) at (\pw+\gap, 0);
 
-% ===============================================================
 % Panel A: the general heterogeneous model
-% ===============================================================
 \begin{scope}[shift=(P1)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -63,9 +61,7 @@
         {state $\mathbf{a}=(C,D,C,D)\in\{C,D\}^N$};
 \end{scope}
 
-% ===============================================================
 % Panel B: the state space (hypercube, by number of cooperators)
-% ===============================================================
 \begin{scope}[shift=(P2)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -110,9 +106,7 @@
         {neighbours differ in a single coordinate};
 \end{scope}
 
-% ===============================================================
 % Panel C: a single transition
-% ===============================================================
 \begin{scope}[shift=(P3)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -159,32 +153,36 @@
         {weights asymmetric; self-loops included};
 \end{scope}
 
-% ===============================================================
 % Panel D: mutation makes the chain ergodic
-% ===============================================================
 \begin{scope}[shift=(P4)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
     \node[panellabel] at (0, \ph+0.15) {D};
     \node[ptitle] at (\pw/2, \ph-0.05) {Mutation makes the chain ergodic};
 
-    \pgfmathsetmacro{\cx}{\pw/2}
-    \pgfmathsetmacro{\cy}{\ph/2 - 0.05}
-    \node[vhi] (c0) at (\cx,\cy) {};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=north] at (\cx,\cy-0.12) {$\mathbf{a}$};
+    % the two absorbing corners of the state space (cf. panel B)
+    \node[dnode] (allD) at (1.0,2.6) {};
+    \node[vtx]   (m1)   at (2.15,2.6) {};
+    \node[vtx]   (m2)   at (3.05,2.6) {};
+    \node[cnode] (allC) at (4.2,2.6) {};
+    \node[font=\sffamily\tiny, text=black!60, anchor=north] at (1.0,2.2) {all $D$};
+    \node[font=\sffamily\tiny, text=black!60, anchor=north] at (4.2,2.2) {all $C$};
 
-    \foreach \ang in {0,90,180,270} {
-        \pgfmathsetmacro{\nx}{\cx + 1.5*cos(\ang)}
-        \pgfmathsetmacro{\ny}{\cy + 1.15*sin(\ang)}
-        \node[vtx] (n\ang) at (\nx,\ny) {};
-        \draw[->, black!40, line width=0.5pt] (c0) -- (n\ang);
-    }
-    \node[font=\sffamily\tiny, text=black!60] at (\cx, \cy+0.85) {$\ge \mu/N$};
+    % ordinary moves drift towards fixation
+    \draw[edge, ->] (m1)--(allD);
+    \draw[edge, <->] (m1)--(m2);
+    \draw[edge, ->] (m2)--(allC);
 
-    \node[note] at (\pw/2, 0.95)
-        {every neighbour reachable with mutation};
-    \node[note] at (\pw/2, 0.45)
-        {$\mu>0 \Rightarrow$ unique steady state};
+    % mutation lets the chain escape the absorbing corners
+    \draw[->, accent, line width=0.9pt] (allD) to[out=55,in=125] (m1);
+    \draw[->, accent, line width=0.9pt] (allC) to[out=125,in=55] (m2);
+    \node[font=\sffamily\tiny, text=accent] at (1.6,3.3) {mutation};
+    \node[font=\sffamily\tiny, text=accent] at (3.6,3.3) {mutation};
+
+    \node[note] at (\pw/2, 1.25)
+        {all-$C$ and all-$D$ are absorbing};
+    \node[note] at (\pw/2, 0.6)
+        {mutation makes the chain ergodic};
 \end{scope}
 
 \end{tikzpicture}

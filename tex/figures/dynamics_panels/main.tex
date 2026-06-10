@@ -5,7 +5,7 @@
 \documentclass[border=4pt]{standalone}
 \usepackage{tikz}
 \usepackage{amsmath}
-\usetikzlibrary{arrows.meta, calc, positioning}
+\usetikzlibrary{arrows.meta, calc, positioning, shapes.geometric}
 
 \definecolor{coop}{HTML}{009E73}     % cooperate
 \definecolor{defect}{HTML}{D55E00}   % defect
@@ -20,7 +20,10 @@
     pl/.style={circle, minimum size=16pt, inner sep=0pt, line width=0.6pt,
                font=\sffamily\scriptsize\bfseries, text=white},
     cnode/.style={pl, fill=coop, draw=coop!70},
-    dnode/.style={pl, fill=defect, draw=defect!70},
+    dnode/.style={regular polygon, regular polygon sides=3, minimum size=19pt,
+                  inner sep=0pt, line width=0.6pt,
+                  font=\sffamily\scriptsize\bfseries, text=white,
+                  fill=defect, draw=defect!70},
     ghost/.style={circle, minimum size=16pt, inner sep=0pt, line width=0.6pt,
                   font=\sffamily\scriptsize\bfseries, text=black!55,
                   draw=black!45, dashed, fill=white},
@@ -50,9 +53,7 @@
 \node[grouphdr] at (\pw/2, \rowtop+\ph+0.6) {Purely extrinsic (look outward)};
 \node[grouphdr] at (\xr+\pw/2, \rowtop+\ph+0.6) {Intrinsic (look inward)};
 
-% ===============================================================
 % A  Moran process (extrinsic)
-% ===============================================================
 \begin{scope}[shift=(TL)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -71,9 +72,7 @@
         {copy role model's action (no acceptance step)};
 \end{scope}
 
-% ===============================================================
 % B  Fermi imitation dynamics (extrinsic)
-% ===============================================================
 \begin{scope}[shift=(ML)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -91,9 +90,7 @@
         {$\varphi\!\left(\pi_i-\pi_j\right)$};
 \end{scope}
 
-% ===============================================================
 % C  Aspiration dynamics (intrinsic)
-% ===============================================================
 \begin{scope}[shift=(TR)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -118,9 +115,7 @@
         {$\varphi\!\left(\pi_i-A\right)$};
 \end{scope}
 
-% ===============================================================
 % D  Introspection dynamics (intrinsic)
-% ===============================================================
 \begin{scope}[shift=(MR)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -134,57 +129,15 @@
     \node[note] at (3.7,3.05) {counterfactual};
 
     \node[note] at (\pw/2,1.35)
-        {switch with prob $\varphi(\Delta\pi_i)$,};
+        {switch with prob};
     \node[font=\sffamily\small, text=black!80] at (\pw/2,0.75)
-        {$\Delta\pi_i = \pi_i-\pi_{i'}$};
-\end{scope}
-
-% ===============================================================
-% E  Introspective imitation dynamics (both)  -- wide
-% ===============================================================
-\begin{scope}[shift=(BW)]
-    \draw[draw=black!20, fill=white, rounded corners=3pt]
-        (-0.3,-0.3) rectangle (\wwide+0.3, \ph+0.3);
-    \node[panellabel] at (0, \ph+0.15) {E};
-    \node[ptitle] at (\wwide/2, \ph-0.05)
-        {Introspective imitation dynamics \ (extrinsic $+$ intrinsic)};
-
-    % stage 1: choose role model proportional to fitness
-    \node[stephdr] at (2.0,3.5) {choose role model $\propto$ fitness};
-    \node[note] at (2.0,3.05) {(extrinsic)};
-    \node[dnode] (Ei) at (1.4,1.7) {i};
-    \draw[focal] (Ei) circle (0.33);
-    \node[cnode] (Ej) at (2.7,2.5) {j};
-    \node[font=\sffamily\tiny, text=accent!80!black] at (3.4,2.5) {$\propto f_j$};
-    \draw[->, accent, line width=0.9pt] (Ej) -- (Ei);
-
-    \draw[->, black!45, line width=0.9pt] (4.0,1.8) -- (4.9,1.8);
-
-    % stage 2: counterfactual check
-    \node[stephdr] at (6.4,3.5) {counterfactual check};
-    \node[note] at (6.4,3.05) {(intrinsic)};
-    \node[dnode] (Ei2) at (5.9,1.8) {i};
-    \node[ghost] (Eg) at (7.1,2.6) {i$'$};
-    \draw[<->, black!45, line width=0.8pt, dashed] (Ei2) -- (Eg);
-    \node[font=\sffamily\small, text=black!80] at (6.4,1.05) {$\varphi(\Delta\pi_i)$};
-
-    \draw[->, black!45, line width=0.9pt] (8.2,1.8) -- (9.1,1.8);
-
-    % stage 3: update
-    \node[stephdr] at (10.2,3.5) {update};
-    \node[cnode] (Eu) at (10.2,1.9) {i};
-    \draw[focal] (Eu) circle (0.33);
-    \node[note] at (10.2,1.15) {adopt w.p.\ $\varphi(\Delta\pi_i)$};
-
-    \node[note] at (\wwide/2,0.4)
-        {role model chosen by fitness, but adopted only when the
-         counterfactual payoff is higher};
+        {$\varphi\!\left(\pi_i-\pi_{i'}\right)$};
 \end{scope}
 
 % legend
-\node[font=\sffamily\scriptsize, text=black!60] at (\wwide/2,-0.75)
-    {\tikz\node[cnode, minimum size=10pt]{};\, cooperate \quad
-     \tikz\node[dnode, minimum size=10pt]{};\, defect \quad
+\node[font=\sffamily\scriptsize, text=black!60] at (\wwide/2,\rowmid-0.75)
+    {\tikz\node[cnode, minimum size=10pt]{};\, one action type \quad
+     \tikz\node[dnode, minimum size=12pt]{};\, another action type \quad
      \tikz\draw[focal] (0,0) circle (5pt);\, focal (w.p.\ $1/N$) \quad
      \tikz\node[ghost, minimum size=10pt]{};\, counterfactual};
 

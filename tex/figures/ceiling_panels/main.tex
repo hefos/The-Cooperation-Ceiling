@@ -33,9 +33,7 @@
 \coordinate (P2) at (\pw+\gap, 0);
 \coordinate (P3) at (2*\pw+2*\gap, 0);
 
-% ===============================================================
 % Panel A: pointwise dominance (the hypothesis)
-% ===============================================================
 \begin{scope}[shift=(P1)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -66,9 +64,7 @@
         {$\min_{a_j=D} f_j > \max_{a_i=C} f_i$ in every state};
 \end{scope}
 
-% ===============================================================
 % Panel B: the label-swap symmetry sigma
-% ===============================================================
 \begin{scope}[shift=(P2)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
@@ -102,9 +98,7 @@
         {$\Rightarrow\ p_C = p_D = \tfrac{1}{2}$};
 \end{scope}
 
-% ===============================================================
 % Panel C: the ceiling
-% ===============================================================
 \begin{scope}[shift=(P3)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
