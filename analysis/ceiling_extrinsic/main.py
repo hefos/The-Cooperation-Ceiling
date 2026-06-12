@@ -15,24 +15,23 @@ import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects
 
 here = Path(__file__).resolve()
-data_path = here.parents[2] / "data" / "raw"
+data_path = here.parents[2] / "data" / "sweep"
 output_paths = [
-    here.parent / "main.pdf",
-    here.parents[3] / "tex" / "figures" / "ceiling_extrinsic" / "main.pdf",
+    here.parents[2] / "tex" / "ceiling_extrinsic.pdf",
 ]
 
 number_of_players = 8
 mutation = "0.05"
-reference_contribution = 16.0  # M = 2N, the reference contribution scale
-choice_intensity = 2.0  # beta used for Fermi imitation dynamics
-return_above_threshold = 12.0  # an r > N slice
-return_below_threshold = 3.0555555555555554  # an r < N slice
+reference_contribution = 16.0
+choice_intensity = 2.0
+return_above_threshold = 12.0
+return_below_threshold = 3.0555555555555554
 
 moran_colour = "#0072B2"
 fermi_colour = "#D55E00"
 baseline_colour = "#555555"
-r_below_colour = "#0072B2"  # r < N
-r_above_colour = "#D55E00"  # r > N
+r_below_colour = "#0072B2"
+r_above_colour = "#D55E00"
 halo = [path_effects.Stroke(linewidth=3, foreground="white"), path_effects.Normal()]
 
 plt.rcParams.update(
@@ -228,7 +227,6 @@ def add_baseline(ax, with_threshold=True):
     ax.set_ylim(0.0, 1.0)
 
 
-# Panel A: the ceiling holds across the whole sweep, p_C against r.
 for dynamic, colour, marker, line_style, label in (
     ("moran", moran_colour, "o", "-", "Moran"),
     ("fermi", fermi_colour, "s", "--", "Fermi"),
@@ -251,7 +249,6 @@ ax_ceiling.legend(
     loc="upper left", title="bold: median over sweep", title_fontsize=8
 )
 
-# Panel B: the ceiling is robust to intensity, at r > N.
 for curve_x, curve_y in sampled_curves(
     moran_full[moran_full["r"] > number_of_players], "epsilon", normalise=True
 ):
@@ -280,7 +277,6 @@ ax_intensity.set_ylabel(r"cooperation $p_C$")
 ax_intensity.set_title(r"(b) the ceiling is hard, $r > N$")
 ax_intensity.legend(loc="upper right", title=r"median, $r>N$", title_fontsize=8)
 
-# Panel C: the Moran process is invariant to the contribution scale.
 for curve_x, curve_y in moran_against_contribution_curves(
     moran_full[moran_full["r"] < number_of_players]
 ):
@@ -313,7 +309,6 @@ ax_moran_invariance.legend(
     loc="upper right", title=r"median, strong $\varepsilon$", title_fontsize=8
 )
 
-# Panel D: Fermi imitation dynamics is invariant to the return r.
 for intensity, colour, marker, line_style in (
     (nearest(fermi["beta"], 0.44), moran_colour, "o", "-"),
     (nearest(fermi["beta"], 1.11), fermi_colour, "s", "--"),

@@ -1,24 +1,34 @@
+# Python
 *.pyc
+__pycache__/
 /.pytest_cache
+.ruff_cache/
+.mypy_cache/
+.venv/
+.coverage
 
-# Raw simulation data (archived on Zenodo; regenerated via assets/data/raw/main.py).
-# The data-generation scripts (main.py, jobs.txt) stay tracked; the bulk outputs do not.
-assets/data/raw/**/*.csv
-assets/data/raw/**/*.sqlite
+# Simulation data (large; archived on Zenodo, regenerated via data/*/main.py).
+# The generation scripts stay tracked; the bulk CSV/sqlite outputs do not.
+data/sweep/**/*.csv
+data/sweep/**/*.sqlite
+data/large_n/*.csv
+data/large_n/*.sqlite
 
-# Large-N simulation outputs (regenerated via assets/data/large_n/main.py).
-assets/data/large_n/*.csv
-assets/data/large_n/*.sqlite
+# DVC
+/.dvc/cache
+/.dvc/tmp
 
-# LaTeX
-tex/main.aux
-tex/main.bbl
-tex/main.blg
-tex/main.fdb_latexmk
-tex/main.fls
-tex/main.log
-tex/main.out
-tex/main.xdv
+# LaTeX build artifacts
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.fdb_latexmk
+tex/*.fls
+tex/*.log
+tex/*.out
+tex/*.xdv
+tex/*.synctex.gz
 
-#
-.DS_store
+# macOS
+.DS_Store
+

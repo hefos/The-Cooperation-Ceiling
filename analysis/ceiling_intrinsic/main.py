@@ -4,7 +4,8 @@ This replaces the parameter-sweep figure for aspiration and introspection
 dynamics with curves drawn at a single, fully specified parameter set
 (N = 8, a linear contribution profile, mutation 0.05, choice intensity 2.0).
 Each marker is the exact steady-state cooperation p_C for one parameter
-combination, not an average over the sweep.
+combination, not an average over the sweep. Introspection p_C is independent of
+the mutation rate, so a single rate suffices for it.
 """
 
 from pathlib import Path
@@ -15,24 +16,23 @@ import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects
 
 here = Path(__file__).resolve()
-data_path = here.parents[2] / "data" / "raw"
+data_path = here.parents[2] / "data" / "sweep"
 output_paths = [
-    here.parent / "main.pdf",
-    here.parents[3] / "tex" / "figures" / "ceiling_intrinsic" / "main.pdf",
+    here.parents[2] / "tex" / "ceiling_intrinsic.pdf",
 ]
 
 number_of_players = 8
 mutation = "0.05"
-reference_contribution = 16.0  # M = 2N, the reference contribution scale
-choice_intensity = 2.0  # beta
-return_below_threshold = 3.0555555555555554  # an r < N slice
-return_above_threshold = 9.444444444444445  # an r > N slice
+reference_contribution = 16.0
+choice_intensity = 2.0
+return_below_threshold = 3.0555555555555554
+return_above_threshold = 9.444444444444445
 
 aspiration_colour = "#009E73"
 introspection_colour = "#E69F00"
 baseline_colour = "#555555"
-r_below_colour = "#0072B2"  # r < N
-r_above_colour = "#D55E00"  # r > N
+r_below_colour = "#0072B2"
+r_above_colour = "#D55E00"
 halo = [path_effects.Stroke(linewidth=3, foreground="white"), path_effects.Normal()]
 
 plt.rcParams.update(
@@ -150,7 +150,6 @@ def median_curve(frame, x_column):
 
 aspiration = load("aspiration")
 introspection = load("introspection")
-# Introspection p_C is independent of the mutation rate, so one rate suffices.
 introspection_full = load_full("introspection", mutation_values=["0.05"])
 aspiration_full = load_full("aspiration")
 aspiration_level = nearest(
@@ -189,7 +188,6 @@ def add_baseline(ax, with_threshold=True):
     ax.set_ylim(0.0, 1.0)
 
 
-# Panel A: the ceiling is broken across the whole sweep, p_C against r.
 for dynamic, colour, marker, line_style, label in (
     ("introspection", introspection_colour, "o", "-", "introspection"),
     ("aspiration", aspiration_colour, "^", "--", "aspiration"),
@@ -212,7 +210,6 @@ ax_breaking.legend(
     loc="upper left", title="bold: median over sweep", title_fontsize=8
 )
 
-# Panel B: the Delta-pi mechanism, introspection at several contribution scales.
 for contribution, colour, marker, line_style in (
     (8.0, "#0072B2", "o", "-"),
     (16.0, "#D55E00", "s", "--"),
@@ -236,7 +233,6 @@ ax_mechanism.set_ylabel(r"cooperation $p_C$")
 ax_mechanism.set_title(r"(b) introspection: threshold at $r = N$")
 ax_mechanism.legend(loc="upper left", title=r"median over $\beta$", title_fontsize=8)
 
-# Panel C: heterogeneity signature, introspection p_C against contribution scale.
 for curve_x, curve_y in sampled_curves(
     introspection_full[introspection_full["r"] < number_of_players], "M"
 ):
@@ -264,7 +260,6 @@ ax_heterogeneity.set_ylabel(r"cooperation $p_C$")
 ax_heterogeneity.set_title(r"(c) introspection responds to $\alpha_i$")
 ax_heterogeneity.legend(loc="upper left", title="median per regime", title_fontsize=8)
 
-# Panel D: aspiration's own lever, p_C against the aspiration level A (M fixed).
 aspiration_at_reference = aspiration_full[
     np.isclose(aspiration_full["M"], reference_contribution)
 ]

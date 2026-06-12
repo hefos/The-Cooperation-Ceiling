@@ -1,52 +1,98 @@
-# Heterogeneous Evolutionary Process
+# The Ceiling of Cooperation in Extrinsic Update Rules
 
-## Software
+This repository contains the source, data-generation code, analysis code, and
+manuscript for our work on heterogeneous evolutionary games. We categorise
+population dynamics as *extrinsic* (players look outward at others) or
+*intrinsic* (players look inward at their own payoffs), show that purely
+extrinsic dynamics have a hard ceiling on the probability of cooperation, and
+demonstrate that intrinsic dynamics can exceed it, using the public goods game
+with heterogeneous contributions.
 
-To install a python virtual env:
+## Repository layout
 
+The repository mirrors the structure of a reproducible data-analysis project.
+
+- `src/public_goods_games/` is the installable package (contribution rules and
+  helpers). The exact steady states and simulations are computed with the
+  `ludics` library.
+- `data/<experiment>/main.py` generates the raw data for an experiment and
+  writes it alongside the script. `data/sweep/` holds the exhaustive
+  small-population parameter sweep (archived on Zenodo) and `data/large_n/`
+  holds the large-population simulations.
+- `analysis/<experiment>/main.py` reads from `data/` and writes a finished
+  figure into `tex/<experiment>.pdf`.
+- `tex/` is flat: it contains `main.tex`, `bibliography.bib`, the standalone
+  TikZ diagram sources (`*_panels.tex`), and every generated figure as a
+  `.pdf`.
+- `tests/` contains the test suite.
+
+## Setup
+
+We manage the environment with [`uv`](https://docs.astral.sh/uv/):
+
+```bash
+uv sync
 ```
-$ python -m venv env
+
+## Reproducing the data
+
+The large-population simulations are expensive, so they are made resumable with
+[`stet`](https://vknight.org/stet/): each run is executed at most once and its
+result is appended to a CSV. To (re)generate them:
+
+```bash
+uv run python data/large_n/main.py
 ```
 
-To activate the python env:
+Re-running the script only fills in combinations that have not been computed; to
+add precision, widen the seed ranges in the script and run it again. The
+small-population sweep in `data/sweep/` is large and is distributed via Zenodo
+rather than regenerated routinely; it can also be reproduced from the generation
+script and the job list in `data/sweep/jobs.txt`.
 
-```
-$ source env/bin/activate
-```
+Both the sweep and the large-population data are tracked by content hash with
+DVC (the `*.dvc` files and `dvc.lock` are committed to git). After downloading
+the archived data into place, a reader can confirm it is the exact version used
+here with
 
-To install dependencies:
-
-```
-$ python -m pip install -r requirements.txt
-```
-
-To check formatting of code according to [black](https://github.com/psf/black)
-run:
-
-```
-$ python -m black --check src
+```bash
+uv run dvc status
 ```
 
-To format code according to black:
+which recomputes the hashes and reports `Data and pipelines are up to date` when
+everything matches; `uv run dvc checkout` restores or verifies the tracked files.
 
+## Building the figures
+
+Each analysis script reads the data and writes its figure straight into `tex/`:
+
+```bash
+uv run python analysis/ceiling_extrinsic/main.py
 ```
-$ python -m black src
+
+The standalone diagrams are compiled directly, for example:
+
+```bash
+cd tex && pdflatex state_space_panels.tex
 ```
 
-### Benchmarks
+## The pipeline (DVC)
 
-To run all benchmarks:
+The dependencies between data, analysis, and figures are recorded in
+`dvc.yaml`. To rebuild everything that is out of date:
 
-    $ python -m pytest -vv .\src\benchmarks\
+```bash
+uv run dvc repro
+```
 
-To run benchmarks for a specific benchmark file:
+## Building the manuscript
 
-    $ python -m pytest -vv .\src\benchmarks\<file_name>.py
+```bash
+cd tex && latexmk -pdf main.tex
+```
 
-To compare benchmarks to another branch:
+## Tests
 
-    $ python -m pytest -vv .\src\benchmarks\ --benchmark-compare=<file_name_comparing_to> --benchmark-compare-fail=min:5%
-
-To output benchmark data to a specific named file:
-
-    $ python -m pytest -vv .\src\benchmarks\ --benchmark-only --benchmark-save=<file_name>
+```bash
+uv run pytest
+```

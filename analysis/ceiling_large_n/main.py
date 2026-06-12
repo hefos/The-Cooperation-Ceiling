@@ -1,9 +1,10 @@
 """The cooperation ceiling for large populations.
 
-Reads the resumable simulation sweep produced by
-``assets/data/large_n/main.py`` and draws a four-panel figure: the ceiling at
-N = 100, its persistence in N, the introspection threshold across N, and a
-validation of the simulator against the exact steady state at small N.
+Reads the resumable simulation sweep produced by ``data/large_n/main.py`` and
+draws a four-panel figure: the ceiling at the largest N, its persistence in N,
+the introspection threshold across N (one curve per population size, each with
+its own choice intensity so the curves do not collapse), and a validation of the
+simulator against the exact steady state at small N.
 """
 
 import pathlib
@@ -16,8 +17,7 @@ import matplotlib.patheffects as path_effects
 here = pathlib.Path(__file__).resolve()
 data_path = here.parents[2] / "data" / "large_n"
 figure_outputs = [
-    here.parent / "main.pdf",
-    here.parents[3] / "tex" / "figures" / "ceiling_large_n" / "main.pdf",
+    here.parents[2] / "tex" / "ceiling_large_n.pdf",
 ]
 
 extrinsic = ["moran", "fermi"]
@@ -42,8 +42,8 @@ labels = {
 }
 baseline_colour = "#555555"
 halo = [path_effects.Stroke(linewidth=3, foreground="white"), path_effects.Normal()]
-collapse_colours = {10: "#56B4E9", 50: "#0072B2", 100: "#CC79A7"}
-collapse_markers = {10: "o", 50: "s", 100: "^"}
+collapse_colours = {10: "#56B4E9", 50: "#0072B2", 100: "#CC79A7", 200: "#E69F00"}
+collapse_markers = {10: "o", 50: "s", 100: "^", 200: "D"}
 
 plt.rcParams.update(
     {
@@ -70,6 +70,15 @@ aggregated = (
 )
 aggregated["sem"] = aggregated["std"].fillna(0.0) / np.sqrt(aggregated["count"])
 
+collapse = (
+    pd.read_csv(data_path / "collapse.csv")
+    if (data_path / "collapse.csv").exists()
+    else pd.DataFrame(columns=["N", "beta", "r_over_N", "p_C"])
+)
+collapse_aggregated = (
+    collapse.groupby(["N", "beta", "r_over_N"])["p_C"].mean().reset_index()
+)
+
 
 def add_baseline(ax, threshold=True):
     ax.axhline(0.5, color=baseline_colour, linestyle="--", linewidth=0.9, zorder=0)
@@ -83,7 +92,6 @@ fig, ((ax_ceiling, ax_scaling), (ax_collapse, ax_validation)) = plt.subplots(
     2, 2, figsize=(8.6, 7.0)
 )
 
-# Panel A: p_C against r / N at N = 100, all four dynamics.
 largest = aggregated["N"].max()
 for dynamic in extrinsic + intrinsic:
     rows = aggregated[
@@ -105,7 +113,6 @@ ax_ceiling.set_xlabel(r"return per player $r / N$")
 ax_ceiling.set_title(rf"(a) the ceiling holds at $N = {int(largest)}$")
 ax_ceiling.legend(loc="upper left")
 
-# Panel B: p_C at a high return (the largest r / N in the sweep), against N.
 high_return = aggregated["r_over_N"].max()
 for dynamic in extrinsic + intrinsic:
     rows = aggregated[
@@ -126,16 +133,17 @@ ax_scaling.set_xlabel(r"number of players $N$")
 ax_scaling.set_title(r"(b) the ceiling persists as $N$ grows")
 ax_scaling.legend(loc="upper left")
 
-# Panel C: introspection threshold collapse across N.
 for population_size in sorted(collapse_colours):
-    rows = aggregated[
-        (aggregated["dynamic"] == "introspection") & (aggregated["N"] == population_size)
-    ].sort_values("r_over_N")
+    rows = collapse_aggregated[collapse_aggregated["N"] == population_size].sort_values(
+        "r_over_N"
+    )
     if rows.empty:
         continue
+    beta = rows["beta"].iloc[0]
     ax_collapse.plot(
-        rows["r_over_N"], rows["mean"], "-", marker=collapse_markers[population_size],
-        ms=4, color=collapse_colours[population_size], label=rf"$N = {population_size}$",
+        rows["r_over_N"], rows["p_C"], "-", marker=collapse_markers[population_size],
+        ms=4, color=collapse_colours[population_size],
+        label=rf"$N = {population_size}$, $\beta = {beta:g}$",
         zorder=3, path_effects=halo,
     )
 add_baseline(ax_collapse)
@@ -143,9 +151,8 @@ ax_collapse.set_xlabel(r"return per player $r / N$")
 ax_collapse.set_title(r"(c) introspection: threshold stays at $r = N$")
 ax_collapse.legend(loc="upper left")
 
-# Panel D: validation against the exact steady state at small N.
-validation_dynamics = ["moran", "introspection"]
-offsets = {"moran": -0.18, "introspection": 0.18}
+validation_dynamics = ["moran", "fermi", "introspection", "aspiration"]
+offsets = {"moran": -0.27, "fermi": -0.09, "introspection": 0.09, "aspiration": 0.27}
 small_sizes = sorted(
     simulations[simulations["N"] <= 8]["N"].unique()
 )
@@ -162,7 +169,7 @@ for dynamic in validation_dynamics:
     if not samples:
         continue
     box = ax_validation.boxplot(
-        samples, positions=positions, widths=0.3, patch_artist=True, manage_ticks=False,
+        samples, positions=positions, widths=0.15, patch_artist=True, manage_ticks=False,
     )
     for patch in box["boxes"]:
         patch.set_facecolor(colours[dynamic])
@@ -172,7 +179,8 @@ for dynamic in validation_dynamics:
             line.set_color(colours[dynamic])
     exact_rows = exact[exact["dynamic"] == dynamic].sort_values("N")
     ax_validation.scatter(
-        exact_rows["N"] + offsets[dynamic], exact_rows["p_C"], marker="D", s=22,
+        exact_rows["N"] + offsets[dynamic], exact_rows["p_C"],
+        marker=styles[dynamic][1], s=22,
         color=colours[dynamic], edgecolor="black", linewidth=0.6, zorder=5,
         label=f"{labels[dynamic]} (exact)",
     )

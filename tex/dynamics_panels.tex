@@ -62,7 +62,6 @@
 
     \node[dnode] (Ai) at (1.7,1.9) {i};
     \draw[focal] (Ai) circle (0.33);
-    \node[note] at (1.7,1.25) {focal, w.p.\ $1/N$};
     \node[cnode] (Aj) at (3.9,2.6) {j};
     \node[note, text=accent!80!black] at (3.9,3.25) {$\propto$ fitness $f_j$};
 
@@ -100,7 +99,7 @@
 
     \node[dnode] (Ci) at (1.5,2.5) {i};
     \draw[focal] (Ci) circle (0.33);
-    \node[note, text=accent!80!black] at (1.5,3.25) {$i$ picked at random};
+    \node[note, text=accent!80!black] at (1.5,3.25) {action picked at random};
 
     % aspiration number line
     \draw[->, black!55, line width=0.7pt] (2.6,2.0) -- (4.8,2.0);
@@ -129,7 +128,7 @@
     \node[ghost] (Dg) at (3.7,2.3) {i$'$};
     \draw[<->, black!45, line width=0.8pt, dashed] (Di) -- (Dg);
     \node[note] at (3.7,2.72) {counterfactual};
-    \node[note, text=accent!80!black] at (1.9,3.15) {$i$ picked at random};
+    \node[note, text=accent!80!black] at (1.9,3.15) {action picked at random};
 
     \node[note] at (\pw/2,1.35)
         {switch with prob};
