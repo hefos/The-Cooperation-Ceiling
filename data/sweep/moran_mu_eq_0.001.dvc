@@ -1,0 +1,6 @@
+outs:
+- md5: b4fcc1c90d2e2dbbc31a0e08893845d2.dir
+  size: 5915884
+  nfiles: 2
+  hash: md5
+  path: moran_mu_eq_0.001

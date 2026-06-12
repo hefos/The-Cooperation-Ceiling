@@ -1,0 +1,82 @@
+# Pipeline tying data generation -> analysis -> figures.
+# Rebuild what is out of date with:  uv run dvc repro
+#
+# The exhaustive small-population sweep in data/sweep/ is archived on Zenodo and
+# treated as a static input, so it is not produced by a stage here.
+
+stages:
+
+  large_n_data:
+    cmd: uv run python data/large_n/main.py
+    deps:
+      - data/large_n/main.py
+      - src/public_goods_games
+    outs:
+      - data/large_n/simulations.csv
+      - data/large_n/exact.csv
+      - data/large_n/collapse.csv
+
+  ceiling_extrinsic:
+    cmd: uv run python analysis/ceiling_extrinsic/main.py
+    deps:
+      - analysis/ceiling_extrinsic/main.py
+      - src/public_goods_games
+    outs:
+      - tex/ceiling_extrinsic.pdf
+
+  ceiling_intrinsic:
+    cmd: uv run python analysis/ceiling_intrinsic/main.py
+    deps:
+      - analysis/ceiling_intrinsic/main.py
+      - src/public_goods_games
+    outs:
+      - tex/ceiling_intrinsic.pdf
+
+  ceiling_overview:
+    cmd: uv run python analysis/ceiling_overview/main.py
+    deps:
+      - analysis/ceiling_overview/main.py
+      - src/public_goods_games
+    outs:
+      - tex/ceiling_overview.pdf
+      - tex/ceiling_crossing_table.tex
+
+  ceiling_conclusion:
+    cmd: uv run python analysis/ceiling_conclusion/main.py
+    deps:
+      - analysis/ceiling_conclusion/main.py
+      - src/public_goods_games
+    outs:
+      - tex/ceiling_conclusion.pdf
+
+  ceiling_large_n:
+    cmd: uv run python analysis/ceiling_large_n/main.py
+    deps:
+      - analysis/ceiling_large_n/main.py
+      - src/public_goods_games
+      - data/large_n/simulations.csv
+      - data/large_n/exact.csv
+      - data/large_n/collapse.csv
+    outs:
+      - tex/ceiling_large_n.pdf
+
+  dynamics_panels:
+    cmd: cd tex && pdflatex -interaction=nonstopmode -halt-on-error dynamics_panels.tex
+    deps:
+      - tex/dynamics_panels.tex
+    outs:
+      - tex/dynamics_panels.pdf
+
+  state_space_panels:
+    cmd: cd tex && pdflatex -interaction=nonstopmode -halt-on-error state_space_panels.tex
+    deps:
+      - tex/state_space_panels.tex
+    outs:
+      - tex/state_space_panels.pdf
+
+  ceiling_panels:
+    cmd: cd tex && pdflatex -interaction=nonstopmode -halt-on-error ceiling_panels.tex
+    deps:
+      - tex/ceiling_panels.tex
+    outs:
+      - tex/ceiling_panels.pdf

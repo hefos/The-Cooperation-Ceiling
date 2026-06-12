@@ -18,15 +18,11 @@ parser.add_argument("--mu", type=float, required=True, help="A float value for m
 parser.add_argument(
     "--dynamic", type=str, required=True, help="A string value for dynamic"
 )
-parser.add_argument(
-    "--absorbing", action="store_true", help="Set if the process is absorbing"
-)
 
 args = parser.parse_args()
 
 mu = args.mu
 dynamic = args.dynamic
-absorbing = args.absorbing
 
 folder = pathlib.Path(file_path.parent / f"{dynamic}_mu_eq_{mu}")
 folder.mkdir(exist_ok=True)
@@ -35,39 +31,22 @@ csv_path = pathlib.Path(file_path.parent / f"{dynamic}_mu_eq_{mu}/main.csv")
 if csv_path.exists():
     pass
 else:
-    if absorbing is True:
-        df = pd.DataFrame(
-            columns=[
-                "UID",
-                "process",
-                "N",
-                "M",
-                "r",
-                "alpha_i",
-                "mutant_alpha",
-                "i",
-                "beta",
-                "epsilon",
-                "p_C",
-            ]
-        )
-    else:
-        df = pd.DataFrame(
-            columns=[
-                "UID",
-                "process",
-                "N",
-                "M",
-                "r",
-                "alpha_i",
-                "i",
-                "beta",
-                "epsilon",
-                "aspiration",
-                "i_C",
-                "p_C",
-            ]
-        )
+    df = pd.DataFrame(
+        columns=[
+            "UID",
+            "process",
+            "N",
+            "M",
+            "r",
+            "alpha_i",
+            "i",
+            "beta",
+            "epsilon",
+            "aspiration",
+            "i_C",
+            "p_C",
+        ]
+    )
 
     df.to_csv(file_path.parent / f"{dynamic}_mu_eq_{mu}/main.csv", index=False)
 
@@ -94,7 +73,6 @@ def run_experiment(
     choice_intensity,
     dynamic,
     mu,
-    absorbing,
 ):
     if dynamic == "introspection":
         id = uuid.uuid4()
@@ -143,7 +121,6 @@ def run_experiment(
         dynamic_to_process = {
             "aspiration": ludics.compute_aspiration_transition_probability,
             "fermi": ludics.compute_fermi_transition_probability,
-            "imispection": ludics.compute_imitation_introspection_transition_probability,
             "moran": ludics.compute_moran_transition_probability,
         }
         state_space = ludics.get_state_space(N=N, k=2)
@@ -161,88 +138,45 @@ def run_experiment(
             alpha=alphas,
             number_of_strategies=2
         )
-        if absorbing:
-            absorption_matrix = ludics.compute_absorption_matrix(transition_matrix)
-            for first_contribution in np.unique(alphas):
-                id = uuid.uuid4()
-                approximate_state = np.zeros(N)
-                approximate_state[np.where(alphas == first_contribution)[0][0]] = 1
-                p_C = absorption_matrix[
-                    np.where(np.all(state_space == approximate_state, axis=1))[0] - 1,
-                    -1,
-                ][0]
-                for i, alpha_i in enumerate(alphas):
-                    data = [
-                        id,
-                        dynamic,
-                        N,
-                        M,
-                        r,
-                        alpha_i,
-                        i,
-                        first_contribution,
-                        choice_intensity,
-                        selection_intensity,
-                        p_C,
-                    ]
-
-                    df = pd.DataFrame(
-                        data=data,
-                        columns=[
-                            "UID",
-                            "process",
-                            "N",
-                            "M",
-                            "r",
-                            "alpha_i",
-                            "i",
-                            "mutant_alpha",
-                            "beta",
-                            "epsilon",
-                            "p_C",
-                        ],
-                    )
-        else:
-            steady_state = ludics.compute_steady_state(transition_matrix)
-            id = uuid.uuid4()
-            cooperation_per_player = steady_state @ state_space
-            p_C = sum(cooperation_per_player) / N
-            for i, alpha_i in enumerate(alphas):
-                i_C = cooperation_per_player[i]
-                data = [
-                    [
-                        id,
-                        dynamic,
-                        N,
-                        M,
-                        r,
-                        alpha_i,
-                        i,
-                        choice_intensity,
-                        selection_intensity,
-                        aspiration,
-                        i_C,
-                        p_C,
-                    ]
+        steady_state = ludics.compute_steady_state(transition_matrix)
+        id = uuid.uuid4()
+        cooperation_per_player = steady_state @ state_space
+        p_C = sum(cooperation_per_player) / N
+        for i, alpha_i in enumerate(alphas):
+            i_C = cooperation_per_player[i]
+            data = [
+                [
+                    id,
+                    dynamic,
+                    N,
+                    M,
+                    r,
+                    alpha_i,
+                    i,
+                    choice_intensity,
+                    selection_intensity,
+                    aspiration,
+                    i_C,
+                    p_C,
                 ]
-                print(data)
-                df = pd.DataFrame(
-                    data=data,
-                    columns=[
-                        "UID",
-                        "process",
-                        "N",
-                        "M",
-                        "r",
-                        "alpha_i",
-                        "i",
-                        "beta",
-                        "epsilon",
-                        "aspiration",
-                        "i_C",
-                        "p_C",
-                    ],
-                )
+            ]
+            df = pd.DataFrame(
+                data=data,
+                columns=[
+                    "UID",
+                    "process",
+                    "N",
+                    "M",
+                    "r",
+                    "alpha_i",
+                    "i",
+                    "beta",
+                    "epsilon",
+                    "aspiration",
+                    "i_C",
+                    "p_C",
+                ],
+            )
     df.to_csv(
         file_path.parent / f"{dynamic}_mu_eq_{mu}/main.csv",
         mode="a",
@@ -272,9 +206,6 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2, 1]):
             "introspection": itertools.product(
                 choice_intensity_range, null_array, null_array
             ),
-            "imispection": itertools.product(
-                choice_intensity_range, selection_intensity_range, null_array
-            ),
             "moran": itertools.product(
                 null_array, selection_intensity_range, null_array
             ),
@@ -293,5 +224,4 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2, 1]):
                 choice_intensity=choice_intensity,
                 dynamic=dynamic,
                 mu=mu,
-                absorbing=absorbing,
             )
