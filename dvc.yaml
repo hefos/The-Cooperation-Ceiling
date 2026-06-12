@@ -11,10 +11,6 @@ stages:
     deps:
       - data/large_n/main.py
       - src/public_goods_games
-    outs:
-      - data/large_n/simulations.csv
-      - data/large_n/exact.csv
-      - data/large_n/threshold.csv
 
   ceiling_extrinsic:
     cmd: uv run python analysis/ceiling_extrinsic/main.py
