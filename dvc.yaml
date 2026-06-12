@@ -29,8 +29,6 @@ stages:
       - data/sweep/fermi_mu_eq_0.005
       - data/sweep/fermi_mu_eq_0.05
       - data/sweep/fermi_mu_eq_0.1
-    outs:
-      - tex/ceiling_extrinsic.pdf
 
   ceiling_intrinsic:
     cmd: uv run python analysis/ceiling_intrinsic/main.py
@@ -45,8 +43,6 @@ stages:
       - data/sweep/aspiration_mu_eq_0.005
       - data/sweep/aspiration_mu_eq_0.05
       - data/sweep/aspiration_mu_eq_0.1
-    outs:
-      - tex/ceiling_intrinsic.pdf
 
   ceiling_overview:
     cmd: uv run python analysis/ceiling_overview/main.py
@@ -69,17 +65,12 @@ stages:
       - data/sweep/aspiration_mu_eq_0.005
       - data/sweep/aspiration_mu_eq_0.05
       - data/sweep/aspiration_mu_eq_0.1
-    outs:
-      - tex/ceiling_overview.pdf
-      - tex/ceiling_crossing_table.tex
 
   ceiling_conclusion:
     cmd: uv run python analysis/ceiling_conclusion/main.py
     deps:
       - analysis/ceiling_conclusion/main.py
       - src/public_goods_games
-    outs:
-      - tex/ceiling_conclusion.pdf
 
   ceiling_large_n:
     cmd: uv run python analysis/ceiling_large_n/main.py
@@ -89,26 +80,3 @@ stages:
       - data/large_n/simulations.csv
       - data/large_n/exact.csv
       - data/large_n/threshold.csv
-    outs:
-      - tex/ceiling_large_n.pdf
-
-  dynamics_panels:
-    cmd: cd tex && pdflatex -interaction=nonstopmode -halt-on-error dynamics_panels.tex
-    deps:
-      - tex/dynamics_panels.tex
-    outs:
-      - tex/dynamics_panels.pdf
-
-  state_space_panels:
-    cmd: cd tex && pdflatex -interaction=nonstopmode -halt-on-error state_space_panels.tex
-    deps:
-      - tex/state_space_panels.tex
-    outs:
-      - tex/state_space_panels.pdf
-
-  ceiling_panels:
-    cmd: cd tex && pdflatex -interaction=nonstopmode -halt-on-error ceiling_panels.tex
-    deps:
-      - tex/ceiling_panels.tex
-    outs:
-      - tex/ceiling_panels.pdf

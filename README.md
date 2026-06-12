@@ -2,8 +2,8 @@
 
 This repository contains the source, data-generation code, analysis code, and
 manuscript for our work on heterogeneous evolutionary games. We categorise
-population dynamics as *extrinsic* (players look outward at others) or
-*intrinsic* (players look inward at their own payoffs), show that purely
+population dynamics as _extrinsic_ (players look outward at others) or
+_intrinsic_ (players look inward at their own payoffs), show that purely
 extrinsic dynamics have a hard ceiling on the probability of cooperation, and
 demonstrate that intrinsic dynamics can exceed it, using the public goods game
 with heterogeneous contributions.
@@ -36,8 +36,7 @@ uv sync
 
 ## Reproducing the data
 
-The large-population simulations are expensive, so they are made resumable with
-[`stet`](https://vknight.org/stet/): each run is executed at most once and its
+The large-population simulations are expensive, each run is executed at most once and its
 result is appended to a CSV. To (re)generate them:
 
 ```bash
@@ -61,7 +60,7 @@ uv run dvc status
 ```
 
 which recomputes the hashes and reports `Data and pipelines are up to date` when
-everything matches; `uv run dvc checkout` restores or verifies the tracked files.
+everything matches.
 
 ## Building the figures
 
