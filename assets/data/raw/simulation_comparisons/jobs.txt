@@ -1,5 +1,0 @@
-uv run main.py --process="aspiration"
-uv run main.py --process="Moran"
-uv run main.py --process="Fermi"
-uv run main.py --process="imispection"
-uv run main.py --process="introspection"

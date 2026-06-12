@@ -1,4 +1,0 @@
-uv run main.py --p1="Moran" --p2="imispection"
-uv run main.py --p1="imispection" --p2="Moran"
-uv run main.py --p1="imispection" --p2="introspection"
-uv run main.py --p1="introspection" --p2="imispection"
