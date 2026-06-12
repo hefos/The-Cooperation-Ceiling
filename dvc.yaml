@@ -14,13 +14,21 @@ stages:
     outs:
       - data/large_n/simulations.csv
       - data/large_n/exact.csv
-      - data/large_n/collapse.csv
+      - data/large_n/threshold.csv
 
   ceiling_extrinsic:
     cmd: uv run python analysis/ceiling_extrinsic/main.py
     deps:
       - analysis/ceiling_extrinsic/main.py
       - src/public_goods_games
+      - data/sweep/moran_mu_eq_0.001
+      - data/sweep/moran_mu_eq_0.005
+      - data/sweep/moran_mu_eq_0.05
+      - data/sweep/moran_mu_eq_0.1
+      - data/sweep/fermi_mu_eq_0.001
+      - data/sweep/fermi_mu_eq_0.005
+      - data/sweep/fermi_mu_eq_0.05
+      - data/sweep/fermi_mu_eq_0.1
     outs:
       - tex/ceiling_extrinsic.pdf
 
@@ -29,6 +37,14 @@ stages:
     deps:
       - analysis/ceiling_intrinsic/main.py
       - src/public_goods_games
+      - data/sweep/introspection_mu_eq_0.001
+      - data/sweep/introspection_mu_eq_0.005
+      - data/sweep/introspection_mu_eq_0.05
+      - data/sweep/introspection_mu_eq_0.1
+      - data/sweep/aspiration_mu_eq_0.001
+      - data/sweep/aspiration_mu_eq_0.005
+      - data/sweep/aspiration_mu_eq_0.05
+      - data/sweep/aspiration_mu_eq_0.1
     outs:
       - tex/ceiling_intrinsic.pdf
 
@@ -37,6 +53,22 @@ stages:
     deps:
       - analysis/ceiling_overview/main.py
       - src/public_goods_games
+      - data/sweep/moran_mu_eq_0.001
+      - data/sweep/moran_mu_eq_0.005
+      - data/sweep/moran_mu_eq_0.05
+      - data/sweep/moran_mu_eq_0.1
+      - data/sweep/fermi_mu_eq_0.001
+      - data/sweep/fermi_mu_eq_0.005
+      - data/sweep/fermi_mu_eq_0.05
+      - data/sweep/fermi_mu_eq_0.1
+      - data/sweep/introspection_mu_eq_0.001
+      - data/sweep/introspection_mu_eq_0.005
+      - data/sweep/introspection_mu_eq_0.05
+      - data/sweep/introspection_mu_eq_0.1
+      - data/sweep/aspiration_mu_eq_0.001
+      - data/sweep/aspiration_mu_eq_0.005
+      - data/sweep/aspiration_mu_eq_0.05
+      - data/sweep/aspiration_mu_eq_0.1
     outs:
       - tex/ceiling_overview.pdf
       - tex/ceiling_crossing_table.tex
@@ -56,7 +88,7 @@ stages:
       - src/public_goods_games
       - data/large_n/simulations.csv
       - data/large_n/exact.csv
-      - data/large_n/collapse.csv
+      - data/large_n/threshold.csv
     outs:
       - tex/ceiling_large_n.pdf
 

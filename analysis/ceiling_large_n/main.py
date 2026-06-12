@@ -3,7 +3,7 @@
 Reads the resumable simulation sweep produced by ``data/large_n/main.py`` and
 draws a four-panel figure: the ceiling at the largest N, its persistence in N,
 the introspection threshold across N (one curve per population size, each with
-its own choice intensity so the curves do not collapse), and a validation of the
+its own choice intensity so the curves stay distinct), and a validation of the
 simulator against the exact steady state at small N.
 """
 
@@ -42,8 +42,8 @@ labels = {
 }
 baseline_colour = "#555555"
 halo = [path_effects.Stroke(linewidth=3, foreground="white"), path_effects.Normal()]
-collapse_colours = {10: "#56B4E9", 50: "#0072B2", 100: "#CC79A7", 200: "#E69F00"}
-collapse_markers = {10: "o", 50: "s", 100: "^", 200: "D"}
+threshold_colours = {10: "#56B4E9", 50: "#0072B2", 100: "#CC79A7", 200: "#E69F00"}
+threshold_markers = {10: "o", 50: "s", 100: "^", 200: "D"}
 
 plt.rcParams.update(
     {
@@ -70,25 +70,25 @@ aggregated = (
 )
 aggregated["sem"] = aggregated["std"].fillna(0.0) / np.sqrt(aggregated["count"])
 
-collapse = (
-    pd.read_csv(data_path / "collapse.csv")
-    if (data_path / "collapse.csv").exists()
+threshold = (
+    pd.read_csv(data_path / "threshold.csv")
+    if (data_path / "threshold.csv").exists()
     else pd.DataFrame(columns=["N", "beta", "r_over_N", "p_C"])
 )
-collapse_aggregated = (
-    collapse.groupby(["N", "beta", "r_over_N"])["p_C"].mean().reset_index()
+threshold_aggregated = (
+    threshold.groupby(["N", "beta", "r_over_N"])["p_C"].mean().reset_index()
 )
 
 
-def add_baseline(ax, threshold=True):
+def add_baseline(ax, with_threshold=True):
     ax.axhline(0.5, color=baseline_colour, linestyle="--", linewidth=0.9, zorder=0)
-    if threshold:
+    if with_threshold:
         ax.axvline(1.0, color=baseline_colour, linestyle=":", linewidth=0.9, zorder=0)
     ax.set_ylim(0.0, 1.0)
     ax.set_ylabel(r"cooperation $p_C$")
 
 
-fig, ((ax_ceiling, ax_scaling), (ax_collapse, ax_validation)) = plt.subplots(
+fig, ((ax_ceiling, ax_scaling), (ax_threshold, ax_validation)) = plt.subplots(
     2, 2, figsize=(8.6, 7.0)
 )
 
@@ -133,23 +133,23 @@ ax_scaling.set_xlabel(r"number of players $N$")
 ax_scaling.set_title(r"(b) the ceiling persists as $N$ grows")
 ax_scaling.legend(loc="upper left")
 
-for population_size in sorted(collapse_colours):
-    rows = collapse_aggregated[collapse_aggregated["N"] == population_size].sort_values(
+for population_size in sorted(threshold_colours):
+    rows = threshold_aggregated[threshold_aggregated["N"] == population_size].sort_values(
         "r_over_N"
     )
     if rows.empty:
         continue
     beta = rows["beta"].iloc[0]
-    ax_collapse.plot(
-        rows["r_over_N"], rows["p_C"], "-", marker=collapse_markers[population_size],
-        ms=4, color=collapse_colours[population_size],
+    ax_threshold.plot(
+        rows["r_over_N"], rows["p_C"], "-", marker=threshold_markers[population_size],
+        ms=4, color=threshold_colours[population_size],
         label=rf"$N = {population_size}$, $\beta = {beta:g}$",
         zorder=3, path_effects=halo,
     )
-add_baseline(ax_collapse)
-ax_collapse.set_xlabel(r"return per player $r / N$")
-ax_collapse.set_title(r"(c) introspection: threshold stays at $r = N$")
-ax_collapse.legend(loc="upper left")
+add_baseline(ax_threshold)
+ax_threshold.set_xlabel(r"return per player $r / N$")
+ax_threshold.set_title(r"(c) introspection: threshold stays at $r = N$")
+ax_threshold.legend(loc="upper left")
 
 validation_dynamics = ["moran", "fermi", "introspection", "aspiration"]
 offsets = {"moran": -0.27, "fermi": -0.09, "introspection": 0.09, "aspiration": 0.27}

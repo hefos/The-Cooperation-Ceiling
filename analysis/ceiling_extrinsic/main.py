@@ -22,10 +22,6 @@ output_paths = [
 
 number_of_players = 8
 mutation = "0.05"
-reference_contribution = 16.0
-choice_intensity = 2.0
-return_above_threshold = 12.0
-return_below_threshold = 3.0555555555555554
 
 moran_colour = "#0072B2"
 fermi_colour = "#D55E00"
@@ -192,26 +188,9 @@ def rank_median(frame, sort_column, n_points=10):
     return np.linspace(0.0, 1.0, n_points), np.median(np.array(rows), axis=0)
 
 
-moran = load("moran")
 fermi = load("fermi")
 moran_full = load_full("moran")
 fermi_full = load_full("fermi")
-
-
-def moran_against_return(contribution, which="strong"):
-    rows = moran[np.isclose(moran["M"], contribution)]
-    selections = sorted(s for s in rows["epsilon"].unique() if s > 0)
-    selection = selections[-1] if which == "strong" else selections[len(selections) // 4]
-    rows = rows[np.isclose(rows["epsilon"], selection)].sort_values("r")
-    return rows["r"].to_numpy(), rows["p_C"].to_numpy()
-
-
-def fermi_against_return(contribution, intensity):
-    rows = fermi[
-        np.isclose(fermi["M"], contribution)
-        & np.isclose(fermi["beta"], intensity)
-    ].sort_values("r")
-    return rows["r"].to_numpy(), rows["p_C"].to_numpy()
 
 
 fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.4))

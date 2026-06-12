@@ -10,7 +10,6 @@ import itertools
 import argparse
 
 file_path = pathlib.Path(__file__)
-root_path = (file_path / "../../../../../").resolve()
 
 parser = argparse.ArgumentParser(description="Process mu and dynamic inputs")
 

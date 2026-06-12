@@ -1,3 +1,27 @@
+"""Resumable large-N simulation sweep for the cooperation ceiling.
+
+Exact steady states are infeasible once N is large (the state space has 2^N
+states), so we estimate p_C by simulating the Markov chain with
+``ludics.simulate_markov_chain`` over an ergodic run (mutation > 0) and taking
+the visit-weighted cooperator fraction. A small set of exact values at N <= 8
+validates the simulator.
+
+The sweep is resumable with ``stet``. Two constraints keep resumption correct:
+
+- The stet key is the index into ``returns_over_n``, not the r / N value, so a
+  new return must be appended to the end of that list, never inserted in sorted
+  order: appending preserves the keys of completed runs so only the new points
+  are computed on the next run.
+- The simulation, exact and threshold runs use separate stet stores. They share
+  the same (N, r index) coordinates and stet matches on the key fields present,
+  so a single shared store would let one run be skipped because another had
+  already recorded those coordinates.
+
+Run with::
+
+    uv run python main.py
+"""
+
 import csv
 import pathlib
 
@@ -11,8 +35,10 @@ import public_goods_games.contribution_rules as contribution_rules
 here = pathlib.Path(__file__).resolve().parent
 simulations_csv = here / "simulations.csv"
 exact_csv = here / "exact.csv"
-collapse_csv = here / "collapse.csv"
+threshold_csv = here / "threshold.csv"
 store = here / "_stet_store.sqlite"
+exact_store = here / "_stet_exact_store.sqlite"
+threshold_store = here / "_stet_threshold_store.sqlite"
 
 dynamics = ["moran", "fermi", "introspection", "aspiration"]
 returns_over_n = [0.7, 0.9, 1.0, 1.1, 1.2, 1.3, 0.8]
@@ -31,8 +57,8 @@ aspiration_fraction = 0.7
 gap_fill_sizes = [125, 150, 175]
 high_return_index = returns_over_n.index(1.3)
 
-collapse_betas = {10: 1.0, 50: 2.0, 100: 3.0, 200: 4.0}
-collapse_seeds = range(0, 10)
+threshold_betas = {10: 1.0, 50: 2.0, 100: 3.0, 200: 4.0}
+threshold_seeds = range(0, 10)
 
 
 def contribution_scale(number_of_players):
@@ -162,7 +188,7 @@ def run_simulation(dynamic, N, r_index, seed):
     )
 
 
-@stet.once(store=str(store), key=["dynamic", "N", "r_index", "exact"])
+@stet.once(store=str(exact_store), key=["dynamic", "N", "r_index"])
 def run_exact(dynamic, N, r_index):
     return_value = returns_over_n[r_index] * N
     cooperation = exact_cooperation(dynamic, N, return_value)
@@ -179,13 +205,13 @@ def run_exact(dynamic, N, r_index):
     )
 
 
-@stet.once(store=str(store), key=["N", "r_index", "seed", "collapse"])
-def run_collapse(N, r_index, seed):
-    beta = collapse_betas[N]
+@stet.once(store=str(threshold_store), key=["N", "r_index", "seed"])
+def run_threshold(N, r_index, seed):
+    beta = threshold_betas[N]
     return_value = returns_over_n[r_index] * N
     cooperation = simulated_introspection(N, return_value, beta, seed)
     append_row(
-        collapse_csv,
+        threshold_csv,
         {
             "N": N,
             "beta": beta,
@@ -225,12 +251,12 @@ def main():
             run_exact(
                 dynamic=dynamic, N=number_of_players, r_index=validation_return_index
             )
-    for number_of_players in collapse_betas:
+    for number_of_players in threshold_betas:
         for r_index in range(len(returns_over_n)):
-            for seed in collapse_seeds:
-                run_collapse(N=number_of_players, r_index=r_index, seed=seed)
+            for seed in threshold_seeds:
+                run_threshold(N=number_of_players, r_index=r_index, seed=seed)
     print("done; rows:")
-    for path in (simulations_csv, exact_csv, collapse_csv):
+    for path in (simulations_csv, exact_csv, threshold_csv):
         if path.exists():
             print(" ", path, sum(1 for _ in open(path)) - 1)
 

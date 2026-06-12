@@ -22,11 +22,7 @@ output_paths = [
 ]
 
 number_of_players = 8
-mutation = "0.05"
 reference_contribution = 16.0
-choice_intensity = 2.0
-return_below_threshold = 3.0555555555555554
-return_above_threshold = 9.444444444444445
 
 aspiration_colour = "#009E73"
 introspection_colour = "#E69F00"
@@ -45,16 +41,6 @@ plt.rcParams.update(
         "ytick.labelsize": 9,
     }
 )
-
-
-def load(dynamic):
-    frame = pd.read_csv(data_path / f"{dynamic}_mu_eq_{mutation}/main.csv")
-    return frame[frame["N"] == number_of_players].drop_duplicates("UID")
-
-
-def nearest(values, target):
-    unique_values = np.array(sorted(set(values)))
-    return unique_values[np.argmin(np.abs(unique_values - target))]
 
 
 band_mutations = ["0.001", "0.005", "0.05", "0.1"]
@@ -148,31 +134,8 @@ def median_curve(frame, x_column):
     return grouped.index.to_numpy(), grouped.to_numpy()
 
 
-aspiration = load("aspiration")
-introspection = load("introspection")
 introspection_full = load_full("introspection", mutation_values=["0.05"])
 aspiration_full = load_full("aspiration")
-aspiration_level = nearest(
-    aspiration[np.isclose(aspiration["M"], reference_contribution)]["aspiration"],
-    reference_contribution / 2,
-)
-
-
-def introspection_against_return(contribution, intensity):
-    rows = introspection[
-        np.isclose(introspection["M"], contribution)
-        & np.isclose(introspection["beta"], intensity)
-    ].sort_values("r")
-    return rows["r"].to_numpy(), rows["p_C"].to_numpy()
-
-
-def aspiration_against_return(contribution, intensity, level):
-    rows = aspiration[
-        np.isclose(aspiration["M"], contribution)
-        & np.isclose(aspiration["beta"], intensity)
-        & np.isclose(aspiration["aspiration"], level)
-    ].sort_values("r")
-    return rows["r"].to_numpy(), rows["p_C"].to_numpy()
 
 
 fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.4))

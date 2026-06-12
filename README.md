@@ -50,10 +50,11 @@ small-population sweep in `data/sweep/` is large and is distributed via Zenodo
 rather than regenerated routinely; it can also be reproduced from the generation
 script and the job list in `data/sweep/jobs.txt`.
 
-Both the sweep and the large-population data are tracked by content hash with
-DVC (the `*.dvc` files and `dvc.lock` are committed to git). After downloading
-the archived data into place, a reader can confirm it is the exact version used
-here with
+The small-population sweep is tracked by content hash with DVC through the
+committed `*.dvc` files. The data → analysis → figure pipeline is described in
+`dvc.yaml`, and `uv run dvc repro` records the resulting output hashes in
+`dvc.lock`. After downloading the archived data into place, a reader can confirm
+it is the exact version used here with
 
 ```bash
 uv run dvc status
