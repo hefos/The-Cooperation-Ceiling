@@ -1,0 +1,246 @@
+schema: '2.0'
+stages:
+  large_n_data:
+    cmd: uv run python data/large_n/main.py
+    deps:
+    - path: data/large_n/main.py
+      hash: md5
+      md5: 1311a62921085a7498c83b152a0be0f6
+      size: 9571
+    - path: src/public_goods_games
+      hash: md5
+      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      size: 21789
+      nfiles: 4
+  ceiling_extrinsic:
+    cmd: uv run python analysis/ceiling_extrinsic/main.py
+    deps:
+    - path: analysis/ceiling_extrinsic/main.py
+      hash: md5
+      md5: 12f39d9d2146fc993bfe8aa795cc92ea
+      size: 12066
+    - path: data/sweep/fermi_mu_eq_0.001
+      hash: md5
+      md5: 7711bbb76e3cafc2a31a1ecc1a3d0b2c.dir
+      size: 6133021
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.005
+      hash: md5
+      md5: eaf563cedb8c5ebd0c44bbbdb1985db4.dir
+      size: 6114329
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.05
+      hash: md5
+      md5: 70030ae4b905f0408897422233085c75.dir
+      size: 6023780
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.1
+      hash: md5
+      md5: 3355f345ad277bc9578ec7395b74f5a6.dir
+      size: 5956006
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.001
+      hash: md5
+      md5: b4fcc1c90d2e2dbbc31a0e08893845d2.dir
+      size: 5915884
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.005
+      hash: md5
+      md5: ba10f2e9de63f214f6e22511ec705353.dir
+      size: 5942119
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.05
+      hash: md5
+      md5: cfba0ebdd2fa4d1e568dbf6334caa3ee.dir
+      size: 5899897
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.1
+      hash: md5
+      md5: a94ffeea07a6b30f28581cba12de9fa2.dir
+      size: 5847426
+      nfiles: 2
+    - path: src/public_goods_games
+      hash: md5
+      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      size: 21789
+      nfiles: 4
+  ceiling_intrinsic:
+    cmd: uv run python analysis/ceiling_intrinsic/main.py
+    deps:
+    - path: analysis/ceiling_intrinsic/main.py
+      hash: md5
+      md5: 4fd10e573e9cb6d4533bfa0faa1c5cf9
+      size: 10225
+    - path: data/sweep/aspiration_mu_eq_0.001
+      hash: md5
+      md5: cc890f64488dedc744ba38ef164042e4.dir
+      size: 65713995
+      nfiles: 2
+    - path: data/sweep/aspiration_mu_eq_0.005
+      hash: md5
+      md5: ee28b6d4c7208f36f8293964a5704d90.dir
+      size: 65712519
+      nfiles: 2
+    - path: data/sweep/aspiration_mu_eq_0.05
+      hash: md5
+      md5: b58dcb27c440cb1255f3972bcacc744e.dir
+      size: 65278720
+      nfiles: 2
+    - path: data/sweep/aspiration_mu_eq_0.1
+      hash: md5
+      md5: 71cca21da371e7aed36aa18d9652efb9.dir
+      size: 64849341
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.001
+      hash: md5
+      md5: d9bea94bcff54c86b6745f00e5a8b35d.dir
+      size: 5510995
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.005
+      hash: md5
+      md5: 6d4e7713fb7426f8ce7aea3aa2e8d1ec.dir
+      size: 5511616
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.05
+      hash: md5
+      md5: 1575a06a6a7b4a402dfba3b377edb866.dir
+      size: 5466565
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.1
+      hash: md5
+      md5: 2792fa51cfa13d3b6405df25b64ec30e.dir
+      size: 5423244
+      nfiles: 2
+    - path: src/public_goods_games
+      hash: md5
+      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      size: 21789
+      nfiles: 4
+  ceiling_overview:
+    cmd: uv run python analysis/ceiling_overview/main.py
+    deps:
+    - path: analysis/ceiling_overview/main.py
+      hash: md5
+      md5: 1fd5f22b2ce442a5411ba05945b2e929
+      size: 6105
+    - path: data/sweep/aspiration_mu_eq_0.001
+      hash: md5
+      md5: cc890f64488dedc744ba38ef164042e4.dir
+      size: 65713995
+      nfiles: 2
+    - path: data/sweep/aspiration_mu_eq_0.005
+      hash: md5
+      md5: ee28b6d4c7208f36f8293964a5704d90.dir
+      size: 65712519
+      nfiles: 2
+    - path: data/sweep/aspiration_mu_eq_0.05
+      hash: md5
+      md5: b58dcb27c440cb1255f3972bcacc744e.dir
+      size: 65278720
+      nfiles: 2
+    - path: data/sweep/aspiration_mu_eq_0.1
+      hash: md5
+      md5: 71cca21da371e7aed36aa18d9652efb9.dir
+      size: 64849341
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.001
+      hash: md5
+      md5: 7711bbb76e3cafc2a31a1ecc1a3d0b2c.dir
+      size: 6133021
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.005
+      hash: md5
+      md5: eaf563cedb8c5ebd0c44bbbdb1985db4.dir
+      size: 6114329
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.05
+      hash: md5
+      md5: 70030ae4b905f0408897422233085c75.dir
+      size: 6023780
+      nfiles: 2
+    - path: data/sweep/fermi_mu_eq_0.1
+      hash: md5
+      md5: 3355f345ad277bc9578ec7395b74f5a6.dir
+      size: 5956006
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.001
+      hash: md5
+      md5: d9bea94bcff54c86b6745f00e5a8b35d.dir
+      size: 5510995
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.005
+      hash: md5
+      md5: 6d4e7713fb7426f8ce7aea3aa2e8d1ec.dir
+      size: 5511616
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.05
+      hash: md5
+      md5: 1575a06a6a7b4a402dfba3b377edb866.dir
+      size: 5466565
+      nfiles: 2
+    - path: data/sweep/introspection_mu_eq_0.1
+      hash: md5
+      md5: 2792fa51cfa13d3b6405df25b64ec30e.dir
+      size: 5423244
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.001
+      hash: md5
+      md5: b4fcc1c90d2e2dbbc31a0e08893845d2.dir
+      size: 5915884
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.005
+      hash: md5
+      md5: ba10f2e9de63f214f6e22511ec705353.dir
+      size: 5942119
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.05
+      hash: md5
+      md5: cfba0ebdd2fa4d1e568dbf6334caa3ee.dir
+      size: 5899897
+      nfiles: 2
+    - path: data/sweep/moran_mu_eq_0.1
+      hash: md5
+      md5: a94ffeea07a6b30f28581cba12de9fa2.dir
+      size: 5847426
+      nfiles: 2
+    - path: src/public_goods_games
+      hash: md5
+      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      size: 21789
+      nfiles: 4
+  ceiling_conclusion:
+    cmd: uv run python analysis/ceiling_conclusion/main.py
+    deps:
+    - path: analysis/ceiling_conclusion/main.py
+      hash: md5
+      md5: 9dfdf6eed58d85f5ba0539da8bb7765b
+      size: 5699
+    - path: src/public_goods_games
+      hash: md5
+      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      size: 21789
+      nfiles: 4
+  ceiling_large_n:
+    cmd: uv run python analysis/ceiling_large_n/main.py
+    deps:
+    - path: analysis/ceiling_large_n/main.py
+      hash: md5
+      md5: 6fbc6679165f379e38f3b9bd40d355c0
+      size: 7099
+    - path: data/large_n/exact.csv
+      hash: md5
+      md5: 29e3e3b76bc4b0ed3ac837e1c70e69d8
+      size: 1310
+    - path: data/large_n/simulations.csv
+      hash: md5
+      md5: 365cfbbba943d7416ae400c186a56ae4
+      size: 178388
+    - path: data/large_n/threshold.csv
+      hash: md5
+      md5: 9296a309f3ecc419ee2c7eb7100c3a43
+      size: 9268
+    - path: src/public_goods_games
+      hash: md5
+      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      size: 21789
+      nfiles: 4

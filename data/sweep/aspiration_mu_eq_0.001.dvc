@@ -1,0 +1,6 @@
+outs:
+- md5: cc890f64488dedc744ba38ef164042e4.dir
+  size: 65713995
+  nfiles: 2
+  hash: md5
+  path: aspiration_mu_eq_0.001

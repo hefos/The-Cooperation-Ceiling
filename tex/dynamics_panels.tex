@@ -1,0 +1,146 @@
+% Standalone: the five population dynamics, redrawn in the panel style
+% (cf. rsc/traitors/tex/panel_diagram.tex). This is a restyling of the
+% current Table 1 (which should be a figure). Not \input by main.tex.
+% Build: pdflatex main.tex
+\documentclass[border=4pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta, calc, positioning, shapes.geometric}
+
+\definecolor{coop}{HTML}{009E73}     % cooperate
+\definecolor{defect}{HTML}{D55E00}   % defect
+\definecolor{neutral}{HTML}{8C8C8C}
+\definecolor{accent}{HTML}{0072B2}   % selection / extrinsic
+\definecolor{warn}{HTML}{E69F00}     % focal marker
+
+\begin{document}
+\begin{tikzpicture}[
+    >=Stealth,
+    font=\sffamily,
+    pl/.style={circle, minimum size=16pt, inner sep=0pt, line width=0.6pt,
+               font=\sffamily\scriptsize\bfseries, text=white},
+    cnode/.style={pl, fill=coop, draw=coop!70},
+    dnode/.style={regular polygon, regular polygon sides=3, minimum size=19pt,
+                  inner sep=0pt, line width=0.6pt,
+                  font=\sffamily\scriptsize\bfseries, text=white,
+                  fill=defect, draw=defect!70},
+    ghost/.style={circle, minimum size=16pt, inner sep=0pt, line width=0.6pt,
+                  font=\sffamily\scriptsize\bfseries, text=black!55,
+                  draw=black!45, dashed, fill=white},
+    focal/.style={draw=warn, line width=1.1pt},
+    panellabel/.style={font=\sffamily\footnotesize\bfseries, anchor=north west},
+    ptitle/.style={font=\sffamily\scriptsize\bfseries, text=black!80, align=center},
+    note/.style={font=\sffamily\scriptsize, text=black!55, align=center},
+    grouphdr/.style={font=\sffamily\footnotesize\bfseries, text=black!65},
+    stephdr/.style={font=\sffamily\scriptsize\itshape, text=accent!80!black},
+]
+
+\def\pw{5.6}
+\def\ph{4.2}
+\def\gap{0.55}
+\pgfmathsetmacro{\rowtop}{2*\ph+2*\gap}
+\pgfmathsetmacro{\rowmid}{\ph+\gap}
+\pgfmathsetmacro{\xr}{\pw+\gap}
+\pgfmathsetmacro{\wwide}{2*\pw+\gap}
+
+\coordinate (TL) at (0, \rowtop);
+\coordinate (TR) at (\xr, \rowtop);
+\coordinate (ML) at (0, \rowmid);
+\coordinate (MR) at (\xr, \rowmid);
+\coordinate (BW) at (0, 0);
+
+% group headers
+\node[grouphdr] at (\pw/2, \rowtop+\ph+0.6) {Purely extrinsic (look outward)};
+\node[grouphdr] at (\xr+\pw/2, \rowtop+\ph+0.6) {Intrinsic (look inward)};
+
+% A  Moran process (extrinsic)
+\begin{scope}[shift=(TL)]
+    \draw[draw=black!20, fill=white, rounded corners=3pt]
+        (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
+    \node[panellabel] at (0, \ph+0.15) {A};
+    \node[ptitle] at (\pw/2, \ph-0.05) {Moran process};
+
+    \node[dnode] (Ai) at (1.7,1.9) {i};
+    \draw[focal] (Ai) circle (0.33);
+    \node[cnode] (Aj) at (3.9,2.6) {j};
+    \node[note, text=accent!80!black] at (3.9,3.25) {$\propto$ fitness $f_j$};
+
+    \draw[->, accent, line width=0.9pt] (Aj) -- (Ai);
+
+    \node[note] at (\pw/2,0.55)
+        {copy role model's action (no acceptance step)};
+\end{scope}
+
+% B  Fermi imitation dynamics (extrinsic)
+\begin{scope}[shift=(ML)]
+    \draw[draw=black!20, fill=white, rounded corners=3pt]
+        (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
+    \node[panellabel] at (0, \ph+0.15) {B};
+    \node[ptitle] at (\pw/2, \ph-0.05) {Fermi imitation dynamics};
+
+    \node[dnode] (Bi) at (1.9,2.3) {i};
+    \draw[focal] (Bi) circle (0.33);
+    \node[cnode] (Bj) at (3.7,2.3) {j};
+    \node[note, text=accent!80!black] at (3.7,3.0) {$j$ picked at random};
+    \draw[<->, accent, line width=0.9pt] (Bi) -- (Bj);
+
+    \node[note] at (\pw/2,1.35)
+        {copy a random player with prob};
+    \node[font=\sffamily\small, text=black!80] at (\pw/2,0.75)
+        {$\varphi\!\left(\pi_i-\pi_j\right)$};
+\end{scope}
+
+% C  Aspiration dynamics (intrinsic)
+\begin{scope}[shift=(TR)]
+    \draw[draw=black!20, fill=white, rounded corners=3pt]
+        (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
+    \node[panellabel] at (0, \ph+0.15) {C};
+    \node[ptitle] at (\pw/2, \ph-0.05) {Aspiration dynamics};
+
+    \node[dnode] (Ci) at (1.5,2.5) {i};
+    \draw[focal] (Ci) circle (0.33);
+    \node[note, text=accent!80!black] at (1.5,3.25) {action picked at random};
+
+    % aspiration number line
+    \draw[->, black!55, line width=0.7pt] (2.6,2.0) -- (4.8,2.0);
+    \draw[black!45] (2.7,1.9) -- (2.7,2.1);
+    \draw[warn, line width=1pt] (4.4,1.85) -- (4.4,2.15);
+    \node[font=\sffamily\tiny, text=black!55] at (2.7,1.7) {$0$};
+    \node[font=\sffamily\tiny, text=warn!80!black] at (4.4,1.7) {$A$};
+    \node[font=\sffamily\tiny, text=defect] at (3.4,2.3) {$\pi_i$};
+    \fill[defect] (3.4,2.0) circle (1.6pt);
+
+    \node[note] at (\pw/2,1.15)
+        {switch toward aspiration $A$ with prob};
+    \node[font=\sffamily\small, text=black!80] at (\pw/2,0.6)
+        {$\varphi\!\left(\pi_i-A\right)$};
+\end{scope}
+
+% D  Introspection dynamics (intrinsic)
+\begin{scope}[shift=(MR)]
+    \draw[draw=black!20, fill=white, rounded corners=3pt]
+        (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
+    \node[panellabel] at (0, \ph+0.15) {D};
+    \node[ptitle] at (\pw/2, \ph-0.05) {Introspection dynamics};
+
+    \node[dnode] (Di) at (1.9,2.3) {i};
+    \draw[focal] (Di) circle (0.33);
+    \node[ghost] (Dg) at (3.7,2.3) {i$'$};
+    \draw[<->, black!45, line width=0.8pt, dashed] (Di) -- (Dg);
+    \node[note] at (3.7,2.72) {counterfactual};
+    \node[note, text=accent!80!black] at (1.9,3.15) {action picked at random};
+
+    \node[note] at (\pw/2,1.35)
+        {switch with prob};
+    \node[font=\sffamily\small, text=black!80] at (\pw/2,0.75)
+        {$\varphi\!\left(\pi_i-\pi_{i'}\right)$};
+\end{scope}
+
+% legend
+\node[font=\sffamily\scriptsize, text=black!60] at (\wwide/2,\rowmid-0.75)
+    {\tikz\node[cnode, minimum size=10pt]{};\, cooperate \quad
+     \tikz\node[dnode, minimum size=12pt]{};\, defect \quad
+     \tikz\draw[focal] (0,0) circle (5pt);\, focal (w.p.\ $1/N$)};
+
+\end{tikzpicture}
+\end{document}
