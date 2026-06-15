@@ -1,0 +1,78 @@
+# Pipeline tying data generation -> analysis -> figures.
+# Rebuild what is out of date with:  uv run dvc repro
+#
+# The exhaustive small-population sweep in data/sweep/ is archived on Zenodo and
+# treated as a static input, so it is not produced by a stage here.
+
+stages:
+
+  large_n_data:
+    cmd: uv run python data/large_n/main.py
+    deps:
+      - data/large_n/main.py
+      - src/public_goods_games
+
+  ceiling_extrinsic:
+    cmd: uv run python analysis/ceiling_extrinsic/main.py
+    deps:
+      - analysis/ceiling_extrinsic/main.py
+      - src/public_goods_games
+      - data/sweep/moran_mu_eq_0.001
+      - data/sweep/moran_mu_eq_0.005
+      - data/sweep/moran_mu_eq_0.05
+      - data/sweep/moran_mu_eq_0.1
+      - data/sweep/fermi_mu_eq_0.001
+      - data/sweep/fermi_mu_eq_0.005
+      - data/sweep/fermi_mu_eq_0.05
+      - data/sweep/fermi_mu_eq_0.1
+
+  ceiling_intrinsic:
+    cmd: uv run python analysis/ceiling_intrinsic/main.py
+    deps:
+      - analysis/ceiling_intrinsic/main.py
+      - src/public_goods_games
+      - data/sweep/introspection_mu_eq_0.001
+      - data/sweep/introspection_mu_eq_0.005
+      - data/sweep/introspection_mu_eq_0.05
+      - data/sweep/introspection_mu_eq_0.1
+      - data/sweep/aspiration_mu_eq_0.001
+      - data/sweep/aspiration_mu_eq_0.005
+      - data/sweep/aspiration_mu_eq_0.05
+      - data/sweep/aspiration_mu_eq_0.1
+
+  ceiling_overview:
+    cmd: uv run python analysis/ceiling_overview/main.py
+    deps:
+      - analysis/ceiling_overview/main.py
+      - src/public_goods_games
+      - data/sweep/moran_mu_eq_0.001
+      - data/sweep/moran_mu_eq_0.005
+      - data/sweep/moran_mu_eq_0.05
+      - data/sweep/moran_mu_eq_0.1
+      - data/sweep/fermi_mu_eq_0.001
+      - data/sweep/fermi_mu_eq_0.005
+      - data/sweep/fermi_mu_eq_0.05
+      - data/sweep/fermi_mu_eq_0.1
+      - data/sweep/introspection_mu_eq_0.001
+      - data/sweep/introspection_mu_eq_0.005
+      - data/sweep/introspection_mu_eq_0.05
+      - data/sweep/introspection_mu_eq_0.1
+      - data/sweep/aspiration_mu_eq_0.001
+      - data/sweep/aspiration_mu_eq_0.005
+      - data/sweep/aspiration_mu_eq_0.05
+      - data/sweep/aspiration_mu_eq_0.1
+
+  ceiling_conclusion:
+    cmd: uv run python analysis/ceiling_conclusion/main.py
+    deps:
+      - analysis/ceiling_conclusion/main.py
+      - src/public_goods_games
+
+  ceiling_large_n:
+    cmd: uv run python analysis/ceiling_large_n/main.py
+    deps:
+      - analysis/ceiling_large_n/main.py
+      - src/public_goods_games
+      - data/large_n/simulations.csv
+      - data/large_n/exact.csv
+      - data/large_n/threshold.csv

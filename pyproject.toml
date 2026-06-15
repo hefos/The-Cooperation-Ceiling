@@ -5,16 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "ludics>=0.3.2",
+    "dvc>=3.0",
+    "ludics==0.3.2",
     "matplotlib>=3.10.8",
     "numpy==2.3.3",
-    "pandas==3.0.0",
+    "pandas==3.0.3",
     "pytest==8.4.2",
     "pytest-benchmark==5.2.3",
     "pytest-cov==7.0.0",
     "ruff>=0.15.6",
     "scipy==1.16.3",
     "seaborn>=0.13.2",
+    "stet==0.0.2",
     "sympy==1.14.0",
 ]
 [build-system]
