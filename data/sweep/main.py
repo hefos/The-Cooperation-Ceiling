@@ -184,7 +184,7 @@ def run_experiment(
     )
 
 
-for N in np.array([8, 7, 6, 5, 4, 3, 2, 1]):
+for N in np.array([8, 7, 6, 5, 4, 3, 2]):
     M_range = np.linspace(N, 4 * N, 10)
     r_range = np.linspace(0.5, 1.5 * N, 10)
     for M, r in itertools.product(M_range, r_range):
