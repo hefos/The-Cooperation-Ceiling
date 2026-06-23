@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "dvc>=3.0",
-    "ludics==0.3.2",
+    "ludics==0.4.3",
     "matplotlib>=3.10.8",
     "numpy==2.3.3",
     "pandas==3.0.3",
