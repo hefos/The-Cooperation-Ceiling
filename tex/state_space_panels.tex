@@ -48,7 +48,7 @@
     \node[panellabel] at (0, \ph+0.15) {A};
     \node[ptitle] at (\pw/2, \ph-0.05) {A heterogeneous population};
 
-    \foreach \k/\sty/\lab in {1/cnode/$a_1$, 2/dnode/$a_2$, 3/cnode/$a_1$, 4/dnode/$a_2$} {
+    \foreach \k/\sty/\lab in {1/cnode/$C$, 2/dnode/$D$, 3/cnode/$C$, 4/dnode/$D$} {
         \pgfmathsetmacro{\x}{0.7 + (\k-1)*1.27}
         \pgfmathsetmacro{\y}{\ph/2 - 0.15}
         \node[\sty] (pA\k) at (\x,\y) {\lab};
@@ -58,7 +58,7 @@
     \node[note] at (\pw/2, 1.0)
         {Each player $i$ has its own payoff $\pi_i$};
     \node[font=\sffamily\scriptsize, text=black!75] at (\pw/2, 0.5)
-        {state $\mathbf{a}=(a_1,a_2,a_1,a_2)\in \{a_1,a_2\}^N$};
+        {state $\mathbf{a}=(C,D,C,D)\in \{C,D\}^N$};
 \end{scope}
 
 % Panel B: the state space (hypercube, by number of cooperators)
@@ -66,7 +66,7 @@
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
     \node[panellabel] at (0, \ph+0.15) {B};
-    \node[ptitle] at (\pw/2, \ph-0.05) {Each state is a vertex of $\{a_1,a_2\}^N$};
+    \node[ptitle] at (\pw/2, \ph-0.05) {Each state is a vertex of $\{C,D\}^N$};
 
     % vertices: x = 0.55 + col*1.02 ; y = 2.15 + row*0.50
     \node[vtx] (v0000) at (0.55,2.15) {};
@@ -118,7 +118,7 @@
     % left state a = ABAB
     \draw[rounded corners=2pt, draw=black!25, fill=black!2]
         (0.55,2.13) rectangle (2.15,2.87);
-    \foreach \k/\col/\lab in {1/coop/$a_1$,2/defect/$a_2$,3/coop/$a_1$,4/defect/$a_2$} {
+    \foreach \k/\col/\lab in {1/coop/$C$,2/defect/$D$,3/coop/$C$,4/defect/$D$} {
         \pgfmathsetmacro{\x}{0.75 + (\k-1)*0.4}
         \node[sq, fill=\col] at (\x,2.50) {\lab};
     }
@@ -127,7 +127,7 @@
     % right state b = AAAB  (player 2 flipped B -> A)
     \draw[rounded corners=2pt, draw=black!25, fill=black!2]
         (3.05,2.13) rectangle (4.65,2.87);
-    \foreach \k/\col/\lab in {1/coop/$a_1$,2/coop/$a_1$,3/coop/$a_1$,4/defect/$a_2$} {
+    \foreach \k/\col/\lab in {1/coop/$C$,2/coop/$C$,3/coop/$C$,4/defect/$D$} {
         \pgfmathsetmacro{\x}{3.25 + (\k-1)*0.4}
         \node[sq, fill=\col] at (\x,2.50) {\lab};
     }
@@ -182,7 +182,7 @@
     \node[font=\sffamily\tiny, text=accent] at (3.6,3.3) {mutation};
 
     \node[note] at (\pw/2, 1.25)
-        {all-$a_1$ and all-$a_2$ are absorbing};
+        {all-$C$ and all-$D$ are absorbing};
     \node[note] at (\pw/2, 0.6)
         {Mutation makes the chain ergodic};
 \end{scope}
