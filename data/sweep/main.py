@@ -203,8 +203,8 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2]):
                 0, 0.99 / (1 - alphas[-1] * ((r / N) - 1)), 10
             )
         else:
-            selection_intensity_range = np.linspace(0, 0.99, 10)
-
+            selection_intensity_range = np.linspace(0, (alphas[-1] * ((r / N) - 1) + 1) / (alphas[-1] * ((r / N) - 1) + 2), 10)
+            
         choice_intensity_range = np.linspace(0, 2, 10)
         null_array = np.array([0])
         dynamic_to_iteration = {
