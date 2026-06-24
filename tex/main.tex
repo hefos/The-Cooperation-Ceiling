@@ -183,8 +183,7 @@ evolutionary dynamics on a fully heterogeneous, well-mixed population.
 
 We model a population consisting of \(N\) \textbf{ordered} individuals. Each
 individual selects an action from a common action set \(A = (a_1, a_2, \ldots,
-a_k)\); we assume throughout that all individuals share the same action set of
-size \(k\). A \emph{state} of the population is an ordered \(N\)-tuple
+a_k)\) of size \(k\). A \emph{state} of the population is an ordered \(N\)-tuple
 \(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in A^N\), and the \emph{state space}
 \(S\) is the set of all such tuples. A payoff function \(\pi \colon S \to
 \mathbb{R}^N\) assigns to each state a vector of individual payoffs; we write
@@ -211,39 +210,23 @@ between vertices if and only if they differ in exactly one position
 can be modelled in this way by denoting the strategies \(0\) and \(1\).
 Throughout, the two-action games we study are social dilemmas, so we take these
 two actions to be cooperate (\(C\)) and defect (\(D\)) and write the state space
-as \(\{C, D\}^N\). The
-graphical representation of a birth-death process differs from a hypercube in
-exactly two ways. First, a population may remain the same at a given step, and
-thus each vertex contains a self-loop. Second, the probability of transitioning
-from a state \(\mathbf{a}\) to a state \(\mathbf{b}\) is not necessarily the
-same as the probability of transitioning from \(\mathbf{b}\) to \(\mathbf{a}\).
-Thus, instead of one edge between two states, we have two directed edges,
-\(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
-Figure~\ref{fig:4-cube} illustrates the population model, its state space, which
-for \(N\) players is an \(N\)-dimensional hypercube, a single transition, and the
-role of mutation.
-
-\begin{figure}[!htbp]
-    \begin{mdframed}
-    \centering
-    \includegraphics[width=\linewidth]{state_space_panels.pdf}
-    \end{mdframed}
-    \caption{\textbf{The heterogeneous population as a Markov chain.} \textbf{A,}
-    A heterogeneous population, in which each player has its own payoff function.
-    \textbf{B,} Each state is a vertex of \(\{C, D\}^N\), so the state space is an
-    \(N\)-dimensional hypercube. \textbf{C,} A single transition between
-    neighbouring states. \textbf{D,} Mutation connects the chain and makes it
-    ergodic.}
-    \label{fig:4-cube}
-\end{figure}
+as \(\{C, D\}^N\). The graphical representation of a birth-death process differs
+from a hypercube in exactly two ways. First, a population may remain the same at
+a given step, and thus each vertex contains a self-loop. Second, the probability
+of transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\) is not
+necessarily the same as the probability of transitioning from \(\mathbf{b}\) to
+\(\mathbf{a}\). Thus, instead of one edge between two states, we have two
+directed edges, \(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
+Figure~\ref{fig:4-cube}(a) and (b) illustrate the population model and it's
+state space.
 
 \subsection{Population dynamics and mutation}
 
 The population evolves as a Markov
 chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e} on \(S\). We therefore obtain
 a transition matrix \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of
-transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\). They take
-the general form:
+transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\), as shown in
+figure~\ref{fig:4-cube}(c). They take the general form:
 
 \begin{equation}
     T_{\mathbf{ab}} =
@@ -335,14 +318,29 @@ transition matrix \(T^{(\mu)}\) for the process with mutation is given by:
     \end{cases}
 \end{equation}
 
-Note that if \(\sum_{j=1}^k \mu_{ij} = 1\), mutation fully determines the
-behaviour of individual \(i\). This construction ensures that all processes are
-ergodic, rather than absorbing. Consequently, we no longer obtain absorption
-matrices for any model with mutation; instead, we derive a unique steady state
-that is independent of the initial state. All processes in this paper are
-considered under the effect of action-invariant mutation, where \(\mu_{iw} =
-\mu_{il}\) for all action types \(w,l\). This ensures that mutation does not
-cause an inherent bias towards a given action type.
+This behaviour is shown in figure~\ref{fig:4-cube}(d). Note that if
+\(\sum_{j=1}^k \mu_{ij} = 1\), mutation fully determines the behaviour of
+individual \(i\). This construction ensures that all processes are ergodic,
+rather than absorbing. Consequently, we no longer obtain absorption matrices for
+any model with mutation; instead, we derive a unique steady state that is
+independent of the initial state. All processes in this paper are considered
+under the effect of action-invariant mutation, where \(\mu_{iw} = \mu_{il}\) for
+all action types \(w,l\). This ensures that mutation does not cause an inherent
+bias towards a given action type.
+
+\begin{figure}[!htbp]
+    \begin{mdframed}
+    \centering
+    \includegraphics[width=\linewidth]{state_space_panels.pdf}
+    \end{mdframed}
+    \caption{\textbf{The heterogeneous population as a Markov chain.} \textbf{A,}
+    A heterogeneous population, in which each player has its own payoff function.
+    \textbf{B,} Each state is a vertex of \(\{C, D\}^N\), so the state space is an
+    \(N\)-dimensional hypercube. \textbf{C,} A single transition between
+    neighbouring states. \textbf{D,} Mutation connects the chain and makes it
+    ergodic.}
+    \label{fig:4-cube}
+\end{figure}
 
 \section{Extrinsic population dynamics}
 \label{sec:extrinsic_population_dynamics}
