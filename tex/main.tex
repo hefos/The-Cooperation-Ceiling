@@ -47,10 +47,32 @@
     admit a ceiling on the rate of cooperation which can be exceeded by
     intrinsic population dynamics, and demonstrate this using the public goods
     game with heterogeneous contributions.
+    conditions, and many common choices of update rule are not well suited for a
+    heterogeneous population. In this paper, we categorise and compare four
+    different population dynamics in such a population as ``extrinsic'', where
+    players learn by looking outward at the payoffs of other players other
+    players, and ``intrinsic'', where players look inwardly at their own
+    attributes or potential payoffs. We show that extrinsic population dynamics
+    admit a ceiling on the rate of cooperation which can be exceeded by
+    intrinsic population dynamics, and demonstrate this using the public goods
+    game with heterogeneous contributions.
 \end{abstract}
 
 \section{Introduction}
 
+The conditions under which cooperation can emerge among self-interested actors
+is a central question across biology, economics, and the social sciences. Many
+of the situations in which this question arises are collective action problems,
+in which individuals share an interest in a common good yet each would prefer
+that others bear the cost of providing it. The structure of such a dilemma maps
+onto a \emph{public goods game}~\cite{ARCHETTI20129, hauert2002volunteering,
+hauser2019social, HauertDynamics2004, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}:
+each actor decides whether to incur a private cost to contribute to a shared
+resource whose total value is multiplied by some factor \(r\) and distributed
+equally amongst all players. This creates the temptation to free-ride, and so
+purely selfish reasoning leads to a tragedy of the
+commons~\cite{hardin1968tragedy, Weitz043299}, even when collective cooperation
+would benefit everyone. Both theory~\cite{santos2011risk} and controlled
 The conditions under which cooperation can emerge among self-interested actors
 is a central question across biology, economics, and the social sciences. Many
 of the situations in which this question arises are collective action problems,
@@ -100,6 +122,7 @@ intensity~\cite{ANTAL2009340, FUDENBERG2006352}. These results, however, concern
 a symmetric game played pairwise between identical members of a population. We
 instead consider all \(N\)-player games in which a defector outperforms a
 cooperator in a given state, amongst a fully heterogeneous population.
+cooperator in a given state, amongst a fully heterogeneous population.
 
 A feature of real-world collective action that standard models typically set
 aside is that actors are not identical. Players differ in wealth, productive
@@ -140,6 +163,7 @@ their payoff in comparison with their own counterfactual payoff or aspiration
 level, are better suited to heterogeneous populations than \emph{extrinsic}
 dynamics, in which a player may copy a high-fitness neighbour without
 considering whether the same strategy would serve them as well.
+considering whether the same strategy would serve them as well.
 
 We make the following contributions. First, we build on an established general
 framework for evolutionary dynamics on fully heterogeneous, well-mixed
@@ -156,6 +180,10 @@ extrinsic dynamics. For each population dynamic, we use the public goods
 game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004,
 hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64} to demonstrate our
 results.
+extrinsic dynamics. For each population dynamic, we use the public goods
+game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004,
+hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64} to demonstrate our
+results.
 
 The remainder of the paper is organised as follows.
 Section~\ref{sec:the_general_heterogeneous_population_dynamic_model} introduces
@@ -166,8 +194,13 @@ process and Fermi imitation dynamics in terms of our population model, proves
 that these satisfy the definition of a purely extrinsic population dynamic, and
 proves the ceiling on the probability of cooperation in such dynamics. We then
 demonstrate this using a heterogeneous public goods game.
+demonstrate this using a heterogeneous public goods game.
 Section~\ref{sec:intrinsic_population_dynamics} gives formulations of two
 intrinsic population dynamics and shows that they can exceed the ceiling on the
+probability of cooperation, demostrated using their results in the public goods
+game. Finally, Section~\ref{sec:robustness_to_population_size} confirms through
+direct simulation of the Markov chain that these results persist for large
+populations.
 probability of cooperation, demostrated using their results in the public goods
 game. Finally, Section~\ref{sec:robustness_to_population_size} confirms through
 direct simulation of the Markov chain that these results persist for large
@@ -183,6 +216,7 @@ evolutionary dynamics on a fully heterogeneous, well-mixed population.
 
 We model a population consisting of \(N\) \textbf{ordered} individuals. Each
 individual selects an action from a common action set \(A = (a_1, a_2, \ldots,
+a_k)\) of size \(k\). A \emph{state} of the population is an ordered \(N\)-tuple
 a_k)\) of size \(k\). A \emph{state} of the population is an ordered \(N\)-tuple
 \(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in A^N\), and the \emph{state space}
 \(S\) is the set of all such tuples. A payoff function \(\pi \colon S \to
@@ -219,12 +253,23 @@ necessarily the same as the probability of transitioning from \(\mathbf{b}\) to
 directed edges, \(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
 Figure~\ref{fig:4-cube}(a) and (b) illustrate the population model and it's
 state space.
+as \(\{C, D\}^N\). The graphical representation of a birth-death process differs
+from a hypercube in exactly two ways. First, a population may remain the same at
+a given step, and thus each vertex contains a self-loop. Second, the probability
+of transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\) is not
+necessarily the same as the probability of transitioning from \(\mathbf{b}\) to
+\(\mathbf{a}\). Thus, instead of one edge between two states, we have two
+directed edges, \(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
+Figure~\ref{fig:4-cube}(a) and (b) illustrate the population model and it's
+state space.
 
 \subsection{Population dynamics and mutation}
 
 The population evolves as a Markov
 chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e} on \(S\). We therefore obtain
 a transition matrix \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of
+transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\), as shown in
+figure~\ref{fig:4-cube}(c). They take the general form:
 transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\), as shown in
 figure~\ref{fig:4-cube}(c). They take the general form:
 
@@ -1378,7 +1423,13 @@ exceed it.
 Further work may consider populations in which the choice between intrinsic and
 extrinsic update rules is itself a heterogeneous attribute of the players, in
 the spirit of the combination of Moran and Fermi processes in~\cite{LIU2015242}.
+extrinsic update rules is itself a heterogeneous attribute of the players, in
+the spirit of the combination of Moran and Fermi processes in~\cite{LIU2015242}.
 Figure~\ref{fig:conclusion-fig}(a) illustrates this for a population that mixes
+Moran and introspection players: once the return exceeds the threshold \(r = N\)
+the population can exceed the neutral-drift baseline, though the number of
+intrinsic players required depends on the relative strength of the two steps. A
+stronger extrinsic selection intensity \(\varepsilon\), or a weaker choice
 Moran and introspection players: once the return exceeds the threshold \(r = N\)
 the population can exceed the neutral-drift baseline, though the number of
 intrinsic players required depends on the relative strength of the two steps. A
@@ -1390,8 +1441,18 @@ contributions, whereas the introspection threshold acts at the level of each
 player's own return. Figure~\ref{fig:conclusion-fig}(b) shows that under a
 heterogeneous return \(r_i\), cooperation crosses the ceiling once enough
 players sit above the \(r = N\) threshold. The interplay between such
+baseline. For \(r < N\) the same intrinsic players instead suppress cooperation.
+The heterogeneity considered in this paper is also only in the players'
+contributions, whereas the introspection threshold acts at the level of each
+player's own return. Figure~\ref{fig:conclusion-fig}(b) shows that under a
+heterogeneous return \(r_i\), cooperation crosses the ceiling once enough
+players sit above the \(r = N\) threshold. The interplay between such
 heterogeneous returns, contributions and update rules is a natural direction for
 further study. Finally, we only consider the ceiling of \(p_C\) in two-action
+games for purely extrinsic population dynamics. It is entirely possible that
+there is a formulation of a \(k\)-action game such that a ceiling is posed on
+the abundance of a certain action. This may be a focus of future work, extending
+the limitation of purely extrinsic population dynamics to a larger set of games.
 games for purely extrinsic population dynamics. It is entirely possible that
 there is a formulation of a \(k\)-action game such that a ceiling is posed on
 the abundance of a certain action. This may be a focus of future work, extending
