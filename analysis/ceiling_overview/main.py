@@ -142,9 +142,15 @@ ax_fraction.set_xlabel(r"$r / N$")
 ax_fraction.set_ylabel(r"fraction with $p_C > \frac{1}{2}$")
 ax_fraction.set_ylim(-0.02, 1.0)
 ax_fraction.set_title(r"(d) crossing switches on at $r = N$")
-ax_fraction.legend(loc="upper left")
 
-fig.tight_layout()
+# Panels (c) and (d) share the same four dynamics, so a single legend centred
+# under the bottom row serves both and avoids repeating it in each panel.
+shared_handles, shared_labels = ax_maximum.get_legend_handles_labels()
+fig.tight_layout(rect=(0.0, 0.06, 1.0, 1.0))
+fig.legend(
+    shared_handles, shared_labels, loc="lower center", ncol=4,
+    bbox_to_anchor=(0.5, 0.0),
+)
 for output_path in figure_outputs:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path)

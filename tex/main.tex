@@ -897,15 +897,16 @@ Table~\ref{fig:parameter_sweep_table}.
     \(M\) increases, so too does the size of each player's contribution
     \(\alpha_i\). The value \(A\) is the \emph{aspiration} considered in
     aspiration dynamics, in Section~\ref{sec:intrinsic_population_dynamics}. We
-    consider a homogeneous return \(r\). Values of \(\varepsilon\) and \(A\) depend
-    on \(M\) rather than \(N\), and as
-    such there are a large number of values per \(N\) for these parameters.}
+    consider a homogeneous return \(r\). The aspiration \(A\) depends on \(M\),
+    and the selection intensity \(\varepsilon\) on both \(M\) and \(r\), rather
+    than on \(N\), and as such there are a large number of values per \(N\) for
+    these parameters.}
     \label{fig:parameter_sweep_table}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Parameter & Meaning &Minimum & Maximum & Number of Values per \(N\)\\
         \hline
-        \(N\) & Number of players &3 & 8 & N/A\\
+        \(N\) & Number of players &2 & 8 & N/A\\
         \hline
         \(r\) & Return on investment & \(\frac{1}{2}\) & \(\frac{3N}{2}\) & 10\\
         \hline
@@ -915,7 +916,7 @@ Table~\ref{fig:parameter_sweep_table}.
         \hline
         \(\mu\) & Mutation value & 0.001 & 0.1 & 4\\
         \hline
-        \(\varepsilon\) & Selection intensity & 0 & \(0.99 \cdot \max_i \alpha_i\) & 100\\
+        \(\varepsilon\) & Selection intensity & 0 & \(\varepsilon_{\max}\), see~\eqref{eq:epsilon_bound} & 1000\\
         \hline
         \(\beta\) & Choice intensity & 0 & 2 & 10\\
         \hline
@@ -923,6 +924,22 @@ Table~\ref{fig:parameter_sweep_table}.
         \hline
     \end{tabular}
 \end{table}
+
+To keep every player's fitness positive, so that the Moran transition
+probabilities are well defined, the selection intensity is restricted to the
+interval \([0, \varepsilon_{\max}]\), where the upper bound depends on the return
+\(r\) and the largest contribution \(\alpha_{\max} = \max_i \alpha_i\):
+\begin{equation}
+    \label{eq:epsilon_bound}
+    \varepsilon_{\max} =
+    \begin{cases}
+        \dfrac{0.99}{1 - \alpha_{\max}\left(\frac{r}{N} - 1\right)}, & r < N,\\[2.4ex]
+        \dfrac{\alpha_{\max}\left(\frac{r}{N} - 1\right) + 1}
+              {\alpha_{\max}\left(\frac{r}{N} - 1\right) + 2}, & r \geq N.
+    \end{cases}
+\end{equation}
+For each \((M, r)\) we take \(\varepsilon\) on an evenly spaced grid of ten values
+in this interval.
 
 Our results for the purely extrinsic dynamics are shown in
 Figure~\ref{fig:ceiling_extrinsic}, and we explore
