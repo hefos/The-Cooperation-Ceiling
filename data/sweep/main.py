@@ -79,7 +79,7 @@ def run_experiment(
 
         for i in range(N):
             numerator = 0.8
-            denominator = 1 + np.exp(0.5 * (alphas[i] * (1 - (r / N))))
+            denominator = 1 + np.exp(choice_intensity * (alphas[i] * (1 - (r / N))))
 
             running_phis.append((numerator / denominator) + 0.1)
 
