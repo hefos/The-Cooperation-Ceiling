@@ -16,7 +16,7 @@
 stages:
 
   generate_data:
-    cmd: rm -f data/large_n/_stet_*.sqlite && parallel < data/jobs.txt
+    cmd: rm -f data/large_n/_stet_*.sqlite && parallel --bar --joblog data/jobs.log < data/jobs.txt
     deps:
       - data/jobs.txt
       - data/sweep/main.py

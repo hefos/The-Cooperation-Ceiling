@@ -14,6 +14,9 @@ data/sweep/**/*.sqlite
 data/large_n/*.csv
 data/large_n/*.sqlite
 
+# GNU parallel job log written by the generate_data stage.
+data/jobs.log
+
 # DVC
 /.dvc/cache
 /.dvc/tmp

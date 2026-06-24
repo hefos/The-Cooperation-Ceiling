@@ -234,3 +234,5 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2]):
                 dynamic=dynamic,
                 mu=mu,
             )
+
+print(f"finished sweep job: dynamic={dynamic}, mu={mu}", flush=True)
