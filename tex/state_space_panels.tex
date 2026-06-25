@@ -56,18 +56,17 @@
         \node[font=\sffamily\tiny, text=black!40] at (\x, \y-0.55) {\k};
     }
     \node[note] at (\pw/2, 1.0)
-        {Each player $i$ has its own payoff $\pi_i$};
-        {Each player $i$ has its own payoff $\pi_i$};
-    \node[font=\sffamily\scriptsize, text=black!75] at (\pw/2, 0.5)
+        {Each player $i$ has its own payoff $\pi_i(\mathbf{a})$};
+    \node[note] at (\pw/2, 0.5)
         {state $\mathbf{a}=(C,D,C,D)\in \{C,D\}^N$};
 \end{scope}
 
 % Panel B: the state space (hypercube, by number of cooperators)
-\begin{scope}[shift=(P2)]
+\begin{scope}[shift=(P3)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
-    \node[panellabel] at (0, \ph+0.15) {B};
-    \node[ptitle] at (\pw/2, \ph-0.05) {Each state is a vertex of $\{a_1,a_2\}^N$};
+    \node[panellabel] at (0, \ph+0.15) {C};
+    \node[ptitle] at (\pw/2, \ph-0.05) {Each state is a vertex of $\{C,D\}^N$};
 
     % vertices: x = 0.55 + col*1.02 ; y = 2.15 + row*0.50
     \node[vtx] (v0000) at (0.55,2.15) {};
@@ -82,17 +81,14 @@
     \node[vtx] (v0101) at (2.59,1.40) {};
     \node[vtx] (v0011) at (2.59,0.90) {};
     \node[vhi] (v1110) at (3.61,2.90) {};
-    \node[vhi] (v1110) at (3.61,2.90) {};
     \node[vtx] (v1101) at (3.61,2.40) {};
     \node[vtx] (v1011) at (3.61,1.90) {};
     \node[vtx] (v0111) at (3.61,1.40) {};
     \node[vtx] (v1111) at (4.63,2.15) {};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (2.59,3.05) {$\mathbf{a}$};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (3.61,2.90) {$\mathbf{b}$};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (2.59,3.05) {$\mathbf{a}$};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (3.61,2.90) {$\mathbf{b}$};
+    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (2.59,3.0) {$\mathbf{a}$};
+    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (3.61,2.95) {$\mathbf{b}$};
 
-    \begin{scope}[on background layer]
+    \begin{scope}
         \foreach \t in {v1000,v0100,v0010,v0001} \draw[edge] (v0000)--(\t);
         \draw[edge] (v1000)--(v1100) (v1000)--(v1010) (v1000)--(v1001);
         \draw[edge] (v0100)--(v1100) (v0100)--(v0110) (v0100)--(v0101);
@@ -108,20 +104,17 @@
     \end{scope}
 
    
-   
     \node[note] at (\pw/2, 0.45)
-        {Neighbours differ in a single coordinate};
         {Neighbours differ in a single coordinate};
 \end{scope}
 
 % Panel C: a single transition
-\begin{scope}[shift=(P3)]
+\begin{scope}[shift=(P2)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
-    \node[panellabel] at (0, \ph+0.15) {C};
+    \node[panellabel] at (0, \ph+0.15) {B};
     \node[ptitle] at (\pw/2, \ph-0.05) {A single transition};
 
-    % left state a = ABAB
     % left state a = ABAB
     \draw[rounded corners=2pt, draw=black!25, fill=black!2]
         (0.55,2.13) rectangle (2.15,2.87);
@@ -131,7 +124,6 @@
     }
     \node[font=\sffamily\scriptsize] at (1.35,1.92) {$\mathbf{a}$};
 
-    % right state b = AAAB  (player 2 flipped B -> A)
     % right state b = AAAB  (player 2 flipped B -> A)
     \draw[rounded corners=2pt, draw=black!25, fill=black!2]
         (3.05,2.13) rectangle (4.65,2.87);
@@ -159,9 +151,7 @@
 
     \node[note] at (\pw/2, 1.05)
         {One coordinate $I(\mathbf{a},\mathbf{b})$ flips};
-        {One coordinate $I(\mathbf{a},\mathbf{b})$ flips};
     \node[note] at (\pw/2, 0.55)
-        {Weights asymmetric; self-loops included};
         {Weights asymmetric; self-loops included};
 \end{scope}
 
@@ -174,33 +164,26 @@
 
     % the two absorbing corners of the state space (cf. panel B)
     \node[dnode] (all2) at (1.0,2.6) {};
-    \node[dnode] (all2) at (1.0,2.6) {};
     \node[vtx]   (m1)   at (2.15,2.6) {};
     \node[vtx]   (m2)   at (3.05,2.6) {};
-    \node[cnode] (all1) at (4.2,2.6) {};
     \node[cnode] (all1) at (4.2,2.6) {};
     \node[font=\sffamily\tiny, text=black!60, anchor=north] at (1.0,2.2) {all $D$};
     \node[font=\sffamily\tiny, text=black!60, anchor=north] at (4.2,2.2) {all $C$};
 
     % ordinary moves drift towards fixation
     \draw[edge, ->] (m1)--(all2);
-    \draw[edge, ->] (m1)--(all2);
     \draw[edge, <->] (m1)--(m2);
-    \draw[edge, ->] (m2)--(all1);
     \draw[edge, ->] (m2)--(all1);
 
     % mutation lets the chain escape the absorbing corners
-    \draw[->, accent, line width=0.9pt] (all2) to[out=55,in=125] (m1);
-    \draw[->, accent, line width=0.9pt] (all1) to[out=125,in=55] (m2);
     \draw[->, accent, line width=0.9pt] (all2) to[out=55,in=125] (m1);
     \draw[->, accent, line width=0.9pt] (all1) to[out=125,in=55] (m2);
     \node[font=\sffamily\tiny, text=accent] at (1.6,3.3) {mutation};
     \node[font=\sffamily\tiny, text=accent] at (3.6,3.3) {mutation};
 
     \node[note] at (\pw/2, 1.25)
-        {all-$a_1$ and all-$a_2$ are absorbing};
+        {all-$C$ and all-$D$ are absorbing};
     \node[note] at (\pw/2, 0.6)
-        {Mutation makes the chain ergodic};
         {Mutation makes the chain ergodic};
 \end{scope}
 
