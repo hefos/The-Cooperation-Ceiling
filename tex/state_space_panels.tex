@@ -50,9 +50,9 @@
 
     \foreach \k/\sty/\lab in {1/cnode/$C$, 2/dnode/$D$, 3/cnode/$C$, 4/dnode/$D$} {
         \pgfmathsetmacro{\x}{0.7 + (\k-1)*1.27}
-        \pgfmathsetmacro{\y}{\ph/2 - 0.15}
+        \pgfmathsetmacro{\y}{\ph/1.85}
         \node[\sty] (pA\k) at (\x,\y) {\lab};
-        \node[font=\sffamily\scriptsize, text=black!70] at (\x, \y+0.6) {$\pi_{\k}$};
+        \node[font=\sffamily\scriptsize, text=black!70] at (\x, \y+0.4) {$\pi_{\k}$};
         \node[font=\sffamily\tiny, text=black!40] at (\x, \y-0.55) {\k};
     }
     \node[note] at (\pw/2, 1.0)
@@ -61,32 +61,32 @@
         {state $\mathbf{a}=(C,D,C,D)\in \{C,D\}^N$};
 \end{scope}
 
-% Panel B: the state space (hypercube, by number of cooperators)
+% Panel C: the state space (hypercube, by number of cooperators)
 \begin{scope}[shift=(P3)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);
     \node[panellabel] at (0, \ph+0.15) {C};
     \node[ptitle] at (\pw/2, \ph-0.05) {Each state is a vertex of $\{C,D\}^N$};
 
-    % vertices: x = 0.55 + col*1.02 ; y = 2.15 + row*0.50
-    \node[vtx] (v0000) at (0.55,2.15) {};
-    \node[vtx] (v1000) at (1.57,2.90) {};
-    \node[vtx] (v0100) at (1.57,2.40) {};
-    \node[vtx] (v0010) at (1.57,1.90) {};
-    \node[vtx] (v0001) at (1.57,1.40) {};
-    \node[vtx] (v1100) at (2.59,3.40) {};
-    \node[vhi] (v1010) at (2.59,2.90) {};
-    \node[vtx] (v1001) at (2.59,2.40) {};
-    \node[vtx] (v0110) at (2.59,1.90) {};
-    \node[vtx] (v0101) at (2.59,1.40) {};
-    \node[vtx] (v0011) at (2.59,0.90) {};
-    \node[vhi] (v1110) at (3.61,2.90) {};
-    \node[vtx] (v1101) at (3.61,2.40) {};
-    \node[vtx] (v1011) at (3.61,1.90) {};
-    \node[vtx] (v0111) at (3.61,1.40) {};
-    \node[vtx] (v1111) at (4.63,2.15) {};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (2.59,3.0) {$\mathbf{a}$};
-    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (3.61,2.95) {$\mathbf{b}$};
+    % vertices
+    \node[vtx] (v0000) at (0.55,2.4) {};
+    \node[vtx] (v1000) at (1.57,3.15) {};
+    \node[vtx] (v0100) at (1.57,2.65) {};
+    \node[vtx] (v0010) at (1.57,2.15) {};
+    \node[vtx] (v0001) at (1.57,1.65) {};
+    \node[vtx] (v1100) at (2.59,3.65) {};
+    \node[vhi] (v1010) at (2.59,3.15) {};
+    \node[vtx] (v1001) at (2.59,2.65) {};
+    \node[vtx] (v0110) at (2.59,2.15) {};
+    \node[vtx] (v0101) at (2.59,1.65) {};
+    \node[vtx] (v0011) at (2.59,1.15) {};
+    \node[vhi] (v1110) at (3.61,3.15) {};
+    \node[vtx] (v1101) at (3.61,2.7) {};
+    \node[vtx] (v1011) at (3.61,2.15) {};
+    \node[vtx] (v0111) at (3.61,1.65) {};
+    \node[vtx] (v1111) at (4.63,2.4) {};
+    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (2.59,3.2) {$\mathbf{a}$};
+    \node[font=\sffamily\scriptsize, text=accent, anchor=south] at (3.61,3.2) {$\mathbf{b}$};
 
     \begin{scope}
         \foreach \t in {v1000,v0100,v0010,v0001} \draw[edge] (v0000)--(\t);
@@ -108,7 +108,7 @@
         {Neighbours differ in a single coordinate};
 \end{scope}
 
-% Panel C: a single transition
+% Panel B: a single transition
 \begin{scope}[shift=(P2)]
     \draw[draw=black!20, fill=white, rounded corners=3pt]
         (-0.3,-0.3) rectangle (\pw+0.3, \ph+0.3);

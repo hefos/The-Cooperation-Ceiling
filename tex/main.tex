@@ -258,14 +258,12 @@ dynamics discussed in this paper are shown in figure~\ref{fig:diagrams_of_dynami
     \begin{mdframed}
     \includegraphics[width=\linewidth]{dynamics_panels.pdf}
     \end{mdframed}
-    \caption{\textbf{The four population dynamics.} In each panel the triangle is
-    chosen for replacement with probability \(\frac{1}{N}\) and the diamond is
-    chosen with a probability that depends on the process; the filled shape is the
-    action that may be adopted. \textbf{A,} the Moran process and \textbf{B,}
-    Fermi imitation dynamics are purely extrinsic. \textbf{C,} aspiration dynamics
-    and \textbf{D,} introspection dynamics are purely intrinsic. For introspection
-    dynamics the candidate action is chosen with probability \(\frac{1}{k-1}\),
-    and for aspiration dynamics there is only one other action to accept.}
+    \caption{\textbf{The four population dynamics.} \textbf{A,} the Moran
+    process and \textbf{C,} Fermi imitation dynamics are purely extrinsic.
+    \textbf{B,} aspiration dynamics and \textbf{D,} introspection dynamics are
+    purely intrinsic. For introspection dynamics the candidate action is chosen
+    with probability \(\frac{1}{k-1}\), and for aspiration dynamics there is
+    only one other action to accept.}
     \label{fig:diagrams_of_dynamics}
 \end{figure}
 
@@ -510,7 +508,7 @@ method of modelling evolution in a population. It follows the process:
 Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current payoff
 and the payoff which they are considering. This algorithm is also shown in
-Figure~\ref{fig:diagrams_of_dynamics}B. This method has been commonly used in studies of
+Figure~\ref{fig:diagrams_of_dynamics}C. This method has been commonly used in studies of
 evolutionary games, for example ~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
 We now define our transition matrix according to the Fermi function:
 
@@ -1050,7 +1048,7 @@ payoff when they change action type.
 
 Under aspiration dynamics, players choose to change action based on how far away
 their current payoff is from a target payoff, as shown in
-Figure~\ref{fig:diagrams_of_dynamics}C. It
+Figure~\ref{fig:diagrams_of_dynamics}B. It
 follows the algorithm:
 
 \begin{enumerate}
