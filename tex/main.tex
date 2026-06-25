@@ -75,59 +75,59 @@ this approach, strategies that perform well spread through a population via one
 of several update rules, while poorly performing strategies decline. The
 conditions under which cooperative strategies can invade and stabilise have been
 extensively studied in two-player settings such as the iterated prisoner's
-dilemma~\cite{10.1371/journal.pone.0304641,
-b5d8eed6-6ac7-35c7-953f-9af57df3f45e} and the snowdrift
-game~\cite{PhysRevE.84.020902}. The public goods game generalises these pairwise
+dilemma~\cite{b5d8eed6-6ac7-35c7-953f-9af57df3f45e} and the snowdrift
+game~\cite{hauert_spatial_2004}. The public goods game generalises these pairwise
 dilemmas to \(N\) players~\cite{hauert2002volunteering}, making it well suited
-to studying multi-lateral cooperation. In finite
-populations, evolutionary outcomes are stochastic: a rare mutant strategy
-spreads or vanishes with a probability that depends on the population size,
-payoff structure, and update rule~\cite{Nowak2004Emergence,
-traulsen2006stochastic}. 
+to studying multi-lateral cooperation. In finite populations, evolutionary
+outcomes are stochastic: a rare mutant strategy spreads or vanishes with a
+probability that depends on the population size, payoff structure, and update
+rule~\cite{Nowak2004Emergence, traulsen2006stochastic}. 
 
 The conditions under which one strategy invades a population have been studied
 in depth for particular evolutionary processes. The \(\frac{1}{N}\) fixation
 probability of a single mutant under neutral
 drift~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7} serves as a benchmark for when
 selection favours a strategy, and results such as the \(\frac{1}{3}\)
-rule~\cite{third-equality,OHTSUKI2007289} hold even when a population updates
-with both the Moran process and Fermi imitation dynamics~\cite{LIU2017336}. For
-symmetric \(2\times2\) games, the condition \(a(N-2) + bN > cN +
-d(N-2)\)~\cite{Kandori, Amir1996AnotherAT} on the payoff entries makes one
-strategy more abundant than the other, and this holds across a wide range of
+rule~\cite{Nowak2004Emergence,OHTSUKI2007289} hold even when a population
+updates with both the Moran process and Fermi imitation
+dynamics~\cite{LIU2017336}. For symmetric \(2\times2\) games, the condition
+\(a(N-2) + bN > cN + d(N-2)\)~\cite{Kandori, tarnita_strategy_2009} on the
+payoff entries leads to the abundance of a given strategy in a wide range of
 evolutionary processes and for arbitrary mutation and selection
-intensity~\cite{ANTAL2009340, FUDENBERG2006352}. These results, however, concern
-a symmetric game played pairwise between identical members of a population. We
-instead consider all \(N\)-player games in which a defector outperforms a
-cooperator in a given state, amongst a fully heterogeneous population.
+intensity~\cite{ANTAL2009340}. These results,
+however, concern a symmetric game played pairwise between identical members of a
+population. We instead consider all \(N\)-player games in which a defector
+outperforms a cooperator in a given state, amongst a fully heterogeneous
+population.
 
 A feature of real-world collective action that standard models typically set
 aside is that actors are not identical. Players differ in wealth, productive
 capacity, and the costs they face, and this inequality can reshape the dynamics
-of cooperation~\cite{hauser2019social}. In spatial and graphical settings, where
-players sit on a network and participate simultaneously in multiple games with
-their neighbours~\cite{nowak1992evolutionary,
-perc2013evolutionary,szabo2007evolutionary}, heterogeneity generally promotes
-cooperation. In ~\cite{santos2008social} it is shown that social diversity in
-endowments promotes the emergence of cooperation in the public goods game
-directly: heterogeneous populations outperform their homogeneous counterparts
-over a wide range of parameters. This echoes earlier work showing that
-scale-free network topology, a form of structural heterogeneity, provides a
+of cooperation~\cite{hauser2019social}. One commonly studied heterogeneous
+population is one in a spatial setting, where players are placed on a network
+and participate simultaneously in multiple games with their
+neighbours~\cite{nowak1992evolutionary,
+perc2013evolutionary,szabo2007evolutionary}. In ~\cite{santos2008social} it is
+shown that social diversity in endowments promotes the emergence of cooperation
+in the public goods game: heterogeneous populations outperform their homogeneous
+counterparts over a wide range of parameters. This echoes earlier work showing
+that scale-free network topology, a form of structural heterogeneity, provides a
 unifying framework for the emergence of cooperation~\cite{santos2005scale}. When
 contributions depend on dynamically accumulated reputation~\cite{MA2021111353},
 high-reputation defectors receive reduced transfers, weakening defection's
 advantage. When heterogeneity arises from differences in network degree so that
-players allocate contributions according to the strength of their social
-ties~\cite{LEI20104708}, the payoff structure penalises high-degree defectors
-and protects cooperating clusters from invasion. The characteristic spatial
-mechanism is the formation of cooperating clusters that are more profitable than
-their defecting neighbours; provided \(r\) is sufficiently large, these clusters
-resist invasion and eventually spread. Heterogeneity does not, however,
-unconditionally favour cooperation. Flores~et~al.~\cite{PhysRevE.108.024111}
-show that when the contribution level is itself a strategic variable rather than
-a fixed attribute, low-value contributions act as a form of defection against
-the most collectively beneficial strategies, so that the emergence of
-cooperation does not guarantee the emergence of high-value cooperation.
+players allocate contributions according to the difference in the number of
+connections~\cite{LEI20104708}, the payoff structure either penalises
+medium-degree defectors, or create small clusters of strong cooperators. The
+characteristic spatial mechanism is the formation of cooperating clusters that
+are more profitable than their defecting neighbours; provided \(r\) is
+sufficiently large, these clusters resist invasion and eventually spread.
+Heterogeneity does not, however, unconditionally favour cooperation.
+Flores~et~al.~\cite{PhysRevE.108.024111} show that when the contribution level
+is itself a strategic variable rather than a fixed attribute, low-value
+contributions act as a form of defection against the most collectively
+beneficial strategies, so that the emergence of cooperation does not guarantee
+the emergence of high-value cooperation.
 
 How the choice of update rule interacts with population heterogeneity is also
 poorly understood. The Moran process~\cite{knight2018evolution,Moran_1958},
@@ -730,9 +730,11 @@ and showed that, for a wide range of evolutionary processes with mutation, the
 condition \(a(N-2) + bN > cN + d(N-2)\) makes strategy \(A\) more abundant than
 \(B\) at any mutation rate. This builds upon the work of~\cite{Kandori,
 Nowak2004Emergence}, generalising results to arbitrary mutation and selection
-intensity. We now show that for neutrally monotone purely extrinsic population
-dynamics, pointwise domination of defection over cooperation is sufficient for
-defection to dominate cooperation in a heterogeneous population.
+intensity. The impact of mutation on the abundance of a given strategy in such a
+game is discussed by Fundenberg~et~al~\cite{FUDENBERG2006352} We now show that
+for neutrally monotone purely extrinsic population dynamics, pointwise
+domination of defection over cooperation is sufficient for defection to dominate
+cooperation in a heterogeneous population.
 
 \begin{framed}
 \begin{theorem}[Extrinsic Ceiling]
@@ -803,8 +805,7 @@ defection to dominate cooperation in a heterogeneous population.
     T^{\mathrm{nd}}_{\sigma(\mathbf{a})\sigma(\mathbf{b})}\) for every
     transition, so the stationary distribution of \(T^{\mathrm{nd}}\) is
     \(\sigma\)-invariant, giving \(p_C^{(T^{\mathrm{nd}})} =
-    p_D^{(T^{\mathrm{nd}})} = \frac{1}{2}\)
-    ~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}.
+    p_D^{(T^{\mathrm{nd}})} = \frac{1}{2}\).
 
     \medskip
     \noindent\textit{Step 3: \(T^{\mathrm{nd}}\) is stochastically monotone.}
@@ -842,11 +843,12 @@ choose to defect based on the pointwise dominance of defectors in the state.
 An example of this is the public goods game with \(r > N\). This satisfies both
 pointwise dominance and a fitness increase for any player under the \(D \to C\)
 swap. In such a game, there is no temptation to free ride; players will obtain a
-greater payoff by cooperating regardless of the population structure. The case
-of such a public goods game is considered in Figure~3 of~\cite{g10010001}, where
-a subset of a homogeneous population play a public goods game at each time step.
-The following section considers the heterogeneous public goods game as an
-example of Theorem~\ref{prop:ceiling}.
+greater payoff by cooperating regardless of the population structure. Threshold
+values of \(r\) in a homogeneous public goods game are considered
+in~\cite{g10010001}, where a subset of the population play a game at each time
+step and players opt out of the game with a certain probability. The following
+section considers the heterogeneous public goods game, providing an example of
+Theorem~\ref{prop:ceiling}.
 
 
 
@@ -1065,9 +1067,10 @@ aspired payoff. This dynamic is traditionally paired with two action
 games~\cite{Du2015AspirationDynamics,du2014aspiration,Zhou2021AspirationDynamics},
 though it can be defined for games with 3 or more
 actions~\cite{Aspiration3Types}. Aspiration dynamics has also often been
-combined with imitation dynamics to form a new population
-dynamic~\cite{PhysRevE.102.032120,PhysRevE.94.012124,QUAN2020109634,WANG2023128134}.
-We consider the original form of aspiration dynamics defined
+combined with imitation
+dynamics~\cite{PhysRevE.102.032120,PhysRevE.94.012124,QUAN2020109634,WANG2023128134},
+either as a heterogeneous attribute of the population, or to form new population
+dynamics. We consider the original form of aspiration dynamics defined
 in~\cite{du2014aspiration}, with a homogeneous aspiration value \(A\). The
 transition matrix is given by:
 
