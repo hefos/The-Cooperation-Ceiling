@@ -275,14 +275,18 @@ which we can compute the long-run abundance of a given strategy in the
 population. To enable meaningful comparison across all models, we introduce
 mutation. Mutation ensures that all processes become ergodic, while also
 introducing a controlled amount of noise: at any moment, individuals may switch
-to a different strategy~\cite{FUDENBERG2006352}. We assume a mutation parameter
-\(\mu \in [0, 1]_{\mathbb{R}}^{N \times k}\), where \(\mu_{ij}\) denotes the
-probability that individual \(i\) adopts strategy \(j\) via mutation. The
-stationary abundance of a strategy \(C\), denoted \(p_C\), is well defined only
-with mutation for the Moran process and Fermi imitation dynamics, so we report
-these for \(\mu > 0\); the introspection and aspiration dynamics are ergodic for
-every \(\mu \geq 0\). The figures throughout use the mutation rates \(\mu \in
-\{0.001, 0.005, 0.05, 0.1\}\).
+to a different strategy~\cite{FUDENBERG2006352}. Consequently, we no longer
+obtain absorption matrices for any model with mutation; instead, we derive a
+unique steady state that is independent of the initial state.
+
+We assume a
+mutation parameter \(\mu \in [0, 1]_{\mathbb{R}}^{N \times k}\), where
+\(\mu_{ij}\) denotes the probability that individual \(i\) adopts strategy \(j\)
+via mutation. The stationary abundance of a strategy \(C\), denoted \(p_C\), is
+well defined only with mutation for the Moran process and Fermi imitation
+dynamics, so we report these for \(\mu > 0\); the introspection and aspiration
+dynamics are ergodic for every \(\mu \geq 0\). The figures throughout use the
+mutation rates \(\mu \in \{0.001, 0.005, 0.05, 0.1\}\).
 
 Given a process defined by transition matrix \(T\) and two states \(\mathbf{a}\)
 and \(\mathbf{b}\), the probability of the original process \emph{with mutation}
@@ -319,10 +323,7 @@ transition matrix \(T^{(\mu)}\) for the process with mutation is given by:
 
 This behaviour is shown in figure~\ref{fig:4-cube}(d). Note that if
 \(\sum_{j=1}^k \mu_{ij} = 1\), mutation fully determines the behaviour of
-individual \(i\). This construction ensures that all processes are ergodic,
-rather than absorbing. Consequently, we no longer obtain absorption matrices for
-any model with mutation; instead, we derive a unique steady state that is
-independent of the initial state. All processes in this paper are considered
+individual \(i\). All processes in this paper are considered
 under the effect of action-invariant mutation, where \(\mu_{iw} = \mu_{il}\) for
 all action types \(w,l\). This ensures that mutation does not cause an inherent
 bias towards a given action type.
@@ -1389,10 +1390,9 @@ Moran and introspection players: once the return exceeds the threshold \(r = N\)
 the population can exceed the neutral-drift baseline, though the number of
 intrinsic players required depends on the relative strength of the two steps. A
 stronger extrinsic selection intensity \(\varepsilon\), or a weaker choice
-Moran and introspection players: once the return exceeds the threshold \(r = N\)
 intensity \(\beta\), demands more intrinsic players before \(p_C\) crosses the
 baseline. For \(r < N\) the same intrinsic players instead suppress cooperation.
-The heterogeneity considered in this paper is also only in the players'
+The heterogeneity considered in this paper is also limited to the players'
 contributions, whereas the introspection threshold acts at the level of each
 player's own return. Figure~\ref{fig:conclusion-fig}(b) shows that under a
 heterogeneous return \(r_i\), cooperation crosses the ceiling once enough
