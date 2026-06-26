@@ -864,7 +864,7 @@ multiplied by some factor \(r > 0\) and split between all players. We consider
 heterogeneous contributions and a homogeneous return.
 
 The parameter sweep is done to the highest standards of
-reproducibility~\cite{wilson2017, stodden2018, turingway2022, Wilson2014,
+reproducibility~\cite{wilson2017, stodden2016, turingway2022, Wilson2014,
 sandve2013} and all data has been archived at~\cite{data_archive}
 %TODO: archive the data on Zenodo and insert the data_archive DOI in bibliography.bib
 and is a further contribution of the work. In order to perform this sweep, the
@@ -929,23 +929,22 @@ For each \((M, r)\) we take \(\varepsilon\) on an evenly spaced grid of ten valu
 in this interval.
 
 Our results for the purely extrinsic dynamics are shown in
-Figure~\ref{fig:ceiling_extrinsic}, and we explore
-Theorem~\ref{prop:ceiling} numerically in the context of the 8-player public
-goods game; the other values of \(N\) in our sweep are qualitatively identical.
-Panels (a) and (b) show this limit as a hard ceiling on \(p_C\) which no parameter
-set in our data is able to exceed.
-This includes parameter combinations which have high values of \(r > N\), and so
-we see that despite full cooperation being the Nash equilibrium of the one shot
-game, and increasing the payoff of players in the one-step distribution, the
-pointwise dominance of defection's fitness over that of cooperation leads to
-defection becoming the dominant strategy in a repeated game according to a
-purely extrinsic population dynamic. This not only leads to a worse average
-payoff for all players in the population in the steady state, but also means
-that when \(r > N\), worsening moves occur with a higher probability than
-changes of action types which improve a player's payoff. In other words, even
-when a switch \(D \to C\) would always improve a player's payoff, the player
-will still prefer to remain a defector under a purely extrinsic population
-dynamic, due to the greater fitness of a defector in a given state.
+Figure~\ref{fig:ceiling_extrinsic}, and we explore Theorem~\ref{prop:ceiling}
+numerically in the context of the 8-player public goods game; the other values
+of \(N\) in our sweep are qualitatively identical. Panels (a) and (b) show this
+limit as a hard ceiling on \(p_C\) which no parameter set in our data is able to
+exceed. This includes parameter combinations which have high values of \(r >
+N\), and so we see that despite full cooperation being the Nash equilibrium of
+the one shot game, and increasing the payoff of players in the one-step
+distribution, the pointwise dominance of defection over cooperation leads to
+defection becoming the dominant strategy in a repeated game.. This not only
+leads to a worse average payoff for all players in the population in the steady
+state, but also means that when \(r > N\), worsening moves occur with a higher
+probability than changes of action types which improve a player's payoff. In
+other words, even when a switch \(D \to C\) would always improve a player's
+payoff, the player will still prefer to remain a defector under a purely
+extrinsic population dynamic, due to the greater fitness of a defector in a
+given state.
 
 In Fermi imitation dynamics, the invariance under \(r\) can be shown directly.
 In the public goods game the multiplied contribution
