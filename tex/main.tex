@@ -25,7 +25,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
 
-\title{The Ceiling of Cooperation in Extrinsic Update Rules}
+\title{How not to be Nice: The Ceiling of Cooperation in Extrinsic Update Rules}
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
 \date{\today}
 
@@ -108,7 +108,7 @@ of cooperation~\cite{hauser2019social}. In spatial and graphical settings, where
 players sit on a network and participate simultaneously in multiple games with
 their neighbours~\cite{nowak1992evolutionary,
 perc2013evolutionary,szabo2007evolutionary}, heterogeneity generally promotes
-cooperation. In ~\cite{santos2008social} it is shown that social diversity in
+cooperation. In~\cite{santos2008social} it is shown that social diversity in
 endowments promotes the emergence of cooperation in the public goods game
 directly: heterogeneous populations outperform their homogeneous counterparts
 over a wide range of parameters. This echoes earlier work showing that
@@ -164,7 +164,7 @@ of a purely extrinsic population dynamic, a definition encompassing both the
 Moran process~\cite{knight2018evolution,Moran_1958} and Fermi imitation
 dynamics~\cite{PhysRevE.58.69}, and show that such dynamics are inherently
 constrained by an upper bound on the probability of cooperation. Third, we
-consider two purely intrinsic population dynamics, aspiration
+consider two purely intrinsic population dynamics: aspiration
 dynamics~\cite{du2014aspiration} and introspection dynamics~\cite{Couto2022,
 Couto2023}, showing that these processes can overcome the ceiling of purely
 extrinsic dynamics, and discuss their weaknesses. For each population dynamic, we
@@ -307,7 +307,7 @@ remaining two, introspection and aspiration dynamics, are ergodic chains, for
 which we can compute the long-run abundance of a given strategy in the
 population. To enable meaningful comparison across all models, we introduce
 mutation. Mutation ensures that all processes become ergodic, while also
-introducing a controlled amount of noise: at any moment, individuals may switch
+introducing a controlled amount of noise: at any moment individuals may switch
 to a different strategy~\cite{FUDENBERG2006352}. The stationary cooperation
 probability \(p_C\) is therefore well defined only with mutation for the Moran
 process and Fermi imitation dynamics, so we report these for \(\mu > 0\); the
@@ -408,11 +408,11 @@ dynamic, and \(\delta_{I(\mathbf{a,b})}\) takes the value 1 if
 \(b_{I(\mathbf{a,b})} = C\) and \(\frac{1}{2}\) if not. Without (3), \(\bar{T}\)
 would define a purely extrinsic population dynamic, but would be tailored to
 favour a particular action type. We exclude cases such as this, as they do not
-conform to the framework in which fitness is the single measure of the success
-of action types in the population, and thus of which strategy is passed on in
-each step of the process. While parameters such as choice intensity and
-selection intensity affect the transition probability \(T_{\mathbf{ab}}\), they do
-not inherently favour any specific action type.
+conform to the framework in which fitness is the single measure of the success,
+and therefore the propogation, of action types within the population. While
+parameters such as choice intensity and selection intensity affect the
+transition probability \(T_{\mathbf{ab}}\), they do not inherently favour any
+specific action type.
 
 We now show two classical examples of purely extrinsic population dynamics: the
 Moran process, in which a player is chosen to be duplicated proportional to
@@ -525,7 +525,7 @@ Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current payoff
 and the payoff which they are considering. This algorithm is also shown in
 Figure~\ref{fig:diagrams_of_dynamics}B. This method has been commonly used in studies of
-evolutionary games, for example ~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
+evolutionary games, for example~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
 We now define our transition matrix according to the Fermi function:
 
 \begin{equation}
@@ -711,7 +711,7 @@ below may not be familiar to the reader.
 \end{lemma}
 
 \begin{proof}
-    Kamae, Krengel, and O'Brien ~\cite{kamae1977stochastic} prove that
+    Kamae, Krengel, and O'Brien~\cite{kamae1977stochastic} prove that
     whenever two probability measures \(\nu_1, \nu_2\) on a partially ordered
     Polish space satisfy \(\nu_1 \preceq_{st} \nu_2\), there exist random
     variables \(X_1 \sim \nu_1\) and \(X_2 \sim \nu_2\) defined on a common
@@ -819,8 +819,7 @@ defection to dominate cooperation in a heterogeneous population.
     T^{\mathrm{nd}}_{\sigma(\mathbf{a})\sigma(\mathbf{b})}\) for every
     transition, so the stationary distribution of \(T^{\mathrm{nd}}\) is
     \(\sigma\)-invariant, giving \(p_C^{(T^{\mathrm{nd}})} =
-    p_D^{(T^{\mathrm{nd}})} = \frac{1}{2}\)
-    ~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}.
+    p_D^{(T^{\mathrm{nd}})} = \frac{1}{2}\)~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}.
 
     \medskip
     \noindent\textit{Step 3: \(T^{\mathrm{nd}}\) is stochastically monotone.}
@@ -1208,27 +1207,27 @@ because for all players to have a payoff \(\pi_i > 0\), at least one player must
 be cooperating at all times. If no players cooperate, then no player will reach
 their target payoff threshold, and players will switch strategy with a high
 probability. The ceiling is not exceeded for \(r < N\), as shown in
-Figure~\ref{fig:intrinsic_PGG}(a) and noted in~\cite{du2014aspiration}, but
-is exceeded at the threshold \(r > N\). In this case, \(\pi_i(\mathbf{a}) - A\)
-is greater when cooperating than defecting in a given state \(\mathbf{a}_{-i}\)
-for all players, and thus the transition \(D \to C\) will always occur with a
-higher probability than the reverse. For intermediate values of \(r\),
-aspiration dynamics can achieve its lowest \(p_C\), as with a low value of
-\(A\), players are able to achieve their aspiration by free-riding in a state
-with fewer cooperators, and so there is no incentive to begin cooperating in
-such a state. Figure~\ref{fig:intrinsic_PGG}(d) shows how \(p_C\) depends on the
-aspiration level \(A\). For \(r > N\), \(p_C\) is non-monotone in \(A\): it rises
-to a peak and then falls back towards \(\frac{1}{2}\). Aspiration only
-discriminates between the two actions when \(A\) lies between the payoffs of a
-defector and a cooperator. A low \(A\) leaves defectors content and unwilling to
-switch, whereas an \(A\) above even the cooperator's payoff leaves every player
+Figure~\ref{fig:intrinsic_PGG}(a) and noted in~\cite{du2014aspiration}, but is
+exceeded at the threshold \(r > N\). In this case, \(\pi_i(\mathbf{a}) - A\) is
+greater when cooperating than defecting in a given state \(\mathbf{a}_{-i}\) for
+all players, and thus the transition \(D \to C\) will always occur with a higher
+probability than the reverse. For intermediate values of \(r\), aspiration
+dynamics can achieve its lowest \(p_C\), as with a low value of \(A\), players
+are able to achieve their aspiration by free-riding in a state with fewer
+cooperators, and so there is no incentive to begin cooperating in such a state.
+Figure~\ref{fig:intrinsic_PGG}(d) shows how \(p_C\) depends on the aspiration
+level \(A\). For \(r > N\), \(p_C\) is non-monotone in \(A\): it rises to a peak
+and then falls back towards \(\frac{1}{2}\). Aspiration only discriminates
+between the two actions when \(A\) lies between the payoffs of a defector and a
+cooperator. A low \(A\) leaves defectors content and unwilling to switch,
+whereas an \(A\) above even the cooperator's payoff leaves every player
 dissatisfied, so switching becomes action-independent and the advantage of
-cooperation is washed out. The
-aspiration level is the biggest indicator of cooperation in a linear public
-goods game where a player's fitness is given by their expected return in a
-2-player game. It has been shown previously that for a high aspiration level,
-cooperation emerges at a level near the neutral-drift baseline, but for a low
-aspiration level defectors dominate the population~\cite{du2014aspiration}.
+cooperation is washed out. The aspiration level is the biggest indicator of
+cooperation in a linear public goods game where a player's fitness is given by
+their expected return in a 2-player game. It has been shown previously that for
+a high aspiration level, cooperation emerges at a level near the neutral-drift
+baseline, but for a low aspiration level defectors dominate the
+population~\cite{du2014aspiration}.
 
 As the heterogeneous public goods game is an additive game~\cite{Couto2023}, we
 can show that many of the analytical results of~\cite{foster_knight_2026} about
