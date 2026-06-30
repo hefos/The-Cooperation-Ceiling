@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{authblk}
 \usepackage[nocompress]{cite}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -25,8 +26,13 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
 
-\title{The Cooperation Ceiling: Extrinsic Update Rules and the Intrinsic Escape}
-\author{Harry Foster, Vince Knight, Sebastian Krapohl}
+\title{The Cooperation Ceiling: Extrinsic Population Dynamics and the Intrinsic Escape}
+\author[1,*]{Harry Foster}
+\author[1]{Vince Knight}
+\author[2]{Sebastian Krapohl}
+\affil[1]{School of Mathematics, Cardiff University}
+\affil[2]{Faculty of Social and Behavioural Sciences, University of Amsterdam}
+\affil[*]{Corresponding author: \texttt{fosterh3@cardiff.ac.uk}}
 \date{\today}
 
 \begin{document}
@@ -394,7 +400,7 @@ dynamic, and \(\delta_{I(\mathbf{a,b})}\) takes the value 1 if
 would define a purely extrinsic population dynamic, but would be tailored to
 favour a particular action type. We exclude cases such as this, as they do not
 conform to the framework in which fitness is the single measure of the success,
-and thus the propogation, of action types in the population. While parameters
+and thus the propagation, of action types in the population. While parameters
 such as choice intensity and selection intensity affect the transition
 probability \(T_{\mathbf{ab}}\), they do not inherently favour any specific
 action type.
@@ -732,7 +738,7 @@ condition \(a(N-2) + bN > cN + d(N-2)\) makes strategy \(A\) more abundant than
 \(B\) at any mutation rate. This builds upon the work of~\cite{Kandori,
 Nowak2004Emergence}, generalising results to arbitrary mutation and selection
 intensity. The impact of mutation on the abundance of a given strategy in such a
-game is discussed by Fundenberg~et~al~\cite{FUDENBERG2006352} We now show that
+game is discussed by Fudenberg~et~al~\cite{FUDENBERG2006352} We now show that
 for neutrally monotone purely extrinsic population dynamics, pointwise
 domination of defection over cooperation is sufficient for defection to dominate
 cooperation in a heterogeneous population.
@@ -938,7 +944,7 @@ exceed. This includes parameter combinations which have high values of \(r >
 N\), and so we see that despite full cooperation being the Nash equilibrium of
 the one shot game, and increasing the payoff of players in the one-step
 distribution, the pointwise dominance of defection over cooperation leads to
-defection becoming the dominant strategy in a repeated game.. This not only
+defection becoming the dominant strategy in a repeated game. This not only
 leads to a worse average payoff for all players in the population in the steady
 state, but also means that when \(r > N\), worsening moves occur with a higher
 probability than changes of action types which improve a player's payoff. In
