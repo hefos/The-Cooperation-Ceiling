@@ -188,13 +188,13 @@ evolutionary dynamics on a fully heterogeneous, well-mixed population.
 \subsection{The state space}
 
 We model a population consisting of \(N\) \textbf{ordered} individuals. Each
-individual selects an action from a common action set \(A = (A_1, A_2, \ldots,
-A_k)\) of size \(k\). A \emph{state} of the population is an ordered \(N\)-tuple
-\(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in A^N\), and the \emph{state space}
-\(S\) is the set of all such tuples. A payoff function \(\pi \colon S \to
-\mathbb{R}^N\) assigns to each state a vector of individual payoffs; we write
-\(\pi_i(\mathbf{a})\) for the payoff of individual \(i\) in state
-\(\mathbf{a}\).
+individual selects an action from a common action set \(\mathcal{A} = (\mathcal{A}_1, \mathcal{A}_2,
+\ldots,\mathcal{A}_k)\) of size \(k\). A \emph{state} of the population is an ordered
+\(N\)-tuple \(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in \mathcal{A}^N\), and the
+\emph{state space} \(S\) is the set of all such tuples. A payoff function \(\pi
+\colon S \to \mathbb{R}^N\) assigns to each state a vector of individual
+payoffs; we write \(\pi_i(\mathbf{a})\) for the payoff of individual \(i\) in
+state \(\mathbf{a}\).
 
 The state space of an evolutionary game can be described as the graph whose
 nodes are the states \(\mathbf{a} \in S\), with an edge between two vertices
@@ -223,7 +223,7 @@ of transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\) is not
 necessarily the same as the probability of transitioning from \(\mathbf{b}\) to
 \(\mathbf{a}\). Thus, instead of one edge between two states, we have two
 directed edges, \(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
-Figure~\ref{fig:4-cube}(a) and ~\ref{fig:4-cube}(b) illustrate the population
+Figure~\ref{fig:4-cube}(a) and~\ref{fig:4-cube}(b) illustrate the population
 model and its state space.
 
 \subsection{Population dynamics and mutation}
@@ -340,11 +340,11 @@ bias towards a given action type.
     \includegraphics[width=\linewidth]{state_space_panels.pdf}
     \end{mdframed}
     \caption{\textbf{The heterogeneous population as a Markov chain.}
-    \textbf{A,} A heterogeneous population with action set \(A = \{C, D\}\), in
-    which each player has its own payoff function. \textbf{B,} Each state is a
-    vertex of \(S = A^N\), so the state space is an \(N\)-dimensional hypercube.
-    \textbf{C,} A single transition between neighbouring states. \textbf{D,}
-    Mutation connects the chain and makes it ergodic.}
+    \textbf{A,} A heterogeneous population with action set \(\mathcal{A} = \{C, D\}\), in
+    which each player has its own payoff function. \textbf{B,} A single
+    transition between neighbouring states. \textbf{C,} Each state is a vertex
+    of \(S = A^N\), so the state space is an \(N\)-dimensional hypercube.
+    \textbf{D,} Mutation connects the chain and makes it ergodic.}
     \label{fig:4-cube}
 \end{figure}
 
@@ -400,10 +400,9 @@ dynamic, and \(\delta_{I(\mathbf{a,b})}\) takes the value 1 if
 would define a purely extrinsic population dynamic, but would be tailored to
 favour a particular action type. We exclude cases such as this, as they do not
 conform to the framework in which fitness is the single measure of the success,
-and thus the propagation, of action types in the population. While parameters
-such as choice intensity and selection intensity affect the transition
-probability \(T_{\mathbf{ab}}\), they do not inherently favour any specific
-action type.
+and thus the propagation, of action types in the population. While
+process-specific parameters may affect the transition probability
+\(T_{\mathbf{ab}}\), they should not inherently favour any specific action type.
 
 We now show two classical examples of purely extrinsic population dynamics: the
 Moran process, in which a player is chosen to be duplicated proportional to
@@ -434,7 +433,7 @@ This is shown in Figure~\ref{fig:diagrams_of_dynamics}A, and the transition matr
 
 Where \(f_i(\mathbf{a}) = 1 - \varepsilon + \varepsilon\pi_i(\mathbf{a})\) is
 the fitness of a player \(i\) in state \(\mathbf{a}\) scaled with selection
-intensity \(\varepsilon>0\). The value of \(\varepsilon\) is chosen to ensure a
+intensity \(\varepsilon\in [0,1]\). The value of \(\varepsilon\) is chosen to ensure a
 positive fitness for all players in order that the probability
 \(T_{\mathbf{ab}}\) is always well defined. This parameter controls the
 rationality with which players choose which strategy to adopt in each time step:
@@ -736,10 +735,10 @@ B & c & d
 and showed that, for a wide range of evolutionary processes with mutation, the
 condition \(a(N-2) + bN > cN + d(N-2)\) makes strategy \(A\) more abundant than
 \(B\) at any mutation rate. This builds upon the work of~\cite{Kandori,
-Nowak2004Emergence}, generalising results to arbitrary mutation and selection
-intensity. The impact of mutation on the abundance of a given strategy in such a
-game is discussed by Fudenberg~et~al~\cite{FUDENBERG2006352} We now show that
-for neutrally monotone purely extrinsic population dynamics, pointwise
+Nowak2004Emergence}, generalising results to arbitrary mutation rates and
+selection intensity. The impact of mutation on the abundance of a given strategy
+in such a game is discussed by Fudenberg~et~al~\cite{FUDENBERG2006352}. We now
+show that for neutrally monotone purely extrinsic population dynamics, pointwise
 domination of defection over cooperation is sufficient for defection to dominate
 cooperation in a heterogeneous population.
 
@@ -1108,10 +1107,11 @@ dynamics is a purely intrinsic population dynamic:
     It is clear from the definition of \(T_{\mathbf{ab}}\) that aspiration
     dynamics satisfies conditions (1) and (3). It remains to show that
     aspiration dynamics is decreasing in the payoff
-    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\). Since \(\phi(x)\) is decreasing, and
-    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) appears only in the value
-    \(\pi_{I(\mathbf{a,b})}(\mathbf{a}) - A_i\). Therefore, setting \(x =
-    \pi_{I(\mathbf{a,b})}(\mathbf{a})\), we get that \(\phi\) is decreasing in
+    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\). We have that \(\phi(x)\) is
+    decreasing, and \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) appears only in the
+    value \(\pi_{I(\mathbf{a,b})}(\mathbf{a}) - A_{I(\mathbf{a,b})}\).
+    Therefore, setting \(x = \pi_{I(\mathbf{a,b})}(\mathbf{a}) -
+    A_{I(\mathbf{a,b})}\), we get that \(\phi\) is decreasing in
     \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\), and therefore so is
     \(T_{\mathbf{ab}}\).
 \end{proof}
