@@ -64,6 +64,21 @@ uv run python data/large_n/main.py
 is the incremental top-up; the difference is that `dvc repro` resets the `stet`
 stores first.
 
+## Verifying the data
+
+The data files are not tracked in git; they are distributed as an archive
+alongside a checksum manifest, `data.sha256`. After unpacking the archive at the
+repository root, confirm that every data file matches its recorded checksum:
+
+```bash
+sha256sum -c data.sha256
+```
+
+This works on macOS, Linux, and Windows from Git Bash, all of which ship
+`sha256sum`; the check is not available from PowerShell or `cmd.exe`. On older
+macOS without `sha256sum`, use `shasum -a 256 -c data.sha256` instead. A clean
+run reports `OK` for each file.
+
 ## Building the figures
 
 Each analysis script reads the data and writes its figure straight into `tex/`:
