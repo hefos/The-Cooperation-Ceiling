@@ -1,3 +1,7 @@
 # Add patterns of files dvc should ignore, which could improve
 # the performance. Learn more at
 # https://dvc.org/doc/user-guide/dvcignore
+
+# Resumable run stores written by stet; not part of the data outputs.
+data/sweep/**/_stet_store.sqlite*
+data/large_n/_stet_*.sqlite*
