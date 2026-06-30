@@ -25,7 +25,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
 
-\title{The Ceiling of Cooperation in Extrinsic Update Rules}
+\title{The Cooperation Ceiling: Extrinsic Update Rules and the Intrinsic Escape}
 \author{Harry Foster, Vince Knight, Sebastian Krapohl}
 \date{\today}
 
@@ -107,7 +107,7 @@ of cooperation~\cite{hauser2019social}. One commonly studied heterogeneous
 population is one in a spatial setting, where players are placed on a network
 and participate simultaneously in multiple games with their
 neighbours~\cite{nowak1992evolutionary,
-perc2013evolutionary,szabo2007evolutionary}. In ~\cite{santos2008social} it is
+perc2013evolutionary,szabo2007evolutionary}. In~\cite{santos2008social} it is
 shown that social diversity in endowments promotes the emergence of cooperation
 in the public goods game: heterogeneous populations outperform their homogeneous
 counterparts over a wide range of parameters. This echoes earlier work showing
@@ -118,7 +118,7 @@ high-reputation defectors receive reduced transfers, weakening defection's
 advantage. When heterogeneity arises from differences in network degree so that
 players allocate contributions according to the difference in the number of
 connections~\cite{LEI20104708}, the payoff structure either penalises
-medium-degree defectors, or create small clusters of strong cooperators. The
+medium-degree defectors, or creates small clusters of strong cooperators. The
 characteristic spatial mechanism is the formation of cooperating clusters that
 are more profitable than their defecting neighbours; provided \(r\) is
 sufficiently large, these clusters resist invasion and eventually spread.
@@ -274,7 +274,7 @@ remaining two, introspection and aspiration dynamics, are ergodic chains, for
 which we can compute the long-run abundance of a given strategy in the
 population. To enable meaningful comparison across all models, we introduce
 mutation. Mutation ensures that all processes become ergodic, while also
-introducing a controlled amount of noise: at any moment, individuals may switch
+introducing a controlled amount of noise: at any moment individuals may switch
 to a different strategy~\cite{FUDENBERG2006352}. Consequently, we no longer
 obtain absorption matrices for any model with mutation; instead, we derive a
 unique steady state that is independent of the initial state.
@@ -375,7 +375,7 @@ members of a population.
 Condition (1) gives the property of purely extrinsic population dynamics that
 looks outwardly, copying other individuals in the state. Condition (2)
 captures the basic monotonicity: a higher payoff for a role model makes that
-role model more likely to be copied, and a higher p;ayoff for a non-role-model
+role model more likely to be copied, and a higher payoff for a non-role-model
 pulls the other way. Condition (3) rules out an inherent bias towards either
 action. Without (3), we must consider population dynamics which explicitly
 favour a certain action type, for example:
@@ -393,11 +393,11 @@ dynamic, and \(\delta_{I(\mathbf{a,b})}\) takes the value 1 if
 \(b_{I(\mathbf{a,b})} = C\) and \(\frac{1}{2}\) if not. Without (3), \(\bar{T}\)
 would define a purely extrinsic population dynamic, but would be tailored to
 favour a particular action type. We exclude cases such as this, as they do not
-conform to the framework in which fitness is the single measure of the success
-of action types in the population, and thus of which strategy is passed on in
-each step of the process. While parameters such as choice intensity and
-selection intensity affect the transition probability \(T_{\mathbf{ab}}\), they do
-not inherently favour any specific action type.
+conform to the framework in which fitness is the single measure of the success,
+and thus the propogation, of action types in the population. While parameters
+such as choice intensity and selection intensity affect the transition
+probability \(T_{\mathbf{ab}}\), they do not inherently favour any specific
+action type.
 
 We now show two classical examples of purely extrinsic population dynamics: the
 Moran process, in which a player is chosen to be duplicated proportional to
@@ -510,7 +510,7 @@ Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current payoff
 and the payoff which they are considering. This algorithm is also shown in
 Figure~\ref{fig:diagrams_of_dynamics}C. This method has been commonly used in studies of
-evolutionary games, for example ~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
+evolutionary games, for example~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
 We now define our transition matrix according to the Fermi function:
 
 \begin{equation}
@@ -696,7 +696,7 @@ below may not be familiar to the reader.
 \end{lemma}
 
 \begin{proof}
-    Kamae, Krengel, and O'Brien ~\cite{kamae1977stochastic} prove that
+    Kamae, Krengel, and O'Brien~\cite{kamae1977stochastic} prove that
     whenever two probability measures \(\nu_1, \nu_2\) on a partially ordered
     Polish space satisfy \(\nu_1 \preceq_{st} \nu_2\), there exist random
     variables \(X_1 \sim \nu_1\) and \(X_2 \sim \nu_2\) defined on a common
@@ -865,14 +865,15 @@ heterogeneous contributions and a homogeneous return.
 
 The parameter sweep is done to the highest standards of
 reproducibility~\cite{wilson2017, stodden2016, turingway2022, Wilson2014,
-sandve2013} and all data has been archived at~\cite{data_archive}
-%TODO: archive the data on Zenodo and insert the data_archive DOI in bibliography.bib
-and is a further contribution of the work. In order to perform this sweep, the
-authors have developed an installable software library \texttt{ludics} (written
-in python). The archive of \texttt{ludics} is at~\cite{ludics_archive} and the
-documentation can be found at~\cite{ludics_docs}. The full development of the
-software can be found at~\cite{ludics}. The parameters considered, alongside
-their meanings in reference to the public goods game, are shown in
+sandve2013} and all data has been archived at~\cite{data_archive} and is a
+further contribution of the work. The source code and development process can be
+seen at \texttt{https://github.com/hefos/The-Cooperation-Ceiling}. In order to
+perform this sweep, the authors have developed an installable software library
+\texttt{ludics} (written in python). The archive of \texttt{ludics} is
+at~\cite{ludics_archive} and the documentation can be found
+at~\cite{ludics_docs}. The full development of the software can be found
+at~\cite{ludics}. The parameters considered, alongside their meanings in
+reference to the public goods game, are shown in
 Table~\ref{fig:parameter_sweep_table}.
 
 \begin{table}[htbp!]
