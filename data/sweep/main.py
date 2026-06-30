@@ -79,7 +79,7 @@ def run_experiment(
 
         for i in range(N):
             numerator = 0.8
-            denominator = 1 + np.exp(0.5 * (alphas[i] * (1 - (r / N))))
+            denominator = 1 + np.exp(choice_intensity * (alphas[i] * (1 - (r / N))))
 
             running_phis.append((numerator / denominator) + 0.1)
 
@@ -96,6 +96,8 @@ def run_experiment(
                     j,
                     choice_intensity,
                     selection_intensity,
+                    aspiration,
+                    running_phis[j],
                     p_C,
                 ]
             ]
@@ -112,6 +114,8 @@ def run_experiment(
                     "i",
                     "beta",
                     "epsilon",
+                    "aspiration",
+                    "i_C",
                     "p_C",
                 ],
             )
@@ -184,7 +188,7 @@ def run_experiment(
     )
 
 
-for N in np.array([8, 7, 6, 5, 4, 3, 2, 1]):
+for N in np.array([8, 7, 6, 5, 4, 3, 2]):
     M_range = np.linspace(N, 4 * N, 10)
     r_range = np.linspace(0.5, 1.5 * N, 10)
     for M, r in itertools.product(M_range, r_range):
@@ -194,7 +198,13 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2, 1]):
             M=M,
         )
         aspiration_range = np.linspace(1, M, 10)
-        selection_intensity_range = np.linspace(0, 0.99 / alphas[-1], 10)
+        if r < N:
+            selection_intensity_range = np.linspace(
+                0, 0.99 / (1 - alphas[-1] * ((r / N) - 1)), 10
+            )
+        else:
+            selection_intensity_range = np.linspace(0, (alphas[-1] * ((r / N) - 1) + 1) / (alphas[-1] * ((r / N) - 1) + 2), 10)
+            
         choice_intensity_range = np.linspace(0, 2, 10)
         null_array = np.array([0])
         dynamic_to_iteration = {
@@ -224,3 +234,5 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2, 1]):
                 dynamic=dynamic,
                 mu=mu,
             )
+
+print(f"finished sweep job: dynamic={dynamic}, mu={mu}", flush=True)

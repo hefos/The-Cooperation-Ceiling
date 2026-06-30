@@ -73,10 +73,16 @@ sweep = {dynamic: load(dynamic) for dynamic in extrinsic + intrinsic}
 
 fig, axes = plt.subplots(2, 2, figsize=(8.4, 6.6))
 (ax_extrinsic, ax_intrinsic), (ax_maximum, ax_fraction) = axes
-bins = np.linspace(0.0, 1.0, 41)
+# The extrinsic panel ends its bins exactly at 0.5 so the pile-up of neutral
+# (zero-intensity) runs at p_C = 0.5 lands in the last, both-ends-closed bin,
+# flush against the ceiling rather than spilling into the p_C > 0.5 region. The
+# intrinsic panel genuinely crosses 0.5, so it runs to 1.0. Both use the same
+# bin width.
+extrinsic_bins = np.linspace(0.0, 0.5, 21)
+intrinsic_bins = np.linspace(0.0, 1.0, 41)
 
 
-def histogram_panel(ax, dynamics, title):
+def histogram_panel(ax, dynamics, title, bins):
     for dynamic in dynamics:
         ax.hist(
             sweep[dynamic]["p_C"], bins=bins, density=True, histtype="stepfilled",
@@ -91,8 +97,14 @@ def histogram_panel(ax, dynamics, title):
     ax.legend(loc="upper right")
 
 
-histogram_panel(ax_extrinsic, extrinsic, r"(a) purely extrinsic: all $p_C \leq \frac{1}{2}$")
-histogram_panel(ax_intrinsic, intrinsic, r"(b) intrinsic dynamics cross $\frac{1}{2}$")
+histogram_panel(
+    ax_extrinsic, extrinsic, r"(a) purely extrinsic: all $p_C \leq \frac{1}{2}$",
+    bins=extrinsic_bins,
+)
+histogram_panel(
+    ax_intrinsic, intrinsic, r"(b) intrinsic dynamics cross $\frac{1}{2}$",
+    bins=intrinsic_bins,
+)
 
 for dynamic in extrinsic + intrinsic:
     line_style, marker = styles[dynamic]
@@ -130,9 +142,15 @@ ax_fraction.set_xlabel(r"$r / N$")
 ax_fraction.set_ylabel(r"fraction with $p_C > \frac{1}{2}$")
 ax_fraction.set_ylim(-0.02, 1.0)
 ax_fraction.set_title(r"(d) crossing switches on at $r = N$")
-ax_fraction.legend(loc="upper left")
 
-fig.tight_layout()
+# Panels (c) and (d) share the same four dynamics, so a single legend centred
+# under the bottom row serves both and avoids repeating it in each panel.
+shared_handles, shared_labels = ax_maximum.get_legend_handles_labels()
+fig.tight_layout(rect=(0.0, 0.06, 1.0, 1.0))
+fig.legend(
+    shared_handles, shared_labels, loc="lower center", ncol=4,
+    bbox_to_anchor=(0.5, 0.0),
+)
 for output_path in figure_outputs:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path)

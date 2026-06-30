@@ -255,10 +255,10 @@ def main():
         for r_index in range(len(returns_over_n)):
             for seed in threshold_seeds:
                 run_threshold(N=number_of_players, r_index=r_index, seed=seed)
-    print("done; rows:")
+    print("finished large_n job; rows:", flush=True)
     for path in (simulations_csv, exact_csv, threshold_csv):
         if path.exists():
-            print(" ", path, sum(1 for _ in open(path)) - 1)
+            print(" ", path, sum(1 for _ in open(path)) - 1, flush=True)
 
 
 if __name__ == "__main__":

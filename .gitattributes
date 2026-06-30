@@ -1,0 +1,10 @@
+# Normalise all text files to LF so DVC dependency hashes match across
+# platforms; Windows checkouts would otherwise convert to CRLF and change
+# the recorded hashes.
+* text=auto eol=lf
+
+# Treat known binary outputs as binary so git never rewrites them.
+*.pdf binary
+*.png binary
+*.sqlite binary
+*.gz binary

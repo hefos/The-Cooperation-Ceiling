@@ -1,16 +1,47 @@
 # Pipeline tying data generation -> analysis -> figures.
 # Rebuild what is out of date with:  uv run dvc repro
 #
-# The exhaustive small-population sweep in data/sweep/ is archived on Zenodo and
-# treated as a static input, so it is not produced by a stage here.
+# All data generation runs from a single stage. The small-population sweep
+# (data/sweep/main.py, once per (dynamic, mu) combination) and the large-N
+# simulation (data/large_n/main.py) are listed together in data/jobs.txt and run
+# with GNU parallel, so every job shares one pool. parallel chooses the number of
+# jobs itself, so the core count is not encoded here.
+#
+# The sweep keeps its stet stores inside the *_mu_eq_* output folders, which dvc
+# deletes before the stage runs, so they reset automatically. The large-N stet
+# stores live outside the CSV outputs, so we clear them here to force a clean
+# rebuild; running data/large_n/main.py directly leaves them in place and
+# resumes.
 
 stages:
 
-  large_n_data:
-    cmd: uv run python data/large_n/main.py
+  generate_data:
+    cmd: rm -f data/large_n/_stet_*.sqlite && parallel --bar --joblog data/jobs.log < data/jobs.txt
     deps:
+      - data/jobs.txt
+      - data/sweep/main.py
       - data/large_n/main.py
       - src/public_goods_games
+    outs:
+      - data/large_n/simulations.csv
+      - data/large_n/exact.csv
+      - data/large_n/threshold.csv
+      - data/sweep/moran_mu_eq_0.001
+      - data/sweep/moran_mu_eq_0.005
+      - data/sweep/moran_mu_eq_0.05
+      - data/sweep/moran_mu_eq_0.1
+      - data/sweep/fermi_mu_eq_0.001
+      - data/sweep/fermi_mu_eq_0.005
+      - data/sweep/fermi_mu_eq_0.05
+      - data/sweep/fermi_mu_eq_0.1
+      - data/sweep/introspection_mu_eq_0.001
+      - data/sweep/introspection_mu_eq_0.005
+      - data/sweep/introspection_mu_eq_0.05
+      - data/sweep/introspection_mu_eq_0.1
+      - data/sweep/aspiration_mu_eq_0.001
+      - data/sweep/aspiration_mu_eq_0.005
+      - data/sweep/aspiration_mu_eq_0.05
+      - data/sweep/aspiration_mu_eq_0.1
 
   ceiling_extrinsic:
     cmd: uv run python analysis/ceiling_extrinsic/main.py

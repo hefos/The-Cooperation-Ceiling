@@ -17,51 +17,51 @@ stages:
     deps:
     - path: analysis/ceiling_extrinsic/main.py
       hash: md5
-      md5: 12f39d9d2146fc993bfe8aa795cc92ea
-      size: 12066
+      md5: ecf2d56250ed0351822582029c3da301
+      size: 12913
     - path: data/sweep/fermi_mu_eq_0.001
       hash: md5
-      md5: 7711bbb76e3cafc2a31a1ecc1a3d0b2c.dir
-      size: 6133021
-      nfiles: 2
+      md5: 3c7ffe6506c55fccfb34cad26740d454.dir
+      size: 1038441
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.005
       hash: md5
-      md5: eaf563cedb8c5ebd0c44bbbdb1985db4.dir
-      size: 6114329
-      nfiles: 2
+      md5: 4e8e1528767d02207d5e27dc084fc4d0.dir
+      size: 1037168
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.05
       hash: md5
-      md5: 70030ae4b905f0408897422233085c75.dir
-      size: 6023780
-      nfiles: 2
+      md5: 8d638d6e5f84a4fbfc8498c77ad76d2c.dir
+      size: 1028643
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.1
       hash: md5
-      md5: 3355f345ad277bc9578ec7395b74f5a6.dir
-      size: 5956006
-      nfiles: 2
+      md5: fcbe764e6f2be90e5b7a5b7eef1bc879.dir
+      size: 1022571
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.001
       hash: md5
-      md5: b4fcc1c90d2e2dbbc31a0e08893845d2.dir
-      size: 5915884
-      nfiles: 2
+      md5: b2ff7f0c4fbff0865c59ccdef7f712e6.dir
+      size: 1030415
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.005
       hash: md5
-      md5: ba10f2e9de63f214f6e22511ec705353.dir
-      size: 5942119
-      nfiles: 2
+      md5: 7afb8f3f0c7d8bc87f386ca3529dd6fe.dir
+      size: 1035977
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.05
       hash: md5
-      md5: cfba0ebdd2fa4d1e568dbf6334caa3ee.dir
-      size: 5899897
-      nfiles: 2
+      md5: 0e9f89db278708f8526d53627fd787e3.dir
+      size: 1034698
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.1
       hash: md5
-      md5: a94ffeea07a6b30f28581cba12de9fa2.dir
-      size: 5847426
-      nfiles: 2
+      md5: 6179bb39742dc92326bf2a765cd6d885.dir
+      size: 1032452
+      nfiles: 1
     - path: src/public_goods_games
       hash: md5
-      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      md5: 1a3a0645011d23301077ef99d641a269.dir
       size: 21789
       nfiles: 4
   ceiling_intrinsic:
@@ -73,47 +73,47 @@ stages:
       size: 10225
     - path: data/sweep/aspiration_mu_eq_0.001
       hash: md5
-      md5: cc890f64488dedc744ba38ef164042e4.dir
-      size: 65713995
-      nfiles: 2
+      md5: 363ff4040805c175eb870337bd782c10.dir
+      size: 11146645
+      nfiles: 1
     - path: data/sweep/aspiration_mu_eq_0.005
       hash: md5
-      md5: ee28b6d4c7208f36f8293964a5704d90.dir
-      size: 65712519
-      nfiles: 2
+      md5: 4721b16fa395f20dce7d1aad918ffa77.dir
+      size: 11146632
+      nfiles: 1
     - path: data/sweep/aspiration_mu_eq_0.05
       hash: md5
-      md5: b58dcb27c440cb1255f3972bcacc744e.dir
-      size: 65278720
-      nfiles: 2
+      md5: 71cc37980e2576d74c00d1adf5b8e3a1.dir
+      size: 11144865
+      nfiles: 1
     - path: data/sweep/aspiration_mu_eq_0.1
       hash: md5
-      md5: 71cca21da371e7aed36aa18d9652efb9.dir
-      size: 64849341
-      nfiles: 2
+      md5: bde721d9e5efb9285bc2a6c9f4f2d16c.dir
+      size: 11142715
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.001
       hash: md5
-      md5: d9bea94bcff54c86b6745f00e5a8b35d.dir
-      size: 5510995
-      nfiles: 2
+      md5: 3f2e94fe3ec162c60c845a5119148a62.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.005
       hash: md5
-      md5: 6d4e7713fb7426f8ce7aea3aa2e8d1ec.dir
-      size: 5511616
-      nfiles: 2
+      md5: a13f27cc009d159933de6e5beee49ea5.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.05
       hash: md5
-      md5: 1575a06a6a7b4a402dfba3b377edb866.dir
-      size: 5466565
-      nfiles: 2
+      md5: c5e393412308716e32cb9db7ec440d95.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.1
       hash: md5
-      md5: 2792fa51cfa13d3b6405df25b64ec30e.dir
-      size: 5423244
-      nfiles: 2
+      md5: 50e056f84e38cf693858e98585b72981.dir
+      size: 1055848
+      nfiles: 1
     - path: src/public_goods_games
       hash: md5
-      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      md5: 1a3a0645011d23301077ef99d641a269.dir
       size: 21789
       nfiles: 4
   ceiling_overview:
@@ -121,91 +121,91 @@ stages:
     deps:
     - path: analysis/ceiling_overview/main.py
       hash: md5
-      md5: 1fd5f22b2ce442a5411ba05945b2e929
-      size: 6105
+      md5: e8ceb77bcffbbfd840122b419efdff63
+      size: 6874
     - path: data/sweep/aspiration_mu_eq_0.001
       hash: md5
-      md5: cc890f64488dedc744ba38ef164042e4.dir
-      size: 65713995
-      nfiles: 2
+      md5: 363ff4040805c175eb870337bd782c10.dir
+      size: 11146645
+      nfiles: 1
     - path: data/sweep/aspiration_mu_eq_0.005
       hash: md5
-      md5: ee28b6d4c7208f36f8293964a5704d90.dir
-      size: 65712519
-      nfiles: 2
+      md5: 4721b16fa395f20dce7d1aad918ffa77.dir
+      size: 11146632
+      nfiles: 1
     - path: data/sweep/aspiration_mu_eq_0.05
       hash: md5
-      md5: b58dcb27c440cb1255f3972bcacc744e.dir
-      size: 65278720
-      nfiles: 2
+      md5: 71cc37980e2576d74c00d1adf5b8e3a1.dir
+      size: 11144865
+      nfiles: 1
     - path: data/sweep/aspiration_mu_eq_0.1
       hash: md5
-      md5: 71cca21da371e7aed36aa18d9652efb9.dir
-      size: 64849341
-      nfiles: 2
+      md5: bde721d9e5efb9285bc2a6c9f4f2d16c.dir
+      size: 11142715
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.001
       hash: md5
-      md5: 7711bbb76e3cafc2a31a1ecc1a3d0b2c.dir
-      size: 6133021
-      nfiles: 2
+      md5: 3c7ffe6506c55fccfb34cad26740d454.dir
+      size: 1038441
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.005
       hash: md5
-      md5: eaf563cedb8c5ebd0c44bbbdb1985db4.dir
-      size: 6114329
-      nfiles: 2
+      md5: 4e8e1528767d02207d5e27dc084fc4d0.dir
+      size: 1037168
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.05
       hash: md5
-      md5: 70030ae4b905f0408897422233085c75.dir
-      size: 6023780
-      nfiles: 2
+      md5: 8d638d6e5f84a4fbfc8498c77ad76d2c.dir
+      size: 1028643
+      nfiles: 1
     - path: data/sweep/fermi_mu_eq_0.1
       hash: md5
-      md5: 3355f345ad277bc9578ec7395b74f5a6.dir
-      size: 5956006
-      nfiles: 2
+      md5: fcbe764e6f2be90e5b7a5b7eef1bc879.dir
+      size: 1022571
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.001
       hash: md5
-      md5: d9bea94bcff54c86b6745f00e5a8b35d.dir
-      size: 5510995
-      nfiles: 2
+      md5: 3f2e94fe3ec162c60c845a5119148a62.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.005
       hash: md5
-      md5: 6d4e7713fb7426f8ce7aea3aa2e8d1ec.dir
-      size: 5511616
-      nfiles: 2
+      md5: a13f27cc009d159933de6e5beee49ea5.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.05
       hash: md5
-      md5: 1575a06a6a7b4a402dfba3b377edb866.dir
-      size: 5466565
-      nfiles: 2
+      md5: c5e393412308716e32cb9db7ec440d95.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/introspection_mu_eq_0.1
       hash: md5
-      md5: 2792fa51cfa13d3b6405df25b64ec30e.dir
-      size: 5423244
-      nfiles: 2
+      md5: 50e056f84e38cf693858e98585b72981.dir
+      size: 1055848
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.001
       hash: md5
-      md5: b4fcc1c90d2e2dbbc31a0e08893845d2.dir
-      size: 5915884
-      nfiles: 2
+      md5: b2ff7f0c4fbff0865c59ccdef7f712e6.dir
+      size: 1030415
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.005
       hash: md5
-      md5: ba10f2e9de63f214f6e22511ec705353.dir
-      size: 5942119
-      nfiles: 2
+      md5: 7afb8f3f0c7d8bc87f386ca3529dd6fe.dir
+      size: 1035977
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.05
       hash: md5
-      md5: cfba0ebdd2fa4d1e568dbf6334caa3ee.dir
-      size: 5899897
-      nfiles: 2
+      md5: 0e9f89db278708f8526d53627fd787e3.dir
+      size: 1034698
+      nfiles: 1
     - path: data/sweep/moran_mu_eq_0.1
       hash: md5
-      md5: a94ffeea07a6b30f28581cba12de9fa2.dir
-      size: 5847426
-      nfiles: 2
+      md5: 6179bb39742dc92326bf2a765cd6d885.dir
+      size: 1032452
+      nfiles: 1
     - path: src/public_goods_games
       hash: md5
-      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      md5: 1a3a0645011d23301077ef99d641a269.dir
       size: 21789
       nfiles: 4
   ceiling_conclusion:
@@ -217,7 +217,7 @@ stages:
       size: 5699
     - path: src/public_goods_games
       hash: md5
-      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      md5: 1a3a0645011d23301077ef99d641a269.dir
       size: 21789
       nfiles: 4
   ceiling_large_n:
@@ -225,22 +225,136 @@ stages:
     deps:
     - path: analysis/ceiling_large_n/main.py
       hash: md5
-      md5: 6fbc6679165f379e38f3b9bd40d355c0
-      size: 7099
+      md5: 262ef0e567c022884b63d51460168957
+      size: 7200
     - path: data/large_n/exact.csv
       hash: md5
-      md5: 29e3e3b76bc4b0ed3ac837e1c70e69d8
-      size: 1310
+      md5: 20e972c30dc33c96344c29b549547106
+      size: 1317
     - path: data/large_n/simulations.csv
       hash: md5
-      md5: 365cfbbba943d7416ae400c186a56ae4
-      size: 178388
+      md5: 05894211d65341491d1fca4f01ff7172
+      size: 178236
     - path: data/large_n/threshold.csv
       hash: md5
-      md5: 9296a309f3ecc419ee2c7eb7100c3a43
+      md5: d8ca71809f28db91cea31a7a315f0435
       size: 9268
     - path: src/public_goods_games
       hash: md5
-      md5: ac2233394a9961901dcbf1ac5b49d9a3.dir
+      md5: 1a3a0645011d23301077ef99d641a269.dir
       size: 21789
       nfiles: 4
+  generate_data:
+    cmd: rm -f data/large_n/_stet_*.sqlite && parallel --bar --joblog 
+      data/jobs.log < data/jobs.txt
+    deps:
+    - path: data/jobs.txt
+      hash: md5
+      md5: d8110113b69f54e8d05ebec8c23928b6
+      size: 1039
+    - path: data/large_n/main.py
+      hash: md5
+      md5: 8a1d2a63b5f483d38ad17ce6d3329f8a
+      size: 9611
+    - path: data/sweep/main.py
+      hash: md5
+      md5: b3424eface735f848b0b54018f14c85a
+      size: 6969
+    - path: src/public_goods_games
+      hash: md5
+      md5: 1a3a0645011d23301077ef99d641a269.dir
+      size: 21789
+      nfiles: 4
+    outs:
+    - path: data/large_n/exact.csv
+      hash: md5
+      md5: 20e972c30dc33c96344c29b549547106
+      size: 1317
+    - path: data/large_n/simulations.csv
+      hash: md5
+      md5: 05894211d65341491d1fca4f01ff7172
+      size: 178236
+    - path: data/large_n/threshold.csv
+      hash: md5
+      md5: d8ca71809f28db91cea31a7a315f0435
+      size: 9268
+    - path: data/sweep/aspiration_mu_eq_0.001
+      hash: md5
+      md5: 363ff4040805c175eb870337bd782c10.dir
+      size: 11146645
+      nfiles: 1
+    - path: data/sweep/aspiration_mu_eq_0.005
+      hash: md5
+      md5: 4721b16fa395f20dce7d1aad918ffa77.dir
+      size: 11146632
+      nfiles: 1
+    - path: data/sweep/aspiration_mu_eq_0.05
+      hash: md5
+      md5: 71cc37980e2576d74c00d1adf5b8e3a1.dir
+      size: 11144865
+      nfiles: 1
+    - path: data/sweep/aspiration_mu_eq_0.1
+      hash: md5
+      md5: bde721d9e5efb9285bc2a6c9f4f2d16c.dir
+      size: 11142715
+      nfiles: 1
+    - path: data/sweep/fermi_mu_eq_0.001
+      hash: md5
+      md5: 3c7ffe6506c55fccfb34cad26740d454.dir
+      size: 1038441
+      nfiles: 1
+    - path: data/sweep/fermi_mu_eq_0.005
+      hash: md5
+      md5: 4e8e1528767d02207d5e27dc084fc4d0.dir
+      size: 1037168
+      nfiles: 1
+    - path: data/sweep/fermi_mu_eq_0.05
+      hash: md5
+      md5: 8d638d6e5f84a4fbfc8498c77ad76d2c.dir
+      size: 1028643
+      nfiles: 1
+    - path: data/sweep/fermi_mu_eq_0.1
+      hash: md5
+      md5: fcbe764e6f2be90e5b7a5b7eef1bc879.dir
+      size: 1022571
+      nfiles: 1
+    - path: data/sweep/introspection_mu_eq_0.001
+      hash: md5
+      md5: 3f2e94fe3ec162c60c845a5119148a62.dir
+      size: 1055848
+      nfiles: 1
+    - path: data/sweep/introspection_mu_eq_0.005
+      hash: md5
+      md5: a13f27cc009d159933de6e5beee49ea5.dir
+      size: 1055848
+      nfiles: 1
+    - path: data/sweep/introspection_mu_eq_0.05
+      hash: md5
+      md5: c5e393412308716e32cb9db7ec440d95.dir
+      size: 1055848
+      nfiles: 1
+    - path: data/sweep/introspection_mu_eq_0.1
+      hash: md5
+      md5: 50e056f84e38cf693858e98585b72981.dir
+      size: 1055848
+      nfiles: 1
+    - path: data/sweep/moran_mu_eq_0.001
+      hash: md5
+      md5: b2ff7f0c4fbff0865c59ccdef7f712e6.dir
+      size: 1030415
+      nfiles: 1
+    - path: data/sweep/moran_mu_eq_0.005
+      hash: md5
+      md5: 7afb8f3f0c7d8bc87f386ca3529dd6fe.dir
+      size: 1035977
+      nfiles: 1
+    - path: data/sweep/moran_mu_eq_0.05
+      hash: md5
+      md5: 0e9f89db278708f8526d53627fd787e3.dir
+      size: 1034698
+      nfiles: 1
+    - path: data/sweep/moran_mu_eq_0.1
+      hash: md5
+      md5: 6179bb39742dc92326bf2a765cd6d885.dir
+      size: 1032452
+      nfiles: 1

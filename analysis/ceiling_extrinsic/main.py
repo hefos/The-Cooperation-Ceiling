@@ -58,9 +58,7 @@ band_mutations = ["0.001", "0.005", "0.05", "0.1"]
 def sweep_curves_and_band(dynamic):
     """Return every distinct p_C-against-r curve and the min/max envelope over the
     whole N=8 sweep (every contribution, intensity, aspiration and mutation)."""
-    columns = pd.read_csv(
-        data_path / f"{dynamic}_mu_eq_0.05/main.csv", nrows=0
-    ).columns
+    columns = pd.read_csv(data_path / f"{dynamic}_mu_eq_0.05/main.csv", nrows=0).columns
     parameters = [c for c in ["M", "beta", "epsilon", "aspiration"] if c in columns]
     frames = []
     for index, mutation_value in enumerate(band_mutations):
@@ -74,9 +72,19 @@ def sweep_curves_and_band(dynamic):
     combined = pd.concat(frames, ignore_index=True)
     envelope = combined.groupby("r")["p_C"].agg(["min", "max"]).sort_index()
     median = combined.groupby("r")["p_C"].median().sort_index()
+    for intensity in ("epsilon", "beta"):
+        if intensity in combined.columns:
+            combined[f"__{intensity}_rank__"] = combined.groupby(
+                ["M", "r", "__mutation__"]
+            )[intensity].rank(method="dense")
+    group_columns = [
+        c
+        for c in ["M", "aspiration", "__epsilon_rank__", "__beta_rank__"]
+        if c in combined.columns
+    ] + ["__mutation__"]
     curves = []
     seen = set()
-    for _, group in combined.groupby(parameters + ["__mutation__"]):
+    for _, group in combined.groupby(group_columns):
         group = group.sort_values("r")
         if len(group) < 2:
             continue
@@ -99,10 +107,10 @@ def sweep_curves_and_band(dynamic):
 
 def load_full(dynamic, mutation_values=band_mutations):
     """Every N=8 parameter set across the listed mutation rates."""
-    columns = pd.read_csv(
-        data_path / f"{dynamic}_mu_eq_0.05/main.csv", nrows=0
-    ).columns
-    parameters = [c for c in ["M", "r", "beta", "epsilon", "aspiration"] if c in columns]
+    columns = pd.read_csv(data_path / f"{dynamic}_mu_eq_0.05/main.csv", nrows=0).columns
+    parameters = [
+        c for c in ["M", "r", "beta", "epsilon", "aspiration"] if c in columns
+    ]
     frames = []
     for index, mutation_value in enumerate(mutation_values):
         frame = pd.read_csv(
@@ -118,7 +126,8 @@ def load_full(dynamic, mutation_values=band_mutations):
 def sampled_curves(frame, x_column, normalise=False):
     """Every distinct p_C-against-x_column curve, one per setting of the rest."""
     group_columns = [
-        c for c in ["M", "r", "beta", "epsilon", "aspiration", "__mutation__"]
+        c
+        for c in ["M", "r", "beta", "epsilon", "aspiration", "__mutation__"]
         if c in frame.columns and c != x_column
     ]
     curves = []
@@ -156,7 +165,9 @@ def moran_against_contribution_curves(full_frame):
             points.append(
                 (
                     contribution,
-                    at_contribution[at_contribution["epsilon"] == strongest]["p_C"].iloc[0],
+                    at_contribution[at_contribution["epsilon"] == strongest][
+                        "p_C"
+                    ].iloc[0],
                 )
             )
         if len(points) < 2:
@@ -213,42 +224,68 @@ for dynamic, colour, marker, line_style, label in (
     curves, _, _, _, median_return, median_cooperation = sweep_curves_and_band(dynamic)
     for curve_return, curve_cooperation in curves:
         ax_ceiling.plot(
-            curve_return, curve_cooperation, line_style, color=colour,
-            alpha=0.12, linewidth=0.4, zorder=1,
+            curve_return,
+            curve_cooperation,
+            line_style,
+            color=colour,
+            alpha=0.12,
+            linewidth=0.4,
+            zorder=1,
         )
     ax_ceiling.plot(
-        median_return, median_cooperation, line_style, marker=marker,
-        color=colour, ms=4, label=label, zorder=3, path_effects=halo,
+        median_return,
+        median_cooperation,
+        line_style,
+        marker=marker,
+        color=colour,
+        ms=4,
+        label=label,
+        zorder=3,
+        path_effects=halo,
     )
 add_baseline(ax_ceiling)
 ax_ceiling.set_xlabel(r"return on investment $r$")
 ax_ceiling.set_ylabel(r"cooperation $p_C$")
 ax_ceiling.set_title(r"(a) the ceiling holds across the sweep")
-ax_ceiling.legend(
-    loc="upper left", title="bold: median over sweep", title_fontsize=8
-)
+ax_ceiling.legend(loc="upper left", title="bold: median over sweep", title_fontsize=8)
 
 for curve_x, curve_y in sampled_curves(
     moran_full[moran_full["r"] > number_of_players], "epsilon", normalise=True
 ):
-    ax_intensity.plot(curve_x, curve_y, "-", color=moran_colour, alpha=0.12, linewidth=0.5, zorder=1)
+    ax_intensity.plot(
+        curve_x, curve_y, "-", color=moran_colour, alpha=0.12, linewidth=0.5, zorder=1
+    )
 for curve_x, curve_y in sampled_curves(
     fermi_full[fermi_full["r"] > number_of_players], "beta", normalise=True
 ):
-    ax_intensity.plot(curve_x, curve_y, "--", color=fermi_colour, alpha=0.12, linewidth=0.5, zorder=1)
+    ax_intensity.plot(
+        curve_x, curve_y, "--", color=fermi_colour, alpha=0.12, linewidth=0.5, zorder=1
+    )
 moran_intensity_x, moran_intensity_y = rank_median(
     moran_full[moran_full["r"] > number_of_players], "epsilon"
 )
 ax_intensity.plot(
-    moran_intensity_x, moran_intensity_y, "-o", color=moran_colour,
-    label=r"Moran (selection $\varepsilon$)", ms=4, zorder=3, path_effects=halo,
+    moran_intensity_x,
+    moran_intensity_y,
+    "-o",
+    color=moran_colour,
+    label=r"Moran (selection $\varepsilon$)",
+    ms=4,
+    zorder=3,
+    path_effects=halo,
 )
 fermi_intensity_x, fermi_intensity_y = rank_median(
     fermi_full[fermi_full["r"] > number_of_players], "beta"
 )
 ax_intensity.plot(
-    fermi_intensity_x, fermi_intensity_y, "--s", color=fermi_colour,
-    label=r"Fermi (choice $\beta$)", ms=4, zorder=3, path_effects=halo,
+    fermi_intensity_x,
+    fermi_intensity_y,
+    "--s",
+    color=fermi_colour,
+    label=r"Fermi (choice $\beta$)",
+    ms=4,
+    zorder=3,
+    path_effects=halo,
 )
 add_baseline(ax_intensity, with_threshold=False)
 ax_intensity.set_xlabel("intensity (normalised)")
@@ -266,7 +303,13 @@ for curve_x, curve_y in moran_against_contribution_curves(
     moran_full[moran_full["r"] > number_of_players]
 ):
     ax_moran_invariance.plot(
-        curve_x, curve_y, "--", color=r_above_colour, alpha=0.12, linewidth=0.5, zorder=1
+        curve_x,
+        curve_y,
+        "--",
+        color=r_above_colour,
+        alpha=0.12,
+        linewidth=0.5,
+        zorder=1,
     )
 moran_strongest = moran_full.loc[
     moran_full.groupby(["M", "r", "__mutation__"])["epsilon"].idxmax()
@@ -277,8 +320,15 @@ for mask, line_style, marker, colour, label in (
 ):
     contribution_grid, cooperation = median_curve(moran_strongest[mask], "M")
     ax_moran_invariance.plot(
-        contribution_grid, cooperation, line_style, marker=marker,
-        color=colour, ms=4, label=label, zorder=3, path_effects=halo,
+        contribution_grid,
+        cooperation,
+        line_style,
+        marker=marker,
+        color=colour,
+        ms=4,
+        label=label,
+        zorder=3,
+        path_effects=halo,
     )
 add_baseline(ax_moran_invariance, with_threshold=False)
 ax_moran_invariance.set_xlabel(r"contribution scale $M$")
@@ -296,12 +346,25 @@ for intensity, colour, marker, line_style in (
     beta_subset = fermi_full[np.isclose(fermi_full["beta"], intensity)]
     for curve_x, curve_y in sampled_curves(beta_subset, "r"):
         ax_fermi_invariance.plot(
-            curve_x, curve_y, line_style, color=colour, alpha=0.1, linewidth=0.5, zorder=1
+            curve_x,
+            curve_y,
+            line_style,
+            color=colour,
+            alpha=0.1,
+            linewidth=0.5,
+            zorder=1,
         )
     fermi_return, fermi_cooperation = median_curve(beta_subset, "r")
     ax_fermi_invariance.plot(
-        fermi_return, fermi_cooperation, line_style, marker=marker, color=colour, ms=4,
-        label=rf"$\beta = {intensity:.2f}$", zorder=3, path_effects=halo,
+        fermi_return,
+        fermi_cooperation,
+        line_style,
+        marker=marker,
+        color=colour,
+        ms=4,
+        label=rf"$\beta = {intensity:.2f}$",
+        zorder=3,
+        path_effects=halo,
     )
 add_baseline(ax_fermi_invariance, with_threshold=False)
 ax_fermi_invariance.set_xlabel(r"return on investment $r$")

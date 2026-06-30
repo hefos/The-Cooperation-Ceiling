@@ -122,9 +122,11 @@ for dynamic in extrinsic + intrinsic:
     if rows.empty:
         continue
     line_style, marker = styles[dynamic]
-    ax_scaling.plot(
-        rows["N"], rows["mean"], line_style, marker=marker, ms=4,
-        color=colours[dynamic], label=labels[dynamic], zorder=3, path_effects=halo,
+    ax_scaling.errorbar(
+        rows["N"], rows["mean"], yerr=1.96 * rows["sem"],
+        fmt=line_style, marker=marker, ms=4, color=colours[dynamic],
+        ecolor=colours[dynamic], elinewidth=0.9, capsize=2,
+        label=labels[dynamic], zorder=3, path_effects=halo,
     )
 ax_scaling.axhline(0.5, color=baseline_colour, linestyle="--", linewidth=0.9, zorder=0)
 ax_scaling.set_ylim(0.0, 1.0)

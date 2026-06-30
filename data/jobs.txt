@@ -1,0 +1,21 @@
+uv run python data/large_n/main.py
+
+uv run python data/sweep/main.py --mu=0.001 --dynamic=moran
+uv run python data/sweep/main.py --mu=0.005 --dynamic=moran
+uv run python data/sweep/main.py --mu=0.05 --dynamic=moran
+uv run python data/sweep/main.py --mu=0.1 --dynamic=moran
+
+uv run python data/sweep/main.py --mu=0.001 --dynamic=aspiration
+uv run python data/sweep/main.py --mu=0.005 --dynamic=aspiration
+uv run python data/sweep/main.py --mu=0.05 --dynamic=aspiration
+uv run python data/sweep/main.py --mu=0.1 --dynamic=aspiration
+
+uv run python data/sweep/main.py --mu=0.001 --dynamic=fermi
+uv run python data/sweep/main.py --mu=0.005 --dynamic=fermi
+uv run python data/sweep/main.py --mu=0.05 --dynamic=fermi
+uv run python data/sweep/main.py --mu=0.1 --dynamic=fermi
+
+uv run python data/sweep/main.py --mu=0.001 --dynamic=introspection
+uv run python data/sweep/main.py --mu=0.005 --dynamic=introspection
+uv run python data/sweep/main.py --mu=0.05 --dynamic=introspection
+uv run python data/sweep/main.py --mu=0.1 --dynamic=introspection
