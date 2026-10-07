@@ -265,7 +265,7 @@ for dynamic, colour, marker, line_style, label in (
 add_baseline(ax_ceiling)
 ax_ceiling.set_xlabel(r"return on investment $r$")
 ax_ceiling.set_ylabel(r"cooperation $p_C$")
-ax_ceiling.set_title(r"(a) the ceiling holds across the sweep")
+ax_ceiling.set_title(r"(a) the ceiling holds across the sweep, $N=8$")
 ax_ceiling.legend(loc="upper left", title="bold: median over sweep", title_fontsize=8)
 
 for curve_x, curve_y in sampled_curves(
@@ -309,7 +309,7 @@ ax_intensity.plot(
 add_baseline(ax_intensity, with_threshold=False)
 ax_intensity.set_xlabel("intensity (normalised)")
 ax_intensity.set_ylabel(r"cooperation $p_C$")
-ax_intensity.set_title(r"(b) the ceiling is hard, $r > N$")
+ax_intensity.set_title(r"(b) the ceiling is hard, $r > N$, $N=8$")
 ax_intensity.legend(loc="upper right", title=r"median, $r>N$", title_fontsize=8)
 
 add_baseline(ax_N_resist, with_threshold=False)
@@ -376,7 +376,7 @@ for intensity, colour, marker, line_style in (
 add_baseline(ax_fermi_invariance, with_threshold=False)
 ax_fermi_invariance.set_xlabel(r"return on investment $r$")
 ax_fermi_invariance.set_ylabel(r"cooperation $p_C$")
-ax_fermi_invariance.set_title(r"(c) Fermi is invariant to $r$")
+ax_fermi_invariance.set_title(r"(c) Fermi is invariant to $r$, $N=8$")
 ax_fermi_invariance.legend(
     loc="upper right", title=r"median over $M$, $\mu$", title_fontsize=8
 )
