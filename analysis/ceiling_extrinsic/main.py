@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects
+import seaborn as sns
 
 here = Path(__file__).resolve()
 data_path = here.parents[2] / "data" / "sweep"
@@ -122,6 +123,24 @@ def load_full(dynamic, mutation_values=band_mutations):
         frames.append(frame)
     return pd.concat(frames, ignore_index=True)
 
+def load_all_N(dynamic, mutation_values=band_mutations):
+    columns = pd.read_csv(data_path / f"{dynamic}_mu_eq_0.05/main.csv", nrows=0).columns
+    parameters = [
+        c for c in ["M", "r", "beta", "epsilon", "aspiration", "process"] if c in columns
+    ]
+    frames = []
+    for index, mutation_value in enumerate(mutation_values):
+        frame = pd.read_csv(
+            data_path / f"{dynamic}_mu_eq_{mutation_value}/main.csv",
+            usecols=["UID", "N", "p_C"] + parameters,
+        )
+        if dynamic == "fermi":
+            frame = frame[frame["beta"] != 0].drop_duplicates("UID").copy()
+        else:
+            frame = frame[frame["epsilon"] != 0].drop_duplicates("UID").copy()
+        frame["__mutation__"] = index
+        frames.append(frame)
+    return pd.concat(frames, ignore_index=True)
 
 def sampled_curves(frame, x_column, normalise=False):
     """Every distinct p_C-against-x_column curve, one per setting of the rest."""
@@ -205,7 +224,7 @@ fermi_full = load_full("fermi")
 
 
 fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.4))
-(ax_ceiling, ax_intensity), (ax_moran_invariance, ax_fermi_invariance) = axes
+(ax_ceiling, ax_intensity), (ax_fermi_invariance, ax_N_resist) = axes
 
 
 def add_baseline(ax, with_threshold=True):
@@ -293,49 +312,37 @@ ax_intensity.set_ylabel(r"cooperation $p_C$")
 ax_intensity.set_title(r"(b) the ceiling is hard, $r > N$")
 ax_intensity.legend(loc="upper right", title=r"median, $r>N$", title_fontsize=8)
 
-for curve_x, curve_y in moran_against_contribution_curves(
-    moran_full[moran_full["r"] < number_of_players]
-):
-    ax_moran_invariance.plot(
-        curve_x, curve_y, "-", color=r_below_colour, alpha=0.12, linewidth=0.5, zorder=1
-    )
-for curve_x, curve_y in moran_against_contribution_curves(
-    moran_full[moran_full["r"] > number_of_players]
-):
-    ax_moran_invariance.plot(
-        curve_x,
-        curve_y,
-        "--",
-        color=r_above_colour,
-        alpha=0.12,
-        linewidth=0.5,
-        zorder=1,
-    )
-moran_strongest = moran_full.loc[
-    moran_full.groupby(["M", "r", "__mutation__"])["epsilon"].idxmax()
-]
-for mask, line_style, marker, colour, label in (
-    (moran_strongest["r"] < number_of_players, "-", "o", r_below_colour, r"$r < N$"),
-    (moran_strongest["r"] > number_of_players, "--", "s", r_above_colour, r"$r > N$"),
-):
-    contribution_grid, cooperation = median_curve(moran_strongest[mask], "M")
-    ax_moran_invariance.plot(
-        contribution_grid,
-        cooperation,
-        line_style,
-        marker=marker,
-        color=colour,
-        ms=4,
-        label=label,
-        zorder=3,
-        path_effects=halo,
-    )
-add_baseline(ax_moran_invariance, with_threshold=False)
-ax_moran_invariance.set_xlabel(r"contribution scale $M$")
-ax_moran_invariance.set_ylabel(r"cooperation $p_C$")
-ax_moran_invariance.set_title(r"(c) Moran is invariant to $\alpha_i$")
-ax_moran_invariance.legend(
-    loc="upper right", title=r"median, strong $\varepsilon$", title_fontsize=8
+add_baseline(ax_N_resist, with_threshold=False)
+ax_N_resist.set_xlabel(r"$p_C$")
+ax_N_resist.set_ylabel(r"$N$")
+ax_N_resist.set_title(r"(d) The Ceiling Remains Across N")
+
+sns.barplot(
+    data=pd.concat([load_all_N("fermi"), load_all_N("moran")]),
+    x="N",
+    y="p_C",
+    hue="process",
+    ax=ax_N_resist,
+    estimator="max",
+    palette={
+        "fermi":"#0072B2",
+        "moran":"#D55E00"
+    }
+)
+ax_N_resist.legend(
+    loc="upper right",
+    title=r"max $p_C$ in sweep, $\epsilon, \beta > 0$",
+    title_fontsize=8
+)
+
+# Capitalise legend labels
+handles, labels = ax_N_resist.get_legend_handles_labels()
+ax_N_resist.legend(
+    handles,
+    [label.capitalize() for label in labels],
+    loc="upper right",
+    title=r"max $p_C$ in sweep, $\epsilon, \beta > 0$",
+    title_fontsize=8
 )
 
 for intensity, colour, marker, line_style in (
@@ -369,7 +376,7 @@ for intensity, colour, marker, line_style in (
 add_baseline(ax_fermi_invariance, with_threshold=False)
 ax_fermi_invariance.set_xlabel(r"return on investment $r$")
 ax_fermi_invariance.set_ylabel(r"cooperation $p_C$")
-ax_fermi_invariance.set_title(r"(d) Fermi is invariant to $r$")
+ax_fermi_invariance.set_title(r"(c) Fermi is invariant to $r$")
 ax_fermi_invariance.legend(
     loc="upper right", title=r"median over $M$, $\mu$", title_fontsize=8
 )

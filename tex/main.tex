@@ -937,15 +937,16 @@ in this interval.
 Our results for the purely extrinsic dynamics are shown in
 Figure~\ref{fig:ceiling_extrinsic}, and we explore Theorem~\ref{prop:ceiling}
 numerically in the context of the 8-player public goods game; the other values
-of \(N\) in our sweep are qualitatively identical. Panels (a) and (b) show this
-limit as a hard ceiling on \(p_C\) which no parameter set in our data is able to
+of \(N\) in our sweep are qualitatively identical, and the ceiling remains for
+all values of \(N\), as shown in panel (d). Panels (a) and (b) show this limit
+as a hard ceiling on \(p_C\) which no parameter set in our data is able to
 exceed. This includes parameter combinations which have high values of \(r >
 N\), and so we see that despite full cooperation being the Nash equilibrium of
 the one shot game, and increasing the payoff of players in the one-step
 distribution, the pointwise dominance of defection over cooperation leads to
-defection becoming the dominant strategy in a repeated game. This not only
-leads to a worse average payoff for all players in the population in the steady
-state, but also means that when \(r > N\), worsening moves occur with a higher
+defection becoming the dominant strategy in a repeated game. This not only leads
+to a worse average payoff for all players in the population in the steady state,
+but also means that when \(r > N\), worsening moves occur with a higher
 probability than changes of action types which improve a player's payoff. In
 other words, even when a switch \(D \to C\) would always improve a player's
 payoff, the player will still prefer to remain a defector under a purely
@@ -978,21 +979,6 @@ again we see that it has a hard limit at \(p_C = \frac{1}{2}\), as a given
 defector is always more likely to be chosen for reproduction than a given
 cooperator.
 
-One interesting point is the invariance of the Moran process under the size of
-each player's contribution. The proportion of the state's total fitness given by
-that of defectors is:
-\begin{equation}
-    \frac{qr\sum_{j=1}^N \alpha_j}{Nr\sum_{j=1}^N \alpha_j - \sum_{\mathbf{a}_l = C}\alpha_l} =
-    \frac{qr\sum_{j=1}^N \alpha_j}{(Nr)\sum_{j=1}^N \alpha_j - \sum_{j=1}^N \alpha_j}=
-    \frac{qr\sum_{j=1}^N \alpha_j}{(Nr-1)\sum_{j=1}^N \alpha_j} = \frac{qr}{Nr-1}
-    \label{eq:Moran_invariant}
-\end{equation}
-The analogous result for choosing a defector is given by \(1 -
-\frac{qr}{Nr-1}\), which is once again invariant under \(\alpha_i\). Therefore,
-as Fermi imitation dynamics is invariant under the return parameter \(r\), the
-Moran process is invariant under the contribution parameter \(\alpha_i\). We can
-observe this effect in Figure~\ref{fig:ceiling_extrinsic}(c).
-
 \begin{figure}[!htbp]
     \centering
     \begin{mdframed}
@@ -1002,25 +988,23 @@ observe this effect in Figure~\ref{fig:ceiling_extrinsic}(c).
     \end{mdframed}
 
     \caption{\textbf{The cooperation ceiling under purely extrinsic dynamics.}
-    Throughout, \(N = 8\), a linear contribution profile, and mutation
-    \(\mu = 0.05\); the dashed line marks the neutral-drift baseline
-    \(p_C = \frac{1}{2}\) and, in (a), the dotted line marks \(r = N\). Faint
-    curves show \(p_C\) trajectories across the sweep, coincident trajectories
-    drawn once; in (a) they join parameter sets at equal selection- or
+    Throughout, \(N = 8\), a linear contribution profile, and mutation \(\mu =
+    0.05\); the dashed line marks the neutral-drift baseline \(p_C =
+    \frac{1}{2}\) and, in (a), the dotted line marks \(r = N\). Faint curves
+    show \(p_C\) trajectories across the sweep, coincident trajectories drawn
+    once; in (a) they join parameter sets at equal selection- or
     choice-intensity rank across \(r\), since the selection-intensity grid is
     rescaled with \(r\) (Equation~\eqref{eq:epsilon_bound}). Bold curves are the
     median over all parameter sets. \textbf{(a)} Cooperation \(p_C\) against the
-    return \(r\): the Moran process rises with \(r\), with a dip just below
-    \(r = N\) where the selection-intensity bound is widest, but never exceeds
+    return \(r\): the Moran process rises with \(r\), with a dip just below \(r
+    = N\) where the selection-intensity bound is widest, but never exceeds
     \(\frac{1}{2}\); Fermi imitation dynamics stays well below it. \textbf{(b)}
-    With \(r > N\), \(p_C\)
-    against the normalised (dividing by the maximum value) selection intensity 
-    \(\varepsilon\) (Moran) and choice
-    intensity \(\beta\) (Fermi); neither exceeds \(\frac{1}{2}\), reaching it only
-    as the intensity vanishes. \textbf{(c)} The Moran process is invariant to the
-    contribution scale \(M\), as derived in Equation~\eqref{eq:Moran_invariant}.
-    \textbf{(d)} Fermi imitation dynamics is invariant to the return \(r\), as
-    derived in Equation~\eqref{eq:fermi_invariant}.}
+    With \(r > N\), \(p_C\) against the normalised (dividing by the maximum
+    value) selection intensity \(\varepsilon\) (Moran) and choice intensity
+    \(\beta\) (Fermi); neither exceeds \(\frac{1}{2}\), reaching it only as the
+    intensity vanishes. \textbf{(c)} Fermi imitation dynamics is invariant to
+    the return \(r\), as derived in Equation~\eqref{eq:fermi_invariant}.
+    \textbf{(d)} The ceiling remains for all values of \(N\) in the sweep.}
     \label{fig:ceiling_extrinsic}
 \end{figure}
 
