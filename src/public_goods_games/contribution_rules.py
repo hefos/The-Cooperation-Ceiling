@@ -2,6 +2,7 @@ import scipy
 import sympy as sym
 import numpy as np
 import scipy.special
+import itertools
 
 
 def dirichlet_linear_alpha_rule(N):
@@ -288,3 +289,39 @@ def get_dirichlet_contribution_vector(N, alpha_rule, M, scale, **kwargs):
         realisation = np.random.dirichlet(alpha=alphas, size=100).mean(axis=0)
 
     return realisation * M
+
+def subgroup_pgg_fitness_function(state, r, contribution_vector, d):
+    """
+    Given a group of players, returns the average payoff of players when d<N
+    players are chosen to play a small public goods game.
+     
+    Parameters
+    -----------
+    state: numpy.array, the action type of each player. 1 for cooperation, 0 for
+    defection
+    
+    r: float, the parameter r
+    
+    contribution_vector: numpy.array, the value alpha_i for each player
+    
+    d: int, the number of players in each game. Must be less than N
+    
+    returns
+    -------
+    numpy.array: the payoff of each player"""
+    N = len(state)
+    fitnesses = np.zeros(N)
+    for index, action in enumerate(state):
+        total_payoffs = 0
+        states_visited = 0
+        indexes = np.delete(np.arange(N), index)
+
+        for coplayers in itertools.combinations(indexes, d):
+            group = np.array(coplayers + (index,))                 
+            total_payoffs += (r / N) * np.sum(state[group] * contribution_vector[group])
+            total_payoffs -= action * contribution_vector[index]
+            states_visited += 1
+
+        mean_payoff = total_payoffs / states_visited
+        fitnesses[index] = mean_payoff
+    return fitnesses
