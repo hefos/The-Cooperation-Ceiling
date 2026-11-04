@@ -290,7 +290,7 @@ def get_dirichlet_contribution_vector(N, alpha_rule, M, scale, **kwargs):
 
     return realisation * M
 
-def subgroup_pgg_fitness_function(state, r, contribution_vector, d):
+def subgroup_pgg_fitness_function(state, r, contribution_vector, d, **kwargs):
     """
     Given a group of players, returns the average payoff of players when d<N
     players are chosen to play a small public goods game.
@@ -316,9 +316,9 @@ def subgroup_pgg_fitness_function(state, r, contribution_vector, d):
         states_visited = 0
         indexes = np.delete(np.arange(N), index)
 
-        for coplayers in itertools.combinations(indexes, d):
+        for coplayers in itertools.combinations(indexes, d-1):
             group = np.array(coplayers + (index,))                 
-            total_payoffs += (r / N) * np.sum(state[group] * contribution_vector[group])
+            total_payoffs += (r / d) * np.sum(state[group] * contribution_vector[group])
             total_payoffs -= action * contribution_vector[index]
             states_visited += 1
 
