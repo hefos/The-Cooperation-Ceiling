@@ -22,10 +22,10 @@ args = parser.parse_args()
 mu = 0.05
 dynamic = args.dynamic
 
-folder = pathlib.Path(file_path.parent / f"{dynamic}_mu_eq_{mu}")
+folder = pathlib.Path(file_path.parent / f"{dynamic}")
 folder.mkdir(exist_ok=True)
 
-csv_path = pathlib.Path(file_path.parent / f"{dynamic}_mu_eq_{mu}/main.csv")
+csv_path = pathlib.Path(file_path.parent / f"{dynamic}/main.csv")
 if csv_path.exists():
     pass
 else:
@@ -34,6 +34,7 @@ else:
             "UID",
             "process",
             "N",
+            "d",
             "M",
             "r",
             "alpha_i",
@@ -50,7 +51,7 @@ else:
 
 
 @stet.once(
-    store=file_path.parent / f"{dynamic}_mu_eq_{mu}/_stet_store.sqlite",
+    store=file_path.parent / f"{dynamic}/_stet_store.sqlite",
     key=[
         "N",
         "M",
@@ -109,6 +110,7 @@ def run_experiment(
                     id,
                     dynamic,
                     N,
+                    d,
                     M,
                     r,
                     alpha_i,
@@ -126,6 +128,7 @@ def run_experiment(
                     "UID",
                     "process",
                     "N",
+                    "d",
                     "M",
                     "r",
                     "alpha_i",
