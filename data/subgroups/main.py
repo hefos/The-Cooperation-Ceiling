@@ -151,23 +151,23 @@ def run_experiment(
 N = 8
 mu = 0.05
 for d in (2, 3, 4, 5, 6, 7):
-    M_range = np.linspace(N, 4 * N, 5)
-    r_range = np.linspace(0.5, 1.5 * d, 5)
+    M_range = np.linspace(N, 4 * N, 8)
+    r_range = np.linspace(0.5, 1.5 * d, 8)
     for M, r in itertools.product(M_range, r_range):
         alphas = public_goods_games.contribution_rules.get_deterministic_contribution_vector(
             N=N,
             contribution_rule=public_goods_games.contribution_rules.linear_contribution_rule,
             M=M,
         )
-        aspiration_range = np.linspace(1, M, 5)
+        aspiration_range = np.linspace(1, M, 8)
         if r < d:
             selection_intensity_range = np.linspace(
-                0, 0.99 / (1 - alphas[-1] * ((r / d) - 1)), 5
+                0, 0.99 / (1 - alphas[-1] * ((r / d) - 1)), 8
             )
         else:
-            selection_intensity_range = np.linspace(0, (alphas[-1] * ((r / d) - 1) + 1) / (alphas[-1] * ((r / d) - 1) + 2), 10)
+            selection_intensity_range = np.linspace(0, (alphas[-1] * ((r / d) - 1) + 1) / (alphas[-1] * ((r / d) - 1) + 2), 8)
             
-        choice_intensity_range = np.linspace(0, 2, 5)
+        choice_intensity_range = np.linspace(0, 2, 8)
         null_array = np.array([0])
         dynamic_to_iteration = {
             "aspiration": itertools.product(
