@@ -500,3 +500,18 @@ def test_get_dirichlet_contribution_vector_raises_type_error_for_many_alphas():
         contribution_rules.get_dirichlet_contribution_vector(
             N=N, alpha_rule=small_alpha_rule, scale=scale, M=15
         )
+
+def test_subgroup_pgg_fitness_function():
+    """
+    Tests that the subgroup_pgg_fitness_function returns the expected value"""
+
+    state = np.array([1,0,0,1])
+    r=2
+    contribution_vector = np.array([2,4,6,8])
+    d=3
+
+    actual_fitnesses = contribution_rules.subgroup_pgg_fitness_function(state=state, r=r, contribution_vector=contribution_vector, d=d)
+
+    expected_fitnesses = np.array([2.888888889, 4.44444444, 4.44444444, -1.77777778])
+
+    np.testing.assert_array_almost_equal(actual_fitnesses, expected_fitnesses)

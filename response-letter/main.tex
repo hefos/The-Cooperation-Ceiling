@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{plain}
+
+\newenvironment{reviewerquote}
+  {\begin{quote}\itshape}
+  {\end{quote}}
+
+\title{Response to reviewers\\
+  \large The Cooperation Ceiling: Extrinsic Population Dynamics and the Intrinsic Escape}
+\author{Harry Foster, Vince Knight, Sebastian Krapohl}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+Dear Dr Sasaki,
+
+We would like to thank both reviewers for their constructive comments on our
+manuscript, all of which we have addressed. Below, we have responded to each
+comment, with the reviewer's comment in italics and our response following in
+upright type.
+
+\section*{Reviewer 1}
+
+\begin{reviewerquote}
+  The connection between the general theorem in the first part of the manuscript
+  and the public-goods analysis in the second part could be made more explicit.
+  Let N denote the population size and n the number of participants in a game.
+  The theorem in the first part appears sufficiently general to apply not only
+  when N = n but also when N > n. By contrast, the public-goods analysis in the
+  second part is restricted to the case N = n, in which the population size and
+  the number of game participants coincide. This restriction should be stated
+  explicitly before the manuscript moves from the general theory to the specific
+  example. 
+\end{reviewerquote}
+
+We have added a new section (section 6) which discusses the impact of
+formulation of the public goods game with either \(N=n\) or \(N>n\). This
+section gives a similar parameter sweep to those in sections 3.3.1 and 4.3,
+applied to a public goods game where \(N>n\). We clarify in section 3.3.1 that
+the initial analysis is restricted to \(N=n\), and then give results in section
+6 where \(N>n\)
+
+\begin{reviewerquote}
+The manuscript is organised throughout around the contrast between extrinsic and
+intrinsic dynamics, but I do not think that this single axis is sufficient. The
+finding that the cooperation level does not exceed 1/2 even when r > N is
+influenced not only by the use of extrinsic dynamics but also by the assumption
+N = n in the public-goods game. By contrast, when small groups are repeatedly
+formed from a sufficiently large population, so that N > n, the analysis is
+based on expected payoffs, and cooperation can evolve when r > n. I therefore
+suggest organising the discussion along two axes:
+\begin{enumerate}
+\item whether N = n or N > n
+\item whether the update compares the payoffs of individuals who are currently present in the same state or
+\end{enumerate}
+compares the focal individual's current payoff with the payoff it would obtain
+after changing strategy. Using these two axes would make both the position of
+the manuscript and the meaning of its results clearer. 
+
+\end{reviewerquote}
+
+The new section 6 discusses the game along the first recommended axis, and
+focuses on the impact of game formulation on the ceiling theorem. We show how
+formulating a game with \(N > n\) does not yield pointwise dominance for
+defectors due to the formulation of the game, and thus the ceiling can be
+breached. We discuss the conditions under which cooperators are favoured, and
+give an interpretation of this result as whether players consider the expected
+success of their strategy across all possible scenarios, or whether they
+consider the success of strategies in a realisation of the game.
+
+\section*{Reviewer 2}
+
+\begin{reviewerquote}
+    Theorem 4 assumes that in every population state, every defector's payoff
+    strictly exceeds every cooperator's payoff ("pointwise dominance of
+    defection"). This is a strong condition for public goods games. Indeed, this
+    condition may not be satisfied in some situations. The authors should
+    clarify how this pointwise dominance condition actually holds in
+    heterogeneous contribution public goods games.
+\end{reviewerquote}
+
+%TODO: address
+
+\begin{reviewerquote}
+    Prior works on aspiration/introspection dynamics (e.g., Ref. [8]) have
+    already observed that intrinsic update rules can outperform imitation rules
+    for promoting cooperation. I think that the authors can explicitly highlight
+    the novelty of their work and the differences between their paper and these
+    prior works. They may stress the general classification plus the rigorous
+    upper bound theorem for extrinsic dynamics, not merely restating that
+    intrinsic dynamics perform better.
+\end{reviewerquote}
+
+%TODO: address
+
+\begin{reviewerquote}
+    There are some pervious works on intrinsic dynamics, e.g., Chaos, Solitons
+    and Fractals 208 (2026) 118289, IEEE Transactions on Neural Networks and
+    Learning Systems 36 (2025) 8387-8400, which are closely related with this
+    study, I think. These paper have demonstrated that the cooperation ceiling
+    can be broken. The authors may mention these works and further compare their
+    work with these papers.
+\end{reviewerquote}
+%TODO: address
+
+
+\section*{Additional Edits}
+
+In addition to the comments of the reviewers, we have made the following
+revisions:
+\end{document}

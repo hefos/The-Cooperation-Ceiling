@@ -1,0 +1,4 @@
+uv run main.py --dynamic="introspection"
+uv run main.py --dynamic="moran"
+uv run main.py --dynamic="fermi"
+uv run main.py --dynamic="aspiration"
