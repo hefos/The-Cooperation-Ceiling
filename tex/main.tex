@@ -47,12 +47,13 @@
     conditions, and many common choices of update rule are not well suited for a
     heterogeneous population. In this paper, we categorise and compare four
     different population dynamics in such a population as ``extrinsic'', where
-    players learn by looking outward at the payoffs of other
-    players, and ``intrinsic'', where players look inwardly at their own
-    attributes or potential payoffs. We show that extrinsic population dynamics
-    admit a ceiling on the rate of cooperation which can be exceeded by
-    intrinsic population dynamics, and demonstrate this using the public goods
-    game with heterogeneous contributions.
+    players learn by looking outward at the payoffs of other players, and
+    ``intrinsic'', where players look inwardly at their own attributes or
+    potential payoffs. We show that extrinsic population dynamics admit a
+    ceiling on the rate of cooperation, even if cooperation is mutually
+    beneficial. We show that this ceiling can be exceeded by intrinsic
+    population dynamics, and demonstrate this using the public goods game with
+    heterogeneous contributions.
 \end{abstract}
 
 \section{Introduction}
@@ -837,24 +838,23 @@ cooperation in a heterogeneous population.
     \]
 \end{proof}
 
-Crucially, Theorem~\ref{prop:ceiling} shows that even if a player may increase
-their payoff by a switch \(D \to C\) in any given state, pointwise dominance of
-\(D\) will still cause the process to favour \(D\). This shows that a player's
-chosen strategy does not necessarily favour the action type which maximises
-their payoff in \emph{either} the one-step or the long-run strategy
-distribution, instead favouring the strategy which is pointwise dominant over
-its peers. Even if there is no temptation to free-ride, players will still
-choose to defect based on the pointwise dominance of defectors in the state.
+Crucially, Theorem~\ref{prop:ceiling} shows that even if cooperation is mutually
+beneficial (that is, a player may increase their payoff by a switch \(D \to C\)
+in any given state) the pointwise dominance of \(D\) will still cause the
+process to favour \(D\). This shows that a player's chosen strategy does not
+necessarily favour the action type which maximises their payoff in \emph{either}
+the one-step or the long-run strategy distribution, instead favouring the
+strategy which is pointwise dominant over its peers. Even if there is no
+temptation to free-ride, players will still choose to defect based on the
+pointwise dominance of defectors in the state.
 
 An example of this is the public goods game with \(r > N\). This satisfies both
 pointwise dominance and a fitness increase for any player under the \(D \to C\)
-swap. In such a game, there is no temptation to free ride; players will obtain a
-greater payoff by cooperating regardless of the population structure. Threshold
-values of \(r\) in a homogeneous public goods game are considered
-in~\cite{g10010001}, where a subset of the population play a game at each time
-step and players opt out of the game with a certain probability. The following
-section considers the heterogeneous public goods game, providing an example of
-Theorem~\ref{prop:ceiling}.
+swap. In such a game, there is no temptation to free ride; cooperation is
+mutually beneficial rather than purely altruistic. Threshold values of \(r\) in
+a homogeneous public goods game are considered in~\cite{g10010001}. The
+following section considers the heterogeneous public goods game, providing an
+example of Theorem~\ref{prop:ceiling}.
 
 
 
@@ -940,17 +940,15 @@ numerically in the context of the 8-player public goods game; the other values
 of \(N\) in our sweep are qualitatively identical. Panels (a) and (b) show this
 limit as a hard ceiling on \(p_C\) which no parameter set in our data is able to
 exceed. This includes parameter combinations which have high values of \(r >
-N\), and so we see that despite full cooperation being the Nash equilibrium of
-the one shot game, and increasing the payoff of players in the one-step
-distribution, the pointwise dominance of defection over cooperation leads to
-defection becoming the dominant strategy in a repeated game. This not only
-leads to a worse average payoff for all players in the population in the steady
-state, but also means that when \(r > N\), worsening moves occur with a higher
-probability than changes of action types which improve a player's payoff. In
-other words, even when a switch \(D \to C\) would always improve a player's
-payoff, the player will still prefer to remain a defector under a purely
-extrinsic population dynamic, due to the greater fitness of a defector in a
-given state.
+N\), and so we see that despite full cooperation being mutually beneficial, the
+pointwise dominance of defection over cooperation leads to defection becoming
+the dominant strategy in a repeated game. This not only leads to a worse average
+payoff for all players in the population in the steady state, but also means
+that when \(r > N\), worsening moves occur with a higher probability than
+changes of action types which improve a player's payoff. In other words, even
+when a switch \(D \to C\) would always improve a player's payoff, the player
+will still prefer to remain a defector under a purely extrinsic population
+dynamic, due to the greater fitness of a defector in a given state.
 
 In Fermi imitation dynamics, the invariance under \(r\) can be shown directly.
 In the public goods game the multiplied contribution
@@ -1354,15 +1352,15 @@ Figure~\ref{fig:diagrams_of_dynamics}. We have defined the categorisation of a
 two widely used examples: the Moran process and Fermi imitation dynamics. We
 have shown that dynamics under this classification have a hard ceiling on the
 probability of cooperation \(p_C\) in social dilemmas where a defector
-\emph{always} outperforms a cooperator in a given state. In such a game, purely
-extrinsic population dynamics are unable to exceed the neutral-drift baseline.
-We then give formulations of two purely intrinsic population dynamics:
-aspiration dynamics in which players change strategy based on their performance
-in relation to a target payoff, and introspection dynamics in which players
-compare their current payoff with their counterfactual payoff. We have also
-shown empirical results for the public goods game with heterogeneous
-contributions which confirm the extrinsic ceiling, as well as the ability for
-purely intrinsic population dynamics to exceed it.
+\emph{always} outperforms a cooperator in a given state, even when cooperation
+is mutually beneficial. In such a game, purely extrinsic population dynamics are
+unable to exceed the neutral-drift baseline. We then give formulations of two
+purely intrinsic population dynamics: aspiration dynamics in which players
+change strategy based on their performance in relation to a target payoff, and
+introspection dynamics in which players compare their current payoff with their
+counterfactual payoff. We have also shown empirical results for the public goods
+game with heterogeneous contributions which confirm the extrinsic ceiling, as
+well as the ability for purely intrinsic population dynamics to exceed it.
 
 Further work may consider populations in which the choice between intrinsic and
 extrinsic update rules is itself a heterogeneous attribute of the players, in
