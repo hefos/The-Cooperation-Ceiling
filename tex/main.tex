@@ -180,7 +180,8 @@ game. Section~\ref{sec:robustness_to_population_size} confirms through direct
 simulation of the Markov chain that these results persist for large populations.
 Finally, section~\ref{sec:group_size} shows the public goods game under an
 alternative formulation in which the ceiling can be broken by both types of
-population dynamic.
+population dynamic, and shows how the formulation of certain games can impact
+the ceiling of cooperation.
 
 \section{The general heterogeneous population dynamic model}
 \label{sec:the_general_heterogeneous_population_dynamic_model}
@@ -870,7 +871,10 @@ game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004,
 hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}. In such a game, players
 choose to contribute some amount \(\alpha_i\). The total contribution is
 multiplied by some factor \(r > 0\) and split between all players. We consider
-heterogeneous contributions and a homogeneous return.
+heterogeneous contributions and a homogeneous return. In this section, we
+restrict the game so that all \(N\) players participate in each game. We
+consider an alternative formulation where \(d<N\) players from the population
+are chosen to play in a give round instead in section~\ref{sec:group_size}.
 
 The parameter sweep is done to the highest standards of
 reproducibility~\cite{wilson2017, stodden2016, turingway2022, Wilson2014,
@@ -1471,7 +1475,7 @@ see in Figure~\ref{fig:subgroups} C that increasing the value of \(d\) reduces
 the abundance of cooperation, as the proportion of subgames which include both
 \(x_C\) and \(y_D\) increases.
 
-How should we interpret this result? In the formulation of the public goods game
+We interpret this result as follows. In the formulation of the public goods game
 in Section~\ref{sec:group_size}, players choose their action before knowing the
 makeup of the game which they will play, and obtain a payoff based on their
 expectation across all subgames, without considering a realisation of the game.
@@ -1482,11 +1486,10 @@ contrast to this, the formulation in Section~\ref{sec:pgg_pe} has players copy
 the payoff of players based on their performance in a specific instance of the
 public goods game, and defection always dominates. Therefore, we can say that
 purely extrinsic population dynamics favour defection when considering a
-realisation of the game, but are able to exceed the ceiling if they simply
+realisation of the game, but are able to exceed the ceiling if they instead
 consider how well each player is expected to perform across a number of
 different possible realisations. This is emphasised by the fact that in any
 realised subgame, defectors still outperform cooperators.
-
 
 \section{Conclusion}
 
