@@ -161,7 +161,8 @@ Couto2023}, showing that these processes can overcome the ceiling of purely
 extrinsic dynamics. For each population dynamic, we use the public goods
 game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004,
 hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64} to demonstrate our
-results.
+results. We also offer an alternative formulation of the public goods game which
+escapes the ceiling imposed, and discuss the implications.
 
 The remainder of the paper is organised as follows.
 Section~\ref{sec:the_general_heterogeneous_population_dynamic_model} introduces
@@ -175,9 +176,11 @@ demonstrate this using a heterogeneous public goods game.
 Section~\ref{sec:intrinsic_population_dynamics} gives formulations of two
 intrinsic population dynamics and shows that they can exceed the ceiling on the
 probability of cooperation, demonstrated using their results in the public goods
-game. Finally, Section~\ref{sec:robustness_to_population_size} confirms through
-direct simulation of the Markov chain that these results persist for large
-populations.
+game. Section~\ref{sec:robustness_to_population_size} confirms through direct
+simulation of the Markov chain that these results persist for large populations.
+Finally, section~\ref{sec:group_size} shows the public goods game under an
+alternative formulation in which the ceiling can be broken by both types of
+population dynamic.
 
 \section{The general heterogeneous population dynamic model}
 \label{sec:the_general_heterogeneous_population_dynamic_model}
@@ -859,6 +862,7 @@ Theorem~\ref{prop:ceiling}.
 
 
 \subsubsection{Purely extrinsic population dynamics in the public goods game}
+\label{sec:pgg_pe}
 
 To illustrate the results of section~\ref{sec:extrinsic_population_dynamics}, we
 carry out a large parameter sweep across parameters of a public goods
@@ -1002,22 +1006,21 @@ observe this effect in Figure~\ref{fig:ceiling_extrinsic}(c).
     \end{mdframed}
 
     \caption{\textbf{The cooperation ceiling under purely extrinsic dynamics.}
-    Throughout, \(N = 8\), a linear contribution profile, and mutation
-    \(\mu = 0.05\); the dashed line marks the neutral-drift baseline
-    \(p_C = \frac{1}{2}\) and, in (a), the dotted line marks \(r = N\). Faint
-    curves show \(p_C\) trajectories across the sweep, coincident trajectories
-    drawn once; in (a) they join parameter sets at equal selection- or
+    Throughout, \(N = 8\), a linear contribution profile, and mutation \(\mu =
+    0.05\); the dashed line marks the neutral-drift baseline \(p_C =
+    \frac{1}{2}\) and, in (a), the dotted line marks \(r = N\). Faint curves
+    show \(p_C\) trajectories across the sweep, coincident trajectories drawn
+    once; in (a) they join parameter sets at equal selection- or
     choice-intensity rank across \(r\), since the selection-intensity grid is
     rescaled with \(r\) (Equation~\eqref{eq:epsilon_bound}). Bold curves are the
     median over all parameter sets. \textbf{(a)} Cooperation \(p_C\) against the
-    return \(r\): the Moran process rises with \(r\), with a dip just below
-    \(r = N\) where the selection-intensity bound is widest, but never exceeds
+    return \(r\): the Moran process rises with \(r\), with a dip just below \(r
+    = N\) where the selection-intensity bound is widest, but never exceeds
     \(\frac{1}{2}\); Fermi imitation dynamics stays well below it. \textbf{(b)}
-    With \(r > N\), \(p_C\)
-    against the normalised (dividing by the maximum value) selection intensity 
-    \(\varepsilon\) (Moran) and choice
-    intensity \(\beta\) (Fermi); neither exceeds \(\frac{1}{2}\), reaching it only
-    as the intensity vanishes. \textbf{(c)} The Moran process is invariant to the
+    With \(r > N\), \(p_C\) against the normalised (dividing by the maximum
+    value) selection intensity \(\varepsilon\) (Moran) and choice intensity
+    \(\beta\) (Fermi); neither exceeds \(\frac{1}{2}\), reaching it only as the
+    intensity vanishes. \textbf{(c)} The Moran process is invariant to the
     contribution scale \(M\), as derived in Equation~\eqref{eq:Moran_invariant}.
     \textbf{(d)} Fermi imitation dynamics is invariant to the return \(r\), as
     derived in Equation~\eqref{eq:fermi_invariant}.}
@@ -1373,18 +1376,117 @@ population size, and an intrinsic dynamic continues to exceed it for large \(N\)
     \label{fig:large_n}
 \end{figure}
 
-\section{Robustness to group size}
-\label{sec:robustness_to_group_size}
+\section{Impact of game formulation}
+\label{sec:group_size}
 
 So far our examples have all considered public goods games where the entire
 population plays one singular game. Under this game, we have demonstrated the
 cooperation ceiling empirically. However, much of the literature also considers
 public goods games in which \(d\leq N\) players are chosen from the larger
-population to play a smaller game~\cite{hauert_replicator_2002, hauert2007,
-multiverse}. The payoff of each player in a state \(\mathbf{a}\) is given by the
-expected value of the payoff which a player receives if chosen to play the game.
-We therefore perform a parameter sweep across this formulation of the
-public goods game. We consider the following values
+population to play a smaller subgame~\cite{hauert_replicator_2002, hauert2007via}.
+The payoff of each player in a state \(\mathbf{a}\) is given by the expected
+value of the payoff which a player receives if chosen to play the
+game~\cite{multiverse}. We therefore perform a parameter sweep across this
+formulation of the public goods game for \(N=8\). We consider the following
+values:
+
+\begin{table}[htbp!]
+    \centering
+    \caption{The set of measured parameters and boundary values for a public
+    goods game with group size. Parameters are defined as before, with values
+    defined based on \(d\) rather than \(N\), as before. We take fixed values of
+    \(N=8\) and \(\mu=0.05\).}
+    \label{fig:parameter_sweep_table_groupsize}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Parameter & Minimum & Maximum & Number of Values per \(d\)\\
+        \hline
+        d & 2 & 7 & 1\\
+        \hline
+        \(r\)  & \(\frac{1}{2}\) & \(\frac{3d}{2}\) & 5\\
+        \hline
+        \(M\) & \(d\) & \(4d\) & 5\\
+        \hline
+        \(\varepsilon\) & 0 & \(\varepsilon_{\max}^*\), see~\eqref{eq:epsilon_bound_groupsize} & 125\\
+        \hline
+        \(\beta\) & 0 & 2 & 5\\
+        \hline
+        \(A\) & 1 & \(M\) & 25\\
+        \hline
+    \end{tabular}
+\end{table}
+
+Here we take a maximum value of \(\varepsilon\) given by:
+
+\begin{equation}
+    \label{eq:epsilon_bound_groupsize}
+    \varepsilon_{\max}^* =
+    \begin{cases}
+        \dfrac{0.99}{1 - \alpha_{\max}\left(\frac{r}{d} - 1\right)}, & r < N,\\[2.4ex]
+        \dfrac{\alpha_{\max}\left(\frac{r}{d} - 1\right) + 1}
+              {\alpha_{\max}\left(\frac{r}{d} - 1\right) + 2}, & r \geq N.
+    \end{cases}
+\end{equation}
+
+For each \(M, r, d\), \(\varepsilon\) is taken on an evenly spaced interval of 5
+values on \([0, \varepsilon_{\max}^*]\). The results of this sweep are shown
+in Figure~\ref{fig:subgroups}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{subgroups.pdf}
+    \label{fig:subgroups}
+    \caption{Results from the parameter sweep of the public goods game with
+    subgames. \textbf{A)} The ceiling can be broken by purely extrinsic
+    population dynamics in this formulation. \textbf{B)} Purely intrinsic
+    processes are still able to favour cooperation in this formulation.
+    \textbf{C)} Increasing group size dramatically reduces cooperation in purely
+    extrinsic processes, but has only a small effect on purely intrinsic
+    processes. \textbf{D)} Cooperators make a large extra payoff from states
+    with \(d\) cooperators, while defectors do not have access to these states.
+    Panels \textbf{A} and \textbf{B} take \(d=3, N=8\). Panel \textbf{D} takes a
+    state of four cooperators and four defectors, with a homogeneous
+    contribution \(\alpha = 2\).}
+\end{figure}
+
+We see that under this formulation of the public goods game, purely extrinsic
+population dynamics do not admit the cooperation ceiling. We can understand why
+this is by viewing Figure~\ref{fig:subgroups} D and understanding that
+cooperators and defectors both calculate their payoff as the average payoff
+across the possible subgames which they could play in, as in~\cite{multiverse}.
+To illustrate this, consider a cooperator \(x_C\) and a defector \(y_D\). When
+\(x_C\) and \(y_D\) play together, \(y_D\) will gain a higher payoff, as before.
+However, their subgames which are not shared are not equivalent, as for any
+\(d-1\) coplayers \(x_C\) will have an extra cooperator to the equivalent game
+for \(y_D\). Therefore, if \(r>d\), \(x_C\) will get a greater payoff from any
+such subgame than \(y_D\). Therefore, which of \(x_C\) and \(y_D\) has a greater
+payoff depends on whether the additional payoff which \(x_C\) gains from games
+without \(y_D\) is greater than the additional payoff which \(y_D\) gains from
+the games which they share. Therefore, \(r>d\) alone is not enough to ensure
+that cooperators dominate in a given state, as shown in
+Figure~\ref{fig:subgroups} A, and instead \(r\) must be great enough that the
+total payoff increase from the subgames including \(x_C\) and not \(y_D\) is
+greater than the total cost to \(x_C\) in the subgames which include both. We
+see in Figure~\ref{fig:subgroups} C that increasing the value of \(d\) reduces
+the abundance of cooperation, as the proportion of subgames which include both
+\(x_C\) and \(y_D\) increases.
+
+How should we interpret this result? In the formulation of the public goods game
+in Section~\ref{sec:group_size}, players choose their action before knowing the
+makeup of the game which they will play, and obtain a payoff based on their
+expectation across all subgames, without considering a realisation of the game.
+Therefore, to accept an action extrinsically in this formulation is to copy a
+player because their strategy is \emph{expected} to perform well, rather than
+the strategy actually realising a higher payoff than it's co-players. In
+contrast to this, the formulation in Section~\ref{sec:pgg_pe} has players copy
+the payoff of players based on their performance in a specific instance of the
+public goods game, and defection always dominates. Therefore, we can say that
+purely extrinsic population dynamics favour defection when considering a
+realisation of the game, but are able to exceed the ceiling if they simply
+consider how well each player is expected to perform across a number of
+different possible realisations. This is emphasised by the fact that in any
+realised subgame, defectors still outperform cooperators.
+
 
 \section{Conclusion}
 
@@ -1403,7 +1505,14 @@ in relation to a target payoff, and introspection dynamics in which players
 compare their current payoff with their counterfactual payoff. We have also
 shown empirical results for the public goods game with heterogeneous
 contributions which confirm the extrinsic ceiling, as well as the ability for
-purely intrinsic population dynamics to exceed it.
+purely intrinsic population dynamics to exceed it. Finally, we have shown the
+impact which a game's formulation can have on cooperation in purely extrinsic
+population dynamics by discussing a version of the public goods game where a
+smaller number of players interact in each given step, and each player's fitness
+is their expected payoff. Under this formulation, defectors do not always
+pointwise dominate cooperators due to having fewer high-payoff subgames to play
+in, and thus extrinsic population dynamics are able to favour cooperation in
+this case.
 
 Further work may consider populations in which the choice between intrinsic and
 extrinsic update rules is itself a heterogeneous attribute of the players, in
@@ -1438,14 +1547,14 @@ the limitation of purely extrinsic population dynamics to a larger set of games.
     \(M = 16\), and mutation \(\mu = 0.05\); the dashed line marks the
     neutral-drift baseline \(p_C = \frac{1}{2}\). \textbf{(a)} A population that
     mixes Moran (extrinsic) and introspection (intrinsic) players, against the
-    number of introspection players: with \(r > N\) the population can exceed the
-    baseline, but the number of intrinsic players required grows as the extrinsic
-    selection intensity \(\varepsilon\) increases or the choice intensity
-    \(\beta\) falls; with \(r < N\) the intrinsic players instead suppress
-    cooperation. \textbf{(b)} Introspection dynamics with a heterogeneous return,
-    against the number of players receiving the high return \(r_{\mathrm{high}}\);
-    cooperation crosses the ceiling once enough players sit above the threshold
-    \(r = N\).}
+    number of introspection players: with \(r > N\) the population can exceed
+    the baseline, but the number of intrinsic players required grows as the
+    extrinsic selection intensity \(\varepsilon\) increases or the choice
+    intensity \(\beta\) falls; with \(r < N\) the intrinsic players instead
+    suppress cooperation. \textbf{(b)} Introspection dynamics with a
+    heterogeneous return, against the number of players receiving the high
+    return \(r_{\mathrm{high}}\); cooperation crosses the ceiling once enough
+    players sit above the threshold \(r = N\).}
     \label{fig:conclusion-fig}
 \end{figure}
 
