@@ -353,7 +353,11 @@ bias towards a given action type.
 \label{sec:extrinsic_population_dynamics}
 We begin by defining a \emph{purely extrinsic population dynamic}. Intuitively,
 a purely extrinsic process revises strategies through payoff comparison between
-members of a population.
+members of a population. We can think of purely extrinsic processes in either
+the context of biological evolution~\cite{Moran_1958}, or as human social
+learning~\cite{bandura1977social}. In each case, individuals learn by the
+success of existing strategies: the passing on of successful genes in the former
+case, or reinforcement based on observed behaviour in the latter.
 
 \begin{definition}[Purely extrinsic population dynamic]
     Let \(T\) be the transition matrix of a population dynamic on a state space
@@ -681,8 +685,8 @@ for both the Moran process, and Fermi imitation dynamics:
 \end{proof}
 
 We will now show that there is a theoretic limit on the abundance of cooperators
-in any neutrally monotone purely extrinsic population dynamic. Before stating the
-theorem we record a comparison result for Markov chains on partially ordered
+in any neutrally monotone purely extrinsic population dynamic. Before stating
+the theorem we record a comparison result for Markov chains on partially ordered
 spaces. The result is classical and we claim no novelty; we include a short
 proof for the reader's convenience, since its use in the proof of the theorem
 below may not be familiar to the reader.
@@ -838,6 +842,12 @@ cooperation in a heterogeneous population.
     \]
 \end{proof}
 
+A multitude of games satisfy the pointwise-dominance condition of
+Theorem~\ref{prop:ceiling}. \(N\)-player snowdrift games~\cite{} and pairwise
+interaction prisoners dilemmas~\cite{} provide examples of a such a payoff
+function. In the remainder of this paper, we consider the public goods game as
+our example.
+
 Crucially, Theorem~\ref{prop:ceiling} shows that even if cooperation is mutually
 beneficial (that is, a player may increase their payoff by a switch \(D \to C\)
 in any given state) the pointwise dominance of \(D\) will still cause the
@@ -848,15 +858,14 @@ strategy which is pointwise dominant over its peers. Even if there is no
 temptation to free-ride, players will still choose to defect based on the
 pointwise dominance of defectors in the state.
 
-An example of this is the public goods game with \(r > N\). This satisfies both
-pointwise dominance and a fitness increase for any player under the \(D \to C\)
-swap. In such a game, there is no temptation to free ride; cooperation is
+An example of this is the public goods game with \(r > N\). This satisfies
+pointwise dominance while still having cooperation be mutually beneficial for
+any player. In such a game, there is no temptation to free ride; cooperation is
 mutually beneficial rather than purely altruistic. Threshold values of \(r\) in
-a homogeneous public goods game are considered in~\cite{g10010001}. The
-following section considers the heterogeneous public goods game, providing an
-example of Theorem~\ref{prop:ceiling}.
+a homogeneous public goods game are considered in~\cite{g10010001}. 
 
-
+The following section considers the heterogeneous public goods game, providing
+an example of Theorem~\ref{prop:ceiling}.
 
 \subsubsection{Purely extrinsic population dynamics in the public goods game}
 
@@ -1010,10 +1019,13 @@ cooperator.
 \label{sec:intrinsic_population_dynamics}
 
 We have seen how purely extrinsic population dynamics only compare a player's
-payoffs to the payoff in the current state. We now see a classification of
-population dynamic where players instead compare their payoff to some attribute
-or payoff other than that of other players. We define a \emph{purely intrinsic
-population dynamic} as follows:
+payoffs to the payoff in the current state. We define a \emph{purely intrinsic
+population dynamic}. Dynamics under this classification have players compare
+their payoff with some internal metric, such as counterfactual payoffs or
+aspirations. These models lend themselves more closely to the concept of
+``individual learning'' in human behaviour~\cite{molleman_consistent_2014,
+RogersCulture} than to traditional biological evolution.
+
 \begin{definition}[Purely intrinsic population dynamic]
     A population dynamic defined by a transition matrix \(T\) 
     is said to be \emph{purely intrinsic} if it satisfies the following conditions:
