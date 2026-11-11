@@ -843,10 +843,11 @@ cooperation in a heterogeneous population.
 \end{proof}
 
 A multitude of games satisfy the pointwise-dominance condition of
-Theorem~\ref{prop:ceiling}. A large number of pairwise interaction
-games~\cite{traulsen_pairwise_2007} exhibit this behaviour, alongside certain
-types of \(N-player\) snowdrift games~\cite{souza_evolution_2009}. In the
-remainder of this paper, we consider the public goods game as our example.
+Theorem~\ref{prop:ceiling}. Any pairwise interaction
+game~\cite{traulsen_pairwise_2007} where defection is the best response to each
+opposing action exhibits this behaviour, alongside certain types of \(N-player\)
+snowdrift games~\cite{souza_evolution_2009}. In the remainder of this paper, we
+consider the public goods game as our example.
 
 Crucially, Theorem~\ref{prop:ceiling} shows that even if cooperation is mutually
 beneficial (that is, a player may increase their payoff by a switch \(D \to C\)
@@ -1199,17 +1200,22 @@ current population, without knowledge of the impact of their transition.
 
 In Figure~\ref{fig:intrinsic_PGG}, we see that purely intrinsic population
 dynamics are able to exceed the ceiling on \(p_C\) which is imposed on purely
-extrinsic population dynamics. In the case of aspiration dynamics, \(p_C\) does
-not reach excessively low values as in the other processes we have discussed.
-This is because for all players to have a payoff \(\pi_i > 0\), at least one
-player must be cooperating at all times. If no players cooperate, then no player
-will reach their target payoff threshold, and players will switch strategy with
-a high probability. The ceiling is not exceeded for \(r < N\), as shown in
+extrinsic population dynamics. In both examples given here, cooperation becomes
+favoured precisely when it is mutually beneficial, while purely altruistic
+cooperation is still opposed. We consider each dynamic seperately to explain why
+this occurs.
+
+In the case of aspiration dynamics, \(p_C\) does not reach excessively low
+values as in the other processes we have discussed. This is because for all
+players to have a payoff \(\pi_i > 0\), at least one player must be cooperating
+at all times. If no players cooperate, then no player will reach their target
+payoff threshold, and players will switch strategy with a high probability. The
+ceiling is not exceeded for \(r < N\), as shown in
 Figure~\ref{fig:intrinsic_PGG}(a) and noted for a linear game
 in~\cite{du2014aspiration}, but is exceeded at the threshold \(r > N\). In this
 case, \(\pi_i(\mathbf{a}) - A\) is greater when cooperating than defecting in a
-given population \(\mathbf{a}_{-i}\) for all players, and thus the transition \(D \to
-C\) will always occur with a higher probability than the reverse. For
+given population \(\mathbf{a}_{-i}\) for all players, and thus the transition
+\(D \to C\) will always occur with a higher probability than the reverse. For
 intermediate values of \(r\), aspiration dynamics can achieve its lowest
 \(p_C\), as with a low value of \(A\), players are able to achieve their
 aspiration by free-riding in a state with fewer cooperators, and so there is no
@@ -1220,14 +1226,11 @@ and then falls back towards \(\frac{1}{2}\). Aspiration only discriminates
 between the two actions when \(A\) lies between the payoffs of a defector and a
 cooperator, or else both transitions \(D \to C\) or \(C \to D\) will be favoured
 or surpressed. A low \(A\) leaves defectors content and unwilling to switch,
-whereas an \(A\) above even the cooperator's payoff leaves every player
-dissatisfied, so switching becomes action-independent and the advantage of
-cooperation is washed out. The aspiration level is the biggest indicator of
-cooperation in a linear public goods game where a player's fitness is given by
-their expected return in a 2-player game. It has been shown previously that for
-a high aspiration level, cooperation emerges at a level near the neutral-drift
-baseline, but for a low aspiration level defectors dominate the
-population~\cite{du2014aspiration}.
+whereas an \(A\) above the defector's payoff leaves every player dissatisfied,
+so switching becomes action-independent and the advantage of cooperation is
+washed out. It has been shown previously that for a high aspiration level,
+cooperation emerges at a level near the neutral-drift baseline, but for a low
+aspiration level defectors dominate the population~\cite{du2014aspiration}.
 
 As the heterogeneous public goods game is an additive game~\cite{Couto2023}, we
 can show that many of the analytical results of~\cite{foster_knight_2026} about
