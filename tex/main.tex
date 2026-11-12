@@ -868,6 +868,20 @@ choose to contribute some amount \(\alpha_i\). The total contribution is
 multiplied by some factor \(r > 0\) and split between all players. We consider
 heterogeneous contributions and a homogeneous return.
 
+\begin{equation}
+    \pi_i(\mathbf{a}) = \frac{r}{N}\sum_{i:a_i=C} \alpha_i - \mathbf{1}_{a_i = C}\alpha_i
+    \label{eq:pgg_payoff}
+\end{equation}
+As \(\alpha_i > 0\), we see that pointwise dominance holds for this formulation
+of the public goods game, as in any state, a cooperator has an additional cost
+which defectors do not bear. There is also a key threshold at the point \(r=N\).
+When \(r<N\), cooperation is purely altruistic, incurring a genuine cost to the
+contributing player in order to benefit the population. However, if \(r>N\), it
+is mutually beneficial to cooperate. In this case, a player profits from their
+own contribution alongside the rest of the population. However, the contributor
+still gains exactly \(\alpha_i\) less payoff from their own contribution than
+their co-players.
+
 The parameter sweep is done to the highest standards of
 reproducibility~\cite{wilson2017, stodden2016, turingway2022, Wilson2014,
 sandve2013} and all data has been archived at~\cite{data_archive} and is a
