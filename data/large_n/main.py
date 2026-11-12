@@ -25,12 +25,12 @@ Run with::
 import csv
 import pathlib
 
+import ludics
+import ludics.fitness_functions
 import numpy as np
 import stet
 
-import ludics
-import ludics.fitness_functions
-import public_goods_games.contribution_rules as contribution_rules
+from public_goods_games import contribution_rules
 
 here = pathlib.Path(__file__).resolve().parent
 simulations_csv = here / "simulations.csv"
@@ -40,15 +40,14 @@ store = here / "_stet_store.sqlite"
 exact_store = here / "_stet_exact_store.sqlite"
 threshold_store = here / "_stet_threshold_store.sqlite"
 
-dynamics = ["moran", "fermi", "introspection", "aspiration"]
+dynamics = ["moran", "fermi", "introspection", "aspiration", "wf"]
 returns_over_n = [0.7, 0.9, 1.0, 1.1, 1.2, 1.3, 0.8]
 validation_return_index = returns_over_n.index(1.2)
 large_population_sizes = [10, 30, 50, 75, 100, 200]
 small_population_sizes = [2, 3, 4, 5, 6, 7, 8]
-seeds_main = range(0, 15)
-seeds_validation = range(0, 40)
+seeds_main = range(15)
+seeds_validation = range(40)
 iterations = 10000
-
 mutation = 0.05
 selection_intensity = 0.5
 choice_intensity = 2.0
@@ -58,7 +57,7 @@ gap_fill_sizes = [125, 150, 175]
 high_return_index = returns_over_n.index(1.3)
 
 threshold_betas = {10: 1.0, 50: 2.0, 100: 3.0, 200: 4.0}
-threshold_seeds = range(0, 10)
+threshold_seeds = range(10)
 
 
 def contribution_scale(number_of_players):
@@ -95,12 +94,20 @@ def dynamic_function_and_kwargs(dynamic, number_of_players):
             "choice_intensity": choice_intensity,
             "aspiration_vector": np.full(number_of_players, aspiration_level),
         }
+    if dynamic == "wf":
+        return contribution_rules.compute_wright_fisher_transition_probability, {
+            "selection_intensity":selection_intensity,
+            "mu":mutation
+        }
     raise ValueError(f"unknown dynamic {dynamic!r}")
 
 
 def simulated_cooperation(dynamic, number_of_players, return_value, seed):
     transition_function, extra = dynamic_function_and_kwargs(dynamic, number_of_players)
-    mutation_matrix = np.full((number_of_players, 2), mutation)
+    if dynamic == "wf":
+        mutation_matrix = None
+    else:
+        mutation_matrix = np.full((number_of_players, 2), mutation)
     _, visit_counts = ludics.simulate_markov_chain(
         initial_state=np.zeros(number_of_players, dtype=int),
         number_of_strategies=2,
@@ -122,6 +129,10 @@ def simulated_cooperation(dynamic, number_of_players, return_value, seed):
 def exact_cooperation(dynamic, number_of_players, return_value):
     transition_function, extra = dynamic_function_and_kwargs(dynamic, number_of_players)
     state_space = ludics.get_state_space(N=number_of_players, k=2)
+    if dynamic == "wf":
+        mutation_matrix = None
+    else:
+        mutation_matrix = np.full((number_of_players, 2), mutation)
     transition_matrix = ludics.generate_transition_matrix(
         state_space=state_space,
         fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
@@ -129,9 +140,7 @@ def exact_cooperation(dynamic, number_of_players, return_value):
         alpha=contributions(number_of_players),
         r=return_value,
         number_of_strategies=2,
-        individual_to_action_mutation_probability=np.full(
-            (number_of_players, 2), mutation
-        ),
+        individual_to_action_mutation_probability=mutation_matrix,
         **extra,
     )
     steady_state = ludics.compute_steady_state(transition_matrix)
