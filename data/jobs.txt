@@ -19,3 +19,8 @@ uv run python data/sweep/main.py --mu=0.001 --dynamic=introspection
 uv run python data/sweep/main.py --mu=0.005 --dynamic=introspection
 uv run python data/sweep/main.py --mu=0.05 --dynamic=introspection
 uv run python data/sweep/main.py --mu=0.1 --dynamic=introspection
+
+uv run python data/sweep/main.py --mu=0.001 --dynamic=wf
+uv run python data/sweep/main.py --mu=0.005 --dynamic=wf
+uv run python data/sweep/main.py --mu=0.05 --dynamic=wf
+uv run python data/sweep/main.py --mu=0.1 --dynamic=wf

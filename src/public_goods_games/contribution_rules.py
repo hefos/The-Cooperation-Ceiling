@@ -2,6 +2,7 @@ import scipy
 import sympy as sym
 import numpy as np
 import scipy.special
+import ludics
 
 
 def dirichlet_linear_alpha_rule(N):
@@ -288,3 +289,56 @@ def get_dirichlet_contribution_vector(N, alpha_rule, M, scale, **kwargs):
         realisation = np.random.dirichlet(alpha=alphas, size=100).mean(axis=0)
 
     return realisation * M
+
+def compute_wright_fisher_transition_probability(
+        source, target, fitness_function, selection_intensity, mu, fitness_map=ludics.linear_fitness_map, **kwargs
+):
+    """
+    Given two states and a fitness function, returns the transition probability
+    when moving from the source state to the target state via a Wright-Fisher
+    process. Transition probability is given by:
+
+    $ \prod_{i=1}^N \frac{\\sum_{j: a_j = b_{I(a,b)}}{f_j(a)}}{\\sum_{a_k}f_k(a)} $
+
+    and mutation is applied player-wise
+    
+    Parameters
+    ----------
+    source: numpy.array, the starting state
+    
+    target: numpy.array, what the source transitions to
+    
+    fitness_function: func, The fitness function which maps a state to a
+    numpy.array where each entry represents the fitness of the given individual
+    
+    selection_intensity: numpy.array, the selection intensity $\\epsilon$ of the
+    system. Entries may be floats or sympy.Symbol. Entry ij is the selection
+    intensity when player $i$ copies player $j$. Shape must be (N,N)
+
+    mu: float, the mutation probability for each player.
+    
+    fitness_map: func, a positive mapping to transform the fitness. Linear by
+    default.
+    
+    Returns
+    ---------
+    Float: the transition pobability from source to target
+    """
+
+    different_indices = ludics.get_different_indices(source=source, target=target)
+    if len(different_indices) == 0:
+        return None
+
+    if isinstance(selection_intensity, (int, float, np.floating, np.integer)):
+        selection_intensity = np.full(shape=(len(source), len(source)), fill_value=selection_intensity)
+
+    transition_prob = 1
+    for focal_index, new_action in enumerate(target): 
+        if new_action not in source and mu == 0:
+            transition_prob = 0 
+        fitness = fitness_map(fitness=fitness_function(source, **kwargs), selection_intensity=selection_intensity[focal_index], **kwargs)
+        denominator = fitness.sum()
+        numerator = fitness[source == new_action].sum()
+        transition_for_player = ((numerator / denominator) * (1 - (2*mu))) + mu
+        transition_prob = transition_prob * transition_for_player
+    return transition_prob
