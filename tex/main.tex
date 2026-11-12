@@ -234,22 +234,36 @@ a transition matrix \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of
 transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\), as shown in
 figure~\ref{fig:4-cube}(c). They take the general form:
 
+% TODO: explain the update set J chosen with probability \lambda(J), the update
+% rule P_i(\mathbf{a}, c) of each player i in J, and that players not in J keep
+% their action.
+
+\begin{equation}
+    T_{\mathbf{ab}} = \sum_{J \subseteq \{1, \ldots, N\}} \lambda(J)
+    \prod_{i \in J} P_i(\mathbf{a}, b_i)
+    \prod_{i \notin J} \delta_{a_i b_i}.
+    \label{eqn:general_transition}
+\end{equation}
+
+% TODO: explain that the four dynamics in this paper update a single player
+% chosen uniformly, \lambda(\{i\}) = 1/N, so that
+% Equation~\eqref{eqn:general_transition} reduces to the following.
+
 \begin{equation}
     T_{\mathbf{ab}} =
     \begin{cases}
-        P(\mathbf{a} \to \mathbf{b})
+        \frac{1}{N} P_{I(\mathbf{a,b})}(\mathbf{a}, b_{I(\mathbf{a,b})})
         & \text{if } \mathbf{b} \in \text{Neb}(\mathbf{a}), \\
         0
         & \text{if } \mathbf{b} \notin \text{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b}, \\
         1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}}
         & \text{if } \mathbf{a} = \mathbf{b}.
     \end{cases}
+    \label{eqn:single_update_transition}
 \end{equation}
 
-where \(P(\mathbf{a} \to \mathbf{b})\) is the probability that player
-\(I(\mathbf{a,b})\) changes from its action type in \(\mathbf{a}\) to its action
-type in \(\mathbf{b}\). The process which determines this probability is called
-a \emph{population dynamic}. We shall discuss four population dynamics in this
+The update rules \(P_i\), together with \(\lambda\), are called a
+\emph{population dynamic}. We shall discuss four population dynamics in this
 paper, and classify them as shown in Figure~\ref{fig:diagrams_of_dynamics}.
 Purely extrinsic population dynamics only consider the success of a strategy in
 the current population when updating a player's action type. This models a
@@ -294,25 +308,16 @@ dynamics, so we report these for \(\mu > 0\); the introspection and aspiration
 dynamics are ergodic for every \(\mu \geq 0\). The figures throughout use the
 mutation rates \(\mu \in \{0.001, 0.005, 0.05, 0.1\}\).
 
-Given a process defined by transition matrix \(T\) and two states \(\mathbf{a}\)
-and \(\mathbf{b}\), the probability of the original process \emph{with mutation}
-transitioning from \(\mathbf{a}\) to \(\mathbf{b}\) is given by:
+% TODO: explain that mutation acts on the update rule of each player.
 
-\[
-    P^{(\mu)}(\mathbf{a} \to \mathbf{b})
-    = P(\text{pick individual } I(\mathbf{a}, \mathbf{b})) \cdot \left(
-        P(\mathbf{a}_{I(\mathbf{a,b})} \text{ transitions} \to \mathbf{b}_{I(\mathbf{a,b})}) \cdot
-        P(\text{no mutation})
-        + P(\mathbf{a}_{I(\mathbf{a}, \mathbf{b})}\text{ mutates} \to
-        \mathbf{b}_{I(\mathbf{a}, \mathbf{b})})
-    \right)
-    \]
+\begin{equation}
+    P^{(\mu)}_i(\mathbf{a}, c) = \left(1 - \sum_{j=1}^k \mu_{ij}\right)
+    P_i(\mathbf{a}, c) + \mu_{ic},
+    \label{eqn:mutation_update_rule}
+\end{equation}
 
-For a focal individual \(i\), the probability that no
-mutation occurs is \(1 - \sum_{j=1}^k \mu_{ij}\). Let \(T\) be the transition
-matrix for a population dynamic and \(T_{\mathbf{ab}}\) be the transition
-probability from a state \(\mathbf{a}\) to a state \(\mathbf{b}\). Then the
-transition matrix \(T^{(\mu)}\) for the process with mutation is given by:
+% TODO: explain that T^{(\mu)} is Equation~\eqref{eqn:general_transition} with
+% P_i replaced by P^{(\mu)}_i, which for a single update gives the following.
 
 \begin{equation}
     T^{(\mu)}_{\mathbf{ab}} =
@@ -322,7 +327,7 @@ transition matrix \(T^{(\mu)}\) for the process with mutation is given by:
         & \text{if } \mathbf{b} \in \text{Neb}(\mathbf{a}), \\
         0
         & \text{if } \mathbf{b} \notin \text{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b}, \\
-        1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}}
+        1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T^{(\mu)}_{\mathbf{ab}}
         & \text{if } \mathbf{a} = \mathbf{b}.
     \end{cases}
 \end{equation}
@@ -355,25 +360,26 @@ a purely extrinsic process revises strategies through payoff comparison between
 members of a population.
 
 \begin{definition}[Purely extrinsic population dynamic]
-    Let \(T\) be the transition matrix of a population dynamic on a state space
-    \(S\). We say that \(T\) defines a \emph{purely extrinsic} process if for
-    every \(\mathbf{a,b} \in S\) with \(\mathbf{b} \in \text{Neb}(\mathbf{a})\),
-    \(T_{\mathbf{ab}}\) satisfies:
+    Let \(P_i\) be the update rules of a population dynamic on a state space
+    \(S\). We say that the population dynamic is \emph{purely extrinsic} if for
+    every player \(i\), every state \(\mathbf{a} \in S\) and every action \(c \in
+    \mathcal{A}\), the update rule \(P_i(\mathbf{a}, c)\) satisfies:
 
     \begin{enumerate}
-        \item \(T_{\mathbf{ab}}\) is a function of payoffs evaluated in
+        \item \(P_i(\mathbf{a}, c)\) is a function of payoffs evaluated in
         \(\mathbf{a}\) and in no other state.
-        \item Let \(\mathcal{R}\) denote the set of players \(j\) such that
-        \(j \neq I(\mathbf{a,b})\) and \(\mathbf{a}_j = \mathbf{b}_{I(\mathbf{a,b})}\).
-        Then \(T_{\mathbf{ab}}\) is non-decreasing in the payoffs
-        \(\pi_j(\mathbf{a})\) for all \(j \in \mathcal{R}\) (and strictly
-        increasing in at least one such \(j\) if \(\mathcal{R} \neq \emptyset\)),
-        and non-increasing in the payoffs \(\pi_j(\mathbf{a})\) for all
-        \(j \notin \mathcal{R}\).
-        \item \(T_{\mathbf{ab}}\) contains no term dependent on \(a_{I(\mathbf{a,b})}\) or
-        \(b_{I(\mathbf{a,b})}\), except in the payoff function
-        \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\), mutation parameters \(\mu_{ij}\),
-        and in the definition of the set \(\mathcal{R}\).
+        \item Let \(\mathcal{R}_c(\mathbf{a})\) denote the set of players \(j\)
+        such that \(a_j = c\). Then \(P_i(\mathbf{a}, c)\) is non-decreasing in
+        the payoffs \(\pi_j(\mathbf{a})\) for all \(j \in
+        \mathcal{R}_c(\mathbf{a})\) (and, when \(c \neq a_i\), strictly
+        increasing in at least one such \(j\) if one exists), and
+        non-increasing in the payoffs
+        \(\pi_j(\mathbf{a})\) for all \(j \notin \mathcal{R}_c(\mathbf{a})\).
+        This includes the payoff of player \(i\) themselves.
+        \item \(P_i(\mathbf{a}, c)\) contains no term dependent on \(a_i\) or
+        \(c\), except in the payoff function \(\pi_i(\mathbf{a})\), mutation
+        parameters \(\mu_{ij}\), and in the definition of the set
+        \(\mathcal{R}_c(\mathbf{a})\).
     \end{enumerate}
     \label{def:purely_extrinsic}
 \end{definition}
@@ -382,27 +388,35 @@ Condition (1) gives the property of purely extrinsic population dynamics that
 looks outwardly, copying other individuals in the state. Condition (2)
 captures the basic monotonicity: a higher payoff for a role model makes that
 role model more likely to be copied, and a higher payoff for a non-role-model
-pulls the other way. Condition (3) rules out an inherent bias towards either
-action. Without (3), we must consider population dynamics which explicitly
-favour a certain action type, for example:
+pulls the other way.
+% TODO: explain that player i is treated like every other player in condition
+% (2), and why the strictness clause only applies when c \neq a_i.
+Condition (3) rules out an inherent bias towards either action. Without
+(3), we must consider population dynamics which explicitly favour a certain
+action type, for example:
 
+% TODO: \delta_c here clashes with the Kronecker delta in
+% Equation~\eqref{eqn:general_transition}; rename (e.g. to w_c).
 \[
-\bar{T}_{\mathbf{ab}} =
+\bar{P}_i(\mathbf{a}, c) =
 \begin{cases}
-\delta_{I(\mathbf{a}, \mathbf{b})} \cdot T_{\mathbf{ab}} & \text{if } \mathbf{b} \neq \mathbf{a}, \\
-1 - \sum_{\mathbf{c} \neq \mathbf{a}} T_{\mathbf{ac}} & \text{if } \mathbf{b} = \mathbf{a}.
+\delta_c \cdot P_i(\mathbf{a}, c) & \text{if } c \neq a_i, \\
+1 - \sum_{c' \neq a_i} \delta_{c'} \cdot P_i(\mathbf{a}, c') & \text{if } c = a_i.
 \end{cases}
 \]
 
-where \(T_{\mathbf{ab}}\) is the transition matrix of some purely extrinsic
-dynamic, and \(\delta_{I(\mathbf{a,b})}\) takes the value 1 if
-\(b_{I(\mathbf{a,b})} = C\) and \(\frac{1}{2}\) if not. Without (3), \(\bar{T}\)
-would define a purely extrinsic population dynamic, but would be tailored to
-favour a particular action type. We exclude cases such as this, as they do not
-conform to the framework in which fitness is the single measure of the success,
-and thus the propagation, of action types in the population. While
-process-specific parameters may affect the transition probability
-\(T_{\mathbf{ab}}\), they should not inherently favour any specific action type.
+where \(P_i\) is the update rule of some purely extrinsic dynamic, and
+\(\delta_c\) takes the value 1 if \(c = C\) and \(\frac{1}{2}\) if not. Without
+(3), \(\bar{P}_i\) would define a purely extrinsic population dynamic, but would
+be tailored to favour a particular action type. We exclude cases such as this,
+as they do not conform to the framework in which fitness is the single measure
+of the success, and thus the propagation, of action types in the population.
+While process-specific parameters may affect the update rule \(P_i(\mathbf{a},
+c)\), they should not inherently favour any specific action type.
+
+% TODO: explain that for a single update this agrees with the previous
+% definition on T_{\mathbf{ab}}, and that defining it on P_i covers dynamics
+% where several players update at once (e.g. Wright--Fisher).
 
 We now show two classical examples of purely extrinsic population dynamics: the
 Moran process, in which a player is chosen to be duplicated proportional to
