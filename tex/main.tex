@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage[margin=1.5cm, includefoot, footskip=30pt]{geometry}
+\usepackage[margin=1.5cm, includefoot, footskip=30pt, portrait]{geometry}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -25,6 +25,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
 
 \title{The Cooperation Ceiling: Extrinsic Population Dynamics and the Intrinsic Escape}
 \author[1,*]{Harry Foster}
@@ -185,69 +186,53 @@ populations.
 As in~\cite{Couto2022, Couto2023}, we define a general framework for
 evolutionary dynamics on a fully heterogeneous, well-mixed population.
 
-\subsection{The state space}
-
 We model a population consisting of \(N\) \textbf{ordered} individuals. Each
-individual selects an action from a common action set \(\mathcal{A} = (\mathcal{A}_1, \mathcal{A}_2,
-\ldots,\mathcal{A}_k)\) of size \(k\). A \emph{state} of the population is an ordered
-\(N\)-tuple \(\mathbf{a} = (a_1, a_2, \ldots, a_N) \in \mathcal{A}^N\), and the
-\emph{state space} \(S\) is the set of all such tuples. A payoff function \(\pi
-\colon S \to \mathbb{R}^N\) assigns to each state a vector of individual
-payoffs; we write \(\pi_i(\mathbf{a})\) for the payoff of individual \(i\) in
-state \(\mathbf{a}\).
+individual selects an action from a common action set \(\mathcal{A} =
+(\mathcal{A}_1, \mathcal{A}_2, \ldots,\mathcal{A}_k)\) of size \(k\). A
+\emph{state} of the population is an ordered \(N\)-tuple \(\mathbf{a} = (a_1,
+a_2, \ldots, a_N) \in \mathcal{A}^N\), and the \emph{state space} \(S\) is the
+set of all such tuples. A payoff function \(\pi \colon S \to \mathbb{R}^N\)
+assigns to each state a vector of individual payoffs; we write
+\(\pi_i(\mathbf{a})\) for the payoff of individual \(i\) in state
+\(\mathbf{a}\).
 
-The state space of an evolutionary game can be described as the graph whose
-nodes are the states \(\mathbf{a} \in S\), with an edge between two vertices
-\(\mathbf{a}, \mathbf{b}\) if and only if they differ in exactly one position.
-This defines an evolutionary process in which one player changes action type at
-each time step. Each state also has a self-loop, as at a given time step, a
-player may accept the same strategy they currently possess, or reject the
-strategy which they have considered. We call the unique coordinate at which
-\(\mathbf{a}\) and \(\mathbf{b}\) differ the \emph{index of difference}, denoted
-\(I(\mathbf{a}, \mathbf{b})\). The set of states reachable from \(\mathbf{a}\)
-in one step is denoted \(\mathrm{Neb}(\mathbf{a}) = \{\mathbf{b} \in S :
-h(\mathbf{a}, \mathbf{b}) = 1\}\). This notation follows~\cite{Couto2023}.
-
-In the case of a game with two actions, the state space of the Markov chain is
-analogous to an \(N\)-dimensional hypercube. This is the graph whose node set
-consists of the \(2^N\) \(N\)-dimensional boolean vectors, and which has edges
-between vertices if and only if they differ in exactly one position
-~\cite{HARARY1988277}. The state space of an evolutionary game with two actions
-can be modelled in this way by denoting the strategies \(0\) and \(1\).
-Throughout, the two-action games we study are social dilemmas, so we take these
-two actions to be cooperate (\(C\)) and defect (\(D\)) and write the state space
-as \(\{C, D\}^N\). The graphical representation of a birth-death process differs
-from a hypercube in exactly two ways. First, a population may remain the same at
-a given step, and thus each vertex contains a self-loop. Second, the probability
-of transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\) is not
-necessarily the same as the probability of transitioning from \(\mathbf{b}\) to
-\(\mathbf{a}\). Thus, instead of one edge between two states, we have two
-directed edges, \(\mathbf{a} \to \mathbf{b}\) and \(\mathbf{b} \to \mathbf{a}\).
-Figure~\ref{fig:4-cube}(a) and~\ref{fig:4-cube}(b) illustrate the population
-model and its state space.
-
-\subsection{Population dynamics and mutation}
-
-The population evolves as a Markov
-chain~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e} on \(S\). We therefore obtain
-a transition matrix \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of
-transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\), as shown in
-figure~\ref{fig:4-cube}(c). They take the general form:
-
-% TODO: explain the update set J chosen with probability \lambda(J), the update
-% rule P_i(\mathbf{a}, c) of each player i in J, and that players not in J keep
-% their action.
+The population evolves as a Markov chain on
+\(S\)~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}. We therefore obtain a
+transition matrix \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of
+transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\). At each
+time step, a subset of players \(J \subset \{1, \ldots, N\}\) are chosen with
+probability \(\lambda(J)\) to consider updating their action according to an
+update rule \(P_i(\mathbf{a}, b_i)\). This function gives the probability that a
+chosen player \(i \in J\) switches action to the action found in \(b_i\). The
+general form of the transition matrix is therefore given by:
 
 \begin{equation}
     T_{\mathbf{ab}} = \sum_{J \subseteq \{1, \ldots, N\}} \lambda(J)
-    \prod_{i \in J} P_i(\mathbf{a}, b_i)
-    \prod_{i \notin J} \delta_{a_i b_i}.
+    \prod_{i \in J} P_i(\mathbf{a}, b_i) \prod_{k \notin j} \delta_{a_ib_i}
     \label{eqn:general_transition}
 \end{equation}
 
-% TODO: explain that the four dynamics in this paper update a single player
-% chosen uniformly, \lambda(\{i\}) = 1/N, so that
-% Equation~\eqref{eqn:general_transition} reduces to the following.
+where \(\delta_{a_i=b_i}\) is the Kronecker delta, so that players not selected
+remain unchanged. The update rules \(P_i\), together with \(\lambda\), are
+called a \emph{population dynamic}. We shall discuss five population dynamics in
+this paper, and classify them as shown in Figure~\ref{fig:diagrams_of_dynamics}.
+Purely extrinsic population dynamics only consider the success of a strategy in
+the current population when updating a player's action type. This models a
+behaviour where players look outwardly to attempt to improve their payoff.
+Purely intrinsic population dynamics model a player who looks inwardly to
+improve their payoff, comparing their current payoff to some value which does
+not depend on the payoffs of an action type in the current population.
+
+For a large number of population dynamics, only a single player updates their
+action type in a given step. In this case, \(T_{\mathbf{ab}}\) is nonzero only
+if \(\mathbf{a}\) and \(\mathbf{b}\) differ in exactly one position, denoted
+\(I(\mathbf{a}, \mathbf{b})\). If this holds, we say that \(\mathbf{b} \in
+\text{Neb}(\mathbf{a})\). The examples of such dynamics in this paper select a
+focal player uniformly, giving \(\lambda(I(\mathbf{a}, \mathbf{b})) =
+\frac{1}{N}\) for all states \(\mathbf{b} \in \text{Neb}(mathbf{a})\). The
+structure of the Markov chain in such cases is shown in Figure~\ref{fig:4-cube}.
+Under these dynamics, equation~\eqref{eqn:general_transition} reduces to the
+following:
 
 \begin{equation}
     T_{\mathbf{ab}} =
@@ -262,21 +247,11 @@ figure~\ref{fig:4-cube}(c). They take the general form:
     \label{eqn:single_update_transition}
 \end{equation}
 
-The update rules \(P_i\), together with \(\lambda\), are called a
-\emph{population dynamic}. We shall discuss four population dynamics in this
-paper, and classify them as shown in Figure~\ref{fig:diagrams_of_dynamics}.
-Purely extrinsic population dynamics only consider the success of a strategy in
-the current population when updating a player's action type. This models a
-behaviour where players look outwardly to attempt to improve their payoff.
-Purely intrinsic population dynamics model a player who looks inwardly to
-improve their payoff, comparing their current payoff to some value which does
-not depend on the payoffs of an action type in the current population. The
-dynamics discussed in this paper are shown in figure~\ref{fig:diagrams_of_dynamics}
-
 \begin{figure}[!htbp]
     \centering
     \begin{mdframed}
-    \includegraphics[width=\linewidth]{dynamics_panels.pdf}
+    \centering
+    \includegraphics[width=0.8\linewidth]{dynamics_panels.pdf}
     \end{mdframed}
     \caption{\textbf{The four population dynamics.} \textbf{A,} the Moran
     process and \textbf{C,} Fermi imitation dynamics are purely extrinsic.
@@ -286,11 +261,12 @@ dynamics discussed in this paper are shown in figure~\ref{fig:diagrams_of_dynami
     only one other action to accept.}
     \label{fig:diagrams_of_dynamics}
 \end{figure}
+%TODO: add WF and redo caption. Squish extrinsic so they're the same length
+%vertically as intrinsic
 
-Two of the dynamics discussed in this paper, the Moran process and Fermi
-imitation dynamics, correspond to absorbing Markov chains, where the measurable
-outcome is the probability of absorption into a given absorbing state. The
-remaining two, introspection and aspiration dynamics, are ergodic chains, for
+The extrinsic dynamics discussed in this paper correspond to absorbing Markov
+chains, where the measurable outcome is the probability of absorption into a
+given absorbing state. The intrinsic dynamics discussed are ergodic chains, for
 which we can compute the long-run abundance of a given strategy in the
 population. To enable meaningful comparison across all models, we introduce
 mutation. Mutation ensures that all processes become ergodic, while also
@@ -299,25 +275,22 @@ to a different strategy~\cite{FUDENBERG2006352}. Consequently, we no longer
 obtain absorption matrices for any model with mutation; instead, we derive a
 unique steady state that is independent of the initial state.
 
-We assume a
-mutation parameter \(\mu \in [0, 1]_{\mathbb{R}}^{N \times k}\), where
-\(\mu_{ij}\) denotes the probability that individual \(i\) adopts strategy \(j\)
-via mutation. The stationary abundance of a strategy \(C\), denoted \(p_C\), is
-well defined only with mutation for the Moran process and Fermi imitation
-dynamics, so we report these for \(\mu > 0\); the introspection and aspiration
-dynamics are ergodic for every \(\mu \geq 0\). The figures throughout use the
-mutation rates \(\mu \in \{0.001, 0.005, 0.05, 0.1\}\).
-
-% TODO: explain that mutation acts on the update rule of each player.
+We assume a mutation parameter \(\mu \in [0, 1]_{\mathbb{R}}^{N \times k}\),
+where \(\mu_{ij}\) denotes the probability that individual \(i\) adopts strategy
+\(j\) via mutation regardless of the outcome of their update rule. Therefore,
+each player's marginal transition probability upon being selected to update
+their action type is given as follows:
 
 \begin{equation}
-    P^{(\mu)}_i(\mathbf{a}, c) = \left(1 - \sum_{j=1}^k \mu_{ij}\right)
-    P_i(\mathbf{a}, c) + \mu_{ic},
+    P^{(\mu)}_i(\mathbf{a}, b_i) = P_i(\mathbf{a}, b_i)\left(1 - \sum_{j=1}^k \mu_{ij}\right)
+     + \mu_{ib_i}
     \label{eqn:mutation_update_rule}
 \end{equation}
 
-% TODO: explain that T^{(\mu)} is Equation~\eqref{eqn:general_transition} with
-% P_i replaced by P^{(\mu)}_i, which for a single update gives the following.
+The transition matrix \(T^{(\mu)}\) of a population dynamic with mutation is
+given by Equation~\eqref{eqn:general_transition} with \(P_i\) replaced by
+\(P^{(\mu)}_i\). For a population dynamic where one player updates at a time, as
+in \eqref{eqn:single_update_transition}, this can be written as follows:
 
 \begin{equation}
     T^{(\mu)}_{\mathbf{ab}} =
@@ -339,17 +312,24 @@ under the effect of action-invariant mutation, where \(\mu_{iw} = \mu_{il}\) for
 all action types \(w,l\). This ensures that mutation does not cause an inherent
 bias towards a given action type.
 
+The stationary abundance of a strategy \(C\), denoted \(p_C\), is well defined
+only with mutation for the purely extrinsic dynamics discussed in this paper,
+and so we report these for \(\mu > 0\); the introspection and aspiration
+dynamics are ergodic for every \(\mu \geq 0\). The figures throughout use the
+mutation rates \(\mu \in \{0.001, 0.005, 0.05, 0.1\}\).
+
 \begin{figure}[!htbp]
     \begin{mdframed}
     \centering
-    \includegraphics[width=\linewidth]{state_space_panels.pdf}
+    \includegraphics[width=0.9\linewidth]{state_space_panels.pdf}
     \end{mdframed}
-    \caption{\textbf{The heterogeneous population as a Markov chain.}
-    \textbf{A,} A heterogeneous population with action set \(\mathcal{A} = \{C, D\}\), in
-    which each player has its own payoff function. \textbf{B,} A single
-    transition between neighbouring states. \textbf{C,} Each state is a vertex
-    of \(S = A^N\), so the state space is an \(N\)-dimensional hypercube.
-    \textbf{D,} Mutation connects the chain and makes it ergodic.}
+    \caption{\textbf{The heterogeneous population as a Markov chain when}
+    \(\mathbf{|J| = 1}\). \textbf{A,} A heterogeneous population with action
+    set \(\mathcal{A} = \{C, D\}\), in which each player has its own payoff
+    function. \textbf{B,} A single transition between neighbouring states.
+    \textbf{C,} Each state is a vertex of \(S = A^N\), so the state space is an
+    \(N\)-dimensional hypercube~\cite{HARARY1988277}. \textbf{D,} Mutation
+    connects the chain and makes it ergodic.}
     \label{fig:4-cube}
 \end{figure}
 
@@ -360,53 +340,55 @@ a purely extrinsic process revises strategies through payoff comparison between
 members of a population.
 
 \begin{definition}[Purely extrinsic population dynamic]
-    Let \(P_i\) be the update rules of a population dynamic on a state space
-    \(S\). We say that the population dynamic is \emph{purely extrinsic} if for
-    every player \(i\), every state \(\mathbf{a} \in S\) and every action \(c \in
-    \mathcal{A}\), the update rule \(P_i(\mathbf{a}, c)\) satisfies:
+    Let \(\{P_i: i \in [1, \dots, N]\},\lambda\) define a population dynamic on
+    a state space \(S\) with transition matrix \(T\). We say that the population
+    dynamic is purely extrinsic if for every player \(i\), every state
+    \(\mathbf{a} \in S\) and every action \(c \in \mathcal{A}\), the following
+    holds:
 
     \begin{enumerate}
-        \item \(P_i(\mathbf{a}, c)\) is a function of payoffs evaluated in
-        \(\mathbf{a}\) and in no other state.
+        \item \(P_i(\mathbf{a}, c), \lambda(J)\) are functions of payoffs
+        evaluated in no state other than \(\mathbf{a}\). 
         \item Let \(\mathcal{R}_c(\mathbf{a})\) denote the set of players \(j\)
         such that \(a_j = c\). Then \(P_i(\mathbf{a}, c)\) is non-decreasing in
         the payoffs \(\pi_j(\mathbf{a})\) for all \(j \in
         \mathcal{R}_c(\mathbf{a})\) (and, when \(c \neq a_i\), strictly
-        increasing in at least one such \(j\) if one exists), and
-        non-increasing in the payoffs
-        \(\pi_j(\mathbf{a})\) for all \(j \notin \mathcal{R}_c(\mathbf{a})\).
-        This includes the payoff of player \(i\) themselves.
-        \item \(P_i(\mathbf{a}, c)\) contains no term dependent on \(a_i\) or
-        \(c\), except in the payoff function \(\pi_i(\mathbf{a})\), mutation
-        parameters \(\mu_{ij}\), and in the definition of the set
+        increasing in at least one such \(j\) if one exists), and non-increasing
+        in the payoffs \(\pi_j(\mathbf{a})\) for all \(j \notin
+        \mathcal{R}_c(\mathbf{a})\). This includes the payoff of player \(i\)
+        themselves.
+        \item \(P_i(\mathbf{a}, c)\) and \(\lambda(J)\) contain no terms
+        dependent on \(a_i\) or \(c\), except in the payoff function
+        \(\pi_i(\mathbf{a})\), and in the definition of the set
         \(\mathcal{R}_c(\mathbf{a})\).
     \end{enumerate}
     \label{def:purely_extrinsic}
 \end{definition}
 
 Condition (1) gives the property of purely extrinsic population dynamics that
-looks outwardly, copying other individuals in the state. Condition (2)
-captures the basic monotonicity: a higher payoff for a role model makes that
-role model more likely to be copied, and a higher payoff for a non-role-model
-pulls the other way.
-% TODO: explain that player i is treated like every other player in condition
-% (2), and why the strictness clause only applies when c \neq a_i.
-Condition (3) rules out an inherent bias towards either action. Without
-(3), we must consider population dynamics which explicitly favour a certain
-action type, for example:
+looks outwardly, copying other individuals in the state. Condition (2) captures
+the basic monotonicity: a higher payoff for a role model makes that role model
+more likely to be copied, and a higher payoff for a non-role-model pulls the
+other way. Player \(i\) is treated like all other players in the state, and as
+such an increased payoff of a player \(i\) who is playing an action \(d \neq c\)
+should not increase their probability of switching. Additionally, the strictness
+clause applies if and only if \(c \neq a_i\), as the payoffs of other players of
+the new type may only draw players to new actions, rather than impacting the
+probability of retaining the same action (for example, Fermi imitation
+dynamics). Condition (3) rules out an inherent bias towards
+either action. Without (3), we must consider population dynamics which
+explicitly favour a certain action type, for example:
 
-% TODO: \delta_c here clashes with the Kronecker delta in
-% Equation~\eqref{eqn:general_transition}; rename (e.g. to w_c).
 \[
 \bar{P}_i(\mathbf{a}, c) =
 \begin{cases}
-\delta_c \cdot P_i(\mathbf{a}, c) & \text{if } c \neq a_i, \\
+w_c \cdot P_i(\mathbf{a}, c) & \text{if } c \neq a_i, \\
 1 - \sum_{c' \neq a_i} \delta_{c'} \cdot P_i(\mathbf{a}, c') & \text{if } c = a_i.
 \end{cases}
 \]
 
 where \(P_i\) is the update rule of some purely extrinsic dynamic, and
-\(\delta_c\) takes the value 1 if \(c = C\) and \(\frac{1}{2}\) if not. Without
+\(w_c\) takes the value 1 if \(c = C\) and \(\frac{1}{2}\) if not. Without
 (3), \(\bar{P}_i\) would define a purely extrinsic population dynamic, but would
 be tailored to favour a particular action type. We exclude cases such as this,
 as they do not conform to the framework in which fitness is the single measure
@@ -414,18 +396,23 @@ of the success, and thus the propagation, of action types in the population.
 While process-specific parameters may affect the update rule \(P_i(\mathbf{a},
 c)\), they should not inherently favour any specific action type.
 
-% TODO: explain that for a single update this agrees with the previous
-% definition on T_{\mathbf{ab}}, and that defining it on P_i covers dynamics
-% where several players update at once (e.g. Wright--Fisher).
+\subsection{Examples of purely extrinsic population dynamics}
 
-We now show two classical examples of purely extrinsic population dynamics: the
-Moran process, in which a player is chosen to be duplicated proportional to
-their payoff, and Fermi imitation dynamics, which directly compares the payoffs
-of pairs of players.
+We now show three classical examples of purely extrinsic population dynamics.
+The first two are the Moran process, in which a player is chosen to be
+duplicated proportional to their payoff, and Fermi imitation dynamics, which
+directly compares the payoffs of pairs of players. We then show the
+Wright-Fisher process, a dynamic where multiple players update at once according
+to fitness-proportional selection.
 
-\subsection{The Moran process}
+\subsubsection{The Moran process}
 
-The Moran process~\cite{Moran_1958} is defined by the following algorithm:
+The Moran process~\cite{Moran_1958} is traditionally a model of biological
+evolution~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a player's ``type''
+represents a species or allele within a population. However, it is widely
+utilised in modern evolutionary game theory as a model of strategy
+updating~\cite{knight2018evolution, LIU2015242, OHTSUKI2007289, WANG2023128134}.
+It is defined by the following algorithm:
 \begin{enumerate}
     \item A player is chosen to be copied with a probability proportional to 
     their fitness in the population
@@ -433,16 +420,12 @@ The Moran process~\cite{Moran_1958} is defined by the following algorithm:
         strategy
 \end{enumerate}
 
-This is shown in Figure~\ref{fig:diagrams_of_dynamics}A, and the transition matrix is given by:
+This is shown in Figure~\ref{fig:diagrams_of_dynamics}A, and the update rule is
+given by:
 
 \begin{equation}
-    T_{\mathbf{ab}} =
-    \begin{cases}
-        \dfrac{\sum_{j:\, a_j = b_{I(\mathbf{a}, \mathbf{b})}} f_j(\mathbf{a})}{N\sum_j f_j(\mathbf{a})}\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N} & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\
-        0 & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\
-        1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
-    \end{cases}
-\label{eqn:Moran_Probability_Function}
+    P_i(\mathbf{a}, c) = \dfrac{\sum_{j: a_j = c} f_j(\mathbf{a})}{\sum_{w=1}^N f_w(\mathbf{a})}
+    \label{eqn:moran_update}
 \end{equation}
 
 Where \(f_i(\mathbf{a}) = 1 - \varepsilon + \varepsilon\pi_i(\mathbf{a})\) is
@@ -454,27 +437,36 @@ rationality with which players choose which strategy to adopt in each time step:
 a larger \(\varepsilon\) indicates that a player will choose a higher fitness
 strategy with a greater probability.
 
-The Moran process has often been employed as a model of biological
-evolution~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a player's ``type''
-represents a species or allele within a population. In each time step, rather
-than a given player choosing a new action type, a randomly chosen individual in
-the population would die and be removed from the population. At the same time,
-an individual would reproduce with a probability proportional to their fitness,
-introducing an exact copy of themselves to the population to replace the removed
-individual. As a result of the model's original purpose, the Moran process
-contains no decision step where a player chooses whether or not to accept a
-considered strategy. Instead, at each time step, a player \emph{must} accept
-another player's action, and we remain in the same state when a player accepts
-the same action as they currently play.
+Since the Moran process only updates one player in each step, when mutation is
+applied the transition matrix is given by:
+
+\begin{equation}
+    T_{\mathbf{ab}} =
+    \begin{cases}
+        \dfrac{\sum_{j:\, a_j = b_{I(\mathbf{a}, \mathbf{b})}} f_j(\mathbf{a})}{N\sum_{w=1}^N f_w(\mathbf{a})}\left(1 - \sum_{c=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), c}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), b_{I(\mathbf{a}, \mathbf{b})}}}{N} & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\
+        0 & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\
+        1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
+    \end{cases}
+\label{eqn:Moran_Probability_Function}
+\end{equation}
+
+In the traditional biological context, each step represents a randomly chosen
+individual in the population dying and being removed from the population, while
+another individual would reproduce with a probability proportional to their
+fitness. As a result of this original purpose, the Moran process contains no
+decision step where a player chooses whether or not to accept a considered
+strategy. Instead, at each time step, a player \emph{must} accept another
+player's action, and we remain in the same state when a player accepts the same
+action as they currently play.
 
 One implication of this is that in a heterogeneous population, worsening moves
-may be taken with a high probability, as an action that provides a high payoff
-for one player in a population may not provide the same return for another. In
-nature, an offspring is unable to choose its parents, and thus cannot choose
-which attributes it is born with, and so the Moran process does not model the
-decision which players have regarding whether or not to play a certain strategy.
-When modelling the adoption of behaviours, these assumptions may lead to players
-making decisions which are harmful for their own payoff.
+may be taken with a high probability. This is because an action that provides a
+high payoff for one player in a population may not provide the same return for
+another. In nature, an offspring is unable to choose its parents, and thus
+cannot choose which attributes it is born with, and so the Moran process does
+not model the decision which players have regarding whether or not to play a
+certain strategy. When modelling the adoption of behaviours, these assumptions
+may lead to players making decisions which are harmful for their own payoff.
 
 We now show that the Moran process satisfies the conditions of
 Definition~\ref{def:purely_extrinsic}.
@@ -483,36 +475,35 @@ Definition~\ref{def:purely_extrinsic}.
     The Moran process, as defined by
     Equation~\eqref{eqn:Moran_Probability_Function}, is a purely extrinsic
     population dynamic.
+    \label{the:Moran_PE}
 \end{theorem}
 
 \begin{proof}
 By definition the Moran process satisfies conditions (1) and (3). It remains to
-be shown that \(T_{\mathbf{ab}}\) is non-decreasing in \(\pi_j(\mathbf{a})\) for \(j
-\in \mathcal{R}\) (strictly increasing for at least one such \(j\)) and
-non-increasing in \(\pi_j(\mathbf{a})\) for \(j \notin \mathcal{R}\). Recall
-\(f_i(\mathbf{a}) = 1 - \varepsilon + \varepsilon \pi_i(\mathbf{a})\) for some selection intensity
+be shown that \(P_i(\mathbf{a}, c)\) is non-decreasing in
+\(\pi_j(\mathbf{a})\) for \(j \in \mathcal{R}_c\) (strictly increasing for at
+least one such \(j\) if \(c \neq a_i\)) and non-increasing in
+\(\pi_j(\mathbf{a})\) for \(j \notin \mathcal{R}_c\). Recall \(f_i(\mathbf{a}) = 1
+- \varepsilon + \varepsilon \pi_i(\mathbf{a})\) for a given selection intensity
 \(\varepsilon > 0\). Then we have:
 
-\[T_{\mathbf{ab}} = \frac{\sum_{j \in \mathcal{R}}
-f_j(\mathbf{a})}{N\sum_{l=1}^N f_l(\mathbf{a})} \left(1 - \sum_{i=1}^k
-\mu_{I(\mathbf{a,b}), i}\right) + \frac{\mu_{I(\mathbf{a,b}),
-b_{I(\mathbf{a,b})}}}{N}\]
+\[P_i(\mathbf{a}, c) = \frac{\sum_{j \in \mathcal{R}_c}
+f_j(\mathbf{a})}{\sum_{w=1}^N f_w(\mathbf{a})}\]
 \[
-\frac{dT_{\mathbf{ab}}}{d\pi_i(\mathbf{a})} = \frac{\varepsilon \sum_{x \notin \mathcal{R}}
-f_x(\mathbf{a})}{\left(N\!\sum_{l=1}^N f_l(\mathbf{a})\right)^2}\left(1 - \sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}\right)
-\quad\text{for } i \in \mathcal{R}
+\frac{dP_i(\mathbf{a}, b_i)}{d\pi_j(\mathbf{a})} = \frac{\varepsilon \sum_{x \notin \mathcal{R}_c}
+f_x(\mathbf{a})}{\left(\sum_{l=1}^N f_l(\mathbf{a})\right)^2}
+\quad\text{for } j \in \mathcal{R}_c
 \]
 
-For \(i \in \mathcal{R}\), as \(\varepsilon\) is chosen such that \(f_i(\mathbf{a}) \gt
-0\) for all \(i \in \mathbf{a}\), and \(\mu_{i,j}\) such that \(\sum_{i=1}^k
-\mu_{I(\mathbf{a,b}), i} < 1\), this derivative is strictly positive. For \(j
-\notin \mathcal{R}\), the analogous computation gives
-\(\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\varepsilon \sum_{x \in
-\mathcal{R}} f_x(\mathbf{a})}{(N\sum_{l=1}^N f_l(\mathbf{a}))^2}(1 -
-\sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}) \leq 0\), so condition (2) holds. 
+For \(j \in \mathcal{R}_c\), as \(\varepsilon\) is chosen such that
+\(f_j(\mathbf{a}) \gt 0\) for all \(j \in \mathbf{a}\), this derivative is
+strictly positive. For \(j \notin \mathcal{R}_c\), the analogous computation
+yields \(\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\varepsilon \sum_{x
+\in \mathcal{R}_c} f_x(\mathbf{a})}{(\sum_{l=1}^N f_l(\mathbf{a}))^2} \leq 0\),
+so condition (2) holds, and the Moran process is a purely extrinsic population dynamic. 
 \end{proof}
 
-\subsection{Fermi imitation dynamics}
+\subsubsection{Fermi imitation dynamics}
 
 Fermi imitation dynamics~\cite{PhysRevE.58.69} is another commonly employed
 method of modelling evolution in a population. It follows the process:
@@ -520,26 +511,21 @@ method of modelling evolution in a population. It follows the process:
 \begin{itemize}
   \item Two players, \(i\) and \(j\) are selected at random from the population.
   \item Player \(i\) copies the action type of the player \(j\) with a
-  probability according to the Fermi function \( \phi(\pi_{i}(\mathbf{a}) -
+  probability according to the Fermi function \(\phi(\pi_{i}(\mathbf{a}) -
   \pi_{j}(\mathbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\mathbf{a}) -
   \pi_{j}(\mathbf{a}))}\right)}}\)
 \end{itemize}
 
 Where \(\beta\) is the \emph{choice} intensity of the system, representing how
 sensitive our players' choice is to the difference between their current payoff
-and the payoff which they are considering. This algorithm is also shown in
-Figure~\ref{fig:diagrams_of_dynamics}C. This method has been commonly used in studies of
-evolutionary games, for example~\cite{LEI20104708,MA2021111353,PhysRevE.58.69}.
-We now define our transition matrix according to the Fermi function:
+and the payoff which they are considering. This method has been commonly used in
+studies of evolutionary games~\cite{LEI20104708,MA2021111353,PhysRevE.58.69},
+and is shown in Figure~\ref{fig:diagrams_of_dynamics}C. The update rule is given
+by:
 
 \begin{equation}
-    T_{\mathbf{ab}} =
-    \begin{cases}
-        \dfrac{1}{N(N-1)}\!\sum_{j:\, a_j = b_{I(\mathbf{a}, \mathbf{b})}}\phi\!\left(\pi_{I(\mathbf{a}, \mathbf{b})}(\mathbf{a}) - \pi_{j}(\mathbf{a})\right)\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N} & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\
-        0 & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\
-        1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
-    \end{cases}
-\label{eqn:imitation_prob}
+    P_i(\mathbf{a}, c) = \frac{1}{N-1}\sum_{j:a_j = c}\phi(\pi_{i}(\mathbf{a}) - \pi_{j}(\mathbf{a}))
+    \label{eqn:fermi_update}
 \end{equation}
 
 Unlike a Moran Process, we can see that the players are not selected with a
@@ -551,13 +537,28 @@ based entirely on the payoff of another individual may lead to worsening moves
 in which players adopt strategies which currently admit a higher fitness, but
 which will not improve their own fitness.
 
-We also see that due to the formulation of the logit function \(\phi\), Fermi
-imitation dynamics can become invariant under certain parameters. This occurs in
-any game in which one action type's payoff in any given state can be expressed
-as another action type's payoff up to the addition of some term \(\gamma\),
-which depends only on a subset of the game's parameters. In that case,
-\(\Delta(\pi) = \pm\gamma\), and is therefore invariant to any parameters of the
-game of which \(\gamma\) is not a function.
+We now define our transition matrix according to the update rule of
+equation~\eqref{eqn:fermi_update}. Since Fermi imitation dynamics only updates
+one member of the population in each step, the transition matrix is given as
+follows:
+
+\begin{equation}
+    T_{\mathbf{ab}} =
+    \begin{cases}
+        \dfrac{1}{N(N-1)}\!\sum_{j:\, a_j = b_{I(\mathbf{a}, \mathbf{b})}}\phi\!\left(\pi_{I(\mathbf{a}, \mathbf{b})}(\mathbf{a}) - \pi_{j}(\mathbf{a})\right)\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N} & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\
+        0 & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\
+        1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
+    \end{cases}
+\label{eqn:imitation_prob}
+\end{equation}
+
+Due to the formulation of the logit function \(\phi\), Fermi imitation dynamics
+can become invariant under certain parameters. This occurs in any game in which
+one action type's payoff in any given state can be expressed as another action
+type's payoff up to the addition of some parameter \(\gamma\), which depends
+only on a subset of the game's parameters. In that case, \(\Delta(\pi) =
+\pm\gamma\), and is therefore invariant to any parameters of the game of which
+\(\gamma\) is not a function.
 
 We now show that Fermi imitation dynamics satisfies the definition of a purely
 extrinsic population dynamic.
@@ -570,30 +571,77 @@ extrinsic population dynamic.
 
 \begin{proof}
 By definition, Fermi imitation dynamics satisfies conditions (1) and (3). It
-remains to show that it satisfies condition (2).
-
-\[ T_{\mathbf{ab}} = \frac{1}{N(N-1)}\sum_{j \in
-\mathcal{R}}\phi(\pi_{I(\mathbf{a,b})}(\mathbf{a}) - \pi_j(\mathbf{a}))\left(1 -
-\sum_{i=1}^k \mu_{I(\mathbf{a,b}), i}\right) + \frac{\mu_{I(\mathbf{a,b}),
-b_{I(\mathbf{a,b})}}}{N} \]
-
-As \(\phi\) is strictly decreasing, every term in the sum is strictly increasing
-in \(\pi_j(\mathbf{a})\) for \(j \in \mathcal{R}\). For \(j \notin \mathcal{R}\) with
-\(j \neq I(\mathbf{a,b})\), \(\pi_j(\mathbf{a})\) does not appear in the formula at
-all. For \(j = I(\mathbf{a,b})\) (when \(a_{I(\mathbf{a,b})} \neq
-b_{I(\mathbf{a,b})}\), so \(I \notin \mathcal{R}\)), each term is strictly
-decreasing in \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) because \(\phi\) is. Thus, Fermi
-imitation dynamics satisfies condition (2).
+remains to show that it satisfies condition (2). Consider the update rule as
+given in equation~\eqref{eqn:fermi_update}. As \(\phi\) is strictly decreasing,
+every term in the sum is strictly increasing in \(\pi_j(\mathbf{a})\) for \(j
+\in \mathcal{R}_c\). For \(j \notin \mathcal{R}_c\) with \(j \neq
+I(\mathbf{a,b})\), \(\pi_j(\mathbf{a})\) does not appear in the formula at all.
+For \(j = I(\mathbf{a,b})\) (when \(a_{I(\mathbf{a,b})} \neq
+b_{I(\mathbf{a,b})}\), so \(I \notin \mathcal{R}_c\)), each term is strictly
+decreasing in \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) because \(\phi\) is. Thus,
+Fermi imitation dynamics satisfies condition (2), and is a purely extrinsic
+population dynamic.
 \end{proof}
+
+\subsubsection{The Wright-Fisher process}
+
+The previous two population dynamics which we have discussed each only update
+one member of the population in a given step. We now explore a population
+dynamic in which each player updates at once. The Wright-Fisher
+process~\cite{Fisher_1923, wright1931evolution} has each player perform an
+independent binomial trial to select their action from the previous generation.
+The probability of selecting an action type is given by the proportion of the
+total fitness of the state given by players with that action. 
+
+While traditionally defined for two-action populations, it can be simply
+extended to \(k\) actions in our framework. As all players in the Wright Fisher
+process reconsider their action each round, we have that \(\lambda(J) = 1\) if
+\(J = \{1, \dots, N\}\), and \(0\) if not. Additionally, the process has the
+same update rule as the Moran process~\cite{imhof_evolutionary_2006}, where each
+player copies a player from the population proportional to it's fitness.
+
+\begin{corollary}[The Wright-Fisher process is a purely extrinsic population dynamic]
+\end{corollary}
+\begin{proof}
+    The Wright-Fisher process has the same update rule \(P_i(\mathbf{a}, c)\) as
+    the Moran process. Theorem~\ref{the:Moran_PE} gives us that this update rule
+    defines a purely extrinsic population dynamic. Additionally, by definition,
+    \(\lambda(J)\) has no term depending on the action types of players in any
+    state. Thus, the Wright-Fisher process also defines a purely extrinsic
+    population dynamic.
+\end{proof}
+
+The transition matrix of a process in which multiple players change action type
+is no longer defined by Neb\((\textbf{a})\). Instead, the transition matrix with
+mutation is given as follows:
+
+\begin{equation}
+    T_{\mathbf{ab}} =
+    \begin{cases}
+        \prod_{i=1}^N \left(\dfrac{\sum_{j:\, a_j = b_{i}} f_j(\mathbf{a})}{\sum_w f_w(\mathbf{a})}\left(1 - \sum_{l=1}^k \mu_{il}\right)+ \mu_{i, \mathbf{b}_{i}}\right) & \text{if } \mathbf{b}_i \in \mathbf{a} \text{ for all } i \in \{1, \dots, N\},\\
+
+        0 & \text{otherwise}\\
+    \end{cases}
+\label{eqn:wf_tm}
+\end{equation}
+
+The Wright-Fisher process, like the Moran process, was originally used for the
+purpose of modelling biological evolution. At each step, the population would be
+replaced entirely. As \(N \to \infty\), the proportion of individuals of type
+\(c\) in a generation \(t+1\) can be given as the proportion of the global
+fitness at time \(t\) given by individuals of type \(c\). This admits the same
+issues as the other purely extrinsic dynamics when it comes to modelling a
+heterogeneous population, as players may accept worsening moves with a high
+probability.
 
 \subsection{The cooperation ceiling}
 
-We now consider purely extrinsic population dynamics in
-games with two actions, \(C\) and \(D\). Figure~\ref{fig:ceiling_argument}
-sketches the argument that follows: in a social dilemma a defector pointwise
-dominates a cooperator, a relabelling of the two actions fixes a symmetric point
-at neutral payoffs, and together these bound the cooperation probability at one
-half. We first define a further classification for population dynamics:
+We now consider purely extrinsic population dynamics in games with two actions,
+\(C\) and \(D\). Figure~\ref{fig:ceiling_argument} sketches the argument that
+follows: in a social dilemma a defector pointwise dominates a cooperator, a
+relabelling of the two actions fixes a symmetric point at neutral payoffs, and
+together these bound the cooperation probability at one half. We first define a
+further classification for population dynamics:
 
 \begin{figure}[!htbp]
     \centering
@@ -611,68 +659,80 @@ half. We first define a further classification for population dynamics:
 \end{figure}
 
 \begin{definition}[Neutrally monotone population dynamic]
-    Let \(T\) be the transition matrix for a population dynamic on a game with
-    two actions, \(\{C, D\}\), and equip the state space \(S =\{C, D\}^N\) with
-    the componentwise partial ordering with \(D < C\). Let \(T^{\mathrm{nd}}\)
-    denote \(T\) with all payoffs set to a common value (we denote by
-    \(v_{\mathbf{a}}\) the common value in state \textbf{a}). We say that \(T\)
-    defines a \emph{neutrally monotone} population dynamic if:
+    Let \(T\) be the transition matrix for a population dynamic (\(P_i,
+    \lambda\)) on a game with two actions, \(\{C, D\}\). Additionally, equip the
+    state space \(S =\{C, D\}^N\) with the componentwise partial ordering with
+    \(D < C\). Let \(T^{\mathrm{nd}}\) denotes the transition matrix of this
+    population dynamic in the same game but where all payoffs are set to a
+    common value (we denote by \(v_{\mathbf{a}}\) the common value in state
+    \textbf{a}, and (\(P^{\mathrm{nd}}_i, \lambda^{\mathrm{nd}}\)) denotes the
+    population dynamic under this system). We say that \(T\) defines a
+    \emph{neutrally monotone} population dynamic if:
     
     \begin{enumerate}
     \item \(T_{\mathbf{ab}}^{nd}\) is independent of \(v_{\mathbf{a}}\).
+    \item \(\lambda(J) = \lambda^{\mathrm{nd}}(J)\) for all \(J \subset S\).
     \item For every pair of states \(\mathbf{a} \leq \mathbf{a}'\), there exist random
         variables \(\mathbf{X}, \mathbf{X}'\) on a common probability space, with
         \(\mathbf{X} \sim T^{\mathrm{nd}}(\mathbf{a}, \cdot)\) and
         \(\mathbf{X}' \sim T^{\mathrm{nd}}(\mathbf{a}', \cdot)\), such that
         \(\mathbf{X} \leq \mathbf{X}'\) almost surely.
-
     \end{enumerate}
 \end{definition}
 
-The two conditions ask that the neutralised chain \(T^{\mathrm{nd}}\) is
-independent of the common payoff value (condition (1)) and is stochastically
-monotone (condition (2)). Neutral monotonicity thus captures configuration
-neutrality: under the same neutral payoffs, starting from a more cooperative
-profile cannot make the next state any less cooperative, and the chosen common
-value does not impact this neutrality. In a process which is not neutrally
-monotone, there could be a configuration-dependent
-pull toward a given action type at neutral payoffs, which is an inherent bias
-rather than truly neutral behaviour. It can be shown that this definition holds
-for both the Moran process, and Fermi imitation dynamics:
+The three conditions ask that the neutralised chain \(T^{\mathrm{nd}}\) is
+independent of the common payoff value (condition (1)), selects players
+equivalently when payoffs are distinct or neutralised (condition (2)) and is
+stochastically monotone (condition (3)). Neutral monotonicity thus captures
+configuration neutrality: under the same neutral payoffs, starting from a more
+cooperative profile cannot make the next state any less cooperative, and the
+chosen common value does not impact this neutrality. In a process which is not
+neutrally monotone, there could be a configuration-dependent pull toward a given
+action type at neutral payoffs, which is an inherent bias rather than truly
+neutral behaviour. It can be shown that this definition holds for all previously
+mentioned population dynamics:
 
 \begin{theorem}
-    The Moran process and Fermi imitation dynamics are neutrally monotone under action-invariant mutation.
+    The Moran process, Fermi imitation dynamics, and Wright-Fisher process are
+    neutrally monotone under action-invariant mutation.
 \end{theorem}
 
 \begin{proof}
 
+    For all three population dynamics, the value \(\lambda(J)\) is invariant of
+    the payoffs of all players, and thus condition (2) holds for all examples.
+    It remains to show that conditions (1) and (3) hold for all dynamics.
+
     We begin with the Moran process. Set \(\pi_i(\mathbf{a}) = v\) for every
     player \(i\) gives \(f_i(\mathbf{a}) = 1 -\varepsilon + \varepsilon v\) for every \(i\),
-    whence \(T_{\mathbf{ab}} = \frac{|\mathcal{R}|(1-\varepsilon+\varepsilon
+    whence \(T_{\mathbf{ab}}^{\mathrm{nd}} = \frac{|\mathcal{R}|(1-\varepsilon+\varepsilon
     v)}{N\cdot N (1-\varepsilon+\varepsilon v)}(1 - \sum_i \mu_{I(\mathbf{a,b}),
     i}) + \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N} =
     \frac{|\mathcal{R}|}{N^2}(1 - \sum_i \mu_{I(\mathbf{a,b}), i}) +
     \frac{\mu_{I(\mathbf{a,b}), b_{I(\mathbf{a,b})}}}{N}\), which is independent
     of \(v\). Therefore, condition (1) holds.
 
-    Under \(T^{\mathrm{nd}}\), as defined above, the Moran process samples a focal player
-    \(i\) uniformly, a role
-    model \(k\) uniformly from the population (since all fitnesses are equal),
-    and a mutation outcome \(m\) from the action-invariant mutation distribution;
-    player \(i\) then adopts \(a_k\), or \(m\) if a mutation occurs. Couple the chains
-    started at \(\mathbf{a} \leq \mathbf{a}'\) on the common probability space
-    generated by \((i, k, m)\), applying the same draw to both. Coordinate \(i\) in
-    the successor of \(\mathbf{a}\) is \(a_k\) (or \(m\)); coordinate \(i\) in the
-    successor of \(\mathbf{a}'\) is \(a'_k\) (or the same \(m\)). Since
-    \(\mathbf{a} \leq \mathbf{a}'\) gives \(a_k \leq a'_k\), and every other
-    coordinate \(j\) is left unchanged with \(a_j \leq a'_j\), the two successors
+    Let \(n_C\) denote the number of players of type \(C\) in the population.
+    Under \(T^{\mathrm{nd}}\), as defined above, the Moran process samples a
+    focal player \(i\) uniformly, and a role model \(k\) with probability
+    \(\frac{n_C}{N}\) for type \(C\) (equivalently, \(\frac{1-n_C}{N}\) for type
+    \(D\)) from the population (since all fitnesses are equal). Finally, a
+    mutation outcome \(m\) is selected from the action-invariant mutation
+    distribution; player \(i\) then adopts \(a_k\), or \(a_m\) if a mutation
+    occurs. Couple the chains started at \(\mathbf{a} \leq \mathbf{a}'\) on the
+    common probability space generated by \((i, k, m)\), applying the same draw
+    to both. Coordinate \(i\) in the successor of \(\mathbf{a}\) is \(a_k\) (or
+    \(a_m\)); coordinate \(i\) in the successor of \(\mathbf{a}'\) is \(a'_k\)
+    (or the same \(a_m\)). \(\mathbf{a} \leq \mathbf{a}'\) gives \(n_C \leq
+    n_C'\), and thus \(a_k \leq a'_k\), and every other coordinate \(j\) is left
+    unchanged with \(a_j \leq a'_j\). Therefore the two successors
     \(\mathbf{X}\) and \(\mathbf{X}'\) satisfy \(\mathbf{X} \leq \mathbf{X}'\)
-    pointwise on this probability space, so condition (2) holds.
+    pointwise on this probability space, so condition (3) holds.
 
     For Fermi imitation dynamics, if \(\pi_i(\mathbf{a}) = v\) for every player
     \(i\), then every payoff difference appearing in the Fermi formula is zero, so
     \(\phi(\pi_I(\mathbf{a}) - \pi_j(\mathbf{a})) = \phi(0) = \frac{1}{2}\) in
-    each summand, and \(T_{\mathbf{ab}} = \frac{|\mathcal{R}|}{2N(N-1)}(1 -
+    each summand, and \(T_{\mathbf{ab}}^{\mathrm{nd}} = \frac{|\mathcal{R}|}{2N(N-1)}(1 -
     \sum_i \mu_{I(\mathbf{a,b}), i}) + \frac{\mu_{I(\mathbf{a,b}),
     b_{I(\mathbf{a,b})}}}{N}\), independent of \(v\). Therefore, condition (1)
     holds.
@@ -681,16 +741,49 @@ for both the Moran process, and Fermi imitation dynamics:
     role model \(k\) uniformly from the remaining \(N - 1\) players, an independent
     Bernoulli outcome with success probability \(\phi(0) = \frac{1}{2}\), and a
     mutation outcome \(m\) from the action-invariant mutation distribution; player
-    \(i\) adopts \(a_k\) on a success (or \(m\) if a mutation occurs) and otherwise
+    \(i\) adopts \(a_k\) on a success (or \(a_m\) if a mutation occurs) and otherwise
     keeps \(a_i\). Couple the chains started at \(\mathbf{a} \leq \mathbf{a}'\) on
     the common probability space generated by \((i, k, \text{Bernoulli}, m)\),
     applying the same draw to both. On a mutation step, both successors set
-    coordinate \(i\) to the same \(m\). On a successful imitation step, they set
+    coordinate \(i\) to the same \(a_m\). On a successful imitation step, they set
     coordinate \(i\) to \(a_k\) and \(a'_k\) respectively, with \(a_k \leq a'_k\). On a
     no-update step, coordinate \(i\) retains \(a_i \leq a'_i\). Every other
     coordinate is unchanged, so the two successors \(\mathbf{X}\) and
     \(\mathbf{X}'\) satisfy \(\mathbf{X} \leq \mathbf{X}'\) pointwise on this
-    probability space, and condition (2) holds.
+    probability space, and condition (3) holds.
+
+    Finally, we consider the Wright-Fisher process. Setting \(\pi_i(\mathbf{a})
+    = v\) for all \(i\) gives:
+    \[
+        \begin{aligned}
+         T_\mathbf{ab}^{\mathrm{nd}} &= \prod_{i=1}^N
+        \left(\dfrac{|\mathcal{R}|(1 - \epsilon + \epsilon v)}{N(1 - \epsilon +
+        \epsilon v)}\left(1 - \sum_{l=1}^k \mu_{il}\right)+ \mu_{i,
+        \mathbf{b}_{i}}\right)\\ &= \frac{|\mathcal{R}|}{N}\prod_{i=1}^N \left(1
+        - \sum_{l=1}^k \mu_{il}\right)+ \mu_{i, \mathbf{b}_{i}}
+        \end{aligned}
+    \]
+    
+    Thus the neutralised chain does not depend on the value of \(v\) and
+    condition (1) holds.
+
+    The Wright-Fisher no longer uniformly selects a player, but instead all
+    players reconsider their action type. Each player has a randomly chosen
+    outcome of their update rule \(P_i\), denoted \(k_i\), given by
+    \(\frac{n_C}{N}\) for type \(C\) (equivalently, \(\frac{1-n_C}{N}\) for type
+    \(D\)). A mutation outcome \(m_i\) is also selected from the action-invariant
+    mutation distribution. Each player updates their action type independently,
+    adopting action \(a_{k_i}\), or \(a_{m_i}\) if a mutation occurs. Couple the
+    chains at \(\mathbf{a} \leq \mathbf{a'}\) on the common probability space
+    generated by \((k_1, m_1, \dots k_N, m_N)\). For each player, on a mutation
+    step, both chains set their action type to the same value, and so for these
+    players their successors satisfy \(\mathbf{X}_i \leq \mathbf{X}_i'\).
+    Additionally, since \(\mathbf{a} \leq \mathbf{a'}\), each player accepts
+    \(C\) with a higher probability in \(\mathbf{a'}\) when updating according
+    to the rule \(P_i\). Therefore, for all players \(i \in \{1, \dots, N\}\),
+    their successors satisfy \(\mathbf{X}_i \leq \mathbf{X}_i'\) pointwise on
+    this probability space. Thus, the total succession population satisfies
+    \(\mathbf{X} \leq \mathbf{X}'\), and condition (3) holds.
 \end{proof}
 
 We will now show that there is a theoretic limit on the abundance of cooperators
@@ -759,65 +852,80 @@ cooperation in a heterogeneous population.
 \begin{framed}
 \begin{theorem}[Extrinsic Ceiling]
 
-    Let \(T\) define a neutrally monotone purely extrinsic process on an
-    \(N\)-player game with 2 actions, \(C\) and \(D\), such that in any given state
-    \(\mathbf{a}\),
-    \(\min_{j: a_j = D} \pi_j(\mathbf{a}) > \max_{i: a_i = C} \pi_i(\mathbf{a})\)
-    (that is, any defector has greater payoff than any cooperator; equivalently,
-    since fitness \(f_i = 1 - \varepsilon + \varepsilon \pi_i\) is increasing in payoff, any
-    defector has greater fitness than any cooperator), under action-invariant
-    mutation.
+    Let \(T\) be the transition matrix of a neutrally monotone purely extrinsic
+    population dynamic (\(P_i, \lambda\)) on an \(N\)-player game with 2
+    actions, \(C\) and \(D\), such that in any given state \(\mathbf{a}\),
+    \(\min_{j: a_j = D} \pi_j(\mathbf{a}) > \max_{i: a_i = C}
+    \pi_i(\mathbf{a})\) (that is, any defector has greater payoff than any
+    cooperator; equivalently, since fitness \(f_i = 1 - \varepsilon +
+    \varepsilon \pi_i\) is increasing in payoff, any defector has greater
+    fitness than any cooperator), under action-invariant mutation.
 
     Then the mean proportion of cooperators in the steady state of \(T\), denoted \(p_C\),
-     satisfies \(p_C \leq \frac{1}{2}\).
+    satisfies \(p_C \leq \frac{1}{2}\).
     \label{prop:ceiling}
 \end{theorem}
 \end{framed}
 \begin{proof}
 
-    Equip \(S = \{C, D\}^N\) with the componentwise partial order, declaring \(D <
-    C\). For a transition matrix \(P\), write \(P(\mathbf{a}, \cdot) \preceq_{st}
-    P(\mathbf{a}', \cdot)\) to mean that the one-step distribution from
-    \(\mathbf{a}\) under \(P\) is stochastically dominated by the one-step
-    distribution from \(\mathbf{a}'\) under \(P\) in this order. Let
-    \(T^{\mathrm{nd}}_{\mathbf{ab}}\) denote the value of \(T_{\mathbf{ab}}\)
-    evaluated at \(\pi_i(\mathbf{a}) = 0\) for every \(i\); by neutral-monotonicity
-    condition (1), \(T^{\mathrm{nd}}_{\mathbf{ab}}\) is equally the value of \(T_{\mathbf{ab}}\)
-    under any other choice of common payoff.
+    Equip \(S = \{C, D\}^N\) with the componentwise partial order, declaring \(D
+    < C\). For a transition matrix \(Y\), write \(Y(\mathbf{a}, \cdot)
+    \preceq_{st} Y(\mathbf{a}', \cdot)\) to mean that the one-step distribution
+    from \(\mathbf{a}\) under \(P\) is stochastically dominated by the one-step
+    distribution from \(\mathbf{a}'\) under \(Y\) in this order. Let
+    \(T^{\mathrm{nd}}\) define the chain with the same population dynamic
+    \((P_i, \lambda)\) as \(T\), but evaluated at \(\pi_i(\mathbf{a}) =
+    v(\mathbf{a})\) for every \(i\); by neutral-monotonicity condition (1),
+    \(T^{\mathrm{nd}}\) is equal under any choice of \(v(\mathbf{a})\).
 
     \medskip
     \noindent\textit{Step 1: \(T(\mathbf{a}, \cdot) \preceq_{st}
     T^{\mathrm{nd}}(\mathbf{a}, \cdot)\) for every \(\mathbf{a} \in S\).}
 
-    Set \(v(\mathbf{a}) := \min_{a_j = D} \pi_j(\mathbf{a})\). In every mixed
+    Set \(v(\mathbf{a}) := \min_{j|a_j = D} \pi_j(\mathbf{a})\). In every mixed
     state \(\mathbf{a}\), the payoff-dominance hypothesis implies
-    \(\pi_i(\mathbf{a}) < v(\mathbf{a})\) for every cooperator \(i\) and
-    \(\pi_j(\mathbf{a}) \geq v(\mathbf{a})\) for every defector \(j\). Consider a
-    \(C\)-gaining transition \(\mathbf{a} \to \mathbf{b}\), so \(b_{I(\mathbf{a,b})}
-    = C\) and \(\mathcal{R}\) is the set of current cooperators. Replacing every
-    \(\pi_i(\mathbf{a})\) with \(v(\mathbf{a})\) raises all role-model payoffs and
-    lowers all non-role-model payoffs, so by purely-extrinsic condition (2),
+    \(\pi_i(\mathbf{a}) < v(\mathbf{a})\) for every \(C\) player \(i\) and
+    \(\pi_j(\mathbf{a}) \geq v(\mathbf{a})\) for every \(D\) player \(j\). For a
+    \(C\)-gaining update \(P_i(\mathbf{a}, C)\), replacing every
+    \(\pi_i(\mathbf{a})\) with \(v(\mathbf{a})\) raises all role-model payoffs
+    and lowers all non-role-model payoffs. For a \(D\)-gaining update the
+    reverse is true. Therefore, by purely-extrinsic condition (2):
 
     \[
-        T_{\mathbf{ab}} \;\leq\; T_{\mathbf{ab}} \big|_{\pi_i(\mathbf{a}) = v(\mathbf{a})\text{ for all } i}
+        P_i(\mathbf{a}, C) \leq P_i(\mathbf{a}, C) \big|_{\pi_j(\mathbf{a}) = v(\mathbf{a})\text{ for all } j} \text{ for all }i \in \{1, \dots, N\}
     \]
 
-    with strict inequality whenever \(\mathcal{R} \neq \emptyset\). By
-    neutral-monotonicity condition (1), the right-hand side equals
-    \(T^{\mathrm{nd}}_{\mathbf{ab}}\). The
-    analogous argument with reversed inequality applies to \(D\)-gaining
-    transitions. Hence \(T(\mathbf{a}, \cdot) \preceq_{st}
-    T^{\mathrm{nd}}(\mathbf{a}, \cdot)\).
+    and
+
+    \[
+        P_i(\mathbf{a}, D) \geq P_i(\mathbf{a}, D) \big|_{\pi_j(\mathbf{a}) = v(\mathbf{a})\text{ for all } j} \text{ for all }i \in \{1, \dots, N\}
+    \]
+
+    with strict inequality whenever \(\mathcal{R} \neq \emptyset\). The right
+    hand side of each of these inequalities is equivalent to the update
+    probabilities in the neutralised chain \(T^{\mathrm{nd}}\) by
+    neutral-monotonicity condition (1). The above comparison of
+    \(T^{\mathrm{nd}}\) and \(T\) reveals that for all players in all states,
+    updates in \(T^{\mathrm{nd}}\) accept \(C\) with a higher probability, and
+    \(D\) with a lower probability.
+    
+    As the selection probability \(\lambda(J)\) remains unchanged between
+    between \(T\) and \(T^{\mathrm{nd}}\) by neutral-monotonicity condition (2),
+    we have that for any given state \(\mathbf{a}\), the probability of each
+    player being selected is equal between both chains, but the probability of
+    each said player cooperating in the next state is greater in
+    \(T^{\mathrm{nd}}\). Therefore, we have that \(T(\mathbf{a}, \cdot)
+    \preceq_{st} T^{\mathrm{nd}}(\mathbf{a}, \cdot)\).
 
     \medskip
     \noindent\textit{Step 2: \(T^{\mathrm{nd}}\) is invariant under the \(C \leftrightarrow D\) label swap.}
 
     Let \(\sigma : S \to S\) be the map that swaps every \(C\) and \(D\). By
     purely-extrinsic condition (3) and neutral-monotonicity condition (1), with
-    common payoff \(0\), the only features of
+    common payoff \(v\), the only features of
     \((\mathbf{a}, \mathbf{b})\) that enter \(T^{\mathrm{nd}}_{\mathbf{ab}}\) are
     the mutation matrix and the set \(\mathcal{R}\). Under action-invariant
-    mutation the mutation matrix is \(\sigma\)-invariant; and \(|\mathcal{R}|\) is
+    mutation the mutation matrix is \(\sigma\)-invariant, and \(|\mathcal{R}|\) is
     \(\sigma\)-invariant because the set of players currently playing
     \(b_{I(\mathbf{a,b})}\) in \(\mathbf{a}\) has the same size as the set of
     players currently playing \(\sigma(b_{I(\mathbf{a,b})})\) in
@@ -830,7 +938,7 @@ cooperation in a heterogeneous population.
     \medskip
     \noindent\textit{Step 3: \(T^{\mathrm{nd}}\) is stochastically monotone.}
 
-    Neutral-monotonicity condition~(2) provides, for every \(\mathbf{a} \leq \mathbf{a}'\), a coupling
+    Neutral-monotonicity condition~(3) provides, for every \(\mathbf{a} \leq \mathbf{a}'\), a coupling
     \((\mathbf{X}, \mathbf{X}')\) on a common probability space with \(\mathbf{X}
     \sim T^{\mathrm{nd}}(\mathbf{a}, \cdot)\), \(\mathbf{X}' \sim
     T^{\mathrm{nd}}(\mathbf{a}', \cdot)\), and \(\mathbf{X} \leq \mathbf{X}'\)
