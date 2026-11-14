@@ -358,9 +358,9 @@ members of a population.
         \mathcal{R}_c(\mathbf{a})\). This includes the payoff of player \(i\)
         themselves.
         \item \(P_i(\mathbf{a}, c)\) and \(\lambda(J)\) contain no terms
-        dependent on \(a_i\) or \(c\), except in the payoff function
-        \(\pi_i(\mathbf{a})\), and in the definition of the set
-        \(\mathcal{R}_c(\mathbf{a})\).
+        dependent on \(a_j\) or \(c\) for any \(j \in \{1, \dots, N\}\), except
+        in the payoff function \(\pi_j(\mathbf{a})\), and in the definition of
+        the set \(\mathcal{R}_c(\mathbf{a})\).
     \end{enumerate}
     \label{def:purely_extrinsic}
 \end{definition}
@@ -411,13 +411,13 @@ The Moran process~\cite{Moran_1958} is traditionally a model of biological
 evolution~\cite{568a8a9c-d8ae-3d24-9fc2-3d33340230e7}, where a player's ``type''
 represents a species or allele within a population. However, it is widely
 utilised in modern evolutionary game theory as a model of strategy
-updating~\cite{knight2018evolution, LIU2015242, OHTSUKI2007289, WANG2023128134}.
+updating~\cite{knight2018evolution, LIU2015242, OHTSUKI2007289}.
 It is defined by the following algorithm:
 \begin{enumerate}
+    \item A player is chosen uniformly from the population to change their
+        strategy
     \item A player is chosen to be copied with a probability proportional to 
     their fitness in the population
-    \item A player is chosen with probability \(\frac{1}{N}\) to change their
-        strategy
 \end{enumerate}
 
 This is shown in Figure~\ref{fig:diagrams_of_dynamics}A, and the update rule is
@@ -509,7 +509,7 @@ Fermi imitation dynamics~\cite{PhysRevE.58.69} is another commonly employed
 method of modelling evolution in a population. It follows the process:
 
 \begin{itemize}
-  \item Two players, \(i\) and \(j\) are selected at random from the population.
+  \item Two players, \(i\) and \(j\) are selected uniformly from the population.
   \item Player \(i\) copies the action type of the player \(j\) with a
   probability according to the Fermi function \(\phi(\pi_{i}(\mathbf{a}) -
   \pi_{j}(\mathbf{a})) = \frac{1}{1 + e^{\left({\beta(\pi_{i}(\mathbf{a}) -
@@ -974,11 +974,178 @@ swap. In such a game, there is no temptation to free ride; players will obtain a
 greater payoff by cooperating regardless of the population structure. Threshold
 values of \(r\) in a homogeneous public goods game are considered
 in~\cite{g10010001}, where a subset of the population play a game at each time
-step and players opt out of the game with a certain probability. The following
-section considers the heterogeneous public goods game, providing an example of
-Theorem~\ref{prop:ceiling}.
+step and players opt out of the game with a certain probability. We consider the
+public goods game as an example in section~\ref{sec:examples}
+
+\section{Intrinsic population dynamics}
+\label{sec:intrinsic_population_dynamics}
+
+We have seen how purely extrinsic population dynamics only compare a player's
+payoffs to the payoff in the current state. We now see a classification of
+population dynamic where players instead compare their payoff to some attribute
+or payoff other than that of other players. We define a \emph{purely intrinsic
+population dynamic} as follows:
+
+\begin{definition}[Purely intrinsic population dynamic]
+    A population dynamic defined by a transition matrix \(T\) 
+    is said to be \emph{purely intrinsic} if it satisfies the following conditions:
+    \begin{enumerate}
+        \item \(P_i(\mathbf{a}, c)\) and \(\lambda(J)\) are functions of the
+        payoffs of no player other than \(i\). 
+        \item \(P_i(\mathbf{a}, c)\) is decreasing in the payoff of the focal
+        player \(\pi_i(\mathbf{a})\).
+        \item \(P_i(\mathbf{a}, c)\) and \(\lambda(J)\) contain no terms
+        dependent on \(a_i\) or \(c\) for any \(j \in \{1, \dots, N\}\), except
+        in the payoff function \(\pi_j\) and mutation parameters \(\mu_{ij}\).
+    \end{enumerate}
+\end{definition}
+
+Purely intrinsic population dynamics model strategy update through one's
+consideration of their own payoff. These dynamics are linked closely with human
+cognitive decision making, and specifically with \emph{individual
+learning}~\cite{molleman_consistent_2014, RogersCulture}. In purely intrinsic
+models, players are not influenced by the behaviours of other players, but
+instead consider the impact of their own actions in relation to some personal
+characteristic. In the following section, we consider two such population
+dynamics. In the first, aspiration dynamics, a player compares their payoffs to
+their individual target payoff. In the second, introspection dynamics, players
+compare their payoffs with their counterfactual payoff which they will obtain
+upon switching their action type.
+
+\subsection{Aspiration dynamics}
+
+Under aspiration dynamics, players choose to change action based on how far away
+their current payoff is from a target payoff, as shown in
+Figure~\ref{fig:diagrams_of_dynamics}B. It
+follows the algorithm:
+
+\begin{enumerate}
+       \item A player \(i\) is chosen uniformly from the population to
+       reconsider their strategy
+       \item This player changes strategy with a probability
+       \(\phi(\pi_i(\mathbf{a}) - A_i)\)
+\end{enumerate}
+
+Here, the constant \(A_i\) is player \(i\)'s \textit{aspiration}, the payoff
+which they desire to make from a given game. A player will accept a new strategy
+with a higher than random probability if their current payoff is lower than
+their aspired payoff. This dynamic is traditionally paired with two action
+games~\cite{Du2015AspirationDynamics,du2014aspiration,Zhou2021AspirationDynamics},
+though it can be defined for games with 3 or more
+actions~\cite{Aspiration3Types}. Aspiration dynamics has also often been
+combined with imitation
+dynamics~\cite{PhysRevE.102.032120,PhysRevE.94.012124,QUAN2020109634,WANG2023128134},
+either as a heterogeneous attribute of the population, or to form new population
+dynamics. In the following formulation, we allow for more than 2 action types,
+however in the given examples we only consider 2-action games.
+
+The update rule of aspiration dynamics is given by:
+
+\begin{equation}
+    P_i(\mathbf{a}, c) = \frac{1}{k-1}\phi(\pi_i(\mathbf{a} - A_i))
+    \label{eqn:asp_update_rule}
+\end{equation}
+
+As the focal player is selected uniformly from the population, \(\lambda(J) =
+\frac{1}{N}\), and thus the transition matrix is given by:
+
+\begin{equation}
+T_{\mathbf{ab}} =
+\begin{cases}
+\dfrac{1}{N} \, \phi(\pi_{I(\mathbf{a}, \mathbf{b})}(\mathbf{a}) - A_{I(\mathbf{a}, \mathbf{b})})\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N}
+    & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\[1.2em]
+0
+    & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\[0.8em]
+1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
+\end{cases}
+\label{eqn:Aspiration_Probability_Function}
+\end{equation}
+
+This population dynamic spends a large amount of time in states where most
+players achieve their aspired payoffs. In this case, players will have a lower
+probability of switching strategy, compared to a state where players are
+underperforming in comparison to their target \(A\). We now show that Aspiration
+dynamics is a purely intrinsic population dynamic:
+
+\begin{theorem}[Aspiration dynamics is a purely intrinsic population dynamic]
+    Aspiration dynamics, as defined by
+    Equation~\eqref{eqn:Aspiration_Probability_Function}, is a purely intrinsic
+    population dynamic.
+\end{theorem}
+\begin{proof}
+    As \(A_i\) is a constant, aspiration dynamics satisfies conditions (1) and
+    (3) by definition. It remains to show that \(P_i(\mathbf{a}, c)\) is
+    decreasing in the payoff \(\pi_i(\mathbf{a})\). We have that \(\phi(x)\) is
+    decreasing, and \(\pi_i(\mathbf{a})\) appears only in the value
+    \(\pi_i(\mathbf{a}) - A_i\). Therefore, setting \(x = \pi_i(\mathbf{a}) -
+    A_i\), since \(x\) is increasing in \(\pi_i(\mathbf{a})\), we get that
+    \(\phi\) is decreasing in \(\pi_i(\mathbf{a})\), and therefore so is
+    \(P_i(\mathbf{a}, c)\).
+\end{proof}
+
+\subsection{Introspection dynamics}
+
+Unlike the previous population dynamics we have seen, introspection
+dynamics~\cite{Couto2022, Couto2023} allows players to consider the payoff they
+could have in other states. Under this population dynamic, players compare their
+current payoff with their counterfactual payoff upon changing action type. The
+process, as shown in Figure~\ref{fig:diagrams_of_dynamics}D, is given by the
+algorithm:
+
+\begin{enumerate}
+    \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to
+    reconsider their strategy
+    \item Player \(i\) randomly chooses another possible strategy, \(a_{il}\),
+    from the set of all possible strategies. 
+    \item The chosen player replaces their strategy with probability \(\phi
+    (\Delta \pi_{I(\mathbf{a}, \mathbf{b})})\), where \(\Delta
+    \pi_{I(\mathbf{a}, \mathbf{b})} = \pi_{I(\mathbf{a},
+    \mathbf{b})}(\mathbf{a})  - \pi_{I(\mathbf{a}, \mathbf{b})}(\mathbf{b})\) is
+    the difference between the payoff of the player's current strategy and the
+    payoff of the new strategy.
+\end{enumerate}
+
+Introspection dynamics is well suited to a heterogeneous population, as players
+are able to consider whether a strategy will work for them, rather than for
+another player. As players check the payoff of a strategy in the next state,
+they never favour worsening moves in the one-step case, as the value \(\phi
+(\Delta \pi_{I(\mathbf{a}, \mathbf{b})})\) is greater than \(\frac{1}{2}\) if
+and only if the change in a player's strategy increases their payoff. The
+transition matrix is given by:
+
+\begin{equation}
+T_{\mathbf{ab}} =
+\begin{cases}
+\dfrac{1}{N(k - 1)} \, \phi (\Delta (\pi_{I(\mathbf{a}, \mathbf{b})}))\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N}
+    & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\[1.2em]
+0
+    & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\[0.8em]
+1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
+\end{cases}
+\label{eqn:Introspection_Probability_Function}
+\end{equation}
+
+Introspection dynamics is aligned with classic static game theory, where a well
+informed and rational actor maximises their own payoff. We can contrast this
+with purely extrinsic population dynamics, which are the traditional method of
+modelling populations in evolutionary games, where actors are not typically
+well-informed and choose their next strategy according to fitnesses in the
+current population, without knowledge of the impact of their transition.
+
+\begin{theorem}[Introspection dynamics is a purely intrinsic population dynamic]
+    Introspection dynamics, as defined by
+    Equation~\eqref{eqn:Introspection_Probability_Function}, is a purely
+    intrinsic population dynamic.
+\end{theorem}
+\begin{proof}
+    It is once again clear that introspection dynamics satisfies conditions (1) and (3).
+    For condition (2), consider that \(\phi(x)\) is decreasing. Setting 
+    \(x = \pi_{I(\mathbf{a,b})}(\mathbf{a})- \pi_{I(\mathbf{a,b})}(\mathbf{b})\), we have our result.
+\end{proof}
 
 
+
+\section{Examples}\label{sec:examples}
 
 \subsubsection{Purely extrinsic population dynamics in the public goods game}
 
@@ -1129,158 +1296,6 @@ cooperator.
     both processes.}
     \label{fig:ceiling_extrinsic}
 \end{figure}
-
-\section{Intrinsic population dynamics}
-\label{sec:intrinsic_population_dynamics}
-
-We have seen how purely extrinsic population dynamics only compare a player's
-payoffs to the payoff in the current state. We now see a classification of
-population dynamic where players instead compare their payoff to some attribute
-or payoff other than that of other players. We define a \emph{purely intrinsic
-population dynamic} as follows:
-\begin{definition}[Purely intrinsic population dynamic]
-    A population dynamic defined by a transition matrix \(T\) 
-    is said to be \emph{purely intrinsic} if it satisfies the following conditions:
-    \begin{enumerate}
-        \item \(T_{\mathbf{ab}}\) is a function of the payoffs of no player
-        other than \(I(\mathbf{a,b})\) for \(\mathbf{a} \neq \mathbf{b}\).
-        \item \(T_{\mathbf{ab}}\) is decreasing in the payoff
-        \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) for \(\mathbf{a} \neq \mathbf{b}\).
-        \item \(T_{\mathbf{ab}}\) contains no term dependent on
-        \(a_{I(\mathbf{a,b})}\) or \(b_{I(\mathbf{a,b})}\), except in the payoff
-        function \(\pi_{I(\mathbf{a,b})}\) and mutation parameters
-        \(\mu_{ij}\).
-    \end{enumerate}
-\end{definition}
-
-We now consider two purely intrinsic population dynamics: aspiration dynamics,
-which compares a player's payoff to their individual baseline aspiration, and
-introspection dynamics, which compares a player's payoff to their counterfactual
-payoff when they change action type.
-
-\subsection{Aspiration dynamics}
-
-Under aspiration dynamics, players choose to change action based on how far away
-their current payoff is from a target payoff, as shown in
-Figure~\ref{fig:diagrams_of_dynamics}B. It
-follows the algorithm:
-
-\begin{enumerate}
-       \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to
-       reconsider their strategy
-       \item This player changes strategy with a probability
-       \(\phi(\pi_i(\mathbf{a}) - A_i)\)
-\end{enumerate}
-
-Here, \(A_i\) is player \(i\)'s \textit{aspiration}, the payoff which they
-desire to make from a given game. A player will accept a new strategy with a
-higher than random probability if their current payoff is lower than their
-aspired payoff. This dynamic is traditionally paired with two action
-games~\cite{Du2015AspirationDynamics,du2014aspiration,Zhou2021AspirationDynamics},
-though it can be defined for games with 3 or more
-actions~\cite{Aspiration3Types}. Aspiration dynamics has also often been
-combined with imitation
-dynamics~\cite{PhysRevE.102.032120,PhysRevE.94.012124,QUAN2020109634,WANG2023128134},
-either as a heterogeneous attribute of the population, or to form new population
-dynamics. We consider the original form of aspiration dynamics defined
-in~\cite{du2014aspiration}, with a homogeneous aspiration value \(A\). The
-transition matrix is given by:
-
-\begin{equation}
-T_{\mathbf{ab}} =
-\begin{cases}
-\dfrac{1}{N} \, \phi(\pi_{I(\mathbf{a}, \mathbf{b})}(\mathbf{a}) - A_{I(\mathbf{a}, \mathbf{b})})\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N}
-    & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\[1.2em]
-0
-    & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\[0.8em]
-1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
-\end{cases}
-\label{eqn:Aspiration_Probability_Function}
-\end{equation}
-
-This population dynamic spends a large amount of time in states where most
-players achieve their aspired payoffs. In this case, players will have a lower
-probability of switching strategy, compared to a state where players are
-underperforming in comparison to their target \(A\). We now show that Aspiration
-dynamics is a purely intrinsic population dynamic:
-
-\begin{theorem}[Aspiration dynamics is a purely intrinsic population dynamic]
-    Aspiration dynamics, as defined by
-    Equation~\eqref{eqn:Aspiration_Probability_Function}, is a purely intrinsic
-    population dynamic.
-\end{theorem}
-\begin{proof}
-    It is clear from the definition of \(T_{\mathbf{ab}}\) that aspiration
-    dynamics satisfies conditions (1) and (3). It remains to show that
-    aspiration dynamics is decreasing in the payoff
-    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\). We have that \(\phi(x)\) is
-    decreasing, and \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) appears only in the
-    value \(\pi_{I(\mathbf{a,b})}(\mathbf{a}) - A_{I(\mathbf{a,b})}\).
-    Therefore, setting \(x = \pi_{I(\mathbf{a,b})}(\mathbf{a}) -
-    A_{I(\mathbf{a,b})}\), we get that \(\phi\) is decreasing in
-    \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\), and therefore so is
-    \(T_{\mathbf{ab}}\).
-\end{proof}
-
-\subsection{Introspection dynamics}
-
-Unlike the previous population dynamics we have seen, introspection
-dynamics~\cite{Couto2022, Couto2023} allows players to consider the payoff they
-could have in other states. Under this population dynamic, players compare their
-current payoff with their counterfactual payoff upon changing action type. The
-process, as shown in Figure~\ref{fig:diagrams_of_dynamics}D, is given by the
-algorithm:
-
-\begin{enumerate}
-    \item A player \(i\) is chosen with probability \(\frac{1}{N}\) to
-    reconsider their strategy
-    \item Player \(i\) randomly chooses another possible strategy, \(a_{il}\),
-    from the set of all possible strategies. 
-    \item The chosen player replaces their strategy with probability \(\phi
-    (\Delta \pi_{I(\mathbf{a}, \mathbf{b})})\), where \(\Delta
-    \pi_{I(\mathbf{a}, \mathbf{b})} = \pi_{I(\mathbf{a},
-    \mathbf{b})}(\mathbf{a})  - \pi_{I(\mathbf{a}, \mathbf{b})}(\mathbf{b})\) is
-    the difference between the payoff of the player's current strategy and the
-    payoff of the new strategy.
-\end{enumerate}
-
-Introspection dynamics is well suited to a heterogeneous population, as players
-are able to consider whether a strategy will work for them, rather than for
-another player. As players check the payoff of a strategy in the next state,
-they never favour worsening moves in the one-step case, as the value \(\phi
-(\Delta \pi_{I(\mathbf{a}, \mathbf{b})})\) is greater than \(\frac{1}{2}\) if
-and only if the change in a player's strategy increases their payoff. The
-transition matrix is given by:
-
-\begin{equation}
-T_{\mathbf{ab}} =
-\begin{cases}
-\dfrac{1}{N(k - 1)} \, \phi (\Delta (\pi_{I(\mathbf{a}, \mathbf{b})}))\left(1 - \sum_{j=1}^k \mu_{I(\mathbf{a}, \mathbf{b}), j}\right)+ \frac{\mu_{I(\mathbf{a}, \mathbf{b}), \mathbf{b}_{I(\mathbf{a}, \mathbf{b})}}}{N}
-    & \text{if } \mathbf{b} \in \mathrm{Neb}(\mathbf{a}),\\[1.2em]
-0
-    & \text{if } \mathbf{b} \notin \mathrm{Neb}(\mathbf{a}) \text{ and } \mathbf{a} \neq \mathbf{b},\\[0.8em]
-1 - \sum_{\mathbf{b} \in S \setminus \{\mathbf{a}\}} T_{\mathbf{ab}} & \text{if } \mathbf{a} = \mathbf{b}.
-\end{cases}
-\label{eqn:Introspection_Probability_Function}
-\end{equation}
-
-Introspection dynamics is aligned with classic static game theory, where a well
-informed and rational actor maximises their own payoff. We can contrast this
-with purely extrinsic population dynamics, which are the traditional method of
-modelling populations in evolutionary games, where actors are not typically
-well-informed and choose their next strategy according to fitnesses in the
-current population, without knowledge of the impact of their transition.
-
-\begin{theorem}[Introspection dynamics is a purely intrinsic population dynamic]
-    Introspection dynamics, as defined by
-    Equation~\eqref{eqn:Introspection_Probability_Function}, is a purely
-    intrinsic population dynamic.
-\end{theorem}
-\begin{proof}
-    It is once again clear that introspection dynamics satisfies conditions (1) and (3).
-    For condition (2), consider that \(\phi(x)\) is decreasing. Setting 
-    \(x = \pi_{I(\mathbf{a,b})}(\mathbf{a})- \pi_{I(\mathbf{a,b})}(\mathbf{b})\), we have our result.
-\end{proof}
 
 \subsection{Intrinsic population dynamics in a public goods game}
 
