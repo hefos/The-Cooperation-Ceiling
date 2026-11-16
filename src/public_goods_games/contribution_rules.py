@@ -1,8 +1,8 @@
-import scipy
-import sympy as sym
-import numpy as np
-import scipy.special
 import ludics
+import numpy as np
+import scipy
+import scipy.special
+import sympy as sym
 
 
 def dirichlet_linear_alpha_rule(N):
@@ -104,7 +104,7 @@ def log_contribution_rule(index, M, N):
     """
     Players contribute according to a logarithmic scale of a linear
     contribution rule. This corresponds to the equation
-    $\sum_{i=1}^{N} log(\lambda i) = M$. Here, we calculate a lambda value
+    $\\sum_{i=1}^{N} log(\\lambda i) = M$. Here, we calculate a lambda value
     $(\frac{e^M}{N!})^{1/N}$ (proof in main.tex)
 
     Parameters:
@@ -127,7 +127,7 @@ def log_contribution_rule(index, M, N):
 def linear_contribution_rule(index, N, M):
     """
     Players contribute according to a linear contribution rule. As stated in main.tex, this corresponds to the equation
-    $\sum_{i=1}^{N} \lambda i = M$. Here, we calculate a lambda value
+    $\\sum_{i=1}^{N} \\lambda i = M$. Here, we calculate a lambda value
     $\frac{2M}{N(N+1)}$ (proof in main.tex)
 
     Parameters:
@@ -186,8 +186,8 @@ def binomial_contribution_rule(index, N, n, M, alpha_h):
 def power_law_contribution_rule(index, N, M, a=np.exp(1)):
     """
     Players contribute according to a power law contribution rule. This
-    corresponds to the equation $\sum_{i=1}^{N} \lambda a^{i} = M$, where we
-    obtain $\lambda = log_a(\frac{M}{$\sum_{i=1}^{N} a^i})$. As standard, we
+    corresponds to the equation $\\sum_{i=1}^{N} \\lambda a^{i} = M$, where we
+    obtain $\\lambda = log_a(\frac{M}{$\\sum_{i=1}^{N} a^i})$. As standard, we
     take a = e, however this can be taken as any positive value.
 
     Parameters:
@@ -298,7 +298,7 @@ def compute_wright_fisher_transition_probability(
     when moving from the source state to the target state via a Wright-Fisher
     process. Transition probability is given by:
 
-    $ \prod_{i=1}^N \frac{\\sum_{j: a_j = b_{I(a,b)}}{f_j(a)}}{\\sum_{a_k}f_k(a)} $
+    $ \\prod_{i=1}^N \frac{\\sum_{j: a_j = b_{I(a,b)}}{f_j(a)}}{\\sum_{a_k}f_k(a)} $
 
     and mutation is applied player-wise
     

@@ -1,11 +1,11 @@
 import pathlib
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patheffects as path_effects
-
 import ludics
 import ludics.fitness_functions
+import matplotlib.patheffects as path_effects
+import matplotlib.pyplot as plt
+import numpy as np
+
 import public_goods_games.contribution_rules
 
 here = pathlib.Path(__file__).resolve()
