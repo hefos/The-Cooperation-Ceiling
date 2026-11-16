@@ -73,7 +73,7 @@ def dirichlet_log_alpha_rule(N):
     return np.array([np.log(i) + 1 for i in range(1, N + 1)])
 
 
-def dirichlet_power_law_alpha_rule(N, a=np.exp(1)):
+def dirichlet_power_law_alpha_rule(N, a=None):
     """
     Generates the alphas for a population contributing according to a power law
     transformation of the linear alpha rule in the dirichlet distribution. Each
@@ -93,7 +93,8 @@ def dirichlet_power_law_alpha_rule(N, a=np.exp(1)):
     returns:
     --------
     numpy.array - the alpha value of each player according to their index"""
-
+    if a is None:
+        a = np.exp(1)
     if a <= 0:
         raise ValueError("a must be strictly positive")
 
@@ -183,7 +184,7 @@ def binomial_contribution_rule(index, N, n, M, alpha_h):
     return alpha_l if index < n else alpha_h
 
 
-def power_law_contribution_rule(index, N, M, a=np.exp(1)):
+def power_law_contribution_rule(index, N, M, a=None):
     """
     Players contribute according to a power law contribution rule. This
     corresponds to the equation $\\sum_{i=1}^{N} \\lambda a^{i} = M$, where we
@@ -203,7 +204,9 @@ def power_law_contribution_rule(index, N, M, a=np.exp(1)):
     returns:
     ---------
     float, the contribution of a player at (index) according to a power law
-    contribution rule when contributing."""
+    contribution rule when contributing.""" 
+    if a is None:
+        a = np.exp(1)
 
     if a <= 0:
         raise ValueError("a must be positive")

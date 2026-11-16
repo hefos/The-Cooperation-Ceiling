@@ -267,7 +267,8 @@ def main():
     print("finished large_n job; rows:", flush=True)
     for path in (simulations_csv, exact_csv, threshold_csv):
         if path.exists():
-            print(" ", path, sum(1 for _ in open(path)) - 1, flush=True)
+            with open(path) as f:
+                print(" ", path, sum(1 for _ in f) - 1, flush=True)
 
 
 if __name__ == "__main__":
