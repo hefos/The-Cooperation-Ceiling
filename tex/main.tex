@@ -64,7 +64,7 @@ of the situations in which this question arises are collective action problems,
 in which individuals share an interest in a common good yet each would prefer
 that others bear the cost of providing it. The structure of such a dilemma maps
 onto a \emph{public goods game}~\cite{ARCHETTI20129, hauert2002volunteering,
-hauser2019social, HauertDynamics2004, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}:
+hauser2019social, HauertDynamics2004, calc_of_selfishness}:
 each actor decides whether to incur a private cost to contribute to a shared
 resource whose total value is multiplied by some factor \(r\) and distributed
 equally amongst all players. This creates the temptation to free-ride, and so
@@ -162,10 +162,9 @@ dynamics, including the previous examples, admit a ceiling on the abundance of
 cooperation in games where defectors outperform cooperators in each state.
 Finally, we contribute a large parameter sweep for each of these population
 dynamics in a public goods gamee~\cite{ARCHETTI20129, hauert2002volunteering,
-HauertDynamics2004, hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}.
-This demonstrates both the ceiling on cooperation in purely extrinsic population
-dynamics and gives an example where purely intrinsic dynamics are able to exceed
-the ceiling.
+HauertDynamics2004, hauser2019social, calc_of_selfishness}. This demonstrates
+both the ceiling on cooperation in purely extrinsic population dynamics and
+gives an example where purely intrinsic dynamics are able to exceed the ceiling.
 
 The remainder of the paper is organised as follows.
 Section~\ref{sec:the_general_heterogeneous_population_dynamic_model} introduces
@@ -249,14 +248,11 @@ following:
         & \text{if } \mathbf{a} = \mathbf{b}.
     \end{cases}
     \label{eqn:single_update_transition}
-    \label{eqn:single_update_transition}
 \end{equation}
 
 \begin{figure}[!htbp]
     \centering
     \begin{mdframed}
-    \centering
-    \includegraphics[width=0.8\linewidth]{dynamics_panels.pdf}
     \centering
     \includegraphics[width=0.8\linewidth]{dynamics_panels.pdf}
     \end{mdframed}
@@ -329,6 +325,7 @@ mutation rates \(\mu \in \{0.001, 0.005, 0.05, 0.1\}\).
     \textbf{C,} Each state is a vertex of \(S = A^N\), so the state space is an
     \(N\)-dimensional hypercube~\cite{HARARY1988277}. \textbf{D,} Mutation
     connects the chain and makes it ergodic.}
+    \end{mdframed}
     \label{fig:4-cube}
 \end{figure}
 
@@ -1406,11 +1403,10 @@ current population, without knowledge of the impact of their transition.
 To illustrate the results of section~\ref{sec:extrinsic_population_dynamics}, we
 carry out a large parameter sweep across parameters of a public goods
 game~\cite{ARCHETTI20129, hauert2002volunteering, HauertDynamics2004,
-hauser2019social, 2bbcfd92-fcd5-38d1-b7a0-bc6a2aadbc64}. In such a game, players
-choose to contribute some amount \(\alpha_i > 0\). The total contribution is
-multiplied by some factor \(r > 0\) and split between all players. We consider
-heterogeneous contributions and a homogeneous return, with a payoff function
-given as follows:
+hauser2019social, calc_of_selfishness}. In such a game, players choose to
+contribute some amount \(\alpha_i > 0\). The total contribution is multiplied by
+some factor \(r > 0\) and split between all players. We consider heterogeneous
+contributions and a homogeneous return, with a payoff function given as follows:
 
 \begin{equation}
     \pi_i(\mathbf{a}) = \frac{r}{N}\sum_{i:a_i=C} \alpha_i - \mathbf{1}_{a_i = C}\alpha_i
