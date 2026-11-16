@@ -9,9 +9,9 @@ table of the fraction of parameter sets that cross the ceiling.
 
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 here = Path(__file__).resolve()
 data_path = here.parents[2] / "data" / "sweep"
