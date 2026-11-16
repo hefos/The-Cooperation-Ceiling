@@ -341,27 +341,8 @@ members of a population.
     dynamic is purely extrinsic if for every player \(i\), every state
     \(\mathbf{a} \in S\) and every action \(c \in \mathcal{A}\), the following
     holds:
-    Let \(\{P_i: i \in [1, \dots, N]\},\lambda\) define a population dynamic on
-    a state space \(S\) with transition matrix \(T\). We say that the population
-    dynamic is purely extrinsic if for every player \(i\), every state
-    \(\mathbf{a} \in S\) and every action \(c \in \mathcal{A}\), the following
-    holds:
 
     \begin{enumerate}
-        \item \(P_i(\mathbf{a}, c), \lambda(J)\) are functions of payoffs
-        evaluated in no state other than \(\mathbf{a}\). 
-        \item Let \(\mathcal{R}_c(\mathbf{a})\) denote the set of players \(j\)
-        such that \(a_j = c\). Then \(P_i(\mathbf{a}, c)\) is non-decreasing in
-        the payoffs \(\pi_j(\mathbf{a})\) for all \(j \in
-        \mathcal{R}_c(\mathbf{a})\) (and, when \(c \neq a_i\), strictly
-        increasing in at least one such \(j\) if one exists), and non-increasing
-        in the payoffs \(\pi_j(\mathbf{a})\) for all \(j \notin
-        \mathcal{R}_c(\mathbf{a})\). This includes the payoff of player \(i\)
-        themselves.
-        \item \(P_i(\mathbf{a}, c)\) and \(\lambda(J)\) contain no terms
-        dependent on \(a_j\) or \(c\) for any \(j \in \{1, \dots, N\}\), except
-        in the payoff function \(\pi_j(\mathbf{a})\), and in the definition of
-        the set \(\mathcal{R}_c(\mathbf{a})\).
         \item \(P_i(\mathbf{a}, c), \lambda(J)\) are functions of payoffs
         evaluated in no state other than \(\mathbf{a}\). 
         \item Let \(\mathcal{R}_c(\mathbf{a})\) denote the set of players \(j\)
@@ -419,12 +400,6 @@ duplicated proportional to their payoff, and Fermi imitation dynamics, which
 directly compares the payoffs of pairs of players. We then show the
 Wright-Fisher process, a dynamic where multiple players update at once according
 to fitness-proportional selection.
-We now show three classical examples of purely extrinsic population dynamics.
-The first two are the Moran process, in which a player is chosen to be
-duplicated proportional to their payoff, and Fermi imitation dynamics, which
-directly compares the payoffs of pairs of players. We then show the
-Wright-Fisher process, a dynamic where multiple players update at once according
-to fitness-proportional selection.
 
 \subsubsection{The Moran process}
 
@@ -435,8 +410,6 @@ utilised in modern evolutionary game theory as a model of strategy
 updating~\cite{knight2018evolution, LIU2015242, OHTSUKI2007289}.
 It is defined by the following algorithm:
 \begin{enumerate}
-    \item A player is chosen uniformly from the population to change their
-        strategy
     \item A player is chosen uniformly from the population to change their
         strategy
     \item A player is chosen to be copied with a probability proportional to 
@@ -480,18 +453,10 @@ fitness. As a result of this original purpose, the Moran process contains no
 decision step where a player chooses whether or not to accept a considered
 strategy. Instead, at each time step, a player \emph{must} accept another
 player's action, and we remain in the same state when a player accepts the same
-action as they currently play.
-Since the Moran process only updates one player in each step, when mutation is
-applied the transition matrix is given by:
+action as they currently play. Since the Moran process only updates one player
+in each step, when mutation is applied the transition matrix is given by:
 
 One implication of this is that in a heterogeneous population, worsening moves
-may be taken with a high probability. This is because an action that provides a
-high payoff for one player in a population may not provide the same return for
-another. In nature, an offspring is unable to choose its parents, and thus
-cannot choose which attributes it is born with, and so the Moran process does
-not model the decision which players have regarding whether or not to play a
-certain strategy. When modelling the adoption of behaviours, these assumptions
-may lead to players making decisions which are harmful for their own payoff.
 may be taken with a high probability. This is because an action that provides a
 high payoff for one player in a population may not provide the same return for
 another. In nature, an offspring is unable to choose its parents, and thus
@@ -508,16 +473,10 @@ Definition~\ref{def:purely_extrinsic}.
     Equation~\eqref{eqn:Moran_Probability_Function}, is a purely extrinsic
     population dynamic.
     \label{the:Moran_PE}
-    \label{the:Moran_PE}
 \end{theorem}
 
 \begin{proof}
 By definition the Moran process satisfies conditions (1) and (3). It remains to
-be shown that \(P_i(\mathbf{a}, c)\) is non-decreasing in
-\(\pi_j(\mathbf{a})\) for \(j \in \mathcal{R}_c\) (strictly increasing for at
-least one such \(j\) if \(c \neq a_i\)) and non-increasing in
-\(\pi_j(\mathbf{a})\) for \(j \notin \mathcal{R}_c\). Recall \(f_i(\mathbf{a}) = 1
-- \varepsilon + \varepsilon \pi_i(\mathbf{a})\) for a given selection intensity
 be shown that \(P_i(\mathbf{a}, c)\) is non-decreasing in
 \(\pi_j(\mathbf{a})\) for \(j \in \mathcal{R}_c\) (strictly increasing for at
 least one such \(j\) if \(c \neq a_i\)) and non-increasing in
@@ -532,12 +491,6 @@ f_j(\mathbf{a})}{\sum_{w=1}^N f_w(\mathbf{a})}\]
 f_x(\mathbf{a})}{\left(\sum_{l=1}^N f_l(\mathbf{a})\right)^2}
 \quad\text{for } j \in \mathcal{R}_c\]
 
-For \(j \in \mathcal{R}_c\), as \(\varepsilon\) is chosen such that
-\(f_j(\mathbf{a}) \gt 0\) for all \(j \in \mathbf{a}\), this derivative is
-strictly positive. For \(j \notin \mathcal{R}_c\), the analogous computation
-yields \(\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\varepsilon \sum_{x
-\in \mathcal{R}_c} f_x(\mathbf{a})}{(\sum_{l=1}^N f_l(\mathbf{a}))^2} \leq 0\),
-so condition (2) holds, and the Moran process is a purely extrinsic population dynamic. 
 For \(j \in \mathcal{R}_c\), as \(\varepsilon\) is chosen such that
 \(f_j(\mathbf{a}) \gt 0\) for all \(j \in \mathbf{a}\), this derivative is
 strictly positive. For \(j \notin \mathcal{R}_c\), the analogous computation
@@ -642,44 +595,6 @@ process reconsider their action each round, we have that \(\lambda(J) = 1\) if
 same update rule as the Moran process~\cite{imhof_evolutionary_2006}, where each
 player copies a player from the population proportional to it's fitness.
 
-\begin{corollary}[The Wright-Fisher process is a purely extrinsic population dynamic]
-\end{corollary}
-\begin{proof}
-    The Wright-Fisher process has the same update rule \(P_i(\mathbf{a}, c)\) as
-    the Moran process. Theorem~\ref{the:Moran_PE} gives us that this update rule
-    defines a purely extrinsic population dynamic. Additionally, by definition,
-    \(\lambda(J)\) has no term depending on the action types of players in any
-    state. Thus, the Wright-Fisher process also defines a purely extrinsic
-    population dynamic.
-remains to show that it satisfies condition (2). Consider the update rule as
-given in equation~\eqref{eqn:fermi_update}. As \(\phi\) is strictly decreasing,
-every term in the sum is strictly increasing in \(\pi_j(\mathbf{a})\) for \(j
-\in \mathcal{R}_c\). For \(j \notin \mathcal{R}_c\) with \(j \neq
-I(\mathbf{a,b})\), \(\pi_j(\mathbf{a})\) does not appear in the formula at all.
-For \(j = I(\mathbf{a,b})\) (when \(a_{I(\mathbf{a,b})} \neq
-b_{I(\mathbf{a,b})}\), so \(I \notin \mathcal{R}_c\)), each term is strictly
-decreasing in \(\pi_{I(\mathbf{a,b})}(\mathbf{a})\) because \(\phi\) is. Thus,
-Fermi imitation dynamics satisfies condition (2), and is a purely extrinsic
-population dynamic.
-\end{proof}
-
-\subsubsection{The Wright-Fisher process}
-
-The previous two population dynamics which we have discussed each only update
-one member of the population in a given step. We now explore a population
-dynamic in which each player updates at once. The Wright-Fisher
-process~\cite{Fisher_1923, wright1931evolution} has each player perform an
-independent binomial trial to select their action from the previous generation.
-The probability of selecting an action type is given by the proportion of the
-total fitness of the state given by players with that action. 
-
-While traditionally defined for two-action populations, it can be simply
-extended to \(k\) actions in our framework. As all players in the Wright Fisher
-process reconsider their action each round, we have that \(\lambda(J) = 1\) if
-\(J = \{1, \dots, N\}\), and \(0\) if not. Additionally, the process has the
-same update rule as the Moran process~\cite{imhof_evolutionary_2006}, where each
-player copies a player from the population proportional to it's fitness.
-
 The transition matrix of a process in which multiple players change action type
 is no longer defined by Neb\((\textbf{a})\). Instead, the transition matrix with
 mutation is given as follows:
@@ -714,7 +629,7 @@ probability.
     population dynamic.
 \end{proof}
 
-\subsection{The cooperation ceiling}
+\subsection{The cooperation ceiling}\label{sec:ceiling}
 
 We now consider purely extrinsic population dynamics in games with two actions,
 \(C\) and \(D\). Figure~\ref{fig:ceiling_argument} sketches the argument that
@@ -1103,7 +1018,9 @@ their individual target payoff. In the second, introspection dynamics, players
 compare their payoffs with their counterfactual payoff which they will obtain
 upon switching their action type.
 
-\subsection{Aspiration dynamics}
+\subsection{Examples of purely intrinsic population dynamics}
+
+\subsubsection{Aspiration dynamics}
 
 Under aspiration dynamics, players choose to change action based on how far away
 their current payoff is from a target payoff, as shown in
@@ -1177,7 +1094,7 @@ dynamics is a purely intrinsic population dynamic:
     \(P_i(\mathbf{a}, c)\).
 \end{proof}
 
-\subsection{Introspection dynamics}
+\subsubsection{Introspection dynamics}
 
 Unlike the previous population dynamics we have seen, introspection
 dynamics~\cite{Couto2022, Couto2023} allows players to consider the payoff they
@@ -1252,10 +1169,16 @@ intrinsic population dynamic.
     \pi_{I(\mathbf{a,b})}(\mathbf{b})\), we have that condition (2) holds.
 \end{proof}
 
+\subsection{The intrinsic escape}
 
-\section{Examples}\label{sec:examples}
-step and players opt out of the game with a certain probability. We consider the
-public goods game as an example in section~\ref{sec:examples}
+We have shown in section~\ref{sec:ceiling} that purely extrinsic population
+dynamics are constrained by a ceiling on the abundance of cooperation in games
+where one action type dominates the other in each state. Purely intrinsic
+population dynamics, however, are invariant under this pointwise comparison by
+definition. Such a ceiling, therefore, does not exist upon purely intrinsic
+population dynamics. Instead, intrinsic population dynamics depend upon the
+absolute payoff of each player.
+
 
 \section{Examples}\label{sec:examples}
 
