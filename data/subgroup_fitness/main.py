@@ -1,7 +1,8 @@
-import pandas as pd
-import pathlib
-import numpy as np
 import itertools
+import pathlib
+
+import numpy as np
+import pandas as pd
 
 file_path = pathlib.Path(__file__).resolve()
 
@@ -47,9 +48,7 @@ for number_of_cooperators in range(1, d+1):
             payoff_combination = get_total_payoff_from_makeup(r=r, alpha=alpha, d=d, index=index, state=state, number_of_cooperators=number_of_cooperators)
             
             type_str = "defector" if state[index] == 0 else "cooperator"
-            if index == 1 and number_of_cooperators == 0:
-                payoff_combination = 0
-            elif index == 0 and number_of_cooperators == d:
+            if index == 1 and number_of_cooperators == 0 or index == 0 and number_of_cooperators == d:
                 payoff_combination = 0
             data = [[number_of_cooperators, r, type_str, payoff_combination]]
             pd.DataFrame(data=data, columns=columns).to_csv(file_path.parent/"main.csv", mode="a", index=False, header=None)

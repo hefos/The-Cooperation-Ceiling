@@ -140,7 +140,7 @@ def dirichlet_power_law_alpha_rule(N, a=None):
 
 
 def log_contribution_rule(index, M, N):
-    """
+    r"""
     Players contribute according to a logarithmic scale of a linear
     contribution rule. This corresponds to the equation
     $\\sum_{i=1}^{N} log(\\lambda i) = M$. Here, we calculate a lambda value
@@ -164,7 +164,7 @@ def log_contribution_rule(index, M, N):
 
 
 def linear_contribution_rule(index, N, M):
-    """
+    r"""
     Players contribute according to a linear contribution rule. As stated in main.tex, this corresponds to the equation
     $\\sum_{i=1}^{N} \\lambda i = M$. Here, we calculate a lambda value
     $\frac{2M}{N(N+1)}$ (proof in main.tex)
@@ -188,7 +188,7 @@ def linear_contribution_rule(index, N, M):
 
 
 def binomial_contribution_rule(index, N, n, M, alpha_h):
-    """
+    r"""
     Players contribute according to a binomial contribution rule, where n
     players contribute a low amount, and N-n contribute a high amount. As stated in main.tex, this corresponds to the equation
     $n \alpha_l + (N-n)\alpha_h = N\alpha_h - nd = M$, where d is the
@@ -223,7 +223,7 @@ def binomial_contribution_rule(index, N, n, M, alpha_h):
 
 
 def power_law_contribution_rule(index, N, M, a=None):
-    """
+    r"""
     Players contribute according to a power law contribution rule. This
     corresponds to the equation $\\sum_{i=1}^{N} \\lambda a^{i} = M$, where we
     obtain $\\lambda = log_a(\frac{M}{$\\sum_{i=1}^{N} a^i})$. As standard, we
@@ -334,7 +334,7 @@ def get_dirichlet_contribution_vector(N, alpha_rule, M, scale, **kwargs):
 def compute_wright_fisher_transition_probability(
         source, target, fitness_function, selection_intensity, mu, fitness_map=ludics.linear_fitness_map, **kwargs
 ):
-    """
+    r"""
     Given two states and a fitness function, returns the transition probability
     when moving from the source state to the target state via a Wright-Fisher
     process. Transition probability is given by:
