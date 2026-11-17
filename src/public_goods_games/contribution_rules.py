@@ -1,9 +1,11 @@
+import itertools
+
 import ludics
 import numpy as np
 import scipy
 import scipy.special
 import sympy as sym
-import itertools
+
 
 def subgroup_pgg_fitness_function(state, r, contribution_vector, d, **kwargs):
     """
