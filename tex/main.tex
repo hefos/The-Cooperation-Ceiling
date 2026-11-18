@@ -982,15 +982,16 @@ strategy which is pointwise dominant over its peers. Even if there is no
 temptation to free-ride due, players will still choose to defect based on the
 pointwise dominance of defectors in the state.
 
-An example of this is the public goods game with \(r > N\). This satisfies both
-pointwise dominance and the mutual benefit of \(C\). In such a game, there is no
-temptation to free ride; players will obtain a greater payoff by cooperating
-regardless of the population structure. However, under
-Theorem~\ref{prop:ceiling}, defection will still dominate the population.
-Threshold values of \(r\) in a homogeneous public goods game are considered
-in~\cite{g10010001}, where a subset of the population play a game at each time
-step and players opt out of the game with a certain probability. We consider the
-public goods game as an example in section~\ref{sec:examples}
+An example of this is the public goods game where the return \(r\) is greater
+than the group size \(d\). This satisfies both pointwise dominance and the
+mutual benefit of \(C\). In such a game, there is no temptation to free ride;
+players will obtain a greater payoff by cooperating regardless of the population
+structure. However, under Theorem~\ref{prop:ceiling}, defection will still
+dominate the population. Threshold values of \(r\) in a homogeneous public goods
+game are considered in~\cite{g10010001}, where a subset of the population play a
+game at each time step and players opt out of the game with a certain
+probability. We consider the public goods game as an example in
+section~\ref{sec:examples}
 
 \section{Intrinsic population dynamics}
 \label{sec:intrinsic_population_dynamics}
@@ -1211,29 +1212,48 @@ cooperative states.
 %TODO: Theorem goes here, if not, examples of intrinsic escape
 \section{Examples}\label{sec:examples}
 
-\subsection{Playing the field}
-To illustrate the results of sections~\ref{sec:extrinsic_population_dynamics}
-and ~\ref{sec:intrinsic_population_dynamics}, we carry out a large parameter
-sweep across parameters of a public goods game~\cite{ARCHETTI20129,
-hauert2002volunteering, HauertDynamics2004, hauser2019social,
-calc_of_selfishness}. In such a game, players choose to contribute some amount
-\(\alpha_i > 0\). The total contribution is multiplied by some factor \(r > 0\)
-and split between all players. We consider heterogeneous contributions and a
-homogeneous return, with a payoff function given as follows:
+In this section, we will discuss the results of
+sections~\ref{sec:extrinsic_population_dynamics} and ~\ref{sec:intrinsic
+population dynamics} in two formulations of the public goods game. 
+
+In such a game, players choose to contribute some amount \(\alpha_i > 0\). The
+total contribution is multiplied by some factor \(r > 0\) and split between all
+players within a group of size \(d\). We consider heterogeneous contributions
+and a homogeneous return, with a payoff function given as follows:
 
 \begin{equation}
-    \pi_i(\mathbf{a}) = \frac{r}{N}\sum_{i:a_i=C} \alpha_i - \mathbf{1}_{a_i = C}\alpha_i
+    \pi_i(\mathbf{a}) = \frac{r}{d}\sum_{i:a_i=C} \alpha_i - \mathbf{1}_{a_i = C}\alpha_i
     \label{eq:pgg_payoff}
 \end{equation}
+
 As \(\alpha_i > 0\), we see that pointwise dominance holds for this formulation
 of the public goods game, as in any state, a cooperator has an additional cost
-which defectors do not bear. There is also a key threshold at the point \(r=N\).
-When \(r<N\), cooperation is purely altruistic, incurring a genuine cost to the
-contributing player in order to benefit the population. However, if \(r>N\), it
+which defectors do not bear. There is also a key threshold at the point \(r=d\).
+When \(r<d\), cooperation is purely altruistic, incurring a genuine cost to the
+contributing player in order to benefit the population. However, if \(r>d\), it
 is mutually beneficial to cooperate. In this case, a player profits from their
 own contribution alongside the rest of the population. Despite this, the
 cooperator still gains exactly \(\alpha_i\) less payoff from their own
 contribution than their co-players.
+
+In the first formulation, we assume that all players in the population
+participate in the same public goods game (in other words, \(d = N\)). Here a
+player's strategy depends on the composition of the population rather than on
+pairwise interactions, a concept known as ``playing the field''~\cite{}. In the
+second formulation, we consider games where a subset of \(d\) players chosen
+unfiormly from the population to participate in a game at a given
+time~\cite{multiverse}. In this formulation, a player's payoff is given by their
+expected payoff across all possible games.
+%TODO: check evolution and the theory of games for playing the field
+
+
+
+\subsection{The parameter sweep}
+To illustrate the results of sections~\ref{sec:extrinsic_population_dynamics}
+and ~\ref{sec:intrinsic_population_dynamics}, we carry out a large parameter
+sweep across parameters of a public goods game~\cite{ARCHETTI20129,
+hauert2002volunteering, HauertDynamics2004, hauser2019social,
+calc_of_selfishness}. 
 
 The parameter sweep is done to the highest standards of
 reproducibility~\cite{wilson2017, stodden2016, turingway2022, Wilson2014,
