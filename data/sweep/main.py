@@ -1,13 +1,15 @@
-import pandas as pd
-import numpy as np
+import argparse
+import itertools
 import pathlib
 import uuid
+
 import ludics
 import ludics.fitness_functions
-import public_goods_games.contribution_rules
+import numpy as np
+import pandas as pd
 import stet
-import itertools
-import argparse
+
+import public_goods_games.contribution_rules
 
 file_path = pathlib.Path(__file__)
 
@@ -125,22 +127,38 @@ def run_experiment(
             "aspiration": ludics.compute_aspiration_transition_probability,
             "fermi": ludics.compute_fermi_transition_probability,
             "moran": ludics.compute_moran_transition_probability,
+            "wf": public_goods_games.contribution_rules.compute_wright_fisher_transition_probability
         }
         state_space = ludics.get_state_space(N=N, k=2)
-        transition_matrix = ludics.generate_transition_matrix(
+        if dynamic == "wf":
+            transition_matrix = ludics.generate_transition_matrix(
             state_space=state_space,
             fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
             compute_transition_probability=dynamic_to_process[dynamic],
             aspiration_vector=aspiration_vector,
             selection_intensity=selection_intensity,
             choice_intensity=choice_intensity,
-            individual_to_action_mutation_probability=np.full(
-                shape=(N, 2), fill_value=mu
-            ),
+            mu=mu,
+            individual_to_action_mutation_probability=None,
             r=r,
             alpha=alphas,
             number_of_strategies=2
-        )
+            )
+        else:
+            transition_matrix = ludics.generate_transition_matrix(
+                state_space=state_space,
+                fitness_function=ludics.fitness_functions.public_goods_game_fitness_function,
+                compute_transition_probability=dynamic_to_process[dynamic],
+                aspiration_vector=aspiration_vector,
+                selection_intensity=selection_intensity,
+                choice_intensity=choice_intensity,
+                individual_to_action_mutation_probability=np.full(
+                    shape=(N, 2), fill_value=mu
+                ),
+                r=r,
+                alpha=alphas,
+                number_of_strategies=2
+            )
         steady_state = ludics.compute_steady_state(transition_matrix)
         id = uuid.uuid4()
         cooperation_per_player = steady_state @ state_space
@@ -218,6 +236,9 @@ for N in np.array([8, 7, 6, 5, 4, 3, 2]):
             "moran": itertools.product(
                 null_array, selection_intensity_range, null_array
             ),
+            "wf": itertools.product(
+                null_array, selection_intensity_range, null_array
+            )
         }
 
         for choice_intensity, selection_intensity, aspiration in dynamic_to_iteration[

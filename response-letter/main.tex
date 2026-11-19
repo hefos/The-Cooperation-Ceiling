@@ -27,6 +27,148 @@ upright type.
 
 \section*{Reviewer 1}
 
+\begin{reviewerquote}
+  The assumptions introduced in the first part of the manuscript are quite weak, and it is interesting that the
+  cooperation ceiling can be established under such limited requirements. However, there appear to be update
+  processes that do not satisfy the present assumptions but nevertheless satisfy the same conclusion. For
+  example, under a standard Wright-Fisher process, multiple individuals may change their strategies
+  simultaneously in a single update. It is therefore not included in the present framework, which permits only
+  one individual to change strategy in each transition. Nevertheless, there are Wright-Fisher-type settings in
+  which the cooperation level would likewise not exceed 1/2. This suggests that the current assumptions may
+  be further weakened. I encourage the authors to examine whether the theorem can be extended to a more
+  general class of update processes. 
+\end{reviewerquote}
+
+We have altered our framework to include population dynamics in which multiple
+players transition simultaneously. The Wright-Fisher process fits into this
+framework, as do a number of other possible population dynamics, including the
+heterogeneous dynamics discussed in the conclusion. We have rederived our
+results for this framework, and thank the reviewer for pointing out this
+possible extension.
+
+\begin{reviewerquote}
+  The manuscript does not appear to provide a sufficiently general theory for intrinsic dynamics. Whereas a
+  general theorem is presented for extrinsic dynamics, the treatment of intrinsic dynamics is largely confined to
+  the analysis of specific examples. Is it possible to formulate a theorem describing what can generally be
+  guaranteed under intrinsic dynamics? I recognise that this is a substantial and technically demanding
+  extension and that deriving a new theorem during revision may be difficult. Nevertheless, I would like the
+  authors at least to explain, in their response and in the Discussion, how they view this possibility.
+\end{reviewerquote}
+
+%TODO: address
+
+\begin{reviewerquote}
+  The connection between the general theorem in the first part of the manuscript and the public-goods analysis
+  in the second part could be made more explicit. Let N denote the population size and n the number of
+  participants in a game. The theorem in the first part appears sufficiently general to apply not only when N =
+  n but also when N > n. By contrast, the public-goods analysis in the second part is restricted to the case N = n,
+  in which the population size and the number of game participants coincide. This restriction should be stated
+  explicitly before the manuscript moves from the general theory to the specific example.
+\end{reviewerquote}
+
+We have introduced a new ``examples'' section, and split this section into the
+discussion of the public goods game where \(N=n\) and where \(N>n\). In doing
+this, we have explicitly stated the difference between the two.
+
+\begin{reviewerquote}
+  The public-goods game considered in the manuscript assumes N = n, that is, the population size is equal to
+  the number of game participants. This corresponds to what Maynard Smith (1973) called playing the field.
+  Because this is important for understanding the position of the present work, I recommend that the authors
+  state this explicitly.
+  Under playing the field, the comparison between cooperators and defectors within the same state—what may
+  be viewed as a diagonal comparison in a payoff matrix—is essential. The manuscript formalises this idea
+  through the concept of pointwise dominance. However, this type of comparison has already been studied
+  extensively in evolutionary game theory for finite populations.
+  Equation (1) of Kurokawa et al. (2010), for example, shows that when N = n only the diagonal comparison
+  matters, whereas when N is much larger than n only the vertical comparison matters; in intermediate cases,
+  the relative contributions of the two comparisons vary continuously with population size. From this
+  perspective, the manuscript's claim that a strategy can evolve when it wins the diagonal comparison even if it
+  loses the vertical comparison depends essentially on the assumption N = n. Equation (2.10) of Kurokawa and
+  Ihara (2009) and Equation (10) of Deng et al. (2012) may also be relevant.
+  Conversely, a strategy may win the vertical comparison but fail to evolve because it loses the diagonal
+  comparison. For example, in Figure 3b of Nowak et al. (2004), strategy B has a higher payoff than strategy A
+  regardless of the opponent's strategy, yet B cannot invade an all-A population when the population is small
+  (A is an ESS_N; the paper provides the definition and discussion of ESS_N). Similarly, Figure 4(c) of
+  Kurokawa and Ihara (2009) presents an example in which strategy B always earns a higher payoff than
+  strategy A against the same opponent, but strategy A evolves when the population is small. The present result
+  that cooperation may fail to evolve even when r > N—that is, even when cooperation wins the vertical
+  comparison—appears to have a closely related structure.
+  Such finite-population effects have also long been discussed in the contexts of negative relatedness and the
+  spite effect. In a small population, an individual does not interact with itself and is therefore necessarily less
+  likely to encounter individuals using the same strategy. Consequently, comparisons between individuals in
+  the same state, rather than only counterfactual comparisons for a single individual, become important. This is
+  related to Grafen's (1985) discussion of negative relatedness and to the evolution of spite in finite populations
+  studied by Knowlton and Parker (1979). The classical studies of Riley (1979) and Schaffer (1988) also
+  appear relevant.
+  I do not know whether a result exactly identical to the present one has already been published. Nevertheless,
+  the manuscript's findings may be understood relatively naturally within the existing theory of finite
+  populations. I therefore recommend that the authors revisit the literature on playing the field, finite
+  populations, negative relatedness, and the spite effect, and clarify more precisely where the present study lies
+  within this literature and what is genuinely new. 
+\end{reviewerquote}
+
+%TODO: address
+
+\begin{reviewerquote}
+  The manuscript also studies the regime r > N. In this regime, the social behaviour is mutually beneficial,
+  whereas for r < N it is altruistic. I think it would be useful to state this explicitly. A reader who has not yet
+  studied the model may not immediately understand the significance of the statement that cooperation does
+  not evolve even when r > N. By contrast, the statement that the behaviour fails to evolve even when it is
+  mutually beneficial is immediately interpretable. It may therefore be clearer to say that even mutually
+  beneficial behaviour does not evolve under extrinsic dynamics. This outcome is, of course, connected to the
+  fact that the manuscript considers the case N = n.
+\end{reviewerquote}
+
+Throughout, we have mentioned this interpretation. Specifically, in the
+explanation of theorem 4, the introduction of the public goods game, and the
+discussion of intrinsic population dynamics in the public goods game.
+
+\begin{reviewerquote}
+  The manuscript is organised throughout around the contrast between extrinsic and intrinsic dynamics, but I
+  do not think that this single axis is sufficient. The finding that the cooperation level does not exceed 1/2 even
+  when r > N is influenced not only by the use of extrinsic dynamics but also by the assumption N = n in the
+  public-goods game.
+  By contrast, when small groups are repeatedly formed from a sufficiently large population, so that N > n, the
+  analysis is based on expected payoffs, and cooperation can evolve when r > n.
+  I therefore suggest organising the discussion along two axes:
+  \begin{enumerate}
+   \item whether N = n or N > n; and
+   \item whether the update compares the payoffs of individuals who are currently present in the same state or
+    compares the focal individual's current payoff with the payoff it would obtain after changing strategy.
+  \end{enumerate}
+  Using these two axes would make both the position of the manuscript and the meaning of its results clearer
+\end{reviewerquote}
+
+%TODO
+
+\begin{reviewerquote}
+  Pointwise dominance is not specific to public-goods games. The same property
+  can arise in games in which cooperators bear a cost while defectors receive
+  the resulting benefit within the same group. Certain n-player snowdrift games
+  provide an example. Mentioning examples other than the public-goods game would
+  help to clarify that the essential feature is the importance of the diagonal
+  payoff comparison rather than the publicgoods setting itself. Relevant studies
+  of n-player snowdrift games include Souza et al. (2009) and Santos et al.
+  (2012). 
+\end{reviewerquote}
+
+We have added references to other examples of games which exhibit pointwise
+dominance. We mention both the references listed here, as well as pairwise
+interaction games in which defection is the best response to all players.
+
+\begin{reviewerquote}
+  Extrinsic dynamics are close to update rules commonly used in evolutionary biology. By contrast, intrinsic
+  dynamics in which an individual evaluates whether changing its own strategy would increase its payoff
+  appear less like ordinary biological evolutionary dynamics and may instead describe human decision-making
+  or learning. The authors should clarify what kinds of actors and processes they intend these dynamics to
+  represent.
+\end{reviewerquote}
+
+We have added citations to discuss the interpretation of each classification in
+a real-world context. Extrinsic dynamics can be thought of as either biological
+evolution or human social learning, whereas intrinsic dynamics are more closely
+related to human individual learning.
+
 \section*{Reviewer 2}
 
 \begin{reviewerquote}
@@ -55,7 +197,7 @@ cost faced by cooperators.
 
 We have reworded sections of the introduction and conclusion to emphasise the
 general classification and the upper bound result. We also add a paragraph into
-section 4.3 which clarifies that the ability for intrinsic dynamics to perform
+section 5.1 which clarifies that the ability for intrinsic dynamics to perform
 better is used as an example with regards to the ceiling, and is not novel. In
 particular, in this discussion we have explicitly stated that the \(r>N\)
 condition for introspection dynamics to favour cooperation in a public goods
@@ -88,10 +230,10 @@ threshold, and add this as an example in the introductory paragraph for section
 In addition to the comments of the reviewers, we have made the following
 revisions:
 
-Firstly, Figure 4 no longer inaccurately claims that the Moran process is
-invariant under \(\alpha\) in the public goods game. This was previously claimed
-as an additional point which we concluded from our parameter sweep. Closer
-inspection has revealed that this was mistaken, and has been removed. All other
-results of the paper remain unchanged.
+Figure 4 no longer inaccurately claims that the Moran process is invariant under
+\(\alpha\) in the public goods game. This was previously claimed as an
+additional point which we concluded from our parameter sweep. Closer inspection
+has revealed that this was mistaken, and has been removed. All other results of
+the paper remain unchanged where not otherwise stated.
 
 \end{document}
