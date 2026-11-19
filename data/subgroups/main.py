@@ -168,56 +168,56 @@ def run_experiment(
 
 
 N = 8
-mu = 0.05
 for d in (2, 3, 4, 5, 6, 7):
-    M_range = np.linspace(N, 4 * N, 10)
-    r_range = np.linspace(0.5, 1.5 * d, 10)
-    for M, r in itertools.product(M_range, r_range):
-        alphas = public_goods_games.contribution_rules.get_deterministic_contribution_vector(
-            N=N,
-            contribution_rule=public_goods_games.contribution_rules.linear_contribution_rule,
-            M=M,
-        )
-        aspiration_range = np.linspace(1, M, 10)
-        if r < d:
-            selection_intensity_range = np.linspace(
-                0, 0.99 / (1 - alphas[-1] * ((r / d) - 1)), 10
-            )
-        else:
-            selection_intensity_range = np.linspace(0, (alphas[-1] * ((r / d) - 1) + 1) / (alphas[-1] * ((r / d) - 1) + 2), 10)
-            
-        choice_intensity_range = np.linspace(0, 2, 10)
-        null_array = np.array([0])
-        dynamic_to_iteration = {
-            "aspiration": itertools.product(
-                choice_intensity_range, null_array, aspiration_range
-            ),
-            "fermi": itertools.product(choice_intensity_range, null_array, null_array),
-            "introspection": itertools.product(
-                choice_intensity_range, null_array, null_array
-            ),
-            "moran": itertools.product(
-                null_array, selection_intensity_range, null_array
-            ),
-            "wf": itertools.product(
-                null_array, selection_intensity_range, null_array
-            )
-        }
-
-        for choice_intensity, selection_intensity, aspiration in dynamic_to_iteration[
-            dynamic
-        ]:
-            run_experiment(
+    for mu in (0.001, 0.005, 0.05, 0.1):
+        M_range = np.linspace(N, 4 * N, 10)
+        r_range = np.linspace(0.5, 1.5 * d, 10)
+        for M, r in itertools.product(M_range, r_range):
+            alphas = public_goods_games.contribution_rules.get_deterministic_contribution_vector(
                 N=N,
+                contribution_rule=public_goods_games.contribution_rules.linear_contribution_rule,
                 M=M,
-                r=r,
-                d=d,
-                alphas=alphas,
-                aspiration=aspiration,
-                selection_intensity=selection_intensity,
-                choice_intensity=choice_intensity,
-                dynamic=dynamic,
-                mu=mu,
             )
+            aspiration_range = np.linspace(1, M, 10)
+            if r < d:
+                selection_intensity_range = np.linspace(
+                    0, 0.99 / (1 - alphas[-1] * ((r / d) - 1)), 10
+                )
+            else:
+                selection_intensity_range = np.linspace(0, (alphas[-1] * ((r / d) - 1) + 1) / (alphas[-1] * ((r / d) - 1) + 2), 10)
+                
+            choice_intensity_range = np.linspace(0, 2, 10)
+            null_array = np.array([0])
+            dynamic_to_iteration = {
+                "aspiration": itertools.product(
+                    choice_intensity_range, null_array, aspiration_range
+                ),
+                "fermi": itertools.product(choice_intensity_range, null_array, null_array),
+                "introspection": itertools.product(
+                    choice_intensity_range, null_array, null_array
+                ),
+                "moran": itertools.product(
+                    null_array, selection_intensity_range, null_array
+                ),
+                "wf": itertools.product(
+                    null_array, selection_intensity_range, null_array
+                )
+            }
 
-print(f"finished sweep job: dynamic={dynamic}, mu={mu}", flush=True)
+            for choice_intensity, selection_intensity, aspiration in dynamic_to_iteration[
+                dynamic
+            ]:
+                run_experiment(
+                    N=N,
+                    M=M,
+                    r=r,
+                    d=d,
+                    alphas=alphas,
+                    aspiration=aspiration,
+                    selection_intensity=selection_intensity,
+                    choice_intensity=choice_intensity,
+                    dynamic=dynamic,
+                    mu=mu,
+                )
+
+print(f"finished subgroup sweep job: dynamic={dynamic}", flush=True)
