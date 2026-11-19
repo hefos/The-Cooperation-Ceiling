@@ -969,18 +969,20 @@ A multitude of games satisfy the pointwise-dominance condition of
 Theorem~\ref{prop:ceiling}. Any pairwise interaction
 game~\cite{traulsen_pairwise_2007} where defection is the best response to each
 opposing action exhibits this behaviour, alongside certain types of \(N-player\)
-snowdrift games~\cite{souza_evolution_2009}. In the remainder of this paper, we
-consider the public goods game as our example.
+snowdrift games~\cite{souza_evolution_2009}. It has been shown that certain
+strategies can in fact become evolutionarily stable despite 
 
 Crucially, Theorem~\ref{prop:ceiling} shows that even if the action \(C\) is
 mutually beneficial (that is, a player will increase their payoff by a switch
 \(D \to C\)), purely extrinsic population dynamics will still favour \(D\) due
-to it's pointwise dominance. This shows that a player's chosen strategy does not
-necessarily favour the action type which maximises their payoff in \emph{either}
-the one-step or the long-run strategy distribution, instead favouring the
-strategy which is pointwise dominant over its peers. Even if there is no
-temptation to free-ride due, players will still choose to defect based on the
-pointwise dominance of defectors in the state.
+to it's pointwise dominance. It has been shown previously that certain
+strategies can become evolutionarily stable based on pointwise domination in
+spite of the absolute payoff favouring the opposite strategy
+(~\cite{kurokawa_emergence_2009, Nowak2004Emergence} show this for example). The
+present result extends the understanding of this behaviour to all purely
+extrinsic population dynamics, heterogeneous populations, and games under the
+effect of mutation. The idea that an extended number of dynamics could satisfy
+this interpretation is mentioned in~\cite{Nowak2004Emergence}.
 
 An example of this is the public goods game where the return \(r\) is greater
 than the group size \(d\). This satisfies both pointwise dominance and the
@@ -1211,15 +1213,15 @@ cooperative states.
 
 %TODO: Theorem goes here, if not, examples of intrinsic escape
 \section{Examples}\label{sec:examples}
+\subsection{The public goods game}
 
 In this section, we will discuss the results of
 sections~\ref{sec:extrinsic_population_dynamics} and ~\ref{sec:intrinsic
-population dynamics} in two formulations of the public goods game. 
-
-In such a game, players choose to contribute some amount \(\alpha_i > 0\). The
-total contribution is multiplied by some factor \(r > 0\) and split between all
-players within a group of size \(d\). We consider heterogeneous contributions
-and a homogeneous return, with a payoff function given as follows:
+population dynamics} in the public goods game. In this game, players choose to
+contribute some amount \(\alpha_i > 0\). The total contribution is multiplied by
+some factor \(r > 0\) and split between all players within a group of size
+\(d\). We consider heterogeneous contributions and a homogeneous return, with a
+payoff function given as follows:
 
 \begin{equation}
     \pi_i(\mathbf{a}) = \frac{r}{d}\sum_{i:a_i=C} \alpha_i - \mathbf{1}_{a_i = C}\alpha_i
@@ -1234,19 +1236,43 @@ contributing player in order to benefit the population. However, if \(r>d\), it
 is mutually beneficial to cooperate. In this case, a player profits from their
 own contribution alongside the rest of the population. Despite this, the
 cooperator still gains exactly \(\alpha_i\) less payoff from their own
-contribution than their co-players.
+contribution than their co-players. We consider two formulations.
 
 In the first formulation, we assume that all players in the population
 participate in the same public goods game (in other words, \(d = N\)). Here a
 player's strategy depends on the composition of the population rather than on
-pairwise interactions, a concept known as ``playing the field''~\cite{}. In the
-second formulation, we consider games where a subset of \(d\) players chosen
-unfiormly from the population to participate in a game at a given
-time~\cite{multiverse}. In this formulation, a player's payoff is given by their
-expected payoff across all possible games.
-%TODO: check evolution and the theory of games for playing the field
+pairwise interactions, a concept known as ``playing the
+field''~\cite{smith_evolution_1982}. In the second formulation, we consider
+games where a subset of \(d\) players chosen unfiormly from the population to
+participate in a game at a given time~\cite{multiverse}. In this formulation, a
+player's payoff is given by their expected payoff across all possible groups
+which they could be selected to play in.
 
+The effect of \(d\) upon the evolutionary stability of cooperation in public
+goods games is well studied, especially in a homogeneous population without
+mutation. When the population all participate in the game, and thus \(d = N\),
+defection is the only evolutionary stable strategy, since the requirement for
+cooperation to be favoured is impossible under the pointwise dominance of the
+public goods game~\cite{kurokawa_emergence_2009, kurokawa_generous_2010}.
+However, when \(d < N\), cooperation can emerge in some cases. In the previously
+mentioned studies, defectors are more likely to trigger the retaliation of other
+players (specifically, of players who play
+\(TFT_a\)~\cite{joshi_evolution_1987}), whereas cooperators enjoy the mutual
+benefits of the public good. 
 
+In a population with \(d < N\), pointwise dominance is not always guarenteed.
+Let us consider an example population with \(N=4, d=2, \alpha=1, r=6\), with one
+cooperator and three defectors. Then we get the following expected payoffs:
+
+\begin{equation}
+    \begin{aligned}
+    &\pi_D(\mathbf{a}) = \frac{6}{3} = 2\\
+    &\pi_C(\mathbf{a}) = 3 \cdot \left(\frac{6}{3} - 1\right) = 3
+    \end{aligned}
+    \label{eqn:d_lt_N_payoffs}
+\end{equation}
+
+Cooperators and defectors share a number of payoffs 
 
 \subsection{The parameter sweep}
 To illustrate the results of sections~\ref{sec:extrinsic_population_dynamics}
@@ -1321,8 +1347,6 @@ interval \([0, \varepsilon_{\max}]\), where the upper bound depends on the retur
 For each \((M, r)\) we take \(\varepsilon\) on an evenly spaced grid of ten values
 in this interval.
 
-%Discuss playing the field and past results
-
 We first show the result of Theorem~\ref{prop:ceiling} in purely extrinsic
 population dynamics, and then it's ability to be exceeded in purely intrinsic
 population dynamics.
@@ -1365,17 +1389,14 @@ Figure~\ref{fig:ceiling_extrinsic}, and we explore Theorem~\ref{prop:ceiling}
 numerically in the context of the 8-player public goods game; the other values
 of \(N\) in our sweep are qualitatively identical.  All panels show this limit
 as a hard ceiling on \(p_C\) which no parameter set in our data is able to
-exceed. This includes parameter combinations which have high values of \(r >
-N\), leading to cooperation being mutually beneficial, and so we see that
-despite full cooperation being the Nash equilibrium of the one shot game, and
-increasing the payoff of players in the one-step distribution, the pointwise
-dominance of defection over cooperation leads to defection becoming the dominant
-strategy. This not only leads to a worse average payoff for all players in the
-population, but also means that when \(r > N\), worsening moves occur with a
-higher probability than transitions which improve a player's payoff. In other
-words, even when a switch \(D \to C\) would always improve a player's payoff,
-the player will still prefer to remain a defector under a purely extrinsic
-population dynamic, due to the greater fitness of a defector in a given state.
+exceed. Defection being the dominant strategy for \(r<N\) has historically been
+taken as self-evident~\cite{deng_rare_2012}, however we find that this dominance
+extends to parameter combinations where \(r > N\). Thus, despite cooperation
+being mutually beneficial, and therefore the Nash-equilibrium of the one-shot
+game, the pointwise dominance of defection over cooperation leads to defection
+being favoured. This not only leads to a worse average payoff for all players in
+the population, but also means that when \(r > N\), worsening moves occur with a
+higher probability than transitions which improve a player's payoff.
 
 Panel (b) shows that an increase in either intensity has a negative effect upon
 cooperation even when cooperation is mutually beneficial. The process with
@@ -1603,6 +1624,8 @@ every population size, and an intrinsic dynamic continues to exceed it for large
     \label{fig:large_n}
 \end{figure}
 
+% subgame pgg
+
 \section{Conclusion}
 
 We have introduced and analysed a framework for heterogeneous evolutionary games
@@ -1626,6 +1649,14 @@ certain intrinsic dynamics are able to exceed \(p_C = \frac{1}{2}\) confirms the
 work of~\cite{Couto2023, Wang2025}, and serves to illustrate a fundamental
 difference between the classifications with regards to
 Theorem~\ref{prop:ceiling}.
+
+Our discussion of the public goods game provides insight into how cooperation
+may be facilitated in group efforts. Different methods of promoting cooperation
+have been proposed, from the punishment of defectors~\cite{deng_rare_2012} to
+the ability for players to opt-out of the
+game~\cite{g10010001,hauert2002volunteering}. Our results show that if a public
+good is valuable enough, then cooperation is able to evolve under certain
+intrinsic population dynamics, despite the pointwise dominance of defectors.
 
 Further work may consider populations in which the choice between intrinsic and
 extrinsic update rules is itself a heterogeneous attribute of the players, in
