@@ -31,7 +31,7 @@
 \author[1,*]{Harry Foster}
 \author[1]{Vince Knight}
 \author[2]{Sebastian Krapohl}
-\affil[1]{School of Mathematics, Cardiff University}
+\affil[1]{School of Computational and Mathematical Sciences, Cardiff University}
 \affil[2]{Faculty of Social and Behavioural Sciences, University of Amsterdam}
 \affil[*]{Corresponding author: \texttt{fosterh3@cardiff.ac.uk}}
 \date{\today}
@@ -39,7 +39,7 @@
 \begin{document}
 \maketitle
 
-\begin{abstract}
+\begin{abstract} %TODO: update with d<N and intrinsic result
     Evolutionary game theory provides a framework by which to study the
     emergence of cooperation in a population of self-interested actors. In such
     a framework, players' decisions on whether or not to cooperate evolve
@@ -56,7 +56,7 @@
     heterogeneous contributions.
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction} %TODO: update with d<N and intrinsic result
 
 The conditions under which cooperation can emerge among self-interested actors
 is a central question across biology, economics, and the social sciences. Many
@@ -327,13 +327,13 @@ mutation rates \(\mu \in \{0.001, 0.005, 0.05, 0.1\}\).
     \centering
     \includegraphics[width=0.9\linewidth]{state_space_panels.pdf}
     \end{mdframed}
-    \caption{\textbf{The heterogeneous population as a Markov chain when}
-    \(\mathbf{|J| = 1}\). \textbf{A,} A heterogeneous population with action
-    set \(\mathcal{A} = \{C, D\}\), in which each player has its own payoff
-    function. \textbf{B,} A single transition between neighbouring states.
-    \textbf{C,} Each state is a vertex of \(S = A^N\), so the state space is an
-    \(N\)-dimensional hypercube~\cite{HARARY1988277}. \textbf{D,} Mutation
-    connects the chain and makes it ergodic.}
+    \caption{\textbf{The heterogeneous population as a Markov chain when one player changes at a time.}
+    \textbf{A,} A heterogeneous population with action set \(\mathcal{A} = \{C,
+    D\}\), in which each player has its own payoff function. \textbf{B,} A
+    single transition between neighbouring states. \textbf{C,} Each state is a
+    vertex of \(S = A^N\), so the state space is an \(N\)-dimensional
+    hypercube~\cite{HARARY1988277}. \textbf{D,} Mutation connects the chain and
+    makes it ergodic.}
     \label{fig:4-cube}
 \end{figure}
 
@@ -345,7 +345,15 @@ members of a population. We can think of purely extrinsic processes in either
 the context of biological evolution~\cite{Moran_1958}, or as human social
 learning~\cite{bandura1977social}. In each case, individuals learn by the
 success of existing strategies: the passing on of successful genes in the former
-case, or reinforcement based on observed behaviour in the latter.
+case, or reinforcement based on observed behaviour in the latter. Different
+forms of purely extrinsic population dynamic are better suited for the modelling
+of each of these interpretations. Fermi imitation dynamics contains a decision
+step which lends itself to human decision making, whereas the Moran and
+Wright-Fisher processes have been designed to model the passing on of genes in
+a population.
+
+We now give the formal definition of a purely extrinsic population dynamic as
+follows:
 
 \begin{definition}[Purely extrinsic population dynamic]
     Let \(\{P_i: i \in [1, \dots, N]\},\lambda\) define a population dynamic on
@@ -999,7 +1007,7 @@ dominate the population. Threshold values of \(r\) in a homogeneous public goods
 game are considered in~\cite{g10010001}, where a subset of the population play a
 game at each time step and players opt out of the game with a certain
 probability. We consider the public goods game as an example in
-section~\ref{sec:examples}
+section~\ref{sec:pgg}.
 
 \section{Intrinsic population dynamics}
 \label{sec:intrinsic_population_dynamics}
@@ -1011,7 +1019,9 @@ in the current state. We define a \emph{purely intrinsic population dynamic}.
 Dynamics under this classification have players compare their payoff with some
 internal metric, such as counterfactual payoffs or aspirations. These models
 lend themselves more closely to the concept of ``individual learning'' in human
-behaviour~\cite{RogersCulture} than to traditional biological evolution.
+behaviour~\cite{RogersCulture} than to traditional biological evolution. 
+
+We give the definition of a purely intrinsic population dynamic as follows:
 
 \begin{definition}[Purely intrinsic population dynamic]
     A population dynamic defined by a transition matrix \(T\) 
@@ -1217,17 +1227,16 @@ higher probability in the next state. While each transition within a state will
 occur with the same probability, that probability may be lower for more
 cooperative states.
 
-%TODO: Theorem goes here, if not, examples of intrinsic escape
-\section{Examples}\label{sec:examples}
-\subsection{The public goods game}
+%TODO: Theorem goes here. If not, examples of intrinsic escape
+\section{Application to the public goods game}\label{sec:pgg}
 
 In this section, we will discuss the results of
-sections~\ref{sec:extrinsic_population_dynamics} and ~\ref{sec:intrinsic
-population dynamics} in the public goods game. In this game, players choose to
-contribute some amount \(\alpha_i > 0\). The total contribution is multiplied by
-some factor \(r > 0\) and split between all players within a group of size
-\(d\). We consider heterogeneous contributions and a homogeneous return, with a
-payoff function given as follows:
+sections~\ref{sec:extrinsic_population_dynamics} and
+~\ref{sec:intrinsic_population_dynamics} in the context of the public goods
+game. In this game, players choose to contribute some amount \(\alpha_i > 0\).
+The total contribution is multiplied by some factor \(r > 0\) and split between
+all players within a group of size \(d\). We consider heterogeneous
+contributions and a homogeneous return, with a payoff function given as follows:
 
 \begin{equation}
     \pi_i(\mathbf{a}) = \frac{r}{d}\sum_{i:a_i=C} \alpha_i - \mathbf{1}_{a_i = C}\alpha_i
@@ -1245,40 +1254,17 @@ cooperator still gains exactly \(\alpha_i\) less payoff from their own
 contribution than their co-players. We consider two formulations.
 
 In the first formulation, we assume that all players in the population
-participate in the same public goods game (in other words, \(d = N\)). Here a
-player's strategy depends on the composition of the population rather than on
-pairwise interactions, a concept known as ``playing the
+participate in the same public goods game (\(d = N\)). Here a player's strategy
+depends on the composition of the population rather than on pairwise
+interactions, a concept known as ``playing the
 field''~\cite{smith_evolution_1982}. In the second formulation, we consider
-games where a subset of \(d\) players chosen unfiormly from the population to
-participate in a game at a given time~\cite{multiverse}. In this formulation, a
-player's payoff is given by their expected payoff across all possible groups
-which they could be selected to play in.
+games where a subset of \(d\) players are chosen unfiormly from the population
+to participate in a game at a given time~\cite{multiverse}. In this formulation,
+a player's payoff is given by their expected payoff across all possible groups
+which they could be selected to play in. 
 
-The effect of \(d\) upon the evolutionary stability of cooperation in public
-goods games is well studied, especially in a homogeneous population without
-mutation. When the population all participate in the game, and thus \(d = N\),
-defection is the only evolutionary stable strategy, since the requirement for
-cooperation to be favoured is impossible under the pointwise dominance of the
-public goods game~\cite{kurokawa_emergence_2009, kurokawa_generous_2010}.
-However, when \(d < N\), cooperation can emerge in some cases. In the previously
-mentioned studies, defectors are more likely to trigger the retaliation of other
-players (specifically, of players who play
-\(TFT_a\)~\cite{joshi_evolution_1987}), whereas cooperators enjoy the mutual
-benefits of the public good. 
-
-In a population with \(d < N\), pointwise dominance is not always guarenteed.
-Let us consider an example population with \(N=4, d=2, \alpha=1, r=6\), with one
-cooperator and three defectors. Then we get the following expected payoffs:
-
-\begin{equation}
-    \begin{aligned}
-    &\pi_D(\mathbf{a}) = \frac{6}{3} = 2\\
-    &\pi_C(\mathbf{a}) = 3 \cdot \left(\frac{6}{3} - 1\right) = 3
-    \end{aligned}
-    \label{eqn:d_lt_N_payoffs}
-\end{equation}
-
-Cooperators and defectors share a number of payoffs 
+We perform parameter sweeps on each formulation of this game in order to provide
+a discussion of the impact of update rule, as well as when the ceiling applies for 
 
 \subsection{The parameter sweep}
 To illustrate the results of sections~\ref{sec:extrinsic_population_dynamics}
@@ -1298,7 +1284,8 @@ at~\cite{ludics_archive} and the documentation can be found %TODO: Update data/l
 at~\cite{ludics_docs}. The full development of the software can be found
 at~\cite{ludics}. The parameters considered, alongside their meanings in
 reference to the public goods game, are shown in
-Table~\ref{fig:parameter_sweep_table}.
+Table~\ref{fig:parameter_sweep_table} and
+~\ref{fig:parameter_sweep_table_groupsize}.
 
 \begin{table}[htbp!]
     \begin{tabular}{|c|c|c|c|c|}
@@ -1307,15 +1294,15 @@ Table~\ref{fig:parameter_sweep_table}.
         \hline
         \(N\) & Number of players &2 & 8 & N/A\\
         \hline
-        \(r\) & Return on investment & \(\frac{1}{2}\) & \(\frac{3N}{2}\) & 10\\
+        \(r\) & Return on investment & \(\frac{1}{2}\) & \(\frac{3d}{2}\) & 10\\
         \hline
         \(\alpha_i\) & Contribution of player \(i\) & N/A & N/A & N/A\\
         \hline
-        \(M\) & Maximum total contribution & \(N\) & \(4N\) & 10\\
+        \(M\) & Maximum total contribution & \(d\) & \(4d\) & 10\\
         \hline
         \(\mu\) & Mutation value & 0.001 & 0.1 & 4\\
         \hline
-        \(\varepsilon\) & Selection intensity & 0 & \(\varepsilon_{\max}\), see~\eqref{eq:epsilon_bound} & 1000\\
+        \(\varepsilon\) & Selection intensity & 0 & \(\varepsilon_{\max}\) (see~\eqref{eq:epsilon_bound}) & 1000\\
         \hline
         \(\beta\) & Choice intensity & 0 & 2 & 10\\
         \hline
@@ -1323,223 +1310,139 @@ Table~\ref{fig:parameter_sweep_table}.
         \hline
     \end{tabular}
     \centering
-    \caption{The set of measured parameters and boundary values. Some parameters
-    are only applicable to certain processes. \(\alpha_i\) is entirely
-    controlled by the value \(M\), which controls the maximum total contribution.
-    The distribution of wealth remains the same for a given \(N\), however as
-    \(M\) increases, so too does the size of each player's contribution
-    \(\alpha_i\). The value \(A\) is the \emph{aspiration} considered in
-    aspiration dynamics, in Section~\ref{sec:intrinsic_population_dynamics}. We
-    consider a homogeneous return \(r\). The aspiration \(A\) depends on \(M\),
-    and the selection intensity \(\varepsilon\) on both \(M\) and \(r\) in addition to \(N\)
-    than on \(N\), and as such there are a large number of values per \(N\) for
-    these parameters.}
+    \caption{The set of measured parameters and boundary values for the public
+    goods game. Some parameters are only applicable to certain processes.
+    \(\alpha_i\) is entirely controlled by the value \(M\), which controls the
+    maximum total contribution. The distribution of wealth remains the same for
+    a given \(N\), however as \(M\) increases, so too does the size of each
+    player's contribution \(\alpha_i\). The value \(A\) is the \emph{aspiration}
+    considered in aspiration dynamics, in
+    Section~\ref{sec:intrinsic_population_dynamics}. We consider a homogeneous
+    return \(r\). The aspiration \(A\) depends on \(M\), and the selection
+    intensity \(\varepsilon\) on both \(M\) and \(r\) in addition to \(N\) than
+    on \(N\), and as such there are a large number of values per \(N\) for these
+    parameters. For games with \(d < N\), we take a constant value of
+    \(\mu=0.05\).}
     \label{fig:parameter_sweep_table}
 \end{table}
 
-To keep every player's fitness positive, so that the Moran transition
-probabilities are well defined, the selection intensity is restricted to the
-interval \([0, \varepsilon_{\max}]\), where the upper bound depends on the return
-\(r\) and the largest contribution \(\alpha_{\max} = \max_i \alpha_i\):
+Contributions are taken on a linear scale, so that \(\sum_{i=1}^N \alpha_i =
+M\). We take a value \(\alpha_i = \frac{2Mi}{N(N+1)}\). Additionally, in order
+to ensure positive fitnesses, the selection intensity is restricted to the
+interval \([0, \varepsilon_{\max}]\), where the upper bound depends on the
+return \(r\) and the largest contribution \(\alpha_{\max} = \max_i \alpha_i\):
 \begin{equation}
     \label{eq:epsilon_bound}
     \varepsilon_{\max} =
     \begin{cases}
         \dfrac{0.99}{1 - \alpha_{\max}\left(\frac{r}{N} - 1\right)}, & r < N,\\[2.4ex]
-        \dfrac{\alpha_{\max}\left(\frac{r}{N} - 1\right) + 1}
-              {\alpha_{\max}\left(\frac{r}{N} - 1\right) + 2}, & r \geq N.
+        \dfrac{\alpha_{\max}\left(\frac{r}{d} - 1\right) + 1}
+              {\alpha_{\max}\left(\frac{r}{d} - 1\right) + 2}, & r \geq N.
     \end{cases}
 \end{equation}
-For each \((M, r)\) we take \(\varepsilon\) on an evenly spaced grid of ten values
-in this interval.
+For each \((M, r)\) we take \(\varepsilon\) on an evenly spaced grid of ten
+values in this interval. We first consider a public goods game amongst all
+members of the population, and then consider the \(d < N\) case.
 
-We first show the result of Theorem~\ref{prop:ceiling} in purely extrinsic
-population dynamics, and then its ability to be exceeded in purely intrinsic
-population dynamics.
-
-\subsubsection{Purely extrinsic population dynamics in the public goods game}
+\subsection{Results}\label{sec:results}
+\subsubsection{Whole-population public goods games}
 
 \begin{figure}[!htbp]
-    \centering
     \begin{mdframed}
-
-    \includegraphics[width=\linewidth]{ceiling_extrinsic.pdf}
-
+    \centering
+    \includegraphics[width=\textwidth]{play_field.pdf}
     \end{mdframed}
-
-    \caption{\textbf{The cooperation ceiling under purely extrinsic dynamics.}
-    Throughout, \(N = 8\), a linear contribution profile, and mutation \(\mu =
-    0.05\); the dashed line marks the neutral-drift baseline \(p_C =
-    \frac{1}{2}\) and in all panels the dashed black line marks \(r = N\). Faint
-    curves show \(p_C\) trajectories across the sweep, coincident trajectories
-    drawn once; in (a) they join parameter sets at equal selection- or
-    choice-intensity rank across \(r\), since the selection-intensity grid is
-    rescaled with \(r\) (Equation~\eqref{eq:epsilon_bound}). Bold curves are the
-    median over all parameter sets. \textbf{(a)} Cooperation \(p_C\) against the
-    return \(r\): the Moran process rises with \(r\), but remains below \(p_C =
-    \frac{1}{2}\). Fermi imitation dynamics stays well below this threshold,
-    unaffected by \(r\). \textbf{(b)} With \(r > N\), \(p_C\) against the
-    normalised (dividing by the maximum value) selection intensity
-    \(\varepsilon\) (Moran) and choice intensity \(\beta\) (Fermi); neither
-    exceeds \(\frac{1}{2}\), reaching it only as the intensity vanishes.
-    \textbf{(c)} Fermi imitation dynamics is invariant to the return \(r\), as
-    derived in Equation~\eqref{eq:fermi_invariant}. \textbf{(d)} The ceiling
-    remains across values of \(N\) in the sweep for both processes.}
-    \label{fig:ceiling_extrinsic}
+    \caption{Results of the sweep for \(d = N\). \(N=8\) except where otherwise
+    stated. Faint curves show \(p_C\) trajectories across the sweep, with
+    coincident trajectories drawn once. (\textbf{a}) shows the ceiling across
+    the sweep. For no parameter combination can any purely extrinsic population
+    dynamic exceed \(p_C = \frac{1}{2}\). (\textbf{b}) shows the ceiling being
+    broken by purely extrinsic population dynamics. In all cases, the ceiling is
+    broken at exactly \(r=N\). (\textbf{c}) shows the impact of intensities on
+    the system when \(r>N\). Intensities are normalised as a fraction of the
+    maximum value in the sweep. Intrinsic dynamics show an increase in
+    cooperation when intensity increases when cooperating is mutually
+    beneficial, while extrinsic dynamics still increasingly favour defection
+    when intensity increases in this case. (\textbf{d}) shows that the ceiling
+    remains across all values of \(N\).}
+    \label{fig:d_eq_N}
 \end{figure}
 
-%TODO: add WF data
+Figure~\ref{fig:d_eq_N} shows the game between players when \(d = N\). In this
+formulation of the game, all players interact with all other players in a given
+time step. Panel (a) shows the ceiling in action, with no purely extrinsic
+dynamic able to exceed \(p_C = \frac{1}{2}\). Defection being the dominant
+strategy for \(r<N\) has historically been taken as
+self-evident~\cite{deng_rare_2012}, however we find that this dominance extends
+to parameter combinations where cooperation is mutually beneficial. This shows
+that in spite of full cooperation being the Nash equilibrium and pareto optimal
+state of the one shot game, players will still prefer to defect when making
+decisions under a purely extrinsic population dynamic. We also see the
+invariance of Fermi imitation dynamics to \(r\), and so the incentive for
+cooperation is not only ineffective, but outright ignored by some purely
+extrinsic population dynamics. Intrinsic population dynamics are able to escape
+this ceiling, with panel (b) showing this behaviour occuring at the threshold
+\(r=N\). This effect shows that the purely intrinsic population dynamics
+discussed favour cooperation when it is mutually beneficial, but not when it is
+purely altruistic. 
 
-Our results for the purely extrinsic dynamics are shown in
-Figure~\ref{fig:ceiling_extrinsic}, and we explore Theorem~\ref{prop:ceiling}
-numerically in the context of the 8-player public goods game; the other values
-of \(N\) in our sweep are qualitatively identical.  All panels show this limit
-as a hard ceiling on \(p_C\) which no parameter set in our data is able to
-exceed. Defection being the dominant strategy for \(r<N\) has historically been
-taken as self-evident~\cite{deng_rare_2012}, however we find that this dominance
-extends to parameter combinations where \(r > N\). Thus, despite cooperation
-being mutually beneficial, and therefore the Nash-equilibrium of the one-shot
-game, the pointwise dominance of defection over cooperation leads to defection
-being favoured. This not only leads to a worse average payoff for all players in
-the population, but also means that when \(r > N\), worsening moves occur with a
-higher probability than transitions which improve a player's payoff.
+This difference between the two classifications of population dynamics links to
+the well-studied absorbing case of the \(d=N\) public goods game. When the
+population all participate in the game, defection is the only evolutionary
+stable strategy, since the requirement for cooperation to be favoured is
+impossible under the pointwise dominance of
+defectors~\cite{kurokawa_emergence_2009, kurokawa_generous_2010}. We have seen
+in section~\ref{sec:extrinsic_population_dynamics} that the dominance of
+defection remains for any purely extrinsic population dynamic under the effects
+of mutation, and Figure~\ref{fig:d_eq_N} has demonstrated this in a
+heterogeneous population. However, the ability for intrinsic population dynamics
+shows that the comparison between players is crucial for the results of the
+absorbing case to hold, as otherwise players would not be influenced by the
+payoff-dominance of defectors in any given state.
 
-Panel (b) shows that an increase in either intensity has a negative effect upon
-cooperation even when cooperation is mutually beneficial. The process with
-\(\beta = 0\) or \(\varepsilon = 0\) give neutral drift, with cooperation rates
-decreasing as the intensity of choice or selection increases. The notion of
-intensities is often tied to the ``rationality'' of the system, where players
-make decisions with less noise. In the case of purely extrinsic population
-dynamics, we see that this does not necessarily link to increasing players'
-payoffs, since the transition's rationality is chiefly linked to the payoff of
-other players.
+The reason why each intrinsic dynamic is able to exceed the ceiling differs
+between examples. For introspection dynamics, we see that since the public goods
+game is additive, each individual will cooperate with a probability greater than
+\(\frac{1}{2}\) if and only if they benefit from their own contribution, or
+equivalently if \(r > N\)~\cite{Couto2023, foster_knight_2026}. In the opposite
+case, introspection dynamics has been shown previously to behave similarly to
+imitation dynamics~\cite{Couto2023}. Aspiration dynamics, on the other hand,
+considers the fact that when \(r>N\), a given player's payoff is closer to their
+target payoff while cooperating, given a set of coplayers (or equivalently,
+exceeds their target by a greater amount while cooperating). Therefore, players
+switch action with a lower probability when cooperating. Alternative
+formulations of aspiration dynamics have also been shown to exceed the
+ceiling~\cite{Wang2025}. When \(r<N\), the reverse is true, as shown
+in~\cite{du2014aspiration}. Aspiration dynamics also has the lowest minimum
+value of all population dynamics, since at least one player needs to cooperate
+in order for any player to reach their target. These minimum values are reached
+for an intermediate \(r\), since players reach their aspirations with a smaller
+number of payoffs, without the benefit of cooperation for \(r>N\). Aspiration
+dynamics marks the only population dynamic mentioned which admits a \(p_C\)
+which is non-linear in the value of \(r\), as the aspiration level is the
+biggest indicator of cooperation in certain formulations of public goods game
+with \(r<N\). It has been shown previously that for a high aspiration level,
+cooperation emerges at a level near the neutral-drift baseline, but for a low
+aspiration level defectors dominate the population~\cite{du2014aspiration}.
 
-%TODO: discuss WF
-
-We have previously stated the invariance of Fermi imitation dynamics to the
-parameter \(r\). This can now be shown directly for an example. In the public
-goods game the total contribution is shared equally by every player, so for any
-two players \(i\) and \(j\) in a state \(\mathbf{a}\) this common term cancels
-in their payoff difference:
-\begin{equation}
-    \pi_i(\mathbf{a}) - \pi_j(\mathbf{a})
-    = \alpha_j \mathbf{1}_{a_j = C} - \alpha_i \mathbf{1}_{a_i = C},
-    \label{eq:fermi_invariant}
-\end{equation}
-which does not depend on \(r\). As Fermi imitation dynamics depends on payoffs
-only through such pairwise differences, its transition matrix and steady state,
-and hence \(p_C\), are invariant to \(r\); this is confirmed in
-Figure~\ref{fig:ceiling_extrinsic}(c).
-
-\subsubsection{Intrinsic population dynamics in a public goods game}
-
-We now illustrate purely intrinsic population dynamics in the public goods game
-defined in equation~\ref{eq:pgg_payoff}. Past studies have shown that
-introspection dynamics behaves similarly to pairwise imitation in symmetric
-games~\cite{Couto2022} and promotes cooperation in a public goods game if a
-player makes a profit from their
-contribution~\cite{Couto2023,foster_knight_2026}. Aspiration dynamics has been
-shown to be less strict on the value of \(r\) in a public goods game than
-imitation dynamics~\cite{du2014aspiration}, and alternative formulations have
-been shown to exceed \(p_C=\frac{1}{2}\)~\cite{Wang2025}. As it has been shown
-that certain intrinsic dynamics are able to favour cooperation under certain
-conditions, we give an empirical example of the ceiling proposed by
-Theorem~\ref{prop:ceiling} being breached, showing a key difference between
-intrinsic and extrinsic dynamics.
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{mdframed}
-    \includegraphics[width=\linewidth]{ceiling_intrinsic.pdf}
-    \end{mdframed}
-    \caption{\textbf{Intrinsic dynamics exceed the cooperation ceiling.} Same
-    population as Figure~\ref{fig:ceiling_extrinsic}; faint curves show the
-    \(p_C\) trajectory of every parameter set in the sweep (coincident
-    trajectories are drawn once), and the bold curves their median taken over
-    all parameter sets, with the dashed line at \(p_C = \frac{1}{2}\) and the
-    dotted line at \(r = N\). \textbf{(a)} Cooperation \(p_C\) against the
-    return \(r\) for introspection and aspiration dynamics; both exceed
-    \(\frac{1}{2}\) once \(r > N\). \textbf{(b)} Introspection \(p_C\) against
-    \(r\) at several contribution scales \(M\), every curve crossing
-    \(\frac{1}{2}\) exactly at \(r = N\): the threshold is set by the sign of
-    the counterfactual payoff difference
-    \(\Delta(\pi_{I(\mathbf{a},\mathbf{b})})\). \textbf{(c)} Introspection
-    \(p_C\) against \(M\): it increases with the contribution scale when \(r >
-    N\) and decreases when \(r < N\). \textbf{(d)} Aspiration \(p_C\) against
-    the aspiration level \(A\) at \(M = 16\).}
-    \label{fig:intrinsic_PGG}
-\end{figure}
-
-In Figure~\ref{fig:intrinsic_PGG}, we see that purely intrinsic population
-dynamics are able to exceed the ceiling on \(p_C\) which is imposed on purely
-extrinsic population dynamics. The crucial point is that cooperation is favoured
-when \(r>N\), and rejected when \(r<N\). Thus the purely intrinsic population
-dynamics discussed reject purely altrusitic cooperation, but favour cooperation
-which is mutually beneficial. In this behaviour, both dynamics favour the action
-type which has the greatest payoff when played given a set of co-players.
-
-In the case of aspiration dynamics, \(p_C\) does not reach excessively low
-values that the other processes we have discussed do. This is because for all
-players to have a payoff \(\pi_i > 0\), at least one player must be cooperating
-at all times. If no players cooperate, then no player will reach their target
-payoff threshold, and players will switch strategy with a high probability. The
-ceiling is not exceeded for \(r < N\), as shown in
-Figure~\ref{fig:intrinsic_PGG}(a) and noted for a linear game
-in~\cite{du2014aspiration}, but is exceeded at the threshold \(r > N\). In this
-case, \(\pi_i(\mathbf{a}) - A\) is greater when cooperating than defecting in a
-given population \(\mathbf{a}_{-i}\) for all players, and so the population
-tends towards cooperation. Aspiration dynamics achieves its lowest \(p_C\) for
-intermediate values of \(r\) and low values of \(A\), as players are able to
-achieve their aspiration by free-riding in a state with fewer cooperators, and
-so there is no incentive to begin cooperating in such a state. For \(r > N\),
-\(p_C\) is non-monotone in \(A\): it rises to a peak and then falls back towards
-\(\frac{1}{2}\) as the aspiration becomes harder and harder to achieve.
-Aspiration only discriminates between the two actions in a given state when
-\(A\) lies between the payoffs of a defector and a cooperator, or else both
-transitions \(D \to C\) or \(C \to D\) will be favoured or surpressed. A low
-\(A\) leaves defectors content and unwilling to switch, whereas a high \(A\)
-leaves every player dissatisfied, so switching becomes action-independent and
-any advantage is washed out. The aspiration level is the biggest indicator of
-cooperation in certain formulations of public goods game with \(r<N\): it has
-been shown previously that for a high aspiration level, cooperation emerges at a
-level near the neutral-drift baseline, but for a low aspiration level defectors
-dominate the population~\cite{du2014aspiration}.
-
-As the heterogeneous public goods game is an additive game, we can show that
-many of the analytical results of~\cite{Couto2023, foster_knight_2026} about the
-structure of introspection dynamics in a public goods game hold empirically for
-a large parameter sweep. Each player \(i\) cooperates with probability \(p_i =
-\phi_i(\alpha_i(1 - \frac{r}{N}))(1 - 2\mu) + \mu\), and \(p_C\) is given as a
-product measure~\cite{Couto2023}. Thus, we have that as the value
-\(\Delta(\pi_{I(\mathbf{a,b})}) = \alpha_i(\frac{r}{N} - 1)\) is positive for
-\(r > N\) and negative for \(r < N\), there is a sharp turning point at \(r =
-N\) where introspection dynamics begins to favour cooperation, as shown in
-Figure~\ref{fig:intrinsic_PGG}(b). This gives an exact parameter value at which
-the ceiling of \(p_C\) is overcome.
-
-Figure~\ref{fig:intrinsic_PGG}(c) shows the result that \(\frac{\partial
-p_C}{\partial \alpha_i} > 0\) if and only if \(r > N\), as the value
-\(\alpha_i(\frac{r}{N} - 1)\) becomes greater in this case, but becomes more
-negative if \(r < N\). A greater contribution will increase a player's payoff if
-multiplied by a large \(r\), but for a small \(r\) a larger contribution results
-in a greater loss to the player.
-
-The same conditions also apply to the effect of \(\beta\). This is because
-\(\phi_i(\Delta(\pi_{I(\mathbf{a,b})}))\) is decreasing. Therefore, as \(\beta\)
-scales \(\Delta(\pi_{I(\mathbf{a,b})})\), when \(\Delta(\pi_{I(\mathbf{a,b})})\)
-is negative, \(\frac{\partial p_C}{\partial \alpha_i} > 0\), and the inequality
-is reversed if the opposite is true. We acquire \(\frac{\partial p_C}{\partial
-\alpha_i} < 0\) at exactly the value \(r > N\), and thus we have our result.
+The difference in the effect of intensity parameters between each dynamic is
+also of interest, and is shown in panel (c). The traditional interpretation of
+intensity parameters is rationality, with a greater intensity meaning that a
+smaller increase in payoff has a greater impact on the process. However, we see
+that purely extrinsic population dynamics actually decrease the frequency of
+cooperation when the intensity increases, even when \(r>N\). This is because
+players place more emphasis on each unit of payoff \emph{difference} in these
+dynamics, and so a higher intensity weights the payoff dominance of defectors
+even higher.
 
 Pooling the entire parameter sweep makes the contrast between intrinsic and
 extrinsic dynamics explicit. Figure~\ref{fig:ceiling_overview} collects every
-parameter combination with \(\mu > 0\), across all \(N\), contributions,
-returns, intensities and aspirations. No purely extrinsic parameter set anywhere
-in the sweep exceeds the neutral-drift baseline \(p_C = \frac{1}{2}\), and the
-largest \(p_C\) attained is pinned at exactly \(\frac{1}{2}\) for every \(N\).
-The intrinsic dynamics, by contrast, place a substantial fraction of their mass
-above the ceiling, and this fraction switches on precisely at \(r = N\)
-(Table~\ref{tab:ceiling_crossing}). 
+parameter combination with \(\mu > 0\) and \(d=N\). No purely extrinsic
+parameter set anywhere in the sweep exceeds the neutral-drift baseline \(p_C =
+\frac{1}{2}\), and the largest \(p_C\) attained is pinned at exactly
+\(\frac{1}{2}\) for every \(N\). The intrinsic dynamics, by contrast, place a
+substantial fraction of their mass above the ceiling, and this fraction switches
+on precisely at \(r = N\) (Table~\ref{tab:ceiling_crossing}). 
 
 \begin{figure}[!htbp]
     \centering
@@ -1577,8 +1480,8 @@ populations, for which the transition matrix can be formed explicitly. Since the
 size of the state space grows as \(2^N\), this is infeasible for large \(N\). To
 confirm that the cooperation ceiling and its breaking are not artefacts of small
 populations, we estimate \(p_C\) for populations as large as \(N = 100\) by
-simulating the Markov chain directly with~\cite{ludics_archive} and averaging
-the cooperator fraction over an ergodic run with mutation \(\mu = 0.05\).
+simulating the Markov chain directly with~\cite{ludics} and averaging the
+cooperator fraction over an ergodic run with mutation \(\mu = 0.05\).
 
 Figure~\ref{fig:large_n} shows that the conclusions for the public goods game
 survive at \(N = 100\). Panel~\ref{fig:large_n}A shows that the purely extrinsic
@@ -1630,7 +1533,91 @@ every population size, and an intrinsic dynamic continues to exceed it for large
     \label{fig:large_n}
 \end{figure}
 
-% subgame pgg
+\subsection{The effect of group size}
+%TODO: when data finishes, put in figure if needed
+We now consider the public goods game when \(d < N\). In this formulation of the
+game, defection is not pointwise dominant over cooperation. If we take a
+homogeneous example population with \(N=4, d=2, \alpha=1, r=6\), with one
+cooperator and three defectors, we get the expected payoffs \(\pi_D(\mathbf{a})
+= 2, \pi_C(\mathbf{a}) = 3\). The mechanism by which this occurs is shown in
+Figure~\ref{fig:d_lt_N}. This can be seen not only for cooperation and
+defection, but also the iterated public goods
+game~\cite{kurokawa_emergence_2009, kurokawa_generous_2010}, where defectors
+trigger the retaliation of TFT players (defined for a public goods game
+by~\cite{joshi_evolution_1987}), whereas cooperators enjoy the mutual benefits
+of the public good.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{d_lt_N_diagram.pdf}
+    \caption{Payoffs of players in a public goods game with \(N=4, d=2,
+    \alpha_i=1, r=6\). Cooperators gain an additional \(\frac{r\alpha_i}{d} -
+    \alpha_i\) than defectors from each interaction which they do not share, but
+    pay the additional \(\alpha\) cost for shared interactions.}
+    \label{fig:d_lt_N}
+\end{figure}
+
+To obtain a condition for pointwise dominance not to hold, consider an arbitrary
+cooperator \(x\) and defector \(y\) from the population. The payoff of \(y\) is
+greater than that of \(x\) in an interaction which includes both players - hence
+defection's pointwise dominance in the \(d = N\) game. When \(d<N\), however,
+each of \(x\) and \(y\) play in \(\binom{N-2}{d-2}\) groups containing both
+considered players, aswell as\(\binom{N-2}{d-1}\) groups containing just one of
+them. In groups which include only one of \(x\) and \(y\), \(x\)'s payoff
+differs from \(y\)'s payoff with the same coplayers by \(\frac{r\alpha_x}{d} -
+\alpha_x\). If \(r < d\), \(x\) makes a lower payoff than \(y\) in both types of
+group, and defection is favoured. The more interesting case is given by \(r >
+d\). In this case, \(x\) has a greater payoff than \(y\) given any set of
+\(d-1\) coplayers, but \(y\) still gains a greater payoff than \(x\) from
+interactions which include both. \(x\) gains a higher payoff than \(y\) if:
+
+\begin{equation}
+    \binom{N-2}{d-2}\alpha_x < \binom{N-2}{d-1}\left(\frac{r\alpha_x}{d} - \alpha\right)
+    \label{eqn:expected_value_condition}
+\end{equation}
+
+Consider the fact that \(\frac{\binom{N-2}{d-2}}{\binom{N-2}{d-1}} =
+\frac{d-1}{N-d}\). We have that as as \(d \to N\), the proportion of groups
+which includes both \(x\) and \(y\) increases. Thus, an increase in group size
+favours defection, whereas smaller group interactions allow cooperation to
+thrive. In the smallest possible game, \(d=2\), each cooperator benefits from
+their own contribution in \(N-1\) different games, whereas defectors only
+successfully extract this benefit from each cooperator once, and then gain a
+lower payoff from each other interaction. We can use this to derive a required
+value of \(r\) for cooperation to be feasible as \(\left(r >
+\frac{d(N-1)}{N-d}\right)\). As \(N \to \infty\), this simplifies to \(r > d\).
+This gives the requirement that given a set of coplayers \(\mathbf{a}_{-i}\), a
+player \(i\) performs better by defecting than cooperating. In a homogeneous
+population, we can see this as the same limit case as \(N \to \infty\)
+in~\cite{kurokawa_emergence_2009, kurokawa_generous_2010}, where only the
+condition \(r>d\) is required for cooperation to be favoured.
+
+We can take from this that the ability for cooperators to grant themselves a
+benefit alongside the population can promote cooperation if interactions occur
+in groups rather than when individuals play the field as a whole. Let us briefly
+consider this interpretation in the context of Hamilton's rule~\cite{} that \(Rb
+> c\). In the context where \(r > d\), the cost \(c\) is negative - players
+benefit from their own cost. Therefore, so long as \(R\) is positive,
+cooperation should evolve. However, negative relatedness occurs so cooperators
+are actually benefitting defectors as much as themselves. Additionally, spite
+exists, where players should want to punish those which are negatively related
+to themselves (this is punishment in a pgg context). 
+
+%TODO: Why are our results not pointless?
+%1. they extend them to all PE dynamics 
+%2. they show that this works with mutation and in a heterogeneous population 
+%3. they give examples of how intrinsic dynamics don't behave in this way like the literature says they
+%4. It is still wierd that pointwise dominance doesnt spread when d=N, we can come up with an interpretation of that?
+
+The application of the results of
+sections~\ref{sec:extrinsic_population_dynamics} and
+~\ref{sec:intrinsic_population_dynamics} to this context shows that the above
+interpretations are extended to a heterogeneous population under any purely
+extrinsic population dynamic, accounting for mutation. We also note that purely
+intrinsic population dynamics do not behave in the same way as purely extrinsic
+population dynamics, with the ability to favour cooperation even in a game where
+\(d=N\). This marks a clear boundary as to where previous
+analysis~\cite{kurokawa_emergence_2009, kurokawa_generous_2010} is applicable.
 
 \section{Conclusion}
 

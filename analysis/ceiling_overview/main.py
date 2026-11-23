@@ -24,25 +24,29 @@ table_outputs = [
 ]
 
 mutations = ["0.001", "0.005", "0.05", "0.1"]
-extrinsic = ["moran", "fermi"]
+extrinsic = ["moran", "fermi", "wf"]
 intrinsic = ["introspection", "aspiration"]
 labels = {
     "moran": "Moran",
     "fermi": "Fermi",
     "introspection": "introspection",
     "aspiration": "aspiration",
+    "wf":"Wright-Fisher"
 }
+
 colours = {
     "moran": "#0072B2",
-    "fermi": "#D55E00",
+    "fermi": "#AE4C02",
     "introspection": "#E69F00",
     "aspiration": "#009E73",
+    "wf":"#C06898"
 }
 styles = {
     "moran": ("-", "o"),
-    "fermi": ("--", "s"),
-    "introspection": ("-.", "^"),
-    "aspiration": (":", "D"),
+    "fermi": ("-", "s"),
+    "introspection": ("-", "p"),
+    "aspiration": ("-", "D"),
+    "wf":("-","^")
 }
 
 plt.rcParams.update(
@@ -95,7 +99,6 @@ def histogram_panel(ax, dynamics, title, bins):
     ax.set_xlabel(r"cooperation $p_C$")
     ax.set_ylabel("density")
     ax.set_title(title)
-    ax.legend(loc="upper right")
 
 
 histogram_panel(
@@ -149,7 +152,7 @@ ax_fraction.set_title(r"(d) crossing switches on at $r = N$")
 shared_handles, shared_labels = ax_maximum.get_legend_handles_labels()
 fig.tight_layout(rect=(0.0, 0.06, 1.0, 1.0))
 fig.legend(
-    shared_handles, shared_labels, loc="lower center", ncol=4,
+    shared_handles, shared_labels, loc="lower center", ncol=5,
     bbox_to_anchor=(0.5, 0.0),
 )
 for output_path in figure_outputs:

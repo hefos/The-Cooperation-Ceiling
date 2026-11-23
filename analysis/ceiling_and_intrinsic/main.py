@@ -408,7 +408,7 @@ fig.legend(
     loc="lower center",
     bbox_to_anchor=(0.5, 0.0),
     ncol=5,
-    title=r"bold: median over sweep",
+    title=r"Bold: median over sweep",
     title_fontsize=8,
 )
 

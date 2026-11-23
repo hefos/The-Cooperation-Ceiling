@@ -8,39 +8,24 @@ import sympy as sym
 
 
 def subgroup_pgg_fitness_function(state, r, contribution_vector, d, **kwargs):
-    """
-    Given a group of players, returns the average payoff of players when d<N
-    players are chosen to play a small public goods game.
-     
-    Parameters
-    -----------
-    state: numpy.array, the action type of each player. 1 for cooperation, 0 for
-    defection
-    
-    r: float, the parameter r
-    
-    contribution_vector: numpy.array, the value alpha_i for each player
-    
-    d: int, the number of players in each game. Must be less than N
-    
-    returns
-    -------
-    numpy.array: the payoff of each player"""
+
     N = len(state)
-    fitnesses = np.zeros(N)
-    for index, action in enumerate(state):
-        total_payoffs = 0
-        states_visited = 0
-        indexes = np.delete(np.arange(N), index)
 
-        for coplayers in itertools.combinations(indexes, d-1):
-            group = np.array(coplayers + (index,))                 
-            total_payoffs += (r / d) * np.sum(state[group] * contribution_vector[group])
-            total_payoffs -= action * contribution_vector[index]
-            states_visited += 1
+    weighted_contributions = state * contribution_vector
 
-        mean_payoff = total_payoffs / states_visited
-        fitnesses[index] = mean_payoff
+    total_contributions = np.sum(weighted_contributions)
+
+    expected_contributions = (
+        weighted_contributions
+        + (d - 1) / (N - 1)
+        * (total_contributions - weighted_contributions)
+    )
+
+    fitnesses = (
+        (r / d) * expected_contributions
+        - weighted_contributions
+    )
+
     return fitnesses
 
 def dirichlet_linear_alpha_rule(N):
