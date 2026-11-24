@@ -49,7 +49,7 @@ seeds_main = range(15)
 seeds_validation = range(40)
 iterations = 10000
 mutation = 0.05
-selection_intensity = 0.5
+selection_intensity = 0.05
 choice_intensity = 2.0
 aspiration_fraction = 0.7
 
