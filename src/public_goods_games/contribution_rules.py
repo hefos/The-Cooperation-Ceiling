@@ -1,4 +1,3 @@
-import itertools
 
 import ludics
 import numpy as np
@@ -357,14 +356,12 @@ def compute_wright_fisher_transition_probability(
 
     if isinstance(selection_intensity, (int, float, np.floating, np.integer)):
         selection_intensity = np.full(shape=(len(source), len(source)), fill_value=selection_intensity)
-
+    fitness = fitness_map(fitness=fitness_function(source, **kwargs), selection_intensity=selection_intensity[0], **kwargs)
+    transition_dict = {i:(fitness[source == i].sum()/fitness.sum())*(1-(2*mu))+mu for i in target}
     transition_prob = 1
-    for focal_index, new_action in enumerate(target): 
+    for _, new_action in enumerate(target): 
         if new_action not in source and mu == 0:
             transition_prob = 0 
-        fitness = fitness_map(fitness=fitness_function(source, **kwargs), selection_intensity=selection_intensity[focal_index], **kwargs)
-        denominator = fitness.sum()
-        numerator = fitness[source == new_action].sum()
-        transition_for_player = ((numerator / denominator) * (1 - (2*mu))) + mu
-        transition_prob = transition_prob * transition_for_player
+        else:
+            transition_prob = transition_prob * transition_dict[new_action]
     return transition_prob

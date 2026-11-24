@@ -534,7 +534,7 @@ def test_compute_wright_fisher_transition_probability_for_trivial_fitness_functi
 def test_wright_fisher_transition_probability_for_complicated_system():
     """
     Tests that the wright-fisher process calculates the correct transition
-    probability for a complicated system"""
+    probability for a more complex fitness function"""
 
     def fitness_function(state):
         return np.array([action + index + 1 for action, index in enumerate(state)])
@@ -544,14 +544,10 @@ def test_wright_fisher_transition_probability_for_complicated_system():
     
     source = np.array([0,1,1])
     target = np.array([1,1,0])
-    selection_intensity = np.array([
-        [0.1, 0.2, 0.3],
-        [0.4, 0.5, 0.6],
-        [0.7, 0.8, 0.9]
-    ])
+    selection_intensity = 0.1
     mu = 0.05
 
-    expected_transition_probability = 0.1126213828
+    expected_transition_probability = 0.1139785156
     actual_transition_probability = contribution_rules.compute_wright_fisher_transition_probability(source=source, target=target, fitness_function=fitness_function, selection_intensity=selection_intensity, fitness_map=scale_fitness_map, mu=mu)
 
     np.testing.assert_almost_equal(actual_transition_probability, expected_transition_probability)
@@ -594,16 +590,13 @@ def test_wright_fisher_transition_probability_in_transition_matrix():
         return fitness * selection_intensity
     
     state_space = ludics.get_state_space(N=2, k=2)
-    selection_intensity = np.array([
-        [0.1, 0.3],
-        [0.5, 0.6]
-    ])
+    selection_intensity = 0.1
     mu = 0.01
 
     expected_transition_matrix = np.array([
         [0.9801, 0.0099, 0.0099, 0.0001],
-        [0.02408869566, 0.08391130434, 0.1989547826, 0.6930452174],
-        [0.4056863636, 0.3393136364, 0.1388590909, 0.1161409091],
+        [0.065025, 0.189975, 0.189975, 0.555025],
+        [1/4, 1/4, 1/4, 1/4],
         [0.0001, 0.0099, 0.0099, 0.9801]
     ])
 
