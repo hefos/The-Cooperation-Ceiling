@@ -202,16 +202,16 @@ The population evolves as a Markov chain on
 \(S\)~\cite{f66ea2a5-f1c3-3855-8dc0-e3047d83298e}. We therefore obtain a
 transition matrix \(T\), where \(T_{\mathbf{ab}}\) denotes the probability of
 transitioning from a state \(\mathbf{a}\) to a state \(\mathbf{b}\). At each
-time step, a subset of players \(J \subseteq \{1, \ldots, N\}\) are chosen with
+time step, a subset of players \(J \subseteq \{1, \ldots, N\}\) is chosen with
 probability \(\lambda(J)\) to consider updating their action according to an
 update rule \(P_i(\mathbf{a}, b_i)\). This function gives the probability that a
-chosen player \(i \in J\) switches action to the action found in \(b_i\). We
-assume that all players are selected to by \(\lambda\) with a non-zero
-probability. The general form of the transition matrix is given as follows:
+chosen player \(i \in J\) adopts the action \(b_i\). We assume that every player
+is selected by \(\lambda\) with non-zero probability. The general form of the
+transition matrix is given as follows:
 
 \begin{equation}
     T_{\mathbf{ab}} = \sum_{J \subseteq \{1, \ldots, N\}} \lambda(J)
-    \prod_{i \in J} P_i(\mathbf{a}, b_i) \prod_{w \notin j} \delta_{a_wb_w}
+    \prod_{i \in J} P_i(\mathbf{a}, b_i) \prod_{w \notin J} \delta_{a_wb_w}
     \label{eqn:general_transition}
 \end{equation}
 
@@ -231,7 +231,7 @@ action type in a given step. In this case, \(T_{\mathbf{ab}}\) is nonzero only
 if \(\mathbf{a}\) and \(\mathbf{b}\) differ in exactly one position, denoted
 \(I(\mathbf{a}, \mathbf{b})\). If this holds, we say that \(\mathbf{b} \in
 \text{Neb}(\mathbf{a})\). The examples of such dynamics in this paper select a
-focal player uniformly, giving\(\lambda(\{I(\mathbf{a}, \mathbf{b})\}) =
+focal player uniformly, giving \(\lambda(\{I(\mathbf{a}, \mathbf{b})\}) =
 \frac{1}{N}\) for all states \(\mathbf{b} \in \text{Neb}(\mathbf{a})\). The
 structure of the Markov chain in such cases is shown in Figure~\ref{fig:4-cube}.
 Under these dynamics, equation~\eqref{eqn:general_transition} reduces to the
@@ -505,7 +505,7 @@ f_x(\mathbf{a})}{\left(\sum_{l=1}^N f_l(\mathbf{a})\right)^2}
 For \(j \in \mathcal{R}_c\), as \(\varepsilon\) is chosen such that
 \(f_j(\mathbf{a}) \gt 0\) for all \(j \in \mathbf{a}\), this derivative is
 strictly positive. For \(j \notin \mathcal{R}_c\), the analogous computation
-yields \(\frac{dT_{\mathbf{ab}}}{d\pi_j(\mathbf{a})} = -\frac{\varepsilon \sum_{x
+yields \(\frac{dP_i(\mathbf{a}, c)}{d\pi_j(\mathbf{a})} = -\frac{\varepsilon \sum_{x
 \in \mathcal{R}_c} f_x(\mathbf{a})}{(\sum_{l=1}^N f_l(\mathbf{a}))^2} \leq 0\),
 so condition (2) holds, and the Moran process is a purely extrinsic population dynamic. 
 \end{proof}
@@ -535,7 +535,8 @@ by:
     \label{eqn:fermi_update}
 \end{equation}
 
-where \(c \neq a_i\). Unlike a Moran Process, we can see that the players are
+where \(c \neq a_i\), and \(P_i(\mathbf{a}, a_i) = 1 - \sum_{c \neq a_i}
+P_i(\mathbf{a}, c)\). Unlike a Moran Process, we can see that the players are
 not selected with a probability proportional to their fitness. Instead, Fermi
 Imitation Dynamics selects a pair of players and compares their payoffs
 directly, giving players the option not to accept a strategy at a given time
@@ -603,7 +604,7 @@ extended to \(k\) actions in our framework. Here, instead of binomial trials,
 all players perform an independent categorical trial to select an action from
 within the population. The probability of choosing a particular action is given
 by fitness-proportional selection from the population, as in
-equation~\ref{eqn:moran_update}. Hence, the update rule \(P_i(\mathbf{a}, c)\)
+equation~\eqref{eqn:moran_update}. Hence, the update rule \(P_i(\mathbf{a}, c)\)
 is given by the same function as that of the Moran
 process~\cite{imhof_evolutionary_2006}, and \(\lambda(J) = 1\) if \(J = \{1,
 \dots, N\}\), and \(0\) if not.
@@ -627,7 +628,7 @@ heterogeneous population, as players may accept worsening moves with a high
 probability.
 
 \begin{corollary}[The Wright-Fisher process is a purely extrinsic population dynamic]
-    The Wright-Fisher process, as defined in equation~\ref{eqn:wf_tm}, is a
+    The Wright-Fisher process, as defined in equation~\eqref{eqn:wf_tm}, is a
     purely extrinsic population dynamic.
 \end{corollary}
 \begin{proof}
@@ -676,7 +677,7 @@ further classification for population dynamics:
     
     \begin{enumerate}
     \item \(T_{\mathbf{ab}}^{nd}\) is independent of \(v_{\mathbf{a}}\).
-    \item \(\lambda(J) = \lambda^{\mathrm{nd}}(J)\) for all \(J \subset S\).
+    \item \(\lambda(J) = \lambda^{\mathrm{nd}}(J)\) for all \(J \subseteq \{1, \dots, N\}\).
     \item For every pair of states \(\mathbf{a} \leq \mathbf{a}'\), there exist random
         variables \(\mathbf{X}, \mathbf{X}'\) on a common probability space, with
         \(\mathbf{X} \sim T^{\mathrm{nd}}(\mathbf{a}, \cdot)\) and
@@ -729,8 +730,8 @@ mentioned population dynamics:
     at \(\mathbf{a} \leq \mathbf{a}'\) on the common probability space generated
     by \((i, k, m)\), applying the same draw to both. Coordinate \(i\) in the
     successor of \(\mathbf{a}\) is \(a_k\) (or \(a_m\)); coordinate \(i\) in the
-    successor of \(\mathbf{a}'\) is \(a'_k\) (or the same \(a_m\)). \(\mathbf{a}
-    \leq \mathbf{a}'\) gives \(n_C \leq n_C'\), and thus \(a_k \leq a'_k\).
+    successor of \(\mathbf{a}'\) is \(a'_k\) (or the same \(a_m\)). Since
+    \(\mathbf{a} \leq \mathbf{a}'\) componentwise, \(a_k \leq a'_k\).
     Every other coordinate \(j\) is left unchanged. Therefore the two successors
     \(\mathbf{X}\) and \(\mathbf{X}'\) satisfy \(\mathbf{X} \leq \mathbf{X}'\)
     pointwise on this probability space, so condition (3) holds.
@@ -784,9 +785,9 @@ mentioned population dynamics:
     common probability space generated by \((k_1, m_1, \dots k_N, m_N)\). For
     each player \(i\), on a mutation step, both chains set their action type to
     the same \(m_i\), and so for these players their successors satisfy
-    \(\mathbf{X}_i \leq \mathbf{X}_i'\). Additionally, since \(\mathbf{a} \leq
-    \mathbf{a'}\), if each player draws the same uniform index \(k_i\) in both
-    chains, then \(a_{k_i} \leq a'_{k_i}\), since \(n_C \leq n'_C\). Therefore,
+    \(\mathbf{X}_i \leq \mathbf{X}_i'\). Otherwise, each player draws the same
+    uniform index \(k_i\) in both chains, and since \(\mathbf{a} \leq
+    \mathbf{a'}\) componentwise, \(a_{k_i} \leq a'_{k_i}\). Therefore,
     for all players \(i \in \{1, \dots, N\}\), their successors satisfy
     \(\mathbf{X}_i \leq \mathbf{X}_i'\) pointwise on this probability space.
     Thus, the total succession population satisfies \(\mathbf{X} \leq
@@ -907,38 +908,39 @@ cooperation in a heterogeneous population.
         P_i(\mathbf{a}, D) \geq P_i(\mathbf{a}, D) \big|_{\pi_j(\mathbf{a}) = v(\mathbf{a})\text{ for all } j} \text{ for all }i \in \{1, \dots, N\}
     \]
 
-    with strict inequality whenever \(\mathcal{R} \neq \emptyset\). The right
-    hand side of each of these inequalities is equivalent to the update
-    probabilities in the neutralised chain \(T^{\mathrm{nd}}\) by
-    neutral-monotonicity condition (1). The above comparison of
-    \(T^{\mathrm{nd}}\) and \(T\) reveals that for all players in all states,
-    updates in \(T^{\mathrm{nd}}\) accept \(C\) with a at least as great a
-    probability, and \(D\) with no greater probability.
-    
-    In both chains, a set of players \(J\) are selected to consider updating.
-    Each player \(i \in J\) then either mutate to the opposite action type with
-    probability \(\mu\), or independently accepts an action \(c\) with
-    probability \(P_i(\mathbf{a}, c)\) (equivalently, \(P_i^{\mathrm{nd}}\) in
-    \(T^{\mathrm{nd}}\)). Let \(U_i\) be a uniform draw on the interval
-    \([0,1]\) such that player \(i\) accepts \(C\) if \(U_i < \mu +
-    P_i(\mathbf{a}, C)\), and let \(U_J\) be the ordered vector of probabilities
-    \(U_i\) for \(i \in J\). Couple the chains \(T\) and \(T^{\mathrm{nd}}\) on
-    the shared probability space \((J, U_J)\) starting at a state
-    \(\mathbf{a}\). 
-    
-    Since the selection probability \(\lambda(J)\) remains unchanged between
-    \(T\) and \(T^{\mathrm{nd}}\) by neutral-monotonicity condition (2), the
-    same set of players consider updating in each chain. We have shown that
-    \(P_i(\mathbf{a}, C) \leq P^{\mathrm{nd}}_i(\mathbf{a}, C)\). As \(mu\) is
-    constant, we therefore have that for all players \(i \in J\), \(\mu +
-    P_i(\mathbf{a}, C) \lt \mu + P^{\mathrm{nd}}_i(\mathbf{a}, C)\). Therefore,
-    for a shared draw \(U_i\), the probability that player \(i\) accepts \(C\)
-    is greater in \(T^{\mathrm{nd}}\) than in \(T\) for all \(i \in J\). All
-    other players \(j \notin J\) remain the same. Therefore in the two
-    successors \(\mathbf{X}\) and \(\mathbf{X^{\mathrm{nd}}}\), each player
-    \(i\) satisfies \(\mathbf{X}_i \leq \mathbf{X^{\mathrm{nd}}}_i\). Thus the
-    successor states satisfy \(\mathbf{X} \leq \mathbf{X^{\mathrm{nd}}}\)
-    pointwise for all \(\mathbf{a} \in S\). Therefore we have that
+    The right hand side of each of these inequalities is the update probability
+    in the neutralised chain, which we denote by \(P^{\mathrm{nd}}_i(\mathbf{a},
+    \cdot)\), and by neutral-monotonicity condition (1) it does not depend on
+    the choice of \(v(\mathbf{a})\). Hence, for all players in all states, an
+    update in \(T^{\mathrm{nd}}\) accepts \(C\) with at least as great a
+    probability as in \(T\), and \(D\) with no greater probability.
+
+    Mutation preserves this comparison. By
+    equation~\eqref{eqn:mutation_update_rule}, a selected player \(i\) moves to
+    \(C\) with probability
+    \[
+        P^{(\mu)}_i(\mathbf{a}, C) = P_i(\mathbf{a}, C)\left(1 - \sum_{l=1}^k
+        \mu_{il}\right) + \mu_{iC},
+    \]
+    which is non-decreasing in \(P_i(\mathbf{a}, C)\) since \(\sum_{l=1}^k
+    \mu_{il} \leq 1\). Thus \(P^{(\mu)}_i(\mathbf{a}, C) \leq
+    P^{\mathrm{nd}, (\mu)}_i(\mathbf{a}, C)\) for every player \(i\).
+
+    We now couple the one-step distributions \(T(\mathbf{a}, \cdot)\) and
+    \(T^{\mathrm{nd}}(\mathbf{a}, \cdot)\). By neutral-monotonicity condition
+    (2), \(\lambda\) is the same in both chains, so we draw a single update set
+    \(J\) with probability \(\lambda(J)\) and use it in both. For each \(i \in
+    J\), we draw an independent uniform random variable \(U_i\) on \([0, 1]\).
+    Player \(i\) plays \(C\) in the successor under \(T\) if \(U_i <
+    P^{(\mu)}_i(\mathbf{a}, C)\), and in the successor under \(T^{\mathrm{nd}}\)
+    if \(U_i < P^{\mathrm{nd}, (\mu)}_i(\mathbf{a}, C)\), and plays \(D\)
+    otherwise. Every player \(j \notin J\) keeps \(a_j\) in both chains. By
+    equation~\eqref{eqn:general_transition}, the two successors \(\mathbf{X}\)
+    and \(\mathbf{X}^{\mathrm{nd}}\) have distributions \(T(\mathbf{a}, \cdot)\)
+    and \(T^{\mathrm{nd}}(\mathbf{a}, \cdot)\) respectively. Since the first
+    threshold is no greater than the second, whenever player \(i\) plays \(C\)
+    under \(T\) it also plays \(C\) under \(T^{\mathrm{nd}}\). Hence
+    \(\mathbf{X} \leq \mathbf{X}^{\mathrm{nd}}\) pointwise, and therefore
     \(T(\mathbf{a}, \cdot) \preceq_{st} T^{\mathrm{nd}}(\mathbf{a}, \cdot)\).
 
     \medskip
