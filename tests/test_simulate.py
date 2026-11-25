@@ -1,5 +1,6 @@
 import numpy as np
-import public_goods_games.simulate as simulate
+
+from public_goods_games import simulate
 
 
 def test_simulated_subgroup_pgg_fitness_function():

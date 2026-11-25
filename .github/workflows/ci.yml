@@ -15,7 +15,7 @@ jobs:
         run: uv python install
       - name: Run tests
         run: |
-          uv run pytest tests
+          uv run pytest tests --cov=public_goods_games --cov-fail-under=100
       - name: Run ruff
         run: |
           uv run ruff check

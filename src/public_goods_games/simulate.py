@@ -1,6 +1,7 @@
 import ludics
 import numpy as np
 
+
 def generator_for(seed, stream=1):
     """
     Returns a generator for one named stream of a seed.
@@ -84,7 +85,7 @@ def moran_transition_probability(source, target, selection_intensity, fitness_fu
     player_to_fitness = fitness_function(state=source, **kwargs)
     index_of_difference = different_indices[0]
 
-    if index_of_difference not in player_to_fitness.keys():
+    if index_of_difference not in player_to_fitness:
         return 0
 
     numerator = sum(1 - selection_intensity + selection_intensity * j for i,j in player_to_fitness.items() if source[i] == target[index_of_difference])
@@ -120,7 +121,7 @@ def fermi_transition_probability(source, target, choice_intensity, fitness_funct
 
     player_to_fitness = fitness_function(state=source, **kwargs)
     index_of_difference = different_indices[0]
-    if index_of_difference not in player_to_fitness.keys():
+    if index_of_difference not in player_to_fitness:
         return 0
 
     changes = [
@@ -169,9 +170,9 @@ def wright_fisher_transition_probability(source, target, selection_intensity, mu
         1:(sum(1 - selection_intensity + selection_intensity * j for i,j in player_to_fitness.items() if source[i]==1)/denominator)*(1 - 2*mu) + mu
         }
     transition_prob = 1
-    for player_index in player_to_fitness.keys(): 
+    for player_index in player_to_fitness: 
         new_action = target[player_index]
-        if player_index not in player_to_fitness.keys() and source[player_index] != target[player_index]:
+        if source[player_index] != target[player_index]:
             transition_prob = 0
         if new_action not in source and mu == 0:
             transition_prob = 0 
@@ -210,7 +211,7 @@ def introspection_transition_probability(source, target, choice_intensity, d, r,
 
     index_of_difference = different_indices[0]
     player_to_fitness = fitness_function(state=source, d=d, r=r, contribution_vector=contribution_vector, **kwargs)
-    if index_of_difference not in player_to_fitness.keys():
+    if index_of_difference not in player_to_fitness:
         return 0
     transition_difference = contribution_vector[index_of_difference] * (1 - r/d)
     if source[index_of_difference] == 1:
@@ -247,7 +248,7 @@ def aspiration_transition_probability(source, target, choice_intensity, aspirati
 
     index_of_difference = different_indices[0]
     player_to_fitness = fitness_function(state=source, **kwargs)
-    if index_of_difference not in player_to_fitness.keys():
+    if index_of_difference not in player_to_fitness:
         return 0
 
     return 1/len(player_to_fitness.keys()) * ludics.fermi_imitation_function(delta=(player_to_fitness[index_of_difference] - aspiration), choice_intensity=choice_intensity)
