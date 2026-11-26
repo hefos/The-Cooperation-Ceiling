@@ -9,10 +9,10 @@ simulator against the exact steady state at small N.
 
 import pathlib
 
+import matplotlib.patheffects as path_effects
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.patheffects as path_effects
 
 here = pathlib.Path(__file__).resolve()
 data_path = here.parents[2] / "data" / "large_n"
