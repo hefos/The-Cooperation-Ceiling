@@ -7,11 +7,12 @@ dynamics routinely do. This script produces the overview figure and a LaTeX
 table of the fraction of parameter sets that cross the ceiling.
 """
 
+import itertools
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 here = Path(__file__).resolve()
 data_path = here.parents[2] / "data" / "sweep"
@@ -130,7 +131,7 @@ for dynamic in extrinsic + intrinsic:
         above[(ratio >= low) & (ratio < high)].mean()
         if ((ratio >= low) & (ratio < high)).any()
         else np.nan
-        for low, high in zip(ratio_bins[:-1], ratio_bins[1:])
+        for low, high in itertools.pairwise(ratio_bins)
     ])
     populated = ~np.isnan(fractions)  # drop empty r/N bins so the line is unbroken
     ax_fraction.plot(

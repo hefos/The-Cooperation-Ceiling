@@ -10,10 +10,10 @@ the mutation rate, so a single rate suffices for it.
 
 from pathlib import Path
 
+import matplotlib.patheffects as path_effects
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.patheffects as path_effects
 
 here = Path(__file__).resolve()
 data_path = here.parents[2] / "data" / "sweep"
