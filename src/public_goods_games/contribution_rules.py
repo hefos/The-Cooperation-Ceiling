@@ -1,8 +1,31 @@
-import scipy
-import sympy as sym
-import numpy as np
-import scipy.special
 
+import ludics
+import numpy as np
+import scipy
+import scipy.special
+import sympy as sym
+
+
+def subgroup_pgg_fitness_function(state, r, contribution_vector, d, **kwargs):
+
+    N = len(state)
+
+    weighted_contributions = state * contribution_vector
+
+    total_contributions = np.sum(weighted_contributions)
+
+    expected_contributions = (
+        weighted_contributions
+        + (d - 1) / (N - 1)
+        * (total_contributions - weighted_contributions)
+    )
+
+    fitnesses = (
+        (r / d) * expected_contributions
+        - weighted_contributions
+    )
+
+    return fitnesses
 
 def dirichlet_linear_alpha_rule(N):
     """
@@ -72,7 +95,7 @@ def dirichlet_log_alpha_rule(N):
     return np.array([np.log(i) + 1 for i in range(1, N + 1)])
 
 
-def dirichlet_power_law_alpha_rule(N, a=np.exp(1)):
+def dirichlet_power_law_alpha_rule(N, a=None):
     """
     Generates the alphas for a population contributing according to a power law
     transformation of the linear alpha rule in the dirichlet distribution. Each
@@ -92,7 +115,8 @@ def dirichlet_power_law_alpha_rule(N, a=np.exp(1)):
     returns:
     --------
     numpy.array - the alpha value of each player according to their index"""
-
+    if a is None:
+        a = np.exp(1)
     if a <= 0:
         raise ValueError("a must be strictly positive")
 
@@ -100,10 +124,10 @@ def dirichlet_power_law_alpha_rule(N, a=np.exp(1)):
 
 
 def log_contribution_rule(index, M, N):
-    """
+    r"""
     Players contribute according to a logarithmic scale of a linear
     contribution rule. This corresponds to the equation
-    $\sum_{i=1}^{N} log(\lambda i) = M$. Here, we calculate a lambda value
+    $\\sum_{i=1}^{N} log(\\lambda i) = M$. Here, we calculate a lambda value
     $(\frac{e^M}{N!})^{1/N}$ (proof in main.tex)
 
     Parameters:
@@ -124,9 +148,9 @@ def log_contribution_rule(index, M, N):
 
 
 def linear_contribution_rule(index, N, M):
-    """
+    r"""
     Players contribute according to a linear contribution rule. As stated in main.tex, this corresponds to the equation
-    $\sum_{i=1}^{N} \lambda i = M$. Here, we calculate a lambda value
+    $\\sum_{i=1}^{N} \\lambda i = M$. Here, we calculate a lambda value
     $\frac{2M}{N(N+1)}$ (proof in main.tex)
 
     Parameters:
@@ -148,7 +172,7 @@ def linear_contribution_rule(index, N, M):
 
 
 def binomial_contribution_rule(index, N, n, M, alpha_h):
-    """
+    r"""
     Players contribute according to a binomial contribution rule, where n
     players contribute a low amount, and N-n contribute a high amount. As stated in main.tex, this corresponds to the equation
     $n \alpha_l + (N-n)\alpha_h = N\alpha_h - nd = M$, where d is the
@@ -182,11 +206,11 @@ def binomial_contribution_rule(index, N, n, M, alpha_h):
     return alpha_l if index < n else alpha_h
 
 
-def power_law_contribution_rule(index, N, M, a=np.exp(1)):
-    """
+def power_law_contribution_rule(index, N, M, a=None):
+    r"""
     Players contribute according to a power law contribution rule. This
-    corresponds to the equation $\sum_{i=1}^{N} \lambda a^{i} = M$, where we
-    obtain $\lambda = log_a(\frac{M}{$\sum_{i=1}^{N} a^i})$. As standard, we
+    corresponds to the equation $\\sum_{i=1}^{N} \\lambda a^{i} = M$, where we
+    obtain $\\lambda = log_a(\frac{M}{$\\sum_{i=1}^{N} a^i})$. As standard, we
     take a = e, however this can be taken as any positive value.
 
     Parameters:
@@ -202,7 +226,9 @@ def power_law_contribution_rule(index, N, M, a=np.exp(1)):
     returns:
     ---------
     float, the contribution of a player at (index) according to a power law
-    contribution rule when contributing."""
+    contribution rule when contributing.""" 
+    if a is None:
+        a = np.exp(1)
 
     if a <= 0:
         raise ValueError("a must be positive")
@@ -288,3 +314,54 @@ def get_dirichlet_contribution_vector(N, alpha_rule, M, scale, **kwargs):
         realisation = np.random.dirichlet(alpha=alphas, size=100).mean(axis=0)
 
     return realisation * M
+
+def compute_wright_fisher_transition_probability(
+        source, target, fitness_function, selection_intensity, mu, fitness_map=ludics.linear_fitness_map, **kwargs
+):
+    r"""
+    Given two states and a fitness function, returns the transition probability
+    when moving from the source state to the target state via a Wright-Fisher
+    process. Transition probability is given by:
+
+    $ \\prod_{i=1}^N \frac{\\sum_{j: a_j = b_{I(a,b)}}{f_j(a)}}{\\sum_{a_k}f_k(a)} $
+
+    and mutation is applied player-wise
+    
+    Parameters
+    ----------
+    source: numpy.array, the starting state
+    
+    target: numpy.array, what the source transitions to
+    
+    fitness_function: func, The fitness function which maps a state to a
+    numpy.array where each entry represents the fitness of the given individual
+    
+    selection_intensity: numpy.array, the selection intensity $\\epsilon$ of the
+    system. Entries may be floats or sympy.Symbol. Entry ij is the selection
+    intensity when player $i$ copies player $j$. Shape must be (N,N)
+
+    mu: float, the mutation probability for each player.
+    
+    fitness_map: func, a positive mapping to transform the fitness. Linear by
+    default.
+    
+    Returns
+    ---------
+    Float: the transition pobability from source to target
+    """
+
+    different_indices = ludics.get_different_indices(source=source, target=target)
+    if len(different_indices) == 0:
+        return None
+
+    if isinstance(selection_intensity, (int, float, np.floating, np.integer)):
+        selection_intensity = np.full(shape=(len(source), len(source)), fill_value=selection_intensity)
+    fitness = fitness_map(fitness=fitness_function(source, **kwargs), selection_intensity=selection_intensity[0], **kwargs)
+    transition_dict = {i:(fitness[source == i].sum()/fitness.sum())*(1-(2*mu))+mu for i in target}
+    transition_prob = 1
+    for _, new_action in enumerate(target): 
+        if new_action not in source and mu == 0:
+            transition_prob = 0 
+        else:
+            transition_prob = transition_prob * transition_dict[new_action]
+    return transition_prob

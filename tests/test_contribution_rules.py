@@ -1,6 +1,8 @@
-import public_goods_games.contribution_rules as contribution_rules
+import ludics
 import numpy as np
 import pytest
+
+from public_goods_games import contribution_rules
 
 
 def test_dirichlet_linear_alpha_rule_for_N_eq_3():
@@ -500,3 +502,126 @@ def test_get_dirichlet_contribution_vector_raises_type_error_for_many_alphas():
         contribution_rules.get_dirichlet_contribution_vector(
             N=N, alpha_rule=small_alpha_rule, scale=scale, M=15
         )
+
+def test_compute_wright_fisher_transition_probability_for_trivial_fitness_function():
+    r"""
+    Tests that the wright fisher transition probability for a trivial fitness
+    function is expected. This function is neutral drift, so the transition
+    probability should be equal to:
+    
+    $ (i/N)^j (j/N)^{N-j} $"""
+
+    def trivial_fitness_function(state, **kwargs):
+        return np.array([1 for _ in state])
+
+    source = np.array([1,0,0,0,1,0])
+    target = np.array([0,1,0,0,1,0])
+    selection_intensity = 3
+    mu=0
+
+    actual_transition_probability = contribution_rules.compute_wright_fisher_transition_probability(
+        source=source,
+        target=target,
+        fitness_function=trivial_fitness_function,
+        mu=mu,
+        selection_intensity=selection_intensity,
+    )
+
+    expected_transition_probability = 0.0219478738
+
+    np.testing.assert_almost_equal(actual_transition_probability, expected_transition_probability)
+
+def test_wright_fisher_transition_probability_for_complicated_system():
+    """
+    Tests that the wright-fisher process calculates the correct transition
+    probability for a more complex fitness function"""
+
+    def fitness_function(state):
+        return np.array([action + index + 1 for action, index in enumerate(state)])
+
+    def scale_fitness_map(fitness, selection_intensity, **kwargs):
+        return fitness * selection_intensity
+    
+    source = np.array([0,1,1])
+    target = np.array([1,1,0])
+    selection_intensity = 0.1
+    mu = 0.05
+
+    expected_transition_probability = 0.1139785156
+    actual_transition_probability = contribution_rules.compute_wright_fisher_transition_probability(source=source, target=target, fitness_function=fitness_function, selection_intensity=selection_intensity, fitness_map=scale_fitness_map, mu=mu)
+
+    np.testing.assert_almost_equal(actual_transition_probability, expected_transition_probability)
+
+def test_wright_fisher_transition_probability_for_self_transition():
+    """
+    Tests that the wright fisher process returns None for a self transition"""
+
+    def trivial_fitness_function(state):
+        return state + 1
+    source = np.array([0,1])
+    target = np.array([0,1])
+    selection_intensity = 5000
+    mu=0.1
+
+    assert contribution_rules.compute_wright_fisher_transition_probability(source=source, target=target, fitness_function=trivial_fitness_function, selection_intensity=selection_intensity, mu=mu) is None
+
+def test_wright_fisher_transition_probability_for_infeasible_transition():
+    """
+    Tests that the wright fisher transition function returns 0 for an infeasible
+    transition where an action has left the population"""
+
+    def trivial_fitness_function(state):
+        return state + 1
+    source = np.array([18,46])
+    target = np.array([18,12])
+    selection_intensity = 0.0001
+    mu=0
+
+    assert contribution_rules.compute_wright_fisher_transition_probability(source=source, target=target, fitness_function=trivial_fitness_function, selection_intensity=selection_intensity, mu=mu) == 0
+
+def test_wright_fisher_transition_probability_in_transition_matrix():
+    """
+    Tests that the wf process creates the expected transition matrix"""
+
+    def fitness_function(state):
+        return np.array([action + index + 1 for action, index in enumerate(state)])
+
+    def scale_fitness_map(fitness, selection_intensity, **kwargs):
+        return fitness * selection_intensity
+    
+    state_space = ludics.get_state_space(N=2, k=2)
+    selection_intensity = 0.1
+    mu = 0.01
+
+    expected_transition_matrix = np.array([
+        [0.9801, 0.0099, 0.0099, 0.0001],
+        [0.065025, 0.189975, 0.189975, 0.555025],
+        [1/4, 1/4, 1/4, 1/4],
+        [0.0001, 0.0099, 0.0099, 0.9801]
+    ])
+
+    actual_transition_matrix = ludics.generate_transition_matrix(
+        state_space=state_space,
+        fitness_function=fitness_function,
+        compute_transition_probability=contribution_rules.compute_wright_fisher_transition_probability,
+        selection_intensity=selection_intensity,
+        mu=mu,
+        fitness_map=scale_fitness_map
+    )
+
+    np.testing.assert_array_almost_equal(actual_transition_matrix, expected_transition_matrix)
+
+def test_subgroup_pgg_fitness_function():
+    """
+    Tests that the subgroup_pgg_fitness_function returns the expected value"""
+
+    state = np.array([1,0,0,1])
+    r=2
+    contribution_vector = np.array([2,4,6,8])
+    d=3
+
+    actual_fitnesses = contribution_rules.subgroup_pgg_fitness_function(state=state, r=r, contribution_vector=contribution_vector, d=d)
+
+    expected_fitnesses = np.array([2.888888889, 4.44444444, 4.44444444, -1.77777778])
+
+    np.testing.assert_array_almost_equal(actual_fitnesses, expected_fitnesses)
